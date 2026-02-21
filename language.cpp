@@ -74,7 +74,7 @@ QString Language::languagesForUrl(){
 /* Categories */
 bool Language::isHeadCategory(int __id) {
     // Our head category ids are 0 (Applications), 20 (Games) and 40 (Themes)
-    if (__id == 0 || __id == 20 || __id == 40) return true;
+    if (__id == 0 || __id == 12 || __id == 19) return true;
     else return false;
 }
 
@@ -84,31 +84,24 @@ QString Language::categoryName(int __id) {
 }
 
 void Language::initCategories() {
-    _categories.append(tr("Applications"));             // 0
-    _categories.append(tr("Astronomy & Weather"));
-    _categories.append(tr("Business & Office"));
-    _categories.append(tr("Camera, Photos & Videos"));
-    _categories.append(tr("Education"));
-    _categories.append(tr("Files & Cloud"));            // 5
-    _categories.append(tr("GPS & Travel"));
+    _categories.append(tr("Applications"));
+    _categories.append(tr("Camera, photos, videos"));
+    _categories.append(tr("Emulator"));
+    _categories.append(tr("Extras"));
+    _categories.append(tr("File manager & cloud"));
     _categories.append(tr("Internet"));
     _categories.append(tr("Music"));
-    _categories.append(tr("News"));
-    _categories.append(tr("Social & Instant Messaging"));// 10
-    _categories.append(tr("Sport"));
+    _categories.append(tr("Office"));
+    _categories.append(tr("Other apps"));
+    _categories.append(tr("Social"));
     _categories.append(tr("Tools"));
-    _categories.append(tr("Other"));
-    _categories.append(tr(""));
-    _categories.append(tr(""));                         // 15
-    _categories.append(tr(""));
-    _categories.append(tr(""));
-    _categories.append(tr(""));
-    _categories.append(tr(""));
-    _categories.append(tr("Games"));                    // 20
-    _categories.append(tr("Arcade"));
-    _categories.append(tr("Cards & Classic"));
-    _categories.append(tr("Puzzle"));
-    _categories.append(tr("Racing"));
-    _categories.append(tr("Sport"));                    // 25
-    _categories.append(tr("Other"));
+    _categories.append(tr("Weather & GPS"));
+    _categories.append(tr("Games"));
+    _categories.append(tr("Action"));
+    _categories.append(tr("Adventure"));
+    _categories.append(tr("Other games"));
+    _categories.append(tr("Puzzles & cards"));
+    _categories.append(tr("Sports"));
+    _categories.append(tr("Strategy"));
+    _categories.append(tr("Themes"));
 }
