@@ -22,7 +22,7 @@ News::News(QObject *parent) :
 
     updating = false;
 
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     openInBrowser = settings.value("news/openInBrowser", false).toBool();
 
     url = "http://rss.allaboutsymbian.com/news/aas-feed-summary-all.xml";
@@ -90,13 +90,13 @@ void News::parseFeed(QString html) {
         //Title
         QString title = item.mid(lastPos, (item.indexOf("</title>", lastPos) - lastPos));
         title.replace("&quot;", "\"");
-        title.replace("&#196;", "Ä");
-        title.replace("&#214;", "Ö");
-        title.replace("&#220;", "Ü");
-        title.replace("&#228;", "ä");
-        title.replace("&#246;", "ö");
-        title.replace("&#252;", "ü");
-        title.replace("&#223;", "ß");
+        title.replace("&#196;", "ï¿½");
+        title.replace("&#214;", "ï¿½");
+        title.replace("&#220;", "ï¿½");
+        title.replace("&#228;", "ï¿½");
+        title.replace("&#246;", "ï¿½");
+        title.replace("&#252;", "ï¿½");
+        title.replace("&#223;", "ï¿½");
 
         text.setHtml(title);
         title = text.toPlainText();

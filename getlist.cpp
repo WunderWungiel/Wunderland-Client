@@ -49,7 +49,7 @@ GetList::GetList(Language *__language, QObject *parent) :
             this, SLOT(updateDataUpdated(QStringList)));
     updateManagement->loadList();
 
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     updateIds = settings.value("apps/updateIds", updateIds).toStringList();
 
     useUnsigned = settings.value("apps/unsigned", false).toBool();
@@ -182,7 +182,7 @@ void GetList::loadSearchList(QString searchTerm, int start, bool clean) {
 }
 
 void GetList::loadPersonalList(int start, bool clean) {
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     QStringList installedIds = settings.value("apps/installedIds").toStringList();
     QString ids = "";
     for (int i=(installedIds.length()-1); i>=0; i--) {
@@ -197,7 +197,7 @@ void GetList::loadPersonalList(int start, bool clean) {
 }
 
 void GetList::loadUpdateList(int start, bool clean) {
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     QString ids = "";
     for (int i=0; i<updateIds.length(); i++) {
         ids += updateIds.at(i);
@@ -254,7 +254,7 @@ void GetList::parseList(QString html, int listId) {
         QString minVersion = parseItem(html, lastPos, "minversion");
 
         if (!appManagement.compareVersions(appListVersion, minVersion)) {
-            QSettings settings("schumi1331", "AppList");
+            QSettings settings("WunderWungiel", "Wunderland");
             int highestSeenId = settings.value("apps/highestSeenId", 0).toInt();
             QStringList installedIds = settings.value("apps/installedIds").toStringList();
 
@@ -517,7 +517,7 @@ bool GetList::buttonPressed(int actionId) {
     downloadProgress = 0;
     emit progressChanged();
 
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
 
     // Manipulate actionId, if 0; direct download
     if (actionId == 0) {

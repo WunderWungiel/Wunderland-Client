@@ -66,18 +66,18 @@ public:
     bool useUnsigned;
     Q_INVOKABLE bool getUseUnsigned () { return useUnsigned; }
     Q_INVOKABLE void setUseUnsigned (bool newSetting) {
-        QSettings settings("schumi1331", "AppList");
+        QSettings settings("WunderWungiel", "Wunderland");
         useUnsigned = newSetting;
         settings.setValue("apps/unsigned", newSetting);
     }
 
     Q_INVOKABLE void setStoreNote (bool newSetting) {
-        QSettings settings("schumi1331", "AppList");
+        QSettings settings("WunderWungiel", "Wunderland");
         settings.setValue("settings/storeNote", newSetting);
     }
     Q_INVOKABLE bool getStoreNote() {
         // true = display Store download explanation, false = don't display
-        QSettings settings("schumi1331", "AppList");
+        QSettings settings("WunderWungiel", "Wunderland");
         return settings.value("settings/storeNote", true).toBool();
     }
 
@@ -231,11 +231,11 @@ public slots:
                             QString uid = downloadingItem.value("uid").toString();
                             QString installedVersion = appManagement.getVersion(uid);
                             if (installedVersion.length() > 0 && uid.length() > 0 && QString::compare(uid, downloadingItem.value("uidunsigned").toString()) == 0) {
-                                /* Prüfe ob uid und uidunsigned gleich sind. Wenn ja, muss die unsigned Version neuer sein
-                                  und die installierte Version gehört entweder in den Bereich <= selfsigned oder >= unsigned
+                                /* Prï¿½fe ob uid und uidunsigned gleich sind. Wenn ja, muss die unsigned Version neuer sein
+                                  und die installierte Version gehï¿½rt entweder in den Bereich <= selfsigned oder >= unsigned
                                   */
                                 if (appManagement.compareVersions(downloadingItem.value("version").toString(), installedVersion)) {
-                                    // Installierte Versionsnummer ist höher als letzte selfsigned, damit ist unsigned installiert
+                                    // Installierte Versionsnummer ist hï¿½her als letzte selfsigned, damit ist unsigned installiert
                                     tempItem->setData(downloadingItem.value("uidunsigned").toString()+"2", Qt::UserRole + 13);
                                 } else {
                                     tempItem->setData(uid+"1", Qt::UserRole + 13);
@@ -283,7 +283,7 @@ public slots:
             }
 
             // Update order in installed IDs list
-            QSettings settings("schumi1331", "AppList");
+            QSettings settings("WunderWungiel", "Wunderland");
             QStringList installedIds = settings.value("apps/installedIds").toStringList();
             if (installedIds.contains(QString::number(downloadingItem.value("id").toInt()))) installedIds.removeAll(QString::number(downloadingItem.value("id").toInt()));
             installedIds.append(QString::number(downloadingItem.value("id").toInt()));
@@ -301,7 +301,7 @@ public slots:
             emit installServerFinished(0);
         } else {
             // Update order in installed IDs list
-            QSettings settings("schumi1331", "AppList");
+            QSettings settings("WunderWungiel", "Wunderland");
             QStringList installedIds = settings.value("apps/installedIds").toStringList();
             if (installedIds.contains(QString::number(downloadingItem.value("id").toInt()))) installedIds.removeAll(QString::number(downloadingItem.value("id").toInt()));
             installedIds.append(QString::number(downloadingItem.value("id").toInt()));

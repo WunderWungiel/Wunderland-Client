@@ -43,7 +43,7 @@ bool AppManagement::compareVersions(QString appVersion, QString webVersion) {
     //appVersion -> Installiert, webVersion -> In Liste die neueste
     //Ergebnis ist true, wenn webVersion neuer
     if ((appVersion != webVersion) && (appVersion.length() > 0) && (webVersion.length() > 0)) {
-        //Versionen sind nicht identisch, prüfen, ob neuer
+        //Versionen sind nicht identisch, prï¿½fen, ob neuer
         int webVersion1, webVersion2, webVersion3;
         webVersion1 = webVersion.mid(0,webVersion.indexOf(".", 0)).toInt();
         webVersion2 = webVersion.mid(webVersion.indexOf(".", 0)+1,webVersion.indexOf(".", webVersion.indexOf(".", 0)+1)-(webVersion.indexOf(".", 0)+1)).toInt();
@@ -58,21 +58,21 @@ bool AppManagement::compareVersions(QString appVersion, QString webVersion) {
             //Hauptversionsnummer ist neuer
             return true;
         } else if (appVersion1 > webVersion1) {
-            //Hauptversionsnummer ist älter
+            //Hauptversionsnummer ist ï¿½lter
             return false;
         } else {
             if (appVersion2 < webVersion2) {
                 //Subversionsnummer ist neuer
                 return true;
             } else if (appVersion2 > webVersion2) {
-                //Subversionsnummer ist älter
+                //Subversionsnummer ist ï¿½lter
                 return false;
             } else {
                 if (appVersion3 < webVersion3) {
                     //Build-Nummer ist neuer
                     return true;
                 } else {
-                    //Build-Nummer ist älter
+                    //Build-Nummer ist ï¿½lter
                     return false;
                 }
             }
@@ -169,7 +169,7 @@ void AppManagement::openInstaller(QString path) {
 
 // App scanning
 bool AppManagement::appsScanned() {
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     return settings.value("settings/appsScanned", false).toBool();
 }
 
@@ -185,7 +185,7 @@ void AppManagement::scanApps() {
     }
 
     QStringList installed;
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     if (settings.contains("apps/installedIds")) installed = settings.value("apps/installedIds").toStringList();
 
     for (int i=0; i<apps.count(); i++) {

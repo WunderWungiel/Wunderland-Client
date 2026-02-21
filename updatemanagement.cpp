@@ -17,13 +17,13 @@ UpdateManagement::UpdateManagement(bool _widget, QObject *parent) :
 }
 
 int UpdateManagement::updateCount() {
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     return settings.value("apps/updateIds").toStringList().count();
 }
 
 void UpdateManagement::loadList() {
     if (lastUpdateMoreThanADayAgo() || !widget) {
-        QSettings settings("schumi1331", "AppList");
+        QSettings settings("WunderWungiel", "Wunderland");
         QStringList installedIds = settings.value("apps/installedIds").toStringList();
         QString ids = "";
         for (int i=0; i<installedIds.length(); i++) {
@@ -74,7 +74,7 @@ void UpdateManagement::parseList(QString html) {
         QString minVersion = parseItem(html, lastPos, "minversion");
 
         if (true) {
-            QSettings settings("schumi1331", "AppList");
+            QSettings settings("WunderWungiel", "Wunderland");
             int highestSeenId = settings.value("apps/highestSeenId", -1).toInt();
             QStringList updateIds;
 
@@ -131,7 +131,7 @@ QString UpdateManagement::parseItem(QString html, int& lastPos, QString itemName
 }
 
 bool UpdateManagement::lastUpdateMoreThanADayAgo() {
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     QDateTime currentTime = QDateTime::currentDateTime();
     QDateTime lastUpdateTime = settings.value(settingsKey, currentTime).toDateTime();
 

@@ -67,7 +67,7 @@ public:
     bool openInBrowser;
     Q_INVOKABLE bool getOpenInBrowser () { return openInBrowser; }
     Q_INVOKABLE void setOpenInBrowser (bool newSetting) {
-        QSettings settings("schumi1331", "AppList");
+        QSettings settings("WunderWungiel", "Wunderland");
         openInBrowser = newSetting;
         settings.setValue("news/openInBrowser", newSetting);
     }

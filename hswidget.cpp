@@ -45,7 +45,7 @@ void HSWidget::publishWidget() {
 
 void HSWidget::removeWidget() {
     qDebug() << "remove";
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     settings.remove("widget");
     //settings.sync();
     widget->RemoveWidget();
@@ -71,7 +71,7 @@ void HSWidget::handleEvent( QHSWidget* /*aSender*/, QHSEvent aEvent ) {
             break;
         case EDeactivate: {
                 qDebug() << "handleDeactivate";
-                QSettings settings("schumi1331", "AppList");
+                QSettings settings("WunderWungiel", "Wunderland");
                 settings.remove("widget/lastUpdateTime");
             }
             break;

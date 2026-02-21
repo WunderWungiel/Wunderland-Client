@@ -6,21 +6,21 @@ Settings::Settings(QObject *parent) :
 }
 
 bool Settings::darkTheme() {
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     return settings.value("settings/darkTheme", false).toBool();
 }
 
 void Settings::setDarkTheme(bool newValue) {
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     settings.setValue("settings/darkTheme", newValue);
 }
 
 bool Settings::aasFeed() {
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     return settings.value("settings/aasFeed", true).toBool();
 }
 
 void Settings::setAasFeed(bool newValue) {
-    QSettings settings("schumi1331", "AppList");
+    QSettings settings("WunderWungiel", "Wunderland");
     settings.setValue("settings/aasFeed", newValue);
 }
