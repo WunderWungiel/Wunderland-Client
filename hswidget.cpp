@@ -6,9 +6,9 @@
 #include <eikenv.h> // bring to foreground
 
 const QString sw_type = "tworows";
-const QString sw_name = "AppList";
-const QString sw_desc = "With the AppList homescreen widget you will not miss any updates for your app. Visit the AppList help menu to see how it works.";
-const QString sw_id = "HSWidgetxAppListSchumi1331";
+const QString sw_name = "Wunderland";
+const QString sw_desc = "With the Wunderland homescreen widget you will not miss any updates for your app. Visit the Wunderland help menu to see how it works.";
+const QString sw_id = "HSWidgetxWunderland";
 const QString sw_icon = QString("uid(%1)").arg(APP_UID); //App UID to set the widget icon
 
 const QString sw_image ("image1");
