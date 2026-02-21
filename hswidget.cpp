@@ -56,7 +56,7 @@ void HSWidget::handleEvent( QHSWidget* /*aSender*/, QHSEvent aEvent ) {
     switch(aEvent) {
         case EActivate: {
                 qDebug() << "handleActivate";
-                widget->SetItem(sw_image, "c:\\Wunderland.png");
+                widget->SetItem(sw_image, "c:\\system\\Wunderland.png");
                 //updateWidget("c:\\data\\Images\\Pictures\\QtSunny2.JPG", "a", "b");
                 //publishWidget();
                 updateManagement->loadList();

@@ -75,7 +75,7 @@ HEADERS += \
     appitem.h \
     reviewitem.h
 
-addFiles.pkg_postrules += "\"C:\\Wunderland.png\" - \"c:\\Wunderland.png\""
+addFiles.pkg_postrules += "\"C:\\Wunderland.png\" - \"c:\\system\Wunderland.png\""
 addFiles.pkg_postrules += "\"C:\\HSWidgetxWunderland_E9320737_rel.dll\" - \"!:\\sys\\bin\\HSWidgetxWunderland_E9320737_rel.dll\""
 DEPLOYMENT += addFiles
 
