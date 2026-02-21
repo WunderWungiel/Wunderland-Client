@@ -16,7 +16,7 @@ GetList::GetList(Language *__language, QObject *parent) :
     _language = __language;
     n_manager = new QNetworkAccessManager(this);
 
-    appListVersion = QApplication::instance()->applicationVersion();
+    wunderlandVersion = QApplication::instance()->applicationVersion();
 
     downloadProgress = 0;
     connect(&downloader, SIGNAL(progressChanged(int)),
@@ -253,7 +253,7 @@ void GetList::parseList(QString html, int listId) {
         int lastPos = 0;
         QString minVersion = parseItem(html, lastPos, "minversion");
 
-        if (!appManagement.compareVersions(appListVersion, minVersion)) {
+        if (!appManagement.compareVersions(wunderlandVersion, minVersion)) {
             QSettings settings("WunderWungiel", "Wunderland");
             int highestSeenId = settings.value("apps/highestSeenId", 0).toInt();
             QStringList installedIds = settings.value("apps/installedIds").toStringList();

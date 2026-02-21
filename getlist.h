@@ -133,7 +133,7 @@ private:
     bool downloadFromStoreStarted;
     int activateCount;
 
-    QString appListVersion;
+    QString wunderlandVersion;
 
     QVariantMap currentItem, downloadingItem, emptyItem;
     QString parseItem(QString html, int& lastPos, QString itemName);

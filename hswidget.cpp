@@ -24,7 +24,7 @@ HSWidget::HSWidget(QObject *parent) : QObject(parent) {
 
     qDebug() << "init";
 
-    //appListVersion = QApplication::instance()->applicationVersion();
+    //wunderlandVersion = QApplication::instance()->applicationVersion();
 
     widget = QHSWidget::create(sw_type, sw_name, sw_id, sw_desc, sw_icon, this);
     connect(widget, SIGNAL(handleEvent(QHSWidget*, QHSEvent)), this, SLOT(handleEvent(QHSWidget*, QHSEvent) ));
