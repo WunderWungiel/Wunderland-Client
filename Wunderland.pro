@@ -6,7 +6,7 @@ folder_01.target = qml
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
-symbian:TARGET.UID3 = 0xE9320737
+symbian:TARGET.UID3 = 0xE9320736
 
 # Smart Installer package's UID
 # This UID is from the protected range and therefore the package will
