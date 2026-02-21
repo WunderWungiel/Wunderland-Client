@@ -6,7 +6,7 @@ folder_01.target = qml
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
-symbian:TARGET.UID3 = 0xA1331002
+symbian:TARGET.UID3 = 0xE9320737
 
 # Smart Installer package's UID
 # This UID is from the protected range and therefore the package will
@@ -99,7 +99,7 @@ TRANSLATIONS = applist_template.ts \
 #symbian:MMP_RULES += "DEBUGGABLE"
 
 symbian {
-    VERSION = 1.0.298
+    VERSION = 2.0.0
 
     DEFINES += APP_UID=\"$$TARGET.UID3\"
     DEFINES += APP_Version=\"$$VERSION\"
@@ -115,7 +115,7 @@ symbian {
     supported_platforms_deployment.pkg_prerules += supported_platforms
     DEPLOYMENT += supported_platforms_deployment
 
-    vendorinfo = "%{\"Sebastian (schumi1331)\"}" ":\"Sebastian (schumi1331)\""
+    vendorinfo = "%{\"Wunder Wungiel\"}" ":\"Wunder Wungiel\""
     vendor_deploy.pkg_prerules += vendorinfo
     DEPLOYMENT += vendor_deploy
 
