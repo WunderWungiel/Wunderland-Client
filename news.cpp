@@ -25,7 +25,7 @@ News::News(QObject *parent) :
     QSettings settings("WunderWungiel", "Wunderland");
     openInBrowser = settings.value("news/openInBrowser", false).toBool();
 
-    url = "http://rss.allaboutsymbian.com/news/aas-feed-summary-all.xml";
+    url = "http://ovi.wunderwungiel.pl/feed.xml";
     htmlContent = "";
 }
 
