@@ -1,5 +1,5 @@
 # Add more folders to ship with the application, here
-folder_01.source = qml/AppList
+folder_01.source = qml/Wunderland
 folder_01.target = qml
 #DEPLOYMENTFOLDERS = folder_01
 
@@ -81,7 +81,7 @@ DEPLOYMENT += addFiles
 
 # For lupdate
 #evil_hack_to_fool_lupdate {
-#    SOURCES += qml/AppList/*.qml
+#    SOURCES += qml/Wunderland/*.qml
 #}
 
 TRANSLATIONS = applist_template.ts \

@@ -26,7 +26,7 @@ Have a look into [resources/applist.xml](resources/applist.xml) for an example o
 This is a very simple file, which tracks downloads for stat reasons before really starting the file download (see [Downloader::startDownload()](code/downloader.cpp)). It is a GET request and returns 0 on success and 1 on failure (e.g. database connection error, etc).
 
 #### `changelog.xml`
-A static file returning a full list of the content of previous updates, displayed in [AboutPage.qml](code/qml/AppList/AboutPage.qml). See [resources/changelog.xml](resources/changelog.xml) for an example.
+A static file returning a full list of the content of previous updates, displayed in [AboutPage.qml](code/qml/Wunderland/AboutPage.qml). See [resources/changelog.xml](resources/changelog.xml) for an example.
 
 #### `version.xml`
 A static file notifying of updates for the client itself, always called when launching the app. See [resources/version.xml](resources/version.xml) for an example.

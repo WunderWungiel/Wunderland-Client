@@ -96,8 +96,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     viewer.rootContext()->setContextProperty("launchAppId", launchAppId);
 
-    viewer.setSource(QUrl("qrc:/qml/AppList/MainAppLoader.qml"));
-    //viewer.setMainQmlFile(QLatin1String("qml/AppList/MainAppLoader.qml"));
+    viewer.setSource(QUrl("qrc:/qml/Wunderland/MainAppLoader.qml"));
+    //viewer.setMainQmlFile(QLatin1String("qml/Wunderland/MainAppLoader.qml"));
     viewer.showExpanded();
 
     viewer.raise();
