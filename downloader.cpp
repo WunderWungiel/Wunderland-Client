@@ -30,12 +30,12 @@ void Downloader::startDownload(QString _source, long long size, QString id, QStr
     if (!downloading) {
         downloading = true;
         source = _source;
-        if (source.indexOf("http") != 0) source.prepend("http://<YOUR_REPO_DOMAIN>/apps/");
+        if (source.indexOf("http") != 0) source.prepend("http://ovi.wunderwungiel.pl/static/content/files/");
         if (n_manager == NULL) {
             n_manager = new QNetworkAccessManager(this);
         }
 
-        QString statUrl = "http://<YOUR_APPLIST_DOMAIN>/applist-download.php?id="+id+"&language="+lan+"&os="+os+"&resolution="+resolution;
+        QString statUrl = "http://ovi.wunderwungiel.pl/applist-download.php?id="+id+"&language="+lan+"&os="+os+"&resolution="+resolution;
 
         statReply = n_manager->get(QNetworkRequest(QUrl(statUrl)));
         statReply->setObjectName(driveToSave);

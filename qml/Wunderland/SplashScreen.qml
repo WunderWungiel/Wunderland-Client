@@ -28,7 +28,7 @@ Item {
         anchors.bottomMargin: 5
         font.pixelSize: 19
         color: "#FCFCFC"
-        text: "AppList 1.0 (Build 298)"
+        text: "Wunderland Store 2.00(0)"
     }
 
     Text {
@@ -38,6 +38,6 @@ Item {
         anchors.bottomMargin: 10
         font.pixelSize: 19
         color: "#FCFCFC"
-        text: "http://xxx"
+        text: "http://ovi.wunderwungiel.pl"
     }
 }

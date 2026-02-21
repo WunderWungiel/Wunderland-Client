@@ -159,7 +159,7 @@ GetList::GetList(Language *__language, QObject *parent) :
 void GetList::loadMainList() {
     QString language = _language->languagesForUrl();
     if (language != "") language = "&language="+language;
-    QUrl url("http://<YOUR_APPLIST_DOMAIN>/applist.php?latest=true&count=7"+language+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
+    QUrl url("http://ovi.wunderwungiel.pl/applist.php?latest=true&count=7"+language+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
     cleanList[0] = true;
     loadList(url,0);
 }
@@ -167,7 +167,7 @@ void GetList::loadMainList() {
 void GetList::loadCategoryList(int categoryId, int start, bool clean) {
     QString language = _language->languagesForUrl();
     if (language != "") language = "&language="+language;
-    QUrl url("http://<YOUR_APPLIST_DOMAIN>/applist.php?category=" + QString::number(categoryId) + "&start=" + QString::number(start) + language+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
+    QUrl url("http://ovi.wunderwungiel.pl/applist.php?category=" + QString::number(categoryId) + "&start=" + QString::number(start) + language+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
     cleanList[1] = clean;
     loadList(url,1);
 }
@@ -175,7 +175,7 @@ void GetList::loadCategoryList(int categoryId, int start, bool clean) {
 void GetList::loadSearchList(QString searchTerm, int start, bool clean) {
     QString language = _language->languagesForUrl();
     if (language != "") language = "&language="+language;
-    QUrl url("http://<YOUR_APPLIST_DOMAIN>/applist.php?search=" + searchTerm + "&start=" + QString::number(start) + language+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
+    QUrl url("http://ovi.wunderwungiel.pl/applist.php?search=" + searchTerm + "&start=" + QString::number(start) + language+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
     cleanList[2] = clean;
     lastSearchTerm = searchTerm;
     loadList(url,2);
@@ -190,7 +190,7 @@ void GetList::loadPersonalList(int start, bool clean) {
         if (i-1>=0) ids += ",";
     }
 
-    QUrl url("http://<YOUR_APPLIST_DOMAIN>/applist.php?id=" + ids + "&start=" + QString::number(start)+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
+    QUrl url("http://ovi.wunderwungiel.pl/applist.php?id=" + ids + "&start=" + QString::number(start)+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
     cleanList[3] = clean;
     //qDebug() << url.toString();
     loadList(url,3);
@@ -204,14 +204,14 @@ void GetList::loadUpdateList(int start, bool clean) {
         if (i+1<updateIds.length()) ids += ",";
     }
 
-    QUrl url("http://<YOUR_APPLIST_DOMAIN>/applist.php?id=" + ids + "&start=" + QString::number(start)+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
+    QUrl url("http://ovi.wunderwungiel.pl/applist.php?id=" + ids + "&start=" + QString::number(start)+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
     cleanList[4] = clean;
     //qDebug() << url.toString();
     loadList(url,4);
 }
 
 void GetList::loadUpdateList(int id) {
-    QUrl url("http://<YOUR_APPLIST_DOMAIN>/applist.php?id=" + QString::number(id) + "&start=0&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
+    QUrl url("http://ovi.wunderwungiel.pl/applist.php?id=" + QString::number(id) + "&start=0&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
     cleanList[4] = true;
     //qDebug() << url.toString();
     loadList(url,4);

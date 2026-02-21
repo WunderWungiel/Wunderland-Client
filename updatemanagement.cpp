@@ -33,7 +33,7 @@ void UpdateManagement::loadList() {
 
         useUnsigned = settings.value("apps/unsigned", false).toBool();
 
-        QUrl url("http://<YOUR_APPLIST_DOMAIN>/applist.php?id=" + ids + "&widget=true&unsigned=" + (useUnsigned ? "true" : "false"));
+        QUrl url("http://ovi.wunderwungiel.pl/applist.php?id=" + ids + "&widget=true&unsigned=" + (useUnsigned ? "true" : "false"));
 
         qDebug() << url.toString();
 

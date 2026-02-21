@@ -12,7 +12,7 @@ Update::Update(QObject *parent) :
 
 void Update::loadUpdateData(bool all) {
     //qDebug() << "loading started";
-    QNetworkReply *reply = n_manager->get(QNetworkRequest(QUrl((all ? "http://<YOUR_APPLIST_DOMAIN>/changelog.xml" : "http://<YOUR_APPLIST_DOMAIN>/version.xml"))));
+    QNetworkReply *reply = n_manager->get(QNetworkRequest(QUrl((all ? "http://ovi.wunderwungiel.pl/changelog.xml" : "http://ovi.wunderwungiel.pl/version.xml"))));
     if (all) reply->setObjectName("all");
     connect(reply, SIGNAL(finished()),
             this, SLOT(parseData()));
