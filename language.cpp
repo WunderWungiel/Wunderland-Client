@@ -73,7 +73,7 @@ QString Language::languagesForUrl(){
 
 /* Categories */
 bool Language::isHeadCategory(int __id) {
-    // Our head category ids are 0 (Applications), 20 (Games) and 40 (Themes)
+    // Our head category ids are 0 (Applications), 12 (Games) and 19 (Themes)
     if (__id == 0 || __id == 12 || __id == 19) return true;
     else return false;
 }
