@@ -7,7 +7,7 @@ moc
 *.mmp
 *.pkg
 *.rss
-*.pkg
+*.pkg*
 *.loc
 bld.inf
 Makefile

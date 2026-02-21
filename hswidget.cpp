@@ -96,7 +96,7 @@ void HSWidget::bringToFront() {
     task.BringToForeground();*/
 
     RProcess proc;
-    User::LeaveIfError(proc.Create(_L("AppList.exe"),KNullDesC));
+    User::LeaveIfError(proc.Create(_L("Wunderland.exe"),KNullDesC));
     proc.Resume();
     proc.Close();
 
