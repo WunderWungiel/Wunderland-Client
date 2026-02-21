@@ -50,10 +50,10 @@ void Downloader::startDownloadWithoutStats(QString _source) {
         downloading = true;
         source = _source;
 
-        file.setFileName("c:/data/"+source.mid(source.lastIndexOf("/")+1));
+        file.setFileName("e:/installs/"+source.mid(source.lastIndexOf("/")+1));
 
         file.open(QIODevice::WriteOnly);
-        sourcePath = "c:/data/" + source.mid(source.lastIndexOf("/")+1);
+        sourcePath = "e:/installs/" + source.mid(source.lastIndexOf("/")+1);
         //qDebug() << source;
         //qDebug() << source.mid(source.lastIndexOf("/")+1);
         //qDebug() << sourcePath;
@@ -108,7 +108,7 @@ void Downloader::downloadFinished() {
 
     // If the URL is not empty, we're being redirected.
     if(!urlRedirectedTo.isEmpty()) {
-        /*file.setFileName("c:/data/"+source.mid(source.lastIndexOf("/")+1));
+        /*file.setFileName("e:/installs/"+source.mid(source.lastIndexOf("/")+1));
         file.open(QIODevice::WriteOnly);
 
         reply = n_manager->get(QNetworkRequest(urlRedirectedTo));
