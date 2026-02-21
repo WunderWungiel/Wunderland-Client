@@ -84,17 +84,17 @@ DEPLOYMENT += addFiles
 #    SOURCES += qml/Wunderland/*.qml
 #}
 
-TRANSLATIONS = applist_template.ts \
-    applist_de.ts \
-    applist_pl.ts \
-    applist_hu.ts \
-    applist_fr.ts \
-    applist_it.ts \
-    applist_ru.ts \
-    applist_uk.ts \
-    applist_pt.ts \
-    applist_es.ts \
-    applist_el.ts
+TRANSLATIONS = wunderland_template.ts \
+    wunderland_de.ts \
+    wunderland_pl.ts \
+    wunderland_hu.ts \
+    wunderland_fr.ts \
+    wunderland_it.ts \
+    wunderland_ru.ts \
+    wunderland_uk.ts \
+    wunderland_pt.ts \
+    wunderland_es.ts \
+    wunderland_el.ts
 
 #symbian:MMP_RULES += "DEBUGGABLE"
 
