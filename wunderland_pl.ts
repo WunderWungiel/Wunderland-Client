@@ -5,7 +5,7 @@
     <name>AboutPage</name>
     <message>
         <source>About Wunderland</source>
-        <translation>O AppList</translation>
+        <translation>O Wunderland</translation>
     </message>
     <message>
         <source>Loading</source>
@@ -209,8 +209,8 @@
         <translation>Najnowsze aplikacje i gry</translation>
     </message>
     <message>
-        <source>Latest news from All About Symbian</source>
-        <translation>Najnowsze na All About Symbian</translation>
+        <source>Latest news from Wunderland Store</source>
+        <translation>Najnowsze na Wunderland Store</translation>
     </message>
     <message>
         <source>Don&apos;t display again</source>
@@ -233,7 +233,7 @@
     <name>PersonalPage</name>
     <message>
         <source>Settings / About Wunderland</source>
-        <translation>Ustawienia / O AppList</translation>
+        <translation>Ustawienia / O Wunderland</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -241,7 +241,7 @@
     </message>
     <message>
         <source>Help &amp; Infos About Wunderland</source>
-        <translation>Pomoc i Informacje o AppList</translation>
+        <translation>Pomoc i Informacje o Wunderland</translation>
     </message>
     <message>
         <source>My apps</source>
@@ -349,8 +349,8 @@
         <translation>Ciemny wygląd</translation>
     </message>
     <message>
-        <source>Show latest news from All About Symbian</source>
-        <translation>Pokaż Najnowsze na All About Symbian</translation>
+        <source>Show latest news from Wunderland Store</source>
+        <translation>Pokaż Najnowsze na Wunderland Store</translation>
     </message>
     <message>
         <source>This setting change will take effect after restarting AppList.</source>

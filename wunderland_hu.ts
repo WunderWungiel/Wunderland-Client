@@ -261,8 +261,8 @@
     </message>
     <message>
         <location filename="qml/Wunderland/MainPage.qml" line="81"/>
-        <source>Latest news from All About Symbian</source>
-        <translation>Friss hírek az All About Symbian-ról</translation>
+        <source>Latest news from Wunderland Store</source>
+        <translation>Friss hírek az Wunderland Store-ról</translation>
     </message>
 </context>
 <context>
@@ -411,8 +411,8 @@
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
-        <source>Show latest news from All About Symbian</source>
-        <translation>Az All About Symbian friss híreinek mutatása</translation>
+        <source>Show latest news from Wunderland Store</source>
+        <translation>Az Wunderland Store friss híreinek mutatása</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="214"/>

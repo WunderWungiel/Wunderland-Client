@@ -6,7 +6,7 @@
     <message>
         <location filename="qml/Wunderland/AboutPage.qml" line="40"/>
         <source>About Wunderland</source>
-        <translation>Σχετικα με την AppList</translation>
+        <translation>Σχετικα με την Wunderland</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/AboutPage.qml" line="109"/>
@@ -262,8 +262,8 @@
     </message>
     <message>
         <location filename="qml/Wunderland/MainPage.qml" line="81"/>
-        <source>Latest news from All About Symbian</source>
-        <translation>Τελευταία νέα από All About Symbian</translation>
+        <source>Latest news from Wunderland Store</source>
+        <translation>Τελευταία νέα από Wunderland Store</translation>
     </message>
 </context>
 <context>
@@ -284,7 +284,7 @@
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="36"/>
         <source>Settings / About Wunderland</source>
-        <translation>Ρυθμίσεις / Σχετικά με την AppList</translation>
+        <translation>Ρυθμίσεις / Σχετικά με την Wunderland</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="72"/>
@@ -294,7 +294,7 @@
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="113"/>
         <source>Help &amp; Infos About Wunderland</source>
-        <translation>Βοήθεια &amp; Πληροφορίες σχετικά με την AppList</translation>
+        <translation>Βοήθεια &amp; Πληροφορίες σχετικά με την Wunderland</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="154"/>
@@ -412,8 +412,8 @@
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
-        <source>Show latest news from All About Symbian</source>
-        <translation>Εμφάνιση τελευταίων νεων από το All About Symbian</translation>
+        <source>Show latest news from Wunderland Store</source>
+        <translation>Εμφάνιση τελευταίων νεων από το Wunderland Store</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="214"/>

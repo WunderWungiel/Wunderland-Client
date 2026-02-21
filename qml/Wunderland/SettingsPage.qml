@@ -167,7 +167,7 @@ Page {
                 height: 50
 
                 Text {
-                    text: qsTr("Show latest news from All About Symbian") + ":" + l.emptyString
+                    text: qsTr("Show latest news from Wunderland Store") + ":" + l.emptyString
                     color: window.black
                     font.pixelSize: 20
                     anchors.left: parent.left

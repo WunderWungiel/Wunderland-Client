@@ -6,7 +6,7 @@
     <message>
         <location filename="qml/Wunderland/AboutPage.qml" line="40"/>
         <source>About Wunderland</source>
-        <translation>Acerca de AppList</translation>
+        <translation>Acerca de Wunderland</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/AboutPage.qml" line="109"/>
@@ -261,8 +261,8 @@
     </message>
     <message>
         <location filename="qml/Wunderland/MainPage.qml" line="81"/>
-        <source>Latest news from All About Symbian</source>
-        <translation>Últimas noticias en All About Symbian</translation>
+        <source>Latest news from Wunderland Store</source>
+        <translation>Últimas noticias en Wunderland Store</translation>
     </message>
 </context>
 <context>
@@ -283,7 +283,7 @@
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="36"/>
         <source>Settings / About Wunderland</source>
-        <translation>Configuración / Acerca de AppList</translation>
+        <translation>Configuración / Acerca de Wunderland</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="72"/>
@@ -293,7 +293,7 @@
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="113"/>
         <source>Help &amp; Infos About Wunderland</source>
-        <translation>Ayuda e información acerca de AppList</translation>
+        <translation>Ayuda e información acerca de Wunderland</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="154"/>
@@ -411,8 +411,8 @@
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
-        <source>Show latest news from All About Symbian</source>
-        <translation>Mostrar las últimas noticias en All About Symbian</translation>
+        <source>Show latest news from Wunderland Store</source>
+        <translation>Mostrar las últimas noticias en Wunderland Store</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="214"/>

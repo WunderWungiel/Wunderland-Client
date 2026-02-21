@@ -6,7 +6,7 @@
     <message>
         <location filename="qml/Wunderland/AboutPage.qml" line="40"/>
         <source>About Wunderland</source>
-        <translation>Riguardo AppList</translation>
+        <translation>Riguardo Wunderland</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/AboutPage.qml" line="109"/>
@@ -261,8 +261,8 @@
     </message>
     <message>
         <location filename="qml/Wunderland/MainPage.qml" line="81"/>
-        <source>Latest news from All About Symbian</source>
-        <translation>Ultime novità da &quot;All About Symbian&quot;</translation>
+        <source>Latest news from Wunderland Store</source>
+        <translation>Ultime novità da &quot;Wunderland Store&quot;</translation>
     </message>
     <message>
         <source>Don&apos;t display again</source>
@@ -287,7 +287,7 @@
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="36"/>
         <source>Settings / About Wunderland</source>
-        <translation>Impostazioni / Riguardo AppList</translation>
+        <translation>Impostazioni / Riguardo Wunderland</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="72"/>
@@ -297,7 +297,7 @@
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="113"/>
         <source>Help &amp; Infos About Wunderland</source>
-        <translation>Aiuto &amp; Informazioni su AppList</translation>
+        <translation>Aiuto &amp; Informazioni su Wunderland</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="154"/>
@@ -416,8 +416,8 @@
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
-        <source>Show latest news from All About Symbian</source>
-        <translation>Mostra le ultime novità da &quot;All About Symbian&quot;</translation>
+        <source>Show latest news from Wunderland Store</source>
+        <translation>Mostra le ultime novità da &quot;Wunderland Store&quot;</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="214"/>

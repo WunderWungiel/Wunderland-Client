@@ -90,7 +90,7 @@ Page {
 
             Text {
                 id: newsHeaderText
-                text: qsTr("Latest news from All About Symbian") + l.emptyString
+                text: qsTr("Latest news from Wunderland Store") + l.emptyString
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
