@@ -1,2 +1,13 @@
 *.pro.user
-*.sis{,x}
+*.sis
+*.sisx
+rcc
+moc
+.make.cache
+*.mmp
+*.pkg
+*.rss
+*.pkg
+*.loc
+bld.inf
+Makefile
