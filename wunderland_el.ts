@@ -5,7 +5,7 @@
     <name>AboutPage</name>
     <message>
         <location filename="qml/Wunderland/AboutPage.qml" line="40"/>
-        <source>About AppList</source>
+        <source>About Wunderland</source>
         <translation>Σχετικα με την AppList</translation>
     </message>
     <message>
@@ -283,7 +283,7 @@
     <name>PersonalPage</name>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="36"/>
-        <source>Settings / About AppList</source>
+        <source>Settings / About Wunderland</source>
         <translation>Ρυθμίσεις / Σχετικά με την AppList</translation>
     </message>
     <message>
@@ -293,7 +293,7 @@
     </message>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="113"/>
-        <source>Help &amp; Infos about AppList</source>
+        <source>Help &amp; Infos About Wunderland</source>
         <translation>Βοήθεια &amp; Πληροφορίες σχετικά με την AppList</translation>
     </message>
     <message>

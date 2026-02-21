@@ -37,7 +37,7 @@ Page {
 
         Text {
             id: aboutHeaderText
-            text: qsTr("About AppList") + l.emptyString
+            text: qsTr("About Wunderland") + l.emptyString
             width: parent.width - 20
             wrapMode: TextEdit.Wrap
             font.pixelSize: 18
@@ -85,9 +85,9 @@ Page {
             color: window.black
             font.pixelSize: 20
 
-            text: "AppList 1.0 (Build 298)<br>
-Sebastian (schumi1331)<br>
-Copyright (C) 2013-2015"
+            text: "Wunderland 2.00(0)<br>
+Wunder Wungiel<br>
+Copyright (C) 2026"
         }
     }
 
@@ -161,7 +161,8 @@ Copyright (C) 2013-2015"
             color: window.black
             font.pixelSize: 19
 
-            text: "Web: xxx<br>Twitter: xxx<br>Facebook: xxx<br>Mail: xxx<br><br>
+            text: "Web: http://wunderwungiel.pl<br><br>
+Based on AppList by Sebastian (schumi1331)<br><br>
 - Anand Bibek: Pull to refresh<br>
 - Bhavin: Beta testing<br>
 - Fabian (@huellif): Symbian C++ and beta testing<br>

@@ -4,7 +4,7 @@
 <context>
     <name>AboutPage</name>
     <message>
-        <source>About AppList</source>
+        <source>About Wunderland</source>
         <translation>Über AppList</translation>
     </message>
     <message>
@@ -235,7 +235,7 @@
 <context>
     <name>PersonalPage</name>
     <message>
-        <source>Settings / About AppList</source>
+        <source>Settings / About Wunderland</source>
         <translation>Einstellungen / Über AppList</translation>
     </message>
     <message>
@@ -243,7 +243,7 @@
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <source>Help &amp; Infos about AppList</source>
+        <source>Help &amp; Infos About Wunderland</source>
         <translation>Hilfe &amp; Infos über AppList</translation>
     </message>
     <message>

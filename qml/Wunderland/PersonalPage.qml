@@ -33,7 +33,7 @@ Page {
 
             Text {
                 id: settingsHeaderText
-                text: qsTr("Settings / About AppList") + l.emptyString
+                text: qsTr("Settings / About Wunderland") + l.emptyString
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
@@ -110,7 +110,7 @@ Page {
                 width: parent.width
                 wrapMode: Text.WordWrap
 
-                text: qsTr("Help & Infos about AppList") + l.emptyString
+                text: qsTr("Help & Infos About Wunderland") + l.emptyString
                 font.pixelSize: 20
 
                 color: (mouseArea.pressed) ? window.white : window.black
