@@ -110,7 +110,7 @@ Page {
                 width: parent.width
                 wrapMode: Text.WordWrap
 
-                text: qsTr("Help & Infos About Wunderland") + l.emptyString
+                text: qsTr("Help & info about Wunderland") + l.emptyString
                 font.pixelSize: 20
 
                 color: (mouseArea.pressed) ? window.white : window.black
