@@ -75,8 +75,8 @@ HEADERS += \
     appitem.h \
     reviewitem.h
 
-addFiles.pkg_postrules += "\"C:\\AppList.png\" - \"c:\\AppList.png\""
-addFiles.pkg_postrules += "\"C:\\HSWidgetxSchumi1331AppList_A1331002_rel.dll\" - \"!:\\sys\\bin\\HSWidgetxSchumi1331AppList_A1331002_rel.dll\""
+addFiles.pkg_postrules += "\"C:\\Wunderland.png\" - \"c:\\Wunderland.png\""
+addFiles.pkg_postrules += "\"C:\\HSWidgetxWunderland_E9320737_rel.dll\" - \"!:\\sys\\bin\\HSWidgetxWunderland_E9320737_rel.dll\""
 DEPLOYMENT += addFiles
 
 # For lupdate
