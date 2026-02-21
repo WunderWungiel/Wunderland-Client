@@ -243,7 +243,7 @@
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <source>Help &amp; Infos About Wunderland</source>
+        <source>Help &amp; info about Wunderland</source>
         <translation>Hilfe &amp; Infos über Wunderland</translation>
     </message>
     <message>

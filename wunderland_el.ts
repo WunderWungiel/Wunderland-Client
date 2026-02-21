@@ -293,7 +293,7 @@
     </message>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="113"/>
-        <source>Help &amp; Infos About Wunderland</source>
+        <source>Help &amp; info about Wunderland</source>
         <translation>Βοήθεια &amp; Πληροφορίες σχετικά με την Wunderland</translation>
     </message>
     <message>

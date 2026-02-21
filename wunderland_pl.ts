@@ -240,7 +240,7 @@
         <translation>Ustawienia</translation>
     </message>
     <message>
-        <source>Help &amp; Infos About Wunderland</source>
+        <source>Help &amp; info about Wunderland</source>
         <translation>Pomoc i Informacje o Wunderland</translation>
     </message>
     <message>
