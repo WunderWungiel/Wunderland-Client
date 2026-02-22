@@ -54,7 +54,7 @@
     </message>
     <message>
         <source>Contact the developer</source>
-        <translation>Kontaktuj dewelopera</translation>
+        <translation>Kontakt z deweloperem</translation>
     </message>
     <message>
         <source>Screenshots</source>
@@ -330,7 +330,7 @@
     </message>
     <message>
         <source>Open links in phone browser</source>
-        <translation>Otwórz Linki w przeglądarce telefonu</translation>
+        <translation>Otwórz linki w przeglądarce telefonu</translation>
     </message>
     <message>
         <source>Settings</source>
@@ -342,7 +342,7 @@
     </message>
     <message>
         <source>Show latest news from Wunderland Store</source>
-        <translation>Pokaż Najnowsze na Wunderland Store</translation>
+        <translation>Pokaż najnowsze na Wunderland Store</translation>
     </message>
     <message>
         <source>This setting change will take effect after restarting Wunderland.</source>

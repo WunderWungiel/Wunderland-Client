@@ -86,20 +86,20 @@ DEPLOYMENT += addFiles
 
 TRANSLATIONS = wunderland_template.ts \
     wunderland_de.ts \
-    wunderland_pl.ts \
-    wunderland_hu.ts \
-    wunderland_fr.ts \
-    wunderland_it.ts \
-    wunderland_ru.ts \
-    wunderland_uk.ts \
-    wunderland_pt.ts \
+    wunderland_el.ts \
     wunderland_es.ts \
-    wunderland_el.ts
+    wunderland_fr.ts \
+    wunderland_hu.ts \
+    wunderland_it.ts \
+    wunderland_pl.ts \
+    wunderland_pt.ts \
+    wunderland_ru.ts \
+    wunderland_uk.ts
 
 #symbian:MMP_RULES += "DEBUGGABLE"
 
 symbian {
-    VERSION = 2.0.0
+    VERSION = 2.0.1
 
     DEFINES += APP_UID=\"$$TARGET.UID3\"
     DEFINES += APP_Version=\"$$VERSION\"
