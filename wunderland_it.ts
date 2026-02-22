@@ -27,7 +27,7 @@
 <context>
     <name>AppListView</name>
     <message>
-        <location filename="qml/Wunderland/AppListView.qml" line="134"/>
+        <location filename="qml/Wunderland/AppListView.qml" line="142"/>
         <source>Loading</source>
         <translation>Caricamento</translation>
     </message>
@@ -64,19 +64,19 @@
     </message>
     <message>
         <location filename="qml/Wunderland/DetailPage.qml" line="168"/>
-        <location filename="qml/Wunderland/DetailPage.qml" line="536"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="538"/>
         <source>Download</source>
         <translation>Download</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/DetailPage.qml" line="168"/>
-        <location filename="qml/Wunderland/DetailPage.qml" line="536"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="538"/>
         <source>Update</source>
         <translation>Aggiorna</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/DetailPage.qml" line="168"/>
-        <location filename="qml/Wunderland/DetailPage.qml" line="536"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="538"/>
         <source>Launch</source>
         <translation>Apri</translation>
     </message>
@@ -101,37 +101,37 @@
         <translation>Leggi su &quot;All About Symbian&quot;</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="511"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="513"/>
         <source>Installation failed or was aborted. You have tried to install an unsigned app. Are you sure you have a hacked phone?</source>
         <translation>Installazione fallita o cancellata. Hai provato ad unstallare un&apos; App non certificata, sei sicuro di avere un telefono con hack?</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="512"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="514"/>
         <source>Installation failed or was aborted.</source>
         <translation>Installazione fallita o cancellata.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="519"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="521"/>
         <source>A connection error appeared while trying to start the download.</source>
         <translation>Errore nella connessione durante l&apos;avvio del download.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="523"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="525"/>
         <source>There is not enough space available on your device to download this app. At least %1 is required.</source>
         <translation>Lo spazio libero nel telefono è insufficiente per scaricare questa App. Sono richiesti %1 di spazio disponibile.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="527"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="529"/>
         <source>An unknown error appeared while trying to start the download.</source>
         <translation>Errore sconosciuto durante l&apos;avvio del download.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="542"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="544"/>
         <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to AppList to finish the installation process.</source>
         <translation>Con il seguente verrai reindirizzato al Nokia Store, dove potrai acquistare o scaricare questa applicazione. Dopo la conclusione dell&apos;installazione, chiudi in Nokia Store e torna in AppList per concludere il processo d&apos;installazione.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="546"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="548"/>
         <source>Don&apos;t display again</source>
         <translation>Non mostrare di nuovo</translation>
     </message>
@@ -153,95 +153,98 @@
     </message>
     <message>
         <location filename="language.cpp" line="88"/>
-        <source>Astronomy &amp; Weather</source>
-        <translation>Astronomia &amp; temperatura</translation>
+        <source>Camera, photos, videos</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="language.cpp" line="89"/>
-        <source>Business &amp; Office</source>
-        <translation>Lavoro &amp; Ufficio</translation>
+        <source>Emulator</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="language.cpp" line="90"/>
-        <source>Camera, Photos &amp; Videos</source>
-        <translation>Camera, Foto &amp; Video</translation>
+        <source>Extras</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="language.cpp" line="91"/>
-        <source>Education</source>
-        <translation>Educazione</translation>
+        <source>File manager &amp; cloud</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="language.cpp" line="92"/>
-        <source>Files &amp; Cloud</source>
-        <translation>Files &amp; Cloud</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="93"/>
-        <source>GPS &amp; Travel</source>
-        <translation>GPS &amp; Viaggi</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="94"/>
         <source>Internet</source>
         <translation>Internet</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="95"/>
+        <location filename="language.cpp" line="93"/>
         <source>Music</source>
         <translation>Musica</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="96"/>
-        <source>News</source>
-        <translation>Novità</translation>
+        <location filename="language.cpp" line="94"/>
+        <source>Office</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="97"/>
-        <source>Social &amp; Instant Messaging</source>
-        <translation>Social Networks &amp; Messaggistica Istantanea</translation>
+        <location filename="language.cpp" line="95"/>
+        <source>Other apps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="96"/>
+        <source>Social</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="language.cpp" line="98"/>
-        <location filename="language.cpp" line="112"/>
-        <source>Sport</source>
-        <translation>Sport</translation>
+        <source>Weather &amp; GPS</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="99"/>
+        <location filename="language.cpp" line="100"/>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="101"/>
+        <source>Adventure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="102"/>
+        <source>Other games</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="103"/>
+        <source>Puzzles &amp; cards</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="104"/>
+        <source>Sports</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="105"/>
+        <source>Strategy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="106"/>
+        <source>Themes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="97"/>
         <source>Tools</source>
         <translation>Strumenti</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="100"/>
-        <location filename="language.cpp" line="113"/>
-        <source>Other</source>
-        <translation>Altro</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="107"/>
+        <location filename="language.cpp" line="99"/>
         <source>Games</source>
         <translation>Giochi</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="108"/>
-        <source>Arcade</source>
-        <translation>Arcade</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="109"/>
-        <source>Cards &amp; Classic</source>
-        <translation>Carte &amp; Classici</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="110"/>
-        <source>Puzzle</source>
-        <translation>Puzzle</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="111"/>
-        <source>Racing</source>
-        <translation>Racing</translation>
     </message>
 </context>
 <context>
@@ -260,13 +263,9 @@
         <translation>Ultime applicazioni e giochi</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/MainPage.qml" line="81"/>
+        <location filename="qml/Wunderland/MainPage.qml" line="93"/>
         <source>Latest news from Wunderland Store</source>
         <translation>Ultime novità da &quot;Wunderland Store&quot;</translation>
-    </message>
-    <message>
-        <source>Don&apos;t display again</source>
-        <translation type="obsolete">Non mostrare di nuovo</translation>
     </message>
 </context>
 <context>
@@ -328,7 +327,7 @@
         <translation>Cerca Applicazioni o Giochi nel database di Wunderland...</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SearchPage.qml" line="128"/>
+        <location filename="qml/Wunderland/SearchPage.qml" line="130"/>
         <source>No search results found or no internet connection available.</source>
         <translation>Nessun risultato trovato o nessuna connessione ad internet disponibile.</translation>
     </message>
@@ -336,53 +335,53 @@
 <context>
     <name>SelectVersion</name>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="40"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="41"/>
         <source>Select the version you want to install. AppList will help you to upgrade between different releases if required.</source>
         <translation>Seleziona la versione che vuoi installare. AppList ti aiuterà ad aggiornare tra le diverse versioni se necessario.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="87"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="88"/>
         <source>In most cases the self-signed version should be enough for you, although it comes with limited possibilities for the developer. Have a look at the unsigned version if available to check out the differences. Ask the developer if you are unsure.</source>
         <translation>Nella maggior parte dei casi, le applicazioni auto-certificate dovrebbero essere complete, nonostante esse diano possibilità limitate allo sviluppatore. Buttate un occhio alle versioni non certificate, se disponibili, per osservare le differenze. In caso di dubbi, chiedete allo sviluppatore delle App.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="98"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="99"/>
         <source>With installing the Store version you won&apos;t have any problems while installing and can be sure that the content was tested (by a more or less good QA team...). BUT note that developers can&apos;t update their apps in the Nokia Store since 1.1.2014 and you should prefer the self-signed or unsigned versions in any cases when available.</source>
         <translation>Installando la versione dello Store non avrai nessun problema durante l&apos;installazione e puoi star sicuro che il contenuto sia stato testato (da un buon gruppo di testers). MA tieni a mente che gli sviluppatori non possono piu aggiornare le proprie app nel Nokia Store dal giorno 1/1/2014, e che dovresti quindi preferire le applicazioni auto-certificate o non certificate in ogni caso, se disponibili.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="109"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="110"/>
         <source>The unsigned version of an app has the most available features, but is not signed with a certificate. To be able to install an unsigned app you need to have a hacked phone or a CFW with InstallServer.exe modified.</source>
         <translatorcomment>Consiglio l&apos;uso del cfw &quot;Delight&quot;.</translatorcomment>
         <translation>La versione non certificata di un&apos;applicazione concede molte piu funzioni, ma non è registrata mediante certificato. Per essere capaci di installare un&apos;applicazione non certificata, dovete avere un telefono con hack o un CFW con il file &quot;InstallServer.exe&quot; modificato.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="109"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="110"/>
         <source>Notes for this unsigned version by the developer</source>
         <translation>Note per questa versione non certificata dallo sviluppatore</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="136"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="137"/>
         <source>Continue...</source>
         <translation>Prosegui...</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="185"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="186"/>
         <source>Update information</source>
         <translation>Informazioni sull&apos;aggiornamento</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="186"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="187"/>
         <source>Rescan</source>
         <translation>Riesamina</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="186"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="187"/>
         <source>Cancel</source>
         <translation>Indietro</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="213"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="214"/>
         <source>To install the selected version you first need to uninstall the current version of this app. Find the app in the main menu, long press and select &apos;Uninstall&apos; to remove it. If uninstallation was finished click &apos;Rescan&apos; below to continue.</source>
         <translation>Per installare la versione selezionata, devi prima disinstallare la versione corrente dell&apos;applicazione. Trova l&apos;applicazione nel menu principale, tieni premuto su di essa e seleziona &quot;Disinstalla&quot; per rimuoverla. Se la disinstallazione si conclude con successo, clicca su &quot;Riesamina&quot; per continuare.</translation>
     </message>

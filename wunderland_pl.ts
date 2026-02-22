@@ -123,30 +123,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Astronomy &amp; Weather</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Business &amp; Office</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Camera, Photos &amp; Videos</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Education</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Files &amp; Cloud</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GPS &amp; Travel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Internet</source>
         <translation type="unfinished"></translation>
     </message>
@@ -155,23 +131,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>News</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Social &amp; Instant Messaging</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Sport</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Tools</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Other</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -179,19 +139,63 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Arcade</source>
+        <source>Camera, photos, videos</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cards &amp; Classic</source>
+        <source>Emulator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Puzzle</source>
+        <source>Extras</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Racing</source>
+        <source>File manager &amp; cloud</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Office</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other apps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Social</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weather &amp; GPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adventure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other games</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Puzzles &amp; cards</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sports</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strategy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Themes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -211,10 +215,6 @@
     <message>
         <source>Latest news from Wunderland Store</source>
         <translation>Najnowsze na Wunderland Store</translation>
-    </message>
-    <message>
-        <source>Don&apos;t display again</source>
-        <translation type="obsolete">Nie pokazuj ponownie</translation>
     </message>
 </context>
 <context>
@@ -316,18 +316,6 @@
 </context>
 <context>
     <name>SettingsPage</name>
-    <message>
-        <source>Language</source>
-        <translation type="obsolete">Język</translation>
-    </message>
-    <message>
-        <source>Please select</source>
-        <translation type="obsolete">Proszę wybierz</translation>
-    </message>
-    <message>
-        <source>Select your language:</source>
-        <translation type="obsolete">Wybierz Twój język:</translation>
-    </message>
     <message>
         <source>Open links in phone browser</source>
         <translation>Otwórz linki w przeglądarce telefonu</translation>

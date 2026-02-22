@@ -123,30 +123,6 @@
         <translation>Programme</translation>
     </message>
     <message>
-        <source>Astronomy &amp; Weather</source>
-        <translation>Astronomie &amp; Wetter</translation>
-    </message>
-    <message>
-        <source>Business &amp; Office</source>
-        <translation>Business &amp; Office</translation>
-    </message>
-    <message>
-        <source>Camera, Photos &amp; Videos</source>
-        <translation>Kamera, Fotos &amp; Videos</translation>
-    </message>
-    <message>
-        <source>Education</source>
-        <translation>Bildung</translation>
-    </message>
-    <message>
-        <source>Files &amp; Cloud</source>
-        <translation>Dateien &amp; Cloud</translation>
-    </message>
-    <message>
-        <source>GPS &amp; Travel</source>
-        <translation>GPS &amp; Reisen</translation>
-    </message>
-    <message>
         <source>Internet</source>
         <translation>Internet</translation>
     </message>
@@ -155,44 +131,72 @@
         <translation>Musik</translation>
     </message>
     <message>
-        <source>News</source>
-        <translation>Nachrichten</translation>
-    </message>
-    <message>
-        <source>Social &amp; Instant Messaging</source>
-        <translation>Social &amp; Instant Messaging</translation>
-    </message>
-    <message>
-        <source>Sport</source>
-        <translation>Sport</translation>
-    </message>
-    <message>
         <source>Tools</source>
         <translation>Tools</translation>
-    </message>
-    <message>
-        <source>Other</source>
-        <translation>Sonstige</translation>
     </message>
     <message>
         <source>Games</source>
         <translation>Spiele</translation>
     </message>
     <message>
-        <source>Arcade</source>
-        <translation>Arcade</translation>
+        <source>Camera, photos, videos</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cards &amp; Classic</source>
-        <translation>Karten &amp; Klassisches</translation>
+        <source>Emulator</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Puzzle</source>
-        <translation>Puzzle</translation>
+        <source>Extras</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Racing</source>
-        <translation>Rennen</translation>
+        <source>File manager &amp; cloud</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Office</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other apps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Social</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weather &amp; GPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adventure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other games</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Puzzles &amp; cards</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sports</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strategy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Themes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -212,17 +216,9 @@
         <source>Latest news from Wunderland Store</source>
         <translation>Das Neueste auf Wunderland Store</translation>
     </message>
-    <message>
-        <source>Don&apos;t display again</source>
-        <translation type="obsolete">Nicht erneut anzeigen</translation>
-    </message>
 </context>
 <context>
     <name>NewsElement</name>
-    <message>
-        <source>&lt;div align=&quot;center&quot;&gt;Error fetching news feed...&lt;/div&gt;</source>
-        <translation type="obsolete">&lt;div align=&quot;center&quot;&gt;Fehler beim Laden des News-Feeds&lt;/div&gt;</translation>
-    </message>
     <message>
         <source>Loading</source>
         <translation>Lade</translation>
@@ -313,28 +309,12 @@
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <source>To install the selected version you first need to uninstall the current version of this app. Find the app in the main menu, long press and select &apos;Uninstall&apos; to remove it. If uninstallation was finished click &apos;Rescan&apos; below continue.</source>
-        <translation type="obsolete">Um die ausgewählte Version installieren zu können, musst Du erst die aktuell auf Deinem Gerät vorhandene Version deinstallieren. Finde die App dazu im Hauptmenü, öffne über langes Drücken das Menü und wähle &quot;Entfernen&quot; zur Deinstallation. Wenn die Deinstallation erfolgreich war, drücke unten auf &apos;Rescan&apos; um fortzufahren.</translation>
-    </message>
-    <message>
         <source>To install the selected version you first need to uninstall the current version of this app. Find the app in the main menu, long press and select &apos;Uninstall&apos; to remove it. If uninstallation was finished click &apos;Rescan&apos; below to continue.</source>
         <translation>Um die ausgewählte Version installieren zu können, musst Du erst die aktuell auf Deinem Gerät vorhandene Version deinstallieren. Finde die App dazu im Hauptmenü, öffne über langes Drücken das Menü und wähle &quot;Entfernen&quot; zur Deinstallation. Wenn die Deinstallation erfolgreich war, drücke unten auf &apos;Rescan&apos; um fortzufahren.</translation>
     </message>
 </context>
 <context>
     <name>SettingsPage</name>
-    <message>
-        <source>Language</source>
-        <translation type="obsolete">Sprache</translation>
-    </message>
-    <message>
-        <source>Please select</source>
-        <translation type="obsolete">Bitte wähle</translation>
-    </message>
-    <message>
-        <source>Select your language:</source>
-        <translation type="obsolete">Wähle Deine Sprache:</translation>
-    </message>
     <message>
         <source>Open links in phone browser</source>
         <translation>Links im Smartphone-Browser öffnen</translation>

@@ -27,7 +27,7 @@
 <context>
     <name>AppListView</name>
     <message>
-        <location filename="qml/Wunderland/AppListView.qml" line="134"/>
+        <location filename="qml/Wunderland/AppListView.qml" line="142"/>
         <source>Loading</source>
         <translation>Betöltés</translation>
     </message>
@@ -64,19 +64,19 @@
     </message>
     <message>
         <location filename="qml/Wunderland/DetailPage.qml" line="168"/>
-        <location filename="qml/Wunderland/DetailPage.qml" line="536"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="538"/>
         <source>Download</source>
         <translation>Letölt</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/DetailPage.qml" line="168"/>
-        <location filename="qml/Wunderland/DetailPage.qml" line="536"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="538"/>
         <source>Update</source>
         <translation>Frissít</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/DetailPage.qml" line="168"/>
-        <location filename="qml/Wunderland/DetailPage.qml" line="536"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="538"/>
         <source>Launch</source>
         <translation>Indít</translation>
     </message>
@@ -101,37 +101,37 @@
         <translation>Cikk az All About Symbian-on</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="511"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="513"/>
         <source>Installation failed or was aborted. You have tried to install an unsigned app. Are you sure you have a hacked phone?</source>
         <translation>Telepítés sikertelen vagy meg lett szakítva. Szignózatlan alkalmazást próbáltál telepíteni. Biztosan fel van törve a készüléked?</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="512"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="514"/>
         <source>Installation failed or was aborted.</source>
         <translation>Telepítés sikertelen vagy megszakítva.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="519"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="521"/>
         <source>A connection error appeared while trying to start the download.</source>
         <translation>Kapcsolódási hiba történt a letöltés megkezdése közben.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="523"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="525"/>
         <source>There is not enough space available on your device to download this app. At least %1 is required.</source>
         <translation>Az alkalmazás letöltéséhez nincs elég hely az eszközön. Legalább %1 szükséges.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="527"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="529"/>
         <source>An unknown error appeared while trying to start the download.</source>
         <translation>Ismeretlen hiba történt a letöltés megkezdése közben.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="542"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="544"/>
         <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to AppList to finish the installation process.</source>
         <translation>A következőkben megnyílik a Nokia Áruház, ahol megveheti/letöltheti az alkalmazást. Miután a telepítés befejeződött zárja be az Áruházat és térjen vissza az AppList-hez a folyamat befejezéséhez.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="546"/>
+        <location filename="qml/Wunderland/DetailPage.qml" line="548"/>
         <source>Don&apos;t display again</source>
         <translation>Ne mutassa újra</translation>
     </message>
@@ -153,95 +153,98 @@
     </message>
     <message>
         <location filename="language.cpp" line="88"/>
-        <source>Astronomy &amp; Weather</source>
-        <translation>Csillagászat és Időjárás</translation>
+        <source>Camera, photos, videos</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="language.cpp" line="89"/>
-        <source>Business &amp; Office</source>
-        <translation>Üzlet és Iroda</translation>
+        <source>Emulator</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="language.cpp" line="90"/>
-        <source>Camera, Photos &amp; Videos</source>
-        <translation>Kamera, Fényképek és Videók</translation>
+        <source>Extras</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="language.cpp" line="91"/>
-        <source>Education</source>
-        <translation>Oktatás</translation>
+        <source>File manager &amp; cloud</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="language.cpp" line="92"/>
-        <source>Files &amp; Cloud</source>
-        <translation>Fájlok és Felhő</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="93"/>
-        <source>GPS &amp; Travel</source>
-        <translation>GPS és Utazás</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="94"/>
         <source>Internet</source>
         <translation>Internet</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="95"/>
+        <location filename="language.cpp" line="93"/>
         <source>Music</source>
         <translation>Zene</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="96"/>
-        <source>News</source>
-        <translation>Hírek</translation>
+        <location filename="language.cpp" line="94"/>
+        <source>Office</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="97"/>
-        <source>Social &amp; Instant Messaging</source>
-        <translation>Közösségi és Azonnali üzenetküldők</translation>
+        <location filename="language.cpp" line="95"/>
+        <source>Other apps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="96"/>
+        <source>Social</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="language.cpp" line="98"/>
-        <location filename="language.cpp" line="112"/>
-        <source>Sport</source>
-        <translation>Sport</translation>
+        <source>Weather &amp; GPS</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="99"/>
+        <location filename="language.cpp" line="100"/>
+        <source>Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="101"/>
+        <source>Adventure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="102"/>
+        <source>Other games</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="103"/>
+        <source>Puzzles &amp; cards</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="104"/>
+        <source>Sports</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="105"/>
+        <source>Strategy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="106"/>
+        <source>Themes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="language.cpp" line="97"/>
         <source>Tools</source>
         <translation>Eszközök</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="100"/>
-        <location filename="language.cpp" line="113"/>
-        <source>Other</source>
-        <translation>Egyéb</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="107"/>
+        <location filename="language.cpp" line="99"/>
         <source>Games</source>
         <translation>Játékok</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="108"/>
-        <source>Arcade</source>
-        <translation>Játékterem</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="109"/>
-        <source>Cards &amp; Classic</source>
-        <translation>Kártyák és Klasszikusok</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="110"/>
-        <source>Puzzle</source>
-        <translation>Kirakós</translation>
-    </message>
-    <message>
-        <location filename="language.cpp" line="111"/>
-        <source>Racing</source>
-        <translation>Verseny</translation>
     </message>
 </context>
 <context>
@@ -260,7 +263,7 @@
         <translation>Legfrissebb alkalmazások és játékok</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/MainPage.qml" line="81"/>
+        <location filename="qml/Wunderland/MainPage.qml" line="93"/>
         <source>Latest news from Wunderland Store</source>
         <translation>Friss hírek az Wunderland Store-ról</translation>
     </message>
@@ -324,7 +327,7 @@
         <translation>Alkalmazások és játékok keresése az Wunderland adatbázisban...</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SearchPage.qml" line="128"/>
+        <location filename="qml/Wunderland/SearchPage.qml" line="130"/>
         <source>No search results found or no internet connection available.</source>
         <translation>Nincs találat vagy nincs elérhető internet kapcsolat.</translation>
     </message>
@@ -332,52 +335,52 @@
 <context>
     <name>SelectVersion</name>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="40"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="41"/>
         <source>Select the version you want to install. AppList will help you to upgrade between different releases if required.</source>
         <translation>Válassza ki a telepítendő verziót. Az AppList szükség esetén segítséget nyújt a különböző verziók frissítésében.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="87"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="88"/>
         <source>In most cases the self-signed version should be enough for you, although it comes with limited possibilities for the developer. Have a look at the unsigned version if available to check out the differences. Ask the developer if you are unsure.</source>
         <translation>Általában a self-signed verzió elegendő lehet, habár ez csökkentett lehetőségeket ad a fejlesztőnek. Nézze meg a szignózatlan verziót az eltérésekért, ha elérhető. Kérdezze meg a fejlesztőt, ha nem biztos a választásban.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="98"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="99"/>
         <source>With installing the Store version you won&apos;t have any problems while installing and can be sure that the content was tested (by a more or less good QA team...). BUT note that developers can&apos;t update their apps in the Nokia Store since 1.1.2014 and you should prefer the self-signed or unsigned versions in any cases when available.</source>
         <translation>Az Áruházi verzió telepítésével nem lesz semmilyen problémája és biztos lehet benne, hogy ellenőrzött a tartalom (egy többé kevésbé jó QA csapat által). De vegye figyelembe, hogy a fejlesztők az Áruházban 2014.01.01-től nem tudják frissíteni az alkalmazásokat és a self-signed vagy szignózatlan verziót érdemes választani, ha lehetséges.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="109"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="110"/>
         <source>The unsigned version of an app has the most available features, but is not signed with a certificate. To be able to install an unsigned app you need to have a hacked phone or a CFW with InstallServer.exe modified.</source>
         <translation>Egy alkalmazás szignózatlan verziója adja a legtöbb lehetséges funkciót, ám nincs tanúsítvánnyal aláírva. Ahhoz, hogy telepíthesse az alkalmazást, fetört készülékre vagy egyedi ROM-ra van szüksége módostott InstallServer.exe-vel.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="109"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="110"/>
         <source>Notes for this unsigned version by the developer</source>
         <translation>Megjegyzések a szignózatlan verzióhoz a fejlesztőtől</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="136"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="137"/>
         <source>Continue...</source>
         <translation>Folyttás...</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="185"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="186"/>
         <source>Update information</source>
         <translation>Frissítési információk</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="186"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="187"/>
         <source>Rescan</source>
         <translation>Újraellenőrzés</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="186"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="187"/>
         <source>Cancel</source>
         <translation>Mégsem</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SelectVersion.qml" line="213"/>
+        <location filename="qml/Wunderland/SelectVersion.qml" line="214"/>
         <source>To install the selected version you first need to uninstall the current version of this app. Find the app in the main menu, long press and select &apos;Uninstall&apos; to remove it. If uninstallation was finished click &apos;Rescan&apos; below to continue.</source>
         <translation>A kiválasztott verzió telepítéséhez előbb el kell távolítani az előző verziót. Keresse meg az alkalmazást a menüben, érintse meg hosszan, majd válassza az &apos;Törlés&apos; opciót. Amint a törlés befejeződött, kattintson az Újraellenőrzésre.</translation>
     </message>
