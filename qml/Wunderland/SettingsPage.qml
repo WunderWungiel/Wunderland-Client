@@ -54,29 +54,14 @@ Page {
         Rectangle {
             id: settingsItem
             width: parent.width
-            height: languageSelectionItem.height + openInBrowserItem.height + darkThemeItem.height + aasFeedItem.height + useUnsignedItem.height + aboutItem.height + 11 + 6
+            height: openInBrowserItem.height + darkThemeItem.height + aasFeedItem.height + aboutItem.height + 11 + 6
             color: window.white
 
-            SelectionListItem {
-                id: languageSelectionItem
-                anchors.top: parent.top
-
-                platformInverted: !window.invert
-
-                title: (qsTr("Languages I understand") + l.emptyString)
-                subTitle: l.subtitleString
-
-                onClicked: selectionDialog.open()
-
-                MultiSelectionDialog {
-                    id: selectionDialog
-                    titleText: qsTr("Languages I understand:") + l.emptyString
-                }
-            }
+            
 
             Item {
                 id: openInBrowserItem
-                anchors.top: languageSelectionItem.bottom
+                anchors.top: parent.top
                 anchors.topMargin: 5
                 width: parent.width
                 height: 50
@@ -202,53 +187,7 @@ Page {
                 anchors.topMargin: 5
             }
 
-            Item {
-                id: useUnsignedItem
-                anchors.top: aasFeedItem.bottom
-                anchors.topMargin: 5
-                width: parent.width
-                height: useUnsignedItemText.height + 10
-
-                Text {
-                    id: useUnsignedItemText
-                    text: qsTr("Display unsigned versions (requires hacked phone or CFW)") + ":" + l.emptyString
-                    color: window.black
-                    font.pixelSize: 20
-                    anchors.left: parent.left
-                    anchors.leftMargin: 10
-                    anchors.right: useUnsignedSwitch.left
-                    anchors.rightMargin: 10
-                    anchors.top: parent.top
-                    anchors.topMargin: 5
-                    wrapMode: Text.WordWrap
-                }
-
-                Switch {
-                    id: useUnsignedSwitch
-                    anchors.right: parent.right
-                    anchors.rightMargin: 10
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    checked: getList.getUseUnsigned()
-
-                    onClicked: {
-                        if (checked) {
-                            unsignedDialog.open()
-                        } else {
-                            getList.setUseUnsigned(checked)
-                            infoBanner.open()
-                        }
-                    }
-                }
-            }
-
-            Rectangle {
-                id: border7
-                height: 1
-                width: parent.width
-                color: window.lightgrey
-                anchors.top: useUnsignedItem.bottom
-            }
+            
         }
     }
 
@@ -257,27 +196,6 @@ Page {
         text: qsTr("This setting change will take effect after restarting AppList.")
     }
 
-
-    DialogComp {
-        id: unsignedDialog
-        text: qsTr("Do you really want to activate displaying unsigned apps? Note that you need a hacked phone or a CFW with enabled InstallServer patch to install unsigned apps, otherwise you will get a certificate error.<br><br>Here is one of various tutorials on how to hack your Symbian phone that you can find on the internet: %1<br><br>Note that you are hacking your phone on your own risk and you may lose your (theoretical) waranty.").arg("http://bit.ly/bellehack") + l.emptyString
-        buttonTexts: [qsTr("Yes"), qsTr("No")]
-        titleText: "Note"
-        displayCheckBox: false
-
-        onButtonClicked: {
-            if (index === 0) {
-                getList.setUseUnsigned(useUnsignedSwitch.checked)
-                infoBanner.open()
-            } else {
-                useUnsignedSwitch.checked = !useUnsignedSwitch.checked
-            }
-        }
-
-        onCheckBoxCheckedChanged: {
-            settings.setUnsignedDialog(!checkBoxChecked)
-        }
-    }
 
     ThemeEffect {
         id: tf
