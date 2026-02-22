@@ -46,6 +46,7 @@
         <file>wunderland_pl.qm</file>
         <file>wunderland_pt.qm</file>
         <file>wunderland_ru.qm</file>
+        <file>wunderland_tr.qm</file>
         <file>wunderland_uk.qm</file>
     </qresource>
 </RCC>

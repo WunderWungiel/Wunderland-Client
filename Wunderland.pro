@@ -94,6 +94,7 @@ TRANSLATIONS = wunderland_template.ts \
     wunderland_pl.ts \
     wunderland_pt.ts \
     wunderland_ru.ts \
+    wunderland_tr.ts \
     wunderland_uk.ts
 
 #symbian:MMP_RULES += "DEBUGGABLE"
