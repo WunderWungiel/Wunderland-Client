@@ -390,21 +390,6 @@
         <translation>Налаштування</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="66"/>
-        <source>Languages I understand</source>
-        <translation>Мови, які я розумію</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="73"/>
-        <source>Languages I understand:</source>
-        <translation>Мови, які я розумію:</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="85"/>
-        <source>Open links in phone browser</source>
-        <translation>Відкривати посилання в браузері телефону</translation>
-    </message>
-    <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="127"/>
         <source>Dark theme</source>
         <translation>Темна тема</translation>
@@ -413,11 +398,6 @@
         <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
         <source>Show latest news from Wunderland Store</source>
         <translation>Показувати останні новини з Wunderland Store</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="214"/>
-        <source>Display unsigned versions (requires hacked phone or CFW)</source>
-        <translation>Показувати непідписані версії (необхідний злом або мод.прошівка)</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="257"/>

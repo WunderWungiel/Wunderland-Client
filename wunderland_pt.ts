@@ -390,16 +390,6 @@
         <translation>Configurações</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="66"/>
-        <source>Languages I understand</source>
-        <translation>Idiomas que eu entendo</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="73"/>
-        <source>Languages I understand:</source>
-        <translation>Idiomas que eu entendo:</translation>
-    </message>
-    <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="85"/>
         <source>Open links in phone browser</source>
         <translation>Abrir links no navegador do telefone</translation>
@@ -413,11 +403,6 @@
         <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
         <source>Show latest news from Wunderland Store</source>
         <translation>Mostrar notícias recentes do Wunderland Store</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="214"/>
-        <source>Display unsigned versions (requires hacked phone or CFW)</source>
-        <translation>Mostrar versões unsigned (requer aparelho hackeado ou CFW)</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="257"/>

@@ -340,20 +340,8 @@
         <translation>Links im Smartphone-Browser öffnen</translation>
     </message>
     <message>
-        <source>Display unsigned versions (requires hacked phone or CFW)</source>
-        <translation>Unsignierte Versionen anzeigen (erfordert gehacktes Smartphone oder CFW)</translation>
-    </message>
-    <message>
         <source>Settings</source>
         <translation>Einstellungen</translation>
-    </message>
-    <message>
-        <source>Languages I understand</source>
-        <translation>Sprachen, die ich verstehe</translation>
-    </message>
-    <message>
-        <source>Languages I understand:</source>
-        <translation>Sprachen, die ich verstehe:</translation>
     </message>
     <message>
         <source>Dark theme</source>

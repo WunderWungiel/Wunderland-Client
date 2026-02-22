@@ -390,16 +390,6 @@
         <translation>Beállítások</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="66"/>
-        <source>Languages I understand</source>
-        <translation>Nyelvek amiket értek</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="73"/>
-        <source>Languages I understand:</source>
-        <translation>Nyelvek amiket értek:</translation>
-    </message>
-    <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="85"/>
         <source>Open links in phone browser</source>
         <translation>Link megnyitása beépített böngészővel</translation>
@@ -413,11 +403,6 @@
         <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
         <source>Show latest news from Wunderland Store</source>
         <translation>Az Wunderland Store friss híreinek mutatása</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="214"/>
-        <source>Display unsigned versions (requires hacked phone or CFW)</source>
-        <translation>Szignózatlan verziók mutatása (hackelt készülék vagy egyedi ROM szükséges)</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="257"/>

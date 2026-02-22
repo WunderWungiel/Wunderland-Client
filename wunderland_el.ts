@@ -391,16 +391,6 @@
         <translation>Ρυθμίσεις</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="66"/>
-        <source>Languages I understand</source>
-        <translation>Γλωσσες που κατανοώ</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="73"/>
-        <source>Languages I understand:</source>
-        <translation>Γλωσσες που κατανοώ:</translation>
-    </message>
-    <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="85"/>
         <source>Open links in phone browser</source>
         <translation>Άνοιγμα συνδέσεων στον περιηγητή του τηλεφώνου</translation>
@@ -414,11 +404,6 @@
         <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
         <source>Show latest news from Wunderland Store</source>
         <translation>Εμφάνιση τελευταίων νεων από το Wunderland Store</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="214"/>
-        <source>Display unsigned versions (requires hacked phone or CFW)</source>
-        <translation>Εμφάνιση ανυπόγραφων εκδόσεων (προϋποθέτει hacked συσκευή ή CFW)</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="257"/>

@@ -337,14 +337,6 @@
         <translation>Ustawienia</translation>
     </message>
     <message>
-        <source>Languages I understand</source>
-        <translation>Języki, które rozumiem</translation>
-    </message>
-    <message>
-        <source>Languages I understand:</source>
-        <translation>Języki, które rozumiem:</translation>
-    </message>
-    <message>
         <source>Dark theme</source>
         <translation>Ciemny wygląd</translation>
     </message>
@@ -355,10 +347,6 @@
     <message>
         <source>This setting change will take effect after restarting AppList.</source>
         <translation>To ustawienie zostanie zastosowane po ponownym uruchomieniu AppList.</translation>
-    </message>
-    <message>
-        <source>Display unsigned versions (requires hacked phone or CFW)</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Do you really want to activate displaying unsigned apps? Note that you need a hacked phone or a CFW with enabled InstallServer patch to install unsigned apps, otherwise you will get a certificate error.&lt;br&gt;&lt;br&gt;Here is one of various tutorials on how to hack your Symbian phone that you can find on the internet: %1&lt;br&gt;&lt;br&gt;Note that you are hacking your phone on your own risk and you may lose your (theoretical) waranty.</source>
