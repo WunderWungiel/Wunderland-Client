@@ -11,7 +11,7 @@ Language::Language(QObject *parent) :
 
     if (_currentLanguage != "en" && _languageCodes.contains(_currentLanguage)) {
         translator = new QTranslator(this);
-        translator->load(("applist_"+_currentLanguage), ":/");
+        translator->load(("wunderland_"+_currentLanguage), ":/");
         QCoreApplication::instance()->installTranslator(translator);
     }
 
