@@ -10,7 +10,7 @@
 #include <QString>
 #include <QLibrary>
 
-const QString DLLName("HSWidgetxWunderland_E9320737_rel.dll");
+const QString DLLName("HSWidgetxWunderland_E9320736_rel.dll");
 
 /**
  * Defines the events that may take place for a homescreen widget.
