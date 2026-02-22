@@ -391,39 +391,24 @@
         <translation>Ρυθμίσεις</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="85"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="70"/>
         <source>Open links in phone browser</source>
         <translation>Άνοιγμα συνδέσεων στον περιηγητή του τηλεφώνου</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="127"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="112"/>
         <source>Dark theme</source>
         <translation>Σκοτεινό θέμα</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="155"/>
         <source>Show latest news from Wunderland Store</source>
         <translation>Εμφάνιση τελευταίων νεων από το Wunderland Store</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="257"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="196"/>
         <source>This setting change will take effect after restarting Wunderland.</source>
         <translation>Αυτή η ρύθμιση θα εφαρμοσθεί μετά την επανεκκίνηση της Wunderland.</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="263"/>
-        <source>Do you really want to activate displaying unsigned apps? Note that you need a hacked phone or a CFW with enabled InstallServer patch to install unsigned apps, otherwise you will get a certificate error.&lt;br&gt;&lt;br&gt;Here is one of various tutorials on how to hack your Symbian phone that you can find on the internet: %1&lt;br&gt;&lt;br&gt;Note that you are hacking your phone on your own risk and you may lose your (theoretical) waranty.</source>
-        <translation>Επιθυμείτε πραγματικά να ενεργοποιήσετε την εμφάνιση ανυπόγραφων εφαρμογών; Σημειώστε πως χρειάζεστε hacked συσκευή ή CFW με ενεργοποιημένο το InstallServer patch για να εγκαταστήσετε ανυπόγραφες εφαρμογές, διαφορετικά, θα λάβετε σφάλμα πιστοποιητικού.&lt;br&gt;&lt;br&gt;Εδώ θα βρείτε έναν διαδικτυακό οδηγό how to hack your Symbian phone: %1&lt;br&gt;&lt;br&gt;Σημειώστε ότι το hacking της συσκευής σας γίνεται με δική σας ευθύνη και ότι ενδέχεται να χάσετε την εγγύησή σας.</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="264"/>
-        <source>Yes</source>
-        <translation>Ναι</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="264"/>
-        <source>No</source>
-        <translation>Όχι</translation>
     </message>
 </context>
 <context>

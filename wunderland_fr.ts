@@ -390,39 +390,24 @@
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="85"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="70"/>
         <source>Open links in phone browser</source>
         <translation>Ouvrir les liens dans le navigateur</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="127"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="112"/>
         <source>Dark theme</source>
         <translation>Thème sombre</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="155"/>
         <source>Show latest news from Wunderland Store</source>
         <translation>Afficher les dernières news de Wunderland Store</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="257"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="196"/>
         <source>This setting change will take effect after restarting Wunderland.</source>
         <translation>Cette modification du paramètre prendra effet qu&apos;après le redémarrage d&apos;Wunderland.</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="263"/>
-        <source>Do you really want to activate displaying unsigned apps? Note that you need a hacked phone or a CFW with enabled InstallServer patch to install unsigned apps, otherwise you will get a certificate error.&lt;br&gt;&lt;br&gt;Here is one of various tutorials on how to hack your Symbian phone that you can find on the internet: %1&lt;br&gt;&lt;br&gt;Note that you are hacking your phone on your own risk and you may lose your (theoretical) waranty.</source>
-        <translation>Voulez-vous vraiment activer l&apos;affichage des applications non signées ? Notez que vous avez besoin d&apos;un téléphone hacké ou un CFW avec activé InstallServer patch pour installer des applications non signées, sinon vous obtiendrez une erreur de certificat.&lt;br&gt;&lt;br&gt;Voici un des divers tutoriels sur la façon d&apos;hacker votre téléphone Symbian que vous pouvez trouver sur internet : %1&lt;br&gt;&lt;br&gt;Notez qu&apos;hacker le téléphone vous fait perdre théoriquement la garantie de votre téléphone.</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="264"/>
-        <source>Yes</source>
-        <translation>Oui</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="264"/>
-        <source>No</source>
-        <translation>Non</translation>
     </message>
 </context>
 <context>

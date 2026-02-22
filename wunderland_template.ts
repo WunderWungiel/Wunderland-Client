@@ -390,38 +390,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="85"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="70"/>
         <source>Open links in phone browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="127"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="112"/>
         <source>Dark theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="155"/>
         <source>Show latest news from Wunderland Store</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="257"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="196"/>
         <source>This setting change will take effect after restarting Wunderland.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="263"/>
-        <source>Do you really want to activate displaying unsigned apps? Note that you need a hacked phone or a CFW with enabled InstallServer patch to install unsigned apps, otherwise you will get a certificate error.&lt;br&gt;&lt;br&gt;Here is one of various tutorials on how to hack your Symbian phone that you can find on the internet: %1&lt;br&gt;&lt;br&gt;Note that you are hacking your phone on your own risk and you may lose your (theoretical) waranty.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="264"/>
-        <source>Yes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="264"/>
-        <source>No</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

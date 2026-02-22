@@ -355,22 +355,6 @@
         <source>This setting change will take effect after restarting Wunderland.</source>
         <translation>Diese Einstellung wird nach dem Neustart von Wunderland wirksam.</translation>
     </message>
-    <message>
-        <source>Do you really want to activate displaying unsigned apps? Note that you need a hacked phone or a CFW with enabled InstallServer patch to install unsigned apps, otherwise you will get a certificate error.&lt;br&gt;&lt;br&gt;Here is one of various tutorials on how to hack your Symbian phone that you can find on the internet: %1</source>
-        <translation type="obsolete">Möchtest Du wirklich unsignierte Apps in AppList angezeigt bekommen? Beachte, dass Du für die Installation unsignierter Apps ein gehacktes Smartphone mit aktiviertem InstallServer-Patch oder eine CFW benötigst, andernfalls bekommst Du einen Zertifikatsfehler.&lt;br&gt;&lt;br&gt;Hier ist eines von verschiedenen Tutorials zum Hacken von Symbian-Smartphones, die Du im Internet finden kannst: %1</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Ja</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>Nein</translation>
-    </message>
-    <message>
-        <source>Do you really want to activate displaying unsigned apps? Note that you need a hacked phone or a CFW with enabled InstallServer patch to install unsigned apps, otherwise you will get a certificate error.&lt;br&gt;&lt;br&gt;Here is one of various tutorials on how to hack your Symbian phone that you can find on the internet: %1&lt;br&gt;&lt;br&gt;Note that you are hacking your phone on your own risk and you may lose your (theoretical) waranty.</source>
-        <translation>Möchtest Du wirklich unsignierte Apps in AppList angezeigt bekommen? Beachte, dass Du für die Installation unsignierter Apps ein gehacktes Smartphone mit aktiviertem InstallServer-Patch oder eine CFW benötigst, andernfalls bekommst Du einen Zertifikatsfehler.&lt;br&gt;&lt;br&gt;Hier ist eines von verschiedenen Tutorials zum Hacken von Symbian-Smartphones, die Du im Internet finden kannst: %1&lt;br&gt;&lt;br&gt;Beachte, dass das Hacken auf eigene Gefahr geschieht und Du dabei deine (theoretische) Garantie verlieren kannst.</translation>
-    </message>
 </context>
 <context>
     <name>UpdatePage</name>

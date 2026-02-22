@@ -390,39 +390,24 @@
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="85"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="70"/>
         <source>Open links in phone browser</source>
         <translation>Открывать ссылки в браузере телефона</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="127"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="112"/>
         <source>Dark theme</source>
         <translation>Тёмная тема</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="155"/>
         <source>Show latest news from Wunderland Store</source>
         <translation>Показывать последние новости с Wunderland Store</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="257"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="196"/>
         <source>This setting change will take effect after restarting Wunderland.</source>
         <translation>Эти изменения вступят в силу после перезапуска Wunderland.</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="263"/>
-        <source>Do you really want to activate displaying unsigned apps? Note that you need a hacked phone or a CFW with enabled InstallServer patch to install unsigned apps, otherwise you will get a certificate error.&lt;br&gt;&lt;br&gt;Here is one of various tutorials on how to hack your Symbian phone that you can find on the internet: %1&lt;br&gt;&lt;br&gt;Note that you are hacking your phone on your own risk and you may lose your (theoretical) waranty.</source>
-        <translation>Вы действительно хотите включить отображение неподписанных приложений? Обратите внимание, что для установки неподписанных приложений вам нужен взломанный телефон или мод.прошивка с включённым патчем InstallServer, в противном случае вы получите ошибку сертификата.&lt;br&gt;&lt;br&gt;Вот одна из множества инструкций о том, как взломать ваш Symbian-смартфон, которую вы можете найти в Интернете: %1&lt;br&gt;&lt;br&gt;Обратите внимание, что вы взламываете смартфон на свой страх и риск и тем самым можете (теоретически) лишиться гарантии.</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="264"/>
-        <source>Yes</source>
-        <translation>Да</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="264"/>
-        <source>No</source>
-        <translation>Нет</translation>
     </message>
 </context>
 <context>

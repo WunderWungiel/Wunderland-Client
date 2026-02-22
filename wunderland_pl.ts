@@ -348,18 +348,6 @@
         <source>This setting change will take effect after restarting Wunderland.</source>
         <translation>To ustawienie zostanie zastosowane po ponownym uruchomieniu Wunderland.</translation>
     </message>
-    <message>
-        <source>Do you really want to activate displaying unsigned apps? Note that you need a hacked phone or a CFW with enabled InstallServer patch to install unsigned apps, otherwise you will get a certificate error.&lt;br&gt;&lt;br&gt;Here is one of various tutorials on how to hack your Symbian phone that you can find on the internet: %1&lt;br&gt;&lt;br&gt;Note that you are hacking your phone on your own risk and you may lose your (theoretical) waranty.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Tak</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>Nie</translation>
-    </message>
 </context>
 <context>
     <name>UpdatePage</name>

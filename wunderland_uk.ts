@@ -390,34 +390,19 @@
         <translation>Налаштування</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="127"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="112"/>
         <source>Dark theme</source>
         <translation>Темна тема</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="170"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="155"/>
         <source>Show latest news from Wunderland Store</source>
         <translation>Показувати останні новини з Wunderland Store</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="257"/>
+        <location filename="qml/Wunderland/SettingsPage.qml" line="196"/>
         <source>This setting change will take effect after restarting Wunderland.</source>
         <translation>Ці зміни набудуть чинності після перезапуску Wunderland.</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="263"/>
-        <source>Do you really want to activate displaying unsigned apps? Note that you need a hacked phone or a CFW with enabled InstallServer patch to install unsigned apps, otherwise you will get a certificate error.&lt;br&gt;&lt;br&gt;Here is one of various tutorials on how to hack your Symbian phone that you can find on the internet: %1&lt;br&gt;&lt;br&gt;Note that you are hacking your phone on your own risk and you may lose your (theoretical) waranty.</source>
-        <translation>Ви дійсно хочете включити відображення непідписаних програм? Зверніть увагу, що для установки непідписаних програм вам потрібен зламаний телефон або мод.прошивка з включеним патчем InstallServer, в іншому випадку ви отримаєте помилку сертифіката.&lt;br&gt;&lt;br&gt;Ось одна з безлічі інструкцій про те, як зламати ваш Symbian-смартфон, яку ви можете знайти в Інтернеті: %1&lt;br&gt;&lt;br&gt;Зверніть увагу, що ви зламуєте смартфон на свій страх і ризик і тим самим можете (теоретично) позбутися гарантії.</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="264"/>
-        <source>Yes</source>
-        <translation>Так</translation>
-    </message>
-    <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="264"/>
-        <source>No</source>
-        <translation>Ні</translation>
     </message>
 </context>
 <context>
