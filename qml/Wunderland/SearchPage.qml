@@ -110,7 +110,7 @@ Page {
 
         listModel: getList._searchList
 
-        text: qsTr("Search for apps and games in the AppList database...") + l.emptyString
+        text: qsTr("Search for apps and games in the Wunderland database...") + l.emptyString
 
         onAtYEndChanged: {
             if (atYEnd && appList.count > 0 && appList.count%25 == 0 && !appList.currentlyLoading) {

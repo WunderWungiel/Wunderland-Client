@@ -320,7 +320,7 @@
     </message>
     <message>
         <location filename="qml/Wunderland/SearchPage.qml" line="113"/>
-        <source>Search for apps and games in the AppList database...</source>
+        <source>Search for apps and games in the Wunderland database...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -406,7 +406,7 @@
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="257"/>
-        <source>This setting change will take effect after restarting AppList.</source>
+        <source>This setting change will take effect after restarting Wunderland.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

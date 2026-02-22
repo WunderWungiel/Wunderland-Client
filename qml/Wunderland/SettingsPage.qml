@@ -193,7 +193,7 @@ Page {
 
     InfoBanner {
         id: infoBanner
-        text: qsTr("This setting change will take effect after restarting AppList.")
+        text: qsTr("This setting change will take effect after restarting Wunderland.")
     }
 
 

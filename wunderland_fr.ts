@@ -320,8 +320,8 @@
     </message>
     <message>
         <location filename="qml/Wunderland/SearchPage.qml" line="113"/>
-        <source>Search for apps and games in the AppList database...</source>
-        <translation>Recherche d&apos;applications et de jeux dans la base de donnés d&apos;AppList...</translation>
+        <source>Search for apps and games in the Wunderland database...</source>
+        <translation>Recherche d&apos;applications et de jeux dans la base de donnés d&apos;Wunderland...</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SearchPage.qml" line="128"/>
@@ -406,8 +406,8 @@
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="257"/>
-        <source>This setting change will take effect after restarting AppList.</source>
-        <translation>Cette modification du paramètre prendra effet qu&apos;après le redémarrage d&apos;AppList.</translation>
+        <source>This setting change will take effect after restarting Wunderland.</source>
+        <translation>Cette modification du paramètre prendra effet qu&apos;après le redémarrage d&apos;Wunderland.</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="263"/>

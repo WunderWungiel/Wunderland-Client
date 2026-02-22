@@ -263,8 +263,8 @@
         <translation>Szukaj...</translation>
     </message>
     <message>
-        <source>Search for apps and games in the AppList database...</source>
-        <translation>Szukaj aplikacji i gier w bazie danych AppList...</translation>
+        <source>Search for apps and games in the Wunderland database...</source>
+        <translation>Szukaj aplikacji i gier w bazie danych Wunderland...</translation>
     </message>
     <message>
         <source>No search results found or no internet connection available.</source>
@@ -345,8 +345,8 @@
         <translation>Pokaż Najnowsze na Wunderland Store</translation>
     </message>
     <message>
-        <source>This setting change will take effect after restarting AppList.</source>
-        <translation>To ustawienie zostanie zastosowane po ponownym uruchomieniu AppList.</translation>
+        <source>This setting change will take effect after restarting Wunderland.</source>
+        <translation>To ustawienie zostanie zastosowane po ponownym uruchomieniu Wunderland.</translation>
     </message>
     <message>
         <source>Do you really want to activate displaying unsigned apps? Note that you need a hacked phone or a CFW with enabled InstallServer patch to install unsigned apps, otherwise you will get a certificate error.&lt;br&gt;&lt;br&gt;Here is one of various tutorials on how to hack your Symbian phone that you can find on the internet: %1&lt;br&gt;&lt;br&gt;Note that you are hacking your phone on your own risk and you may lose your (theoretical) waranty.</source>
