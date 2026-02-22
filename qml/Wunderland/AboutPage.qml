@@ -162,7 +162,7 @@ Copyright (C) 2026"
             font.pixelSize: 19
 
             text: "Web: http://wunderwungiel.pl<br><br>
-Based on AppList by Sebastian (schumi1331)<br><br>
+Based on AppList by Sebastian (schumi1331). Thank you!<br><br>
 - Anand Bibek: Pull to refresh<br>
 - Bhavin: Beta testing<br>
 - Fabian (@huellif): Symbian C++ and beta testing<br>
