@@ -7,7 +7,7 @@ Settings::Settings(QObject *parent) :
 
 bool Settings::darkTheme() {
     QSettings settings("WunderWungiel", "Wunderland");
-    return settings.value("settings/darkTheme", false).toBool();
+    return settings.value("settings/darkTheme", true).toBool();
 }
 
 void Settings::setDarkTheme(bool newValue) {
@@ -17,7 +17,7 @@ void Settings::setDarkTheme(bool newValue) {
 
 bool Settings::aasFeed() {
     QSettings settings("WunderWungiel", "Wunderland");
-    return settings.value("settings/aasFeed", true).toBool();
+    return settings.value("settings/aasFeed", false).toBool();
 }
 
 void Settings::setAasFeed(bool newValue) {
