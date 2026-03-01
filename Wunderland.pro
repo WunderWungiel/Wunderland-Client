@@ -100,7 +100,7 @@ TRANSLATIONS = wunderland_template.ts \
 #symbian:MMP_RULES += "DEBUGGABLE"
 
 symbian {
-    VERSION = 2.0.2
+    VERSION = 2.0.3
 
     DEFINES += APP_UID=\"$$TARGET.UID3\"
     DEFINES += APP_Version=\"$$VERSION\"
