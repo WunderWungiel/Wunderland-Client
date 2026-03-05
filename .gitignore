@@ -11,3 +11,4 @@ moc
 *.loc
 bld.inf
 Makefile
+.vscode
