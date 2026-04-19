@@ -85,7 +85,7 @@ Page {
             color: window.black
             font.pixelSize: 20
 
-            text: "Wunderland 2.00(3)<br>
+            text: "Wunderland 2.00(4)<br>
 Wunder Wungiel<br>
 Copyright (C) 2026"
         }

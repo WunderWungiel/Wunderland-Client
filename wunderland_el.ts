@@ -6,7 +6,7 @@
     <message>
         <location filename="qml/Wunderland/AboutPage.qml" line="40"/>
         <source>About Wunderland</source>
-        <translation>Σχετικα με την Wunderland</translation>
+        <translation>Σχετικα με το Wunderland</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/AboutPage.qml" line="109"/>
@@ -155,22 +155,22 @@
     <message>
         <location filename="language.cpp" line="88"/>
         <source>Camera, photos, videos</source>
-        <translation type="unfinished"></translation>
+        <translation>Κάμερα, φωτογραφίες, βίντεο</translation>
     </message>
     <message>
         <location filename="language.cpp" line="89"/>
         <source>Emulator</source>
-        <translation type="unfinished"></translation>
+        <translation>Προσωμοιωτές</translation>
     </message>
     <message>
         <location filename="language.cpp" line="90"/>
         <source>Extras</source>
-        <translation type="unfinished"></translation>
+        <translation>Άλλα</translation>
     </message>
     <message>
         <location filename="language.cpp" line="91"/>
         <source>File manager &amp; cloud</source>
-        <translation type="unfinished"></translation>
+        <translation>Διαχείριση αρχείων &amp; νέφος</translation>
     </message>
     <message>
         <location filename="language.cpp" line="92"/>
@@ -185,57 +185,57 @@
     <message>
         <location filename="language.cpp" line="94"/>
         <source>Office</source>
-        <translation type="unfinished"></translation>
+        <translation>Γραφείο</translation>
     </message>
     <message>
         <location filename="language.cpp" line="95"/>
         <source>Other apps</source>
-        <translation type="unfinished"></translation>
+        <translation>Λοιπές εφαρμογές</translation>
     </message>
     <message>
         <location filename="language.cpp" line="96"/>
         <source>Social</source>
-        <translation type="unfinished"></translation>
+        <translation>Κοινωνικά δίκτυα</translation>
     </message>
     <message>
         <location filename="language.cpp" line="98"/>
         <source>Weather &amp; GPS</source>
-        <translation type="unfinished"></translation>
+        <translation>Καιρός &amp; GPS</translation>
     </message>
     <message>
         <location filename="language.cpp" line="100"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Δράσης</translation>
     </message>
     <message>
         <location filename="language.cpp" line="101"/>
         <source>Adventure</source>
-        <translation type="unfinished"></translation>
+        <translation>Περιπέτεια</translation>
     </message>
     <message>
         <location filename="language.cpp" line="102"/>
         <source>Other games</source>
-        <translation type="unfinished"></translation>
+        <translation>Λοιπά παιχνίδια</translation>
     </message>
     <message>
         <location filename="language.cpp" line="103"/>
         <source>Puzzles &amp; cards</source>
-        <translation type="unfinished"></translation>
+        <translation>Χαρτιά &amp; παζλ</translation>
     </message>
     <message>
         <location filename="language.cpp" line="104"/>
         <source>Sports</source>
-        <translation type="unfinished"></translation>
+        <translation>Αθλητικά</translation>
     </message>
     <message>
         <location filename="language.cpp" line="105"/>
         <source>Strategy</source>
-        <translation type="unfinished"></translation>
+        <translation>Στρατηγικής</translation>
     </message>
     <message>
         <location filename="language.cpp" line="106"/>
         <source>Themes</source>
-        <translation type="unfinished"></translation>
+        <translation>Θέματα</translation>
     </message>
     <message>
         <location filename="language.cpp" line="97"/>
@@ -287,7 +287,7 @@
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="36"/>
         <source>Settings / About Wunderland</source>
-        <translation>Ρυθμίσεις / Σχετικά με την Wunderland</translation>
+        <translation>Ρυθμίσεις / Σχετικά με το Wunderland</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="72"/>
@@ -297,7 +297,7 @@
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="113"/>
         <source>Help &amp; info about Wunderland</source>
-        <translation>Βοήθεια &amp; Πληροφορίες σχετικά με την Wunderland</translation>
+        <translation>Βοήθεια &amp; Πληροφορίες σχετικά με το Wunderland</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="154"/>
