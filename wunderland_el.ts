@@ -160,7 +160,7 @@
     <message>
         <location filename="language.cpp" line="89"/>
         <source>Emulator</source>
-        <translation>Προσωμοιωτές</translation>
+        <translation>Εξομοιωτές</translation>
     </message>
     <message>
         <location filename="language.cpp" line="90"/>
