@@ -7,7 +7,7 @@ Language::Language(QObject *parent) :
     _currentLanguage = si.currentLanguage().toLower();
 
     _allLanguages << QString::fromUtf8("\u0411\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438") << QString::fromUtf8("\u010Ce\u0161tina") << "Dansk" << "Deutsch" << QString::fromUtf8("\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac") << "English" << "Espa�ol" << "Suomi" << "Fran�ais" << "Magyar" << "Italiano" << "Nederlands" << "Polski" << "Portugu�s" << QString::fromUtf8("\u0420\u0443\u0441\u0441\u043A\u0438\u0439") << "Svenska" << "T�rk�e" << QString::fromUtf8("\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430") << QString::fromUtf8("\u4E2D\u6587");
-    _languageCodes << "bg" << "cs" << "da" << "de" << "el" << "en" << "es" << "fi" << "fr" << "hu" << "it" << "nl" << "pl" << "pt" << "ru" << "sv" << "tr" << "uk" << "zh";
+    _languageCodes << "bg" << "cs" << "da" << "de" << "el" << "en" << "es" << "fi" << "fr" << "hu" << "it" << "nl" << "pl" << "pt" << "ru" << "sv" << "tr" << "uk" << "vi" << "zh";
 
     if (_currentLanguage != "en" && _languageCodes.contains(_currentLanguage)) {
         translator = new QTranslator(this);
