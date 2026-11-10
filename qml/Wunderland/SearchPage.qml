@@ -115,7 +115,7 @@ Page {
         onAtYEndChanged: {
             if (atYEnd && appList.count > 0 && appList.count%25 == 0 && !appList.currentlyLoading) {
                 appList.currentlyLoading = true
-                getList.loadSearchList(searchField.text, 25, false)
+                getList.loadSearchList(searchField.text, appList.count, false)
             }
         }
 

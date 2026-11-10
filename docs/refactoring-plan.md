@@ -84,7 +84,7 @@ error page gets "parsed", and every request leaks a `QNetworkReply`. `GetList::l
 is emitted with a hard-coded English string, and **no QML connects to it**, so the user sees an
 endless spinner. Add `deleteLater()` everywhere now. Error handling comes with 2.1.
 
-### [ ] 1.6 Search pagination always asks for `start=25`
+### [x] 1.6 Search pagination always asks for `start=25`
 `SearchPage.qml:118`: `getList.loadSearchList(searchField.text, 25, false)`. The third page
 repeats the second one. Use `appList.count`, as `CategoryListPage`/`PersonalPage` do.
 
