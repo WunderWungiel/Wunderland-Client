@@ -8,14 +8,15 @@ Wunderland is a native Symbian (Anna / Belle) client for the [Wunderland Store](
 
 ## Building
 
-There is no test suite, linter, or desktop build. The project only builds with the Symbian Qt SDK (Qt Creator + Nokia Qt SDK / Symbian toolchain) from `Wunderland.pro`, producing a `.sis`/`.sisx`. Generated files (`Makefile`, `*.mmp`, `*.pkg`, `bld.inf`, `moc`, `rcc`) are gitignored.
+There is no test suite, linter, or desktop build. The project only builds with the Symbian Qt SDK (Qt 4.7.4, `C:\QtSDK\Symbian\SDKs\Symbian3Qt474`). Build with `build_symbian.bat [release|debug]` (qmake → `make release-gcce` → `make sis`, in-source); it produces an unsigned `Wunderland.sis`. Generated files (`Makefile`, `*.mmp`, `*.pkg`, `bld.inf`, `moc_*.cpp`, `qrc_*.cpp`) are gitignored.
 
-- `HSWidgetxWunderland*.dll` are prebuilt homescreen-widget publisher binaries shipped via `DEPLOYMENT` rules in the `.pro`; they are not built from this repo.
+- `HSWidgetxWunderland*.dll` are prebuilt homescreen-widget publisher binaries; they are not built from this repo. The `DEPLOYMENT` rules in the `.pro` package `C:\HSWidgetxWunderland_E9320736_rel.dll` and `C:\Wunderland.png` from the drive root, so both must exist there or `make sis` fails.
+- Debug output (`qDebug`/`qWarning`) goes through `Logger` (`logger.*`, ported from Symbisend) to `download/Wunderland/log.txt` on F:, E: or C:/Data (truncated on each start).
 - `#xqinstaller*` sources are intentionally commented out of `SOURCES`/`HEADERS`.
 
 ## Architecture
 
-- `main.cpp` constructs the C++ backend singletons and exposes them to QML as context properties: `getList`, `appManagement`, `news`, `update`, `l` (Language), `subscriber`, `settings`, `symbianFunctions`, plus `launchAppId` (parsed from an `appListId:<n>` launch argument). It also registers the homescreen widget (`HSWidget`) before the UI starts.
+- `main.cpp` constructs the C++ backend singletons and exposes them to QML as context properties: `getList`, `appManagement`, `news`, `update`, `l` (Language), `subscriber`, `settings`, `symbianFunctions`, `logger`, plus `launchAppId` (parsed from an `appListId:<n>` launch argument). It also registers the homescreen widget (`HSWidget`) before the UI starts.
 - QML entry point is `qrc:/qml/Wunderland/MainAppLoader.qml` → `main.qml` (PageStackWindow; pages pushed with `Qt.createComponent`). **All QML, images and `.qm` files are loaded from `Qml.qrc`, not from disk** (`DEPLOYMENTFOLDERS` is disabled) — any new QML/image/translation file must be added to `Qml.qrc`.
 - `GetList` is the central model: it fetches app lists from `http://ovi.wunderwungiel.pl/applist.php?...` (latest / category / search / personal / updates), parses the XML response by hand with string `indexOf` (`parseItem`), and fills `RoleItemModel`s whose fields live in `Qt::UserRole + N` slots. Keep role numbers consistent between `getlist.cpp`, `roleitemmodel`, and the QML that reads them. It also drives download/install via `Downloader` and `AppManagement`.
 - `AppManagement` wraps Symbian's SIS registry (`sisregistrysession.h`/`sisregistryentry.h`, `-lsisregistryclient`) to detect installed apps and compare versions. On first run it maps installed UIDs to store IDs using the bundled `apps.txt`.
