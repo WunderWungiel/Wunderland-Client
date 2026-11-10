@@ -12,3 +12,6 @@ moc
 bld.inf
 Makefile
 .vscode
+moc_*.cpp
+qrc_*.cpp
+*.mif
