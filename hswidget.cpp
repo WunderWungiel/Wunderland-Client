@@ -144,32 +144,26 @@ void HSWidget::updateWidget( QString icon, QString nRow1, QString nRow2 ) {
     publishWidget();
 }
 
-void HSWidget::dataUpdated(int updates, int newApps) {
-    if (updates == 1) {
-        widget->SetItem(row1, "1 update available");
-    } else {
-        widget->SetItem(row1, QString::number(updates) + " updates available");
-    }
+QString HSWidget::updatesText(int updates) const {
+    if (updates == 1) return tr("1 update available");
+    return tr("%1 updates available").arg(updates);
+}
 
-    if (newApps == 1) {
-        widget->SetItem(row2, "1 new app");
-    } else if (newApps >= 0) {
-        widget->SetItem(row2, QString::number(newApps) + " new apps");
-    } else {
-        widget->SetItem(row2, "0 new apps");
-    }
+QString HSWidget::newAppsText(int newApps) const {
+    if (newApps == 1) return tr("1 new app");
+    return tr("%1 new apps").arg(qMax(newApps, 0));
+}
+
+void HSWidget::dataUpdated(int updates, int newApps) {
+    widget->SetItem(row1, updatesText(updates));
+    widget->SetItem(row2, newAppsText(newApps));
 
     publishWidget();
 }
 
 void HSWidget::dataUpdated(int updates) {
-    if (updates == 1) {
-        widget->SetItem(row1, "1 update available");
-    } else {
-        widget->SetItem(row1, QString::number(updates) + " updates available");
-    }
-
-    widget->SetItem(row2, "0 new apps");
+    widget->SetItem(row1, updatesText(updates));
+    widget->SetItem(row2, newAppsText(0));
 
     publishWidget();
 }

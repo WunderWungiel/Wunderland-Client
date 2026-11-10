@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="vi_VN" sourcelanguage="en">
+<TS version="2.0" language="vi_VN" sourcelanguage="en">
 <context>
     <name>AboutPage</name>
     <message>
@@ -128,13 +128,36 @@
     </message>
     <message>
         <location filename="qml/Wunderland/DetailPage.qml" line="544"/>
-        <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to AppList to finish the installation process.</source>
+        <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to Wunderland to finish the installation process.</source>
         <translation>Tiếp theo, Nokia Store sẽ được mở ra, nơi bạn có thể mua/tải xuống ứng dụng này. Sau khi quá trình cài đặt hoàn tất, hãy đóng Nokia Store và quay lại danh sách ứng dụng để hoàn tất quá trình cài đặt.</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/DetailPage.qml" line="548"/>
         <source>Don&apos;t display again</source>
         <translation>Không hiển thị lại</translation>
+    </message>
+</context>
+<context>
+    <name>HSWidget</name>
+    <message>
+        <location filename="hswidget.cpp" line="148"/>
+        <source>1 update available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="hswidget.cpp" line="149"/>
+        <source>%1 updates available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="hswidget.cpp" line="153"/>
+        <source>1 new app</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="hswidget.cpp" line="154"/>
+        <source>%1 new apps</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -148,102 +171,102 @@
 <context>
     <name>Language</name>
     <message>
-        <location filename="language.cpp" line="87"/>
+        <location filename="language.cpp" line="121"/>
         <source>Applications</source>
         <translation>Ứng dụng</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="88"/>
+        <location filename="language.cpp" line="122"/>
         <source>Camera, photos, videos</source>
         <translation>Camera, hình ảnh và video</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="89"/>
+        <location filename="language.cpp" line="123"/>
         <source>Emulator</source>
         <translation>Giả lập</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="90"/>
+        <location filename="language.cpp" line="124"/>
         <source>Extras</source>
         <translation>Tiện ích bổ sung</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="91"/>
+        <location filename="language.cpp" line="125"/>
         <source>File manager &amp; cloud</source>
         <translation>Quản lí tệp tin và đám mây</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="92"/>
+        <location filename="language.cpp" line="126"/>
         <source>Internet</source>
         <translation>Internet</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="93"/>
+        <location filename="language.cpp" line="127"/>
         <source>Music</source>
         <translation>Âm nhạc</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="94"/>
+        <location filename="language.cpp" line="128"/>
         <source>Office</source>
         <translation>Văn phòng</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="95"/>
+        <location filename="language.cpp" line="129"/>
         <source>Other apps</source>
         <translation>các ứng dụng khác</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="96"/>
+        <location filename="language.cpp" line="130"/>
         <source>Social</source>
         <translation>Xã hội</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="98"/>
+        <location filename="language.cpp" line="132"/>
         <source>Weather &amp; GPS</source>
         <translation>Thời tiết và GPS</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="100"/>
+        <location filename="language.cpp" line="134"/>
         <source>Action</source>
         <translation>Hành động</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="101"/>
+        <location filename="language.cpp" line="135"/>
         <source>Adventure</source>
         <translation>Phiêu lưu</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="102"/>
+        <location filename="language.cpp" line="136"/>
         <source>Other games</source>
         <translation>các trò chơi khác</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="103"/>
+        <location filename="language.cpp" line="137"/>
         <source>Puzzles &amp; cards</source>
         <translation>Giải đố và thẻ bài</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="104"/>
+        <location filename="language.cpp" line="138"/>
         <source>Sports</source>
         <translation>Thể thao</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="105"/>
+        <location filename="language.cpp" line="139"/>
         <source>Strategy</source>
         <translation>Chiến thuật</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="106"/>
+        <location filename="language.cpp" line="140"/>
         <source>Themes</source>
         <translation>Chủ đề</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="97"/>
+        <location filename="language.cpp" line="131"/>
         <source>Tools</source>
         <translation>Công cụ</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="99"/>
+        <location filename="language.cpp" line="133"/>
         <source>Games</source>
         <translation>Trò chơi</translation>
     </message>
@@ -337,7 +360,7 @@
     <name>SelectVersion</name>
     <message>
         <location filename="qml/Wunderland/SelectVersion.qml" line="41"/>
-        <source>Select the version you want to install. AppList will help you to upgrade between different releases if required.</source>
+        <source>Select the version you want to install. Wunderland will help you to upgrade between different releases if required.</source>
         <translation>Chọn phiên bản bạn muốn cài đặt. Danh sách ứng dụng sẽ hỗ trợ bạn cập nhật giữa các phiên bản khác nhau nếu cần.</translation>
     </message>
     <message>
@@ -431,11 +454,6 @@
         <source>There was an error getting more data about the update. Please check your internet connection.</source>
         <translation>Đã xảy ra lỗi khi tải thêm dữ liệu về bản cập nhật. Vui lòng kiểm tra kết nối internet của bạn.</translation>
     </message>
-    <message>
-        <location filename="qml/Wunderland/UpdatePage.qml" line="130"/>
-        <source>Should this error appear again write a mail to %1</source>
-        <translation>Nếu lỗi này xuất hiện lại, hãy gửi email đến %1</translation>
-    </message>
 </context>
 <context>
     <name>UpdatesPage</name>
@@ -449,7 +467,7 @@
     <name>main</name>
     <message>
         <location filename="qml/Wunderland/main.qml" line="133"/>
-        <source>You are currently downloading an app. If you will now close AppList, the download will be aborted and has to be restarted next time.</source>
+        <source>You are currently downloading an app. If you will now close Wunderland, the download will be aborted and has to be restarted next time.</source>
         <translation>Bạn hiện đang tải xuống một ứng dụng. Nếu bạn đóng Danh sách ứng dụng ngay bây giờ, quá trình tải xuống sẽ bị gián đoạn và bạn cần phải bắt đầu lại vào lần sau.</translation>
     </message>
     <message>

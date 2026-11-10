@@ -130,7 +130,7 @@ PageStackWindow {
 
     DialogComp {
         id: closeDialog
-        text: qsTr("You are currently downloading an app. If you will now close AppList, the download will be aborted and has to be restarted next time.")
+        text: qsTr("You are currently downloading an app. If you will now close Wunderland, the download will be aborted and has to be restarted next time.")
         buttonTexts: [qsTr("Close"), qsTr("Cancel")]
         titleText: "Note"
 

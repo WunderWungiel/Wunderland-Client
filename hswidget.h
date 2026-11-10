@@ -24,6 +24,9 @@ public slots:
     void dataUpdated(int updates, int newApps);
     void dataUpdated(int updates);
 private:
+    QString updatesText(int updates) const;
+    QString newAppsText(int newApps) const;
+
     QHSWidget* widget;
 
     UpdateManagement* updateManagement;

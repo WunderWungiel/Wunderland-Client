@@ -6,7 +6,7 @@
     <message>
         <location filename="qml/Wunderland/AboutPage.qml" line="40"/>
         <source>About Wunderland</source>
-        <translation>AppList Névjegye</translation>
+        <translation>Wunderland Névjegye</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/AboutPage.qml" line="109"/>
@@ -127,13 +127,36 @@
     </message>
     <message>
         <location filename="qml/Wunderland/DetailPage.qml" line="544"/>
-        <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to AppList to finish the installation process.</source>
-        <translation>A következőkben megnyílik a Nokia Áruház, ahol megveheti/letöltheti az alkalmazást. Miután a telepítés befejeződött zárja be az Áruházat és térjen vissza az AppList-hez a folyamat befejezéséhez.</translation>
+        <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to Wunderland to finish the installation process.</source>
+        <translation>A következőkben megnyílik a Nokia Áruház, ahol megveheti/letöltheti az alkalmazást. Miután a telepítés befejeződött zárja be az Áruházat és térjen vissza a Wunderlandhoz a folyamat befejezéséhez.</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/DetailPage.qml" line="548"/>
         <source>Don&apos;t display again</source>
         <translation>Ne mutassa újra</translation>
+    </message>
+</context>
+<context>
+    <name>HSWidget</name>
+    <message>
+        <location filename="hswidget.cpp" line="148"/>
+        <source>1 update available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="hswidget.cpp" line="149"/>
+        <source>%1 updates available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="hswidget.cpp" line="153"/>
+        <source>1 new app</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="hswidget.cpp" line="154"/>
+        <source>%1 new apps</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -147,102 +170,102 @@
 <context>
     <name>Language</name>
     <message>
-        <location filename="language.cpp" line="87"/>
+        <location filename="language.cpp" line="121"/>
         <source>Applications</source>
         <translation>Alkalmazások</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="88"/>
+        <location filename="language.cpp" line="122"/>
         <source>Camera, photos, videos</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="89"/>
+        <location filename="language.cpp" line="123"/>
         <source>Emulator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="90"/>
+        <location filename="language.cpp" line="124"/>
         <source>Extras</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="91"/>
+        <location filename="language.cpp" line="125"/>
         <source>File manager &amp; cloud</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="92"/>
+        <location filename="language.cpp" line="126"/>
         <source>Internet</source>
         <translation>Internet</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="93"/>
+        <location filename="language.cpp" line="127"/>
         <source>Music</source>
         <translation>Zene</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="94"/>
+        <location filename="language.cpp" line="128"/>
         <source>Office</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="95"/>
+        <location filename="language.cpp" line="129"/>
         <source>Other apps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="96"/>
+        <location filename="language.cpp" line="130"/>
         <source>Social</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="98"/>
+        <location filename="language.cpp" line="132"/>
         <source>Weather &amp; GPS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="100"/>
+        <location filename="language.cpp" line="134"/>
         <source>Action</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="101"/>
+        <location filename="language.cpp" line="135"/>
         <source>Adventure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="102"/>
+        <location filename="language.cpp" line="136"/>
         <source>Other games</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="103"/>
+        <location filename="language.cpp" line="137"/>
         <source>Puzzles &amp; cards</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="104"/>
+        <location filename="language.cpp" line="138"/>
         <source>Sports</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="105"/>
+        <location filename="language.cpp" line="139"/>
         <source>Strategy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="106"/>
+        <location filename="language.cpp" line="140"/>
         <source>Themes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="97"/>
+        <location filename="language.cpp" line="131"/>
         <source>Tools</source>
         <translation>Eszközök</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="99"/>
+        <location filename="language.cpp" line="133"/>
         <source>Games</source>
         <translation>Játékok</translation>
     </message>
@@ -265,7 +288,7 @@
     <message>
         <location filename="qml/Wunderland/MainPage.qml" line="93"/>
         <source>Latest news from Wunderland Store</source>
-        <translation>Friss hírek az Wunderland Store-ról</translation>
+        <translation>Friss hírek a Wunderland Store-ról</translation>
     </message>
 </context>
 <context>
@@ -286,7 +309,7 @@
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="36"/>
         <source>Settings / About Wunderland</source>
-        <translation>Beállítások / AppList névjegye</translation>
+        <translation>Beállítások / Wunderland névjegye</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="72"/>
@@ -296,7 +319,7 @@
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="113"/>
         <source>Help &amp; info about Wunderland</source>
-        <translation>Súgó és Infók az AppList-ről</translation>
+        <translation>Súgó és Infók a Wunderlandról</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/PersonalPage.qml" line="154"/>
@@ -324,7 +347,7 @@
     <message>
         <location filename="qml/Wunderland/SearchPage.qml" line="113"/>
         <source>Search for apps and games in the Wunderland database...</source>
-        <translation>Alkalmazások és játékok keresése az Wunderland adatbázisban...</translation>
+        <translation>Alkalmazások és játékok keresése a Wunderland adatbázisban...</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SearchPage.qml" line="130"/>
@@ -336,8 +359,8 @@
     <name>SelectVersion</name>
     <message>
         <location filename="qml/Wunderland/SelectVersion.qml" line="41"/>
-        <source>Select the version you want to install. AppList will help you to upgrade between different releases if required.</source>
-        <translation>Válassza ki a telepítendő verziót. Az AppList szükség esetén segítséget nyújt a különböző verziók frissítésében.</translation>
+        <source>Select the version you want to install. Wunderland will help you to upgrade between different releases if required.</source>
+        <translation>Válassza ki a telepítendő verziót. A Wunderland szükség esetén segítséget nyújt a különböző verziók frissítésében.</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SelectVersion.qml" line="88"/>
@@ -405,12 +428,12 @@
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="155"/>
         <source>Show latest news from Wunderland Store</source>
-        <translation>Az Wunderland Store friss híreinek mutatása</translation>
+        <translation>A Wunderland Store friss híreinek mutatása</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SettingsPage.qml" line="196"/>
         <source>This setting change will take effect after restarting Wunderland.</source>
-        <translation>A beállítás az Wunderland újraindítása után lép életbe.</translation>
+        <translation>A beállítás a Wunderland újraindítása után lép életbe.</translation>
     </message>
 </context>
 <context>
@@ -430,11 +453,6 @@
         <source>There was an error getting more data about the update. Please check your internet connection.</source>
         <translation>Hiba történt a frissítés részleteinek letöltésekor. Kérem ellenőrizze az internet kapcsolatot.</translation>
     </message>
-    <message>
-        <location filename="qml/Wunderland/UpdatePage.qml" line="130"/>
-        <source>Should this error appear again write a mail to %1</source>
-        <translation>Ha ismét megjelenik ez a hiba, írjon levelet a %1 címre</translation>
-    </message>
 </context>
 <context>
     <name>UpdatesPage</name>
@@ -448,7 +466,7 @@
     <name>main</name>
     <message>
         <location filename="qml/Wunderland/main.qml" line="133"/>
-        <source>You are currently downloading an app. If you will now close AppList, the download will be aborted and has to be restarted next time.</source>
+        <source>You are currently downloading an app. If you will now close Wunderland, the download will be aborted and has to be restarted next time.</source>
         <translation>Egy letöltés van folyamatban. Ha most bezárja az APpList-et, akkor a letöltés megszakad és legközelebb újra kell kezdeni.</translation>
     </message>
     <message>

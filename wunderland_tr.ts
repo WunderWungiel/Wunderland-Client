@@ -20,7 +20,6 @@
         <translation>Değişiklik günlüğü yüklenemedi.</translation>
     </message>
 </context>
-
 <context>
     <name>AppListView</name>
     <message>
@@ -28,7 +27,6 @@
         <translation>Yükleniyor</translation>
     </message>
 </context>
-
 <context>
     <name>CategoryPage</name>
     <message>
@@ -36,7 +34,6 @@
         <translation>Kategoriler</translation>
     </message>
 </context>
-
 <context>
     <name>DetailPage</name>
     <message>
@@ -81,7 +78,7 @@
     </message>
     <message>
         <source>Read on All About Symbian</source>
-        <translation>All About Symbian'da oku</translation>
+        <translation>All About Symbian&apos;da oku</translation>
     </message>
     <message>
         <source>Installation failed or was aborted. You have tried to install an unsigned app. Are you sure you have a hacked phone?</source>
@@ -104,15 +101,33 @@
         <translation>İndirme başlatılırken bilinmeyen bir hata oluştu.</translation>
     </message>
     <message>
-        <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to AppList to finish the installation process.</source>
-        <translation>Şimdi Nokia Mağazası açılacak ve buradan uygulamayı satın alabilir / indirebilirsiniz. Kurulum bittikten sonra Nokia Mağazası'nı kapatıp AppList'e geri dönerek kurulum işlemini tamamlayabilirsiniz.</translation>
+        <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to Wunderland to finish the installation process.</source>
+        <translation>Şimdi Nokia Mağazası açılacak ve buradan uygulamayı satın alabilir / indirebilirsiniz. Kurulum bittikten sonra Nokia Mağazası&apos;nı kapatıp Wunderland&apos;a geri dönerek kurulum işlemini tamamlayabilirsiniz.</translation>
     </message>
     <message>
-        <source>Don't display again</source>
+        <source>Don&apos;t display again</source>
         <translation>Tekrar gösterme</translation>
     </message>
 </context>
-
+<context>
+    <name>HSWidget</name>
+    <message>
+        <source>1 update available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 updates available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1 new app</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 new apps</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 <context>
     <name>ImagePage</name>
     <message>
@@ -120,7 +135,6 @@
         <translation>Yükleniyor</translation>
     </message>
 </context>
-
 <context>
     <name>Language</name>
     <message>
@@ -204,7 +218,6 @@
         <translation>Oyunlar</translation>
     </message>
 </context>
-
 <context>
     <name>Loading</name>
     <message>
@@ -212,7 +225,6 @@
         <translation>Yükleniyor</translation>
     </message>
 </context>
-
 <context>
     <name>MainPage</name>
     <message>
@@ -221,10 +233,9 @@
     </message>
     <message>
         <source>Latest news from Wunderland Store</source>
-        <translation>Wunderland Store'dan son haberler</translation>
+        <translation>Wunderland Store&apos;dan son haberler</translation>
     </message>
 </context>
-
 <context>
     <name>NewsElement</name>
     <message>
@@ -236,7 +247,6 @@
         <translation>Yükleniyor</translation>
     </message>
 </context>
-
 <context>
     <name>PersonalPage</name>
     <message>
@@ -260,7 +270,6 @@
         <translation>Mevcut güncellemeler</translation>
     </message>
 </context>
-
 <context>
     <name>SearchPage</name>
     <message>
@@ -280,24 +289,11 @@
         <translation>Sonuç bulunamadı ya da internet bağlantısı yok.</translation>
     </message>
 </context>
-
 <context>
     <name>SelectVersion</name>
     <message>
-        <source>Select the version you want to install. AppList will help you to upgrade between different releases if required.</source>
-        <translation>Kurmak istediğiniz sürümü seçin. Gerekirse AppList farklı sürümler arasında geçiş yapmanıza yardımcı olur.</translation>
-    </message>
-    <message>
-        <source>In most cases the self-signed version should be enough for you...</source>
-        <translation>Çoğu durumda kendi kendine imzalı (self-signed) sürüm sizin için yeterlidir...</translation>
-    </message>
-    <message>
-        <source>With installing the Store version you won't have any problems...</source>
-        <translation>Mağaza sürümünü kurduğunuzda kurulumda sorun yaşamazsınız...</translation>
-    </message>
-    <message>
-        <source>The unsigned version of an app has the most available features...</source>
-        <translation>İmzalanmamış sürüm en fazla özelliği sunar, ancak sertifika ile imzalanmamıştır...</translation>
+        <source>Select the version you want to install. Wunderland will help you to upgrade between different releases if required.</source>
+        <translation>Kurmak istediğiniz sürümü seçin. Gerekirse Wunderland farklı sürümler arasında geçiş yapmanıza yardımcı olur.</translation>
     </message>
     <message>
         <source>Notes for this unsigned version by the developer</source>
@@ -320,11 +316,22 @@
         <translation>İptal</translation>
     </message>
     <message>
-        <source>To install the selected version you first need to uninstall...</source>
-        <translation>Seçilen sürümü kurabilmek için önce mevcut sürümü kaldırmalısınız...</translation>
+        <source>In most cases the self-signed version should be enough for you, although it comes with limited possibilities for the developer. Have a look at the unsigned version if available to check out the differences. Ask the developer if you are unsure.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With installing the Store version you won&apos;t have any problems while installing and can be sure that the content was tested (by a more or less good QA team...). BUT note that developers can&apos;t update their apps in the Nokia Store since 1.1.2014 and you should prefer the self-signed or unsigned versions in any cases when available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The unsigned version of an app has the most available features, but is not signed with a certificate. To be able to install an unsigned app you need to have a hacked phone or a CFW with InstallServer.exe modified.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To install the selected version you first need to uninstall the current version of this app. Find the app in the main menu, long press and select &apos;Uninstall&apos; to remove it. If uninstallation was finished click &apos;Rescan&apos; below to continue.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
-
 <context>
     <name>SettingsPage</name>
     <message>
@@ -348,7 +355,6 @@
         <translation>Bu ayar değişikliği Wunderland yeniden başlatıldıktan sonra geçerli olur.</translation>
     </message>
 </context>
-
 <context>
     <name>UpdatePage</name>
     <message>
@@ -360,11 +366,10 @@
         <translation>İptal</translation>
     </message>
     <message>
-        <source>There was an error getting more data about the update...</source>
-        <translation>Güncelleme hakkında ek bilgi alınırken hata oluştu...</translation>
+        <source>There was an error getting more data about the update. Please check your internet connection.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
-
 <context>
     <name>UpdatesPage</name>
     <message>
@@ -372,13 +377,8 @@
         <translation>Güncellemelerim</translation>
     </message>
 </context>
-
 <context>
     <name>main</name>
-    <message>
-        <source>You are currently downloading an app...</source>
-        <translation>Şu anda bir uygulama indiriliyor...</translation>
-    </message>
     <message>
         <source>Close</source>
         <translation>Kapat</translation>
@@ -386,6 +386,10 @@
     <message>
         <source>Cancel</source>
         <translation>İptal</translation>
+    </message>
+    <message>
+        <source>You are currently downloading an app. If you will now close Wunderland, the download will be aborted and has to be restarted next time.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

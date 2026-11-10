@@ -182,7 +182,7 @@ Based on AppList by Sebastian (schumi1331). Thank you!<br><br>
 - Steve Litchfield: His curated App Store, feedback, promoting and beta testing<br>
 - All these guys in the Qt forums, stackoverflow and the web<br>
 - All developers and companies who developed or are developing for Symbian<br>
-- You for reading this and using AppList"
+- You for reading this and using Wunderland"
         }
     }
 

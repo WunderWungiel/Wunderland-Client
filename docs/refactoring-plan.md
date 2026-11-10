@@ -33,7 +33,7 @@ Nothing uses QTest. It only makes the binary bigger and adds a runtime dependenc
 
 ---
 
-## [ ] Phase 1 — Fix real bugs (small, low-risk, high value)
+## [x] Phase 1 — Fix real bugs (small, low-risk, high value)
 
 These are bugs I confirmed by reading the code. Fix them before any restructuring, so that
 the refactor doesn't hide them or change their behaviour by accident.
@@ -105,7 +105,7 @@ characters break the request. Use `QUrl::addQueryItem` (Qt 4) instead of joining
 - `AppManagement::getVersion` ignores a failed `iSisRegSession.Connect()` and calls `VersionL()`
   three times.
 
-### [ ] 1.9 User-facing "AppList" strings and placeholders
+### [x] 1.9 User-facing "AppList" strings and placeholders
 `main.qml:133`, `DetailPage.qml:544`, `SelectVersion.qml:41` still say "AppList".
 `UpdatePage.qml:130` asks the user to "write a mail to xxx". `DetailPage.qml:385` writes
 mail subjects as "… on AppList". The widget strings in `hswidget.cpp` ("updates available",

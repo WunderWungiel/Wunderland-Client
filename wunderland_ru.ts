@@ -127,13 +127,36 @@
     </message>
     <message>
         <location filename="qml/Wunderland/DetailPage.qml" line="544"/>
-        <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to AppList to finish the installation process.</source>
-        <translation>Будет открыт Магазин Nokia, где вы сможете купить/загрузить это приложение. После окончания установки закройте Магазин Nokia и вернитесь в AppList, чтобы закончить процесс установки.</translation>
+        <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to Wunderland to finish the installation process.</source>
+        <translation>Будет открыт Магазин Nokia, где вы сможете купить/загрузить это приложение. После окончания установки закройте Магазин Nokia и вернитесь в Wunderland, чтобы закончить процесс установки.</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/DetailPage.qml" line="548"/>
         <source>Don&apos;t display again</source>
         <translation>Больше не показывать</translation>
+    </message>
+</context>
+<context>
+    <name>HSWidget</name>
+    <message>
+        <location filename="hswidget.cpp" line="148"/>
+        <source>1 update available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="hswidget.cpp" line="149"/>
+        <source>%1 updates available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="hswidget.cpp" line="153"/>
+        <source>1 new app</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="hswidget.cpp" line="154"/>
+        <source>%1 new apps</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -147,102 +170,102 @@
 <context>
     <name>Language</name>
     <message>
-        <location filename="language.cpp" line="87"/>
+        <location filename="language.cpp" line="121"/>
         <source>Applications</source>
         <translation>Приложения</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="88"/>
+        <location filename="language.cpp" line="122"/>
         <source>Camera, photos, videos</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="89"/>
+        <location filename="language.cpp" line="123"/>
         <source>Emulator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="90"/>
+        <location filename="language.cpp" line="124"/>
         <source>Extras</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="91"/>
+        <location filename="language.cpp" line="125"/>
         <source>File manager &amp; cloud</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="92"/>
+        <location filename="language.cpp" line="126"/>
         <source>Internet</source>
         <translation>Интернет</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="93"/>
+        <location filename="language.cpp" line="127"/>
         <source>Music</source>
         <translation>Музыка</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="94"/>
+        <location filename="language.cpp" line="128"/>
         <source>Office</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="95"/>
+        <location filename="language.cpp" line="129"/>
         <source>Other apps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="96"/>
+        <location filename="language.cpp" line="130"/>
         <source>Social</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="98"/>
+        <location filename="language.cpp" line="132"/>
         <source>Weather &amp; GPS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="100"/>
+        <location filename="language.cpp" line="134"/>
         <source>Action</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="101"/>
+        <location filename="language.cpp" line="135"/>
         <source>Adventure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="102"/>
+        <location filename="language.cpp" line="136"/>
         <source>Other games</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="103"/>
+        <location filename="language.cpp" line="137"/>
         <source>Puzzles &amp; cards</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="104"/>
+        <location filename="language.cpp" line="138"/>
         <source>Sports</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="105"/>
+        <location filename="language.cpp" line="139"/>
         <source>Strategy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="106"/>
+        <location filename="language.cpp" line="140"/>
         <source>Themes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="language.cpp" line="97"/>
+        <location filename="language.cpp" line="131"/>
         <source>Tools</source>
         <translation>Инструменты</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="99"/>
+        <location filename="language.cpp" line="133"/>
         <source>Games</source>
         <translation>Игры</translation>
     </message>
@@ -336,8 +359,8 @@
     <name>SelectVersion</name>
     <message>
         <location filename="qml/Wunderland/SelectVersion.qml" line="41"/>
-        <source>Select the version you want to install. AppList will help you to upgrade between different releases if required.</source>
-        <translation>Выберите необходимую версию для установки. При необходимости AppList поможет вам обновиться необходимым релизом.</translation>
+        <source>Select the version you want to install. Wunderland will help you to upgrade between different releases if required.</source>
+        <translation>Выберите необходимую версию для установки. При необходимости Wunderland поможет вам обновиться необходимым релизом.</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/SelectVersion.qml" line="88"/>
@@ -430,11 +453,6 @@
         <source>There was an error getting more data about the update. Please check your internet connection.</source>
         <translation>Во время получения сведений об обновлении произошла ошибка. Проверьте соединение с интернетом.</translation>
     </message>
-    <message>
-        <location filename="qml/Wunderland/UpdatePage.qml" line="130"/>
-        <source>Should this error appear again write a mail to %1</source>
-        <translation>При появлении этой ошибки снова, напишите на %1</translation>
-    </message>
 </context>
 <context>
     <name>UpdatesPage</name>
@@ -448,8 +466,8 @@
     <name>main</name>
     <message>
         <location filename="qml/Wunderland/main.qml" line="133"/>
-        <source>You are currently downloading an app. If you will now close AppList, the download will be aborted and has to be restarted next time.</source>
-        <translation>В данный момент загружается приложение. Если закрыть AppList сейчас, загрузка будет прервана и перезапущена в следующий раз.</translation>
+        <source>You are currently downloading an app. If you will now close Wunderland, the download will be aborted and has to be restarted next time.</source>
+        <translation>В данный момент загружается приложение. Если закрыть Wunderland сейчас, загрузка будет прервана и перезапущена в следующий раз.</translation>
     </message>
     <message>
         <location filename="qml/Wunderland/main.qml" line="134"/>

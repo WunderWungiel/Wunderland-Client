@@ -382,7 +382,7 @@ Page {
                     onPressed: tf.play()
                     onReleased: tf.play()
                     onClicked: {
-                        if (detailItem["mail"] !== "") Qt.openUrlExternally("mailto:"+detailItem["mail"]+"?subject="+detailItem["name"]+" on AppList")
+                        if (detailItem["mail"] !== "") Qt.openUrlExternally("mailto:"+detailItem["mail"]+"?subject="+detailItem["name"]+" on Wunderland")
                     }
                 }
             }
@@ -541,7 +541,7 @@ Page {
 
     DialogComp {
         id: storeDialog
-        text: qsTr("In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to AppList to finish the installation process.") + l.emptyString
+        text: qsTr("In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to Wunderland to finish the installation process.") + l.emptyString
         buttonTexts: ["Ok"]
         titleText: "Note"
         displayCheckBox: true

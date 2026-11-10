@@ -73,8 +73,8 @@
         <translation>Installation fehlgeschlagen oder abgebrochen.</translation>
     </message>
     <message>
-        <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to AppList to finish the installation process.</source>
-        <translation>Im Folgenden wird der Nokia Store geöffnet, wo Du diese App kaufen/herunterladen kannst. Schließe den Nokia Store nach der Installation und kehre zu AppList zurück, um die Installationsprozedur zu beenden.</translation>
+        <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to Wunderland to finish the installation process.</source>
+        <translation>Im Folgenden wird der Nokia Store geöffnet, wo Du diese App kaufen/herunterladen kannst. Schließe den Nokia Store nach der Installation und kehre zu Wunderland zurück, um die Installationsprozedur zu beenden.</translation>
     </message>
     <message>
         <source>Don&apos;t display again</source>
@@ -107,6 +107,25 @@
     <message>
         <source>An unknown error appeared while trying to start the download.</source>
         <translation>Beim Versuch, den Download zu starten, ist ein unbekannter Fehler aufgetreten.</translation>
+    </message>
+</context>
+<context>
+    <name>HSWidget</name>
+    <message>
+        <source>1 update available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 updates available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1 new app</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 new apps</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -273,8 +292,8 @@
 <context>
     <name>SelectVersion</name>
     <message>
-        <source>Select the version you want to install. AppList will help you to upgrade between different releases if required.</source>
-        <translation>Wähle die Version aus, die Du installieren möchtest. AppList wird Dir beim Upgrade zwischen verschiedenen Version helfen, falls notwendig.</translation>
+        <source>Select the version you want to install. Wunderland will help you to upgrade between different releases if required.</source>
+        <translation>Wähle die Version aus, die Du installieren möchtest. Wunderland wird Dir beim Upgrade zwischen verschiedenen Version helfen, falls notwendig.</translation>
     </message>
     <message>
         <source>In most cases the self-signed version should be enough for you, although it comes with limited possibilities for the developer. Have a look at the unsigned version if available to check out the differences. Ask the developer if you are unsure.</source>
@@ -347,10 +366,6 @@
         <translation>Beim Versuch, weitere Infos über das Update herunterzuladen, ist ein Fehler aufgetreten. Bitte prüfe deine Internet-Verbindung.</translation>
     </message>
     <message>
-        <source>Should this error appear again write a mail to %1</source>
-        <translation>Sollte der Fehler erneut auftreten, schreib eine Mail an %1</translation>
-    </message>
-    <message>
         <source>Update</source>
         <translation>Aktualisieren</translation>
     </message>
@@ -365,8 +380,8 @@
 <context>
     <name>main</name>
     <message>
-        <source>You are currently downloading an app. If you will now close AppList, the download will be aborted and has to be restarted next time.</source>
-        <translation>Du bist gerade dabei, eine App herunterzuladen. Wenn Du nun AppList beendest, wird der Download abgebrochen und muss beim nächsten Mal fortgesetzt werden.</translation>
+        <source>You are currently downloading an app. If you will now close Wunderland, the download will be aborted and has to be restarted next time.</source>
+        <translation>Du bist gerade dabei, eine App herunterzuladen. Wenn Du nun Wunderland beendest, wird der Download abgebrochen und muss beim nächsten Mal fortgesetzt werden.</translation>
     </message>
     <message>
         <source>Close</source>

@@ -127,7 +127,7 @@ Page {
             if (loadResult) {
                 text.text = message
             } else {
-                text.text = qsTr("There was an error getting more data about the update. Please check your internet connection.")+"<br>"+qsTr("Should this error appear again write a mail to %1").arg("xxx")
+                text.text = qsTr("There was an error getting more data about the update. Please check your internet connection.")
             }
         }
 

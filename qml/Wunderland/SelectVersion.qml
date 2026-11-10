@@ -38,7 +38,7 @@ Page {
 
         Text {
             id: headerText
-            text: qsTr("Select the version you want to install. AppList will help you to upgrade between different releases if required.") + l.emptyString
+            text: qsTr("Select the version you want to install. Wunderland will help you to upgrade between different releases if required.") + l.emptyString
             width: parent.width - 20
             wrapMode: TextEdit.WordWrap
             font.pixelSize: 18

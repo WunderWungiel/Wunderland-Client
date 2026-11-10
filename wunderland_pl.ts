@@ -69,8 +69,8 @@
         <translation>Instalacja nie powiodła się lub została przerwana.</translation>
     </message>
     <message>
-        <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to AppList to finish the installation process.</source>
-        <translation>Następnie Nokia Store zostanie otwarty w którym będziesz mógł/mogła kupić/pobrać aplikację. Po instalacji zamknij Nokia Store i wróć do AppList aby zakończyć proces instalacji.</translation>
+        <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to Wunderland to finish the installation process.</source>
+        <translation>Następnie Nokia Store zostanie otwarty w którym będziesz mógł/mogła kupić/pobrać aplikację. Po instalacji zamknij Nokia Store i wróć do Wunderland aby zakończyć proces instalacji.</translation>
     </message>
     <message>
         <source>Don&apos;t display again</source>
@@ -106,6 +106,25 @@
     </message>
     <message>
         <source>An unknown error appeared while trying to start the download.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HSWidget</name>
+    <message>
+        <source>1 update available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 updates available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>1 new app</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 new apps</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -274,8 +293,8 @@
 <context>
     <name>SelectVersion</name>
     <message>
-        <source>Select the version you want to install. AppList will help you to upgrade between different releases if required.</source>
-        <translation>Wybierz wersję, którą chcesz zainstalować. AppList pomoże Ci uaktualnić pomiędzy różnymi wersjami, jeśli konieczne.</translation>
+        <source>Select the version you want to install. Wunderland will help you to upgrade between different releases if required.</source>
+        <translation>Wybierz wersję, którą chcesz zainstalować. Wunderland pomoże Ci uaktualnić pomiędzy różnymi wersjami, jeśli konieczne.</translation>
     </message>
     <message>
         <source>Continue...</source>
@@ -348,10 +367,6 @@
         <translation>Wystąpił błąd przy uzyskiwaniu więcej informacji o aktualizacji. Sprawdź swoje połączenie internetowe.</translation>
     </message>
     <message>
-        <source>Should this error appear again write a mail to %1</source>
-        <translation>Jeżeli ten błąd pojawi się ponownie napisz do %1</translation>
-    </message>
-    <message>
         <source>Update</source>
         <translation>Aktualizuj</translation>
     </message>
@@ -366,8 +381,8 @@
 <context>
     <name>main</name>
     <message>
-        <source>You are currently downloading an app. If you will now close AppList, the download will be aborted and has to be restarted next time.</source>
-        <translation>Aktualnie pobierasz aplikację. Jeśli teraz zamkniesz AppList, pobieranie zostanie przerwane i będziesz musiał je ponownie uruchomić następnym razem.</translation>
+        <source>You are currently downloading an app. If you will now close Wunderland, the download will be aborted and has to be restarted next time.</source>
+        <translation>Aktualnie pobierasz aplikację. Jeśli teraz zamkniesz Wunderland, pobieranie zostanie przerwane i będziesz musiał je ponownie uruchomić następnym razem.</translation>
     </message>
     <message>
         <source>Close</source>

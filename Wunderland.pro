@@ -82,9 +82,9 @@ addFiles.pkg_postrules += "\"C:\\HSWidgetxWunderland_E9320736_rel.dll\" - \"!:\\
 DEPLOYMENT += addFiles
 
 # For lupdate
-#evil_hack_to_fool_lupdate {
-#    SOURCES += qml/Wunderland/*.qml
-#}
+evil_hack_to_fool_lupdate {
+    SOURCES += qml/Wunderland/*.qml
+}
 
 TRANSLATIONS = wunderland_template.ts \
     wunderland_de.ts \
