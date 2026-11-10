@@ -108,10 +108,10 @@ void UpdateManagement::parseList(QString html) {
             if (widget) emit loadingFinished(updateAvailable, newApps);
             else emit loadingFinished(updateIds);
         } else {
-            // Eine neuere Version von AppList wird vorausgesetzt
+            // A newer client version is required
         }
     } else {
-        // Konnte nicht geladen werden
+        // Could not be loaded
     }
 }
 

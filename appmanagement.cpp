@@ -40,10 +40,10 @@ QString AppManagement::getVersion(QString uid) {
 }
 
 bool AppManagement::compareVersions(QString appVersion, QString webVersion) {
-    //appVersion -> Installiert, webVersion -> In Liste die neueste
-    //Ergebnis ist true, wenn webVersion neuer
+    //appVersion -> installed, webVersion -> newest one in the list
+    //Returns true if webVersion is newer
     if ((appVersion != webVersion) && (appVersion.length() > 0) && (webVersion.length() > 0)) {
-        //Versionen sind nicht identisch, pr�fen, ob neuer
+        //Versions differ, check whether it is newer
         int webVersion1, webVersion2, webVersion3;
         webVersion1 = webVersion.mid(0,webVersion.indexOf(".", 0)).toInt();
         webVersion2 = webVersion.mid(webVersion.indexOf(".", 0)+1,webVersion.indexOf(".", webVersion.indexOf(".", 0)+1)-(webVersion.indexOf(".", 0)+1)).toInt();
@@ -55,30 +55,30 @@ bool AppManagement::compareVersions(QString appVersion, QString webVersion) {
         appVersion3 = appVersion.mid(appVersion.indexOf(".", appVersion.indexOf(".", 0)+1)+1,appVersion.length()-appVersion.indexOf(".", appVersion.indexOf(".", 0)+1)+1).toInt();
 
         if (appVersion1 < webVersion1) {
-            //Hauptversionsnummer ist neuer
+            //Major version is newer
             return true;
         } else if (appVersion1 > webVersion1) {
-            //Hauptversionsnummer ist �lter
+            //Major version is older
             return false;
         } else {
             if (appVersion2 < webVersion2) {
-                //Subversionsnummer ist neuer
+                //Minor version is newer
                 return true;
             } else if (appVersion2 > webVersion2) {
-                //Subversionsnummer ist �lter
+                //Minor version is older
                 return false;
             } else {
                 if (appVersion3 < webVersion3) {
-                    //Build-Nummer ist neuer
+                    //Build number is newer
                     return true;
                 } else {
-                    //Build-Nummer ist �lter
+                    //Build number is older or equal
                     return false;
                 }
             }
         }
     } else {
-        //Versionen sind identisch, Ergebnis false
+        //Versions are identical (or empty), result is false
         return false;
     }
 }

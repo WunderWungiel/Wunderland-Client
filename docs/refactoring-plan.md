@@ -45,7 +45,7 @@ name was added to `_allLanguages` (still 19). `MultiSelectionDialog.qml` calls
 `QList::at()` past the end. Add `"Tiếng Việt"` before Chinese. Better: replace the two
 parallel lists with one table of `{code, name}` pairs so they can't drift apart again (see 3.4).
 
-### [ ] 1.2 Lost non-ASCII characters in sources
+### [x] 1.2 Lost non-ASCII characters in sources
 The files were converted from Latin-1 to UTF-8 at some point, and the umlauts/accents became
 U+FFFD (`�`) for good:
 - `language.cpp:9`: `"Espa�ol"`, `"Fran�ais"`, `"Portugu�s"`, `"T�rk�e"` are shown to users

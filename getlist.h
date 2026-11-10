@@ -231,11 +231,11 @@ public slots:
                             QString uid = downloadingItem.value("uid").toString();
                             QString installedVersion = appManagement.getVersion(uid);
                             if (installedVersion.length() > 0 && uid.length() > 0 && QString::compare(uid, downloadingItem.value("uidunsigned").toString()) == 0) {
-                                /* Pr�fe ob uid und uidunsigned gleich sind. Wenn ja, muss die unsigned Version neuer sein
-                                  und die installierte Version geh�rt entweder in den Bereich <= selfsigned oder >= unsigned
+                                /* uid and uidunsigned are the same. The unsigned version must then be the newer one,
+                                  and the installed version is either <= self-signed or >= unsigned
                                   */
                                 if (appManagement.compareVersions(downloadingItem.value("version").toString(), installedVersion)) {
-                                    // Installierte Versionsnummer ist h�her als letzte selfsigned, damit ist unsigned installiert
+                                    // Installed version is newer than the last self-signed one, so the unsigned one is installed
                                     tempItem->setData(downloadingItem.value("uidunsigned").toString()+"2", Qt::UserRole + 13);
                                 } else {
                                     tempItem->setData(uid+"1", Qt::UserRole + 13);

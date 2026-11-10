@@ -302,11 +302,11 @@ void GetList::parseList(QString html, int listId) {
                 QString installedVersion = appManagement.getVersion(uid);
 
                 if (installedVersion.length() > 0 && uid.length() > 0 && QString::compare(uid, uidunsigned) == 0) {
-                    /* Pr�fe ob uid und uidunsigned gleich sind. Wenn ja, muss die unsigned Version neuer sein
-                      und die installierte Version geh�rt entweder in den Bereich <= selfsigned oder >= unsigned
+                    /* uid and uidunsigned are the same. The unsigned version must then be the newer one,
+                      and the installed version is either <= self-signed or >= unsigned
                       */
                     if (appManagement.compareVersions(version, installedVersion)) {
-                        // Installierte Versionsnummer ist h�her als letzte selfsigned, damit ist unsigned installiert
+                        // Installed version is newer than the last self-signed one, so the unsigned one is installed
                         item->setData(uidunsigned+"2", Qt::UserRole + 13);
                     } else {
                         item->setData(uid+"1", Qt::UserRole + 13);
@@ -391,12 +391,12 @@ void GetList::parseList(QString html, int listId) {
             case 4: emit updateListChanged(); break;
             }
         } else {
-            // Eine neuere Version von AppList wird vorausgesetzt
+            // A newer client version is required
             qDebug() << "newer version required";
             emit appListUpdate();
         }
     } else {
-        // Konnte nicht geladen werden
+        // Could not be loaded
         emit loadingError("The AppList couldn't be downloaded. Please check your internet connection.");
     }
 }

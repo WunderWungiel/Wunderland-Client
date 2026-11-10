@@ -90,13 +90,6 @@ void News::parseFeed(QString html) {
         //Title
         QString title = item.mid(lastPos, (item.indexOf("</title>", lastPos) - lastPos));
         title.replace("&quot;", "\"");
-        title.replace("&#196;", "�");
-        title.replace("&#214;", "�");
-        title.replace("&#220;", "�");
-        title.replace("&#228;", "�");
-        title.replace("&#246;", "�");
-        title.replace("&#252;", "�");
-        title.replace("&#223;", "�");
 
         text.setHtml(title);
         title = text.toPlainText();
@@ -130,9 +123,9 @@ void News::parseFeed(QString html) {
 
 
         lastPos = item.indexOf("<pubDate>") + 9;
-        //Sendezeitpunkt der News
+        //Publication time of the news item
         QString date = item.mid(lastPos, item.indexOf("</pubDate>", lastPos)-lastPos);
-        //In lokale Zeit umrechnen
+        //Convert to local time
         //date = timeChanges.tweetZeitUmrechnen(date);
 
 
