@@ -12,6 +12,7 @@
 #include "language.h"
 #include "downloader.h"
 #include "storeapi.h"
+#include "applistparser.h"
 
 class GetList : public QObject
 {
@@ -133,7 +134,6 @@ private:
     QString wunderlandVersion;
 
     QVariantMap currentItem, downloadingItem, emptyItem;
-    QString parseItem(QString html, int& lastPos, QString itemName);
 
     //QString debug;
 

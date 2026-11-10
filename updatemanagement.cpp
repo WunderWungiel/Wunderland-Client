@@ -1,4 +1,5 @@
 #include "updatemanagement.h"
+#include "applistparser.h"
 #include <QDebug>
 
 UpdateManagement::UpdateManagement(StoreApi *_api, bool _widget, QObject *parent) :
@@ -48,66 +49,49 @@ void UpdateManagement::listLoaded() {
 }
 
 void UpdateManagement::parseList(QString html) {
-    qDebug() << html;
-    if (html.length() > 0) {
-        int lastPos = 0;
-        QString minVersion = parseItem(html, lastPos, "minversion");
-
-        if (true) {
-            QSettings settings("WunderWungiel", "Wunderland");
-            int highestSeenId = settings.value("apps/highestSeenId", -1).toInt();
-            QStringList updateIds;
-
-            int updateAvailable = 0;
-            int highestId = 0;
-            int newApps = 0;
-
-            while (html.indexOf("<app>", lastPos) != -1) {
-                int id = parseItem(html, lastPos, "id").toInt();
-                // ID hasn't been seen
-                if (id > highestId) highestId = id;
-
-                QString uid = parseItem(html, lastPos, "uid");
-                QString uidstore = parseItem(html, lastPos, "uidstore");
-                QString uidunsigned = parseItem(html, lastPos, "uidunsigned");
-
-                QString version = parseItem(html, lastPos, "version");
-                QString versionstore = parseItem(html, lastPos, "versionstore");
-                QString versionunsigned = parseItem(html, lastPos, "versionunsigned");
-
-                if (checkForUpdate(uid, uidstore, (useUnsigned ? uidunsigned : "update"), version, versionstore, (useUnsigned ? versionunsigned : "update"))) {
-                    updateAvailable++;
-                    updateIds.append(QString::number(id));
-                }
-            }
-
-            newApps = highestId - highestSeenId;
-
-            settings.setValue(settingsKey, QDateTime::currentDateTime());
-            settings.setValue("apps/updateIds", updateIds);
-            if (widget) emit loadingFinished(updateAvailable, newApps);
-            else emit loadingFinished(updateIds);
-        } else {
-            // A newer client version is required
-        }
-    } else {
-        // Could not be loaded
+    AppListResult result = AppListParser::parse(html);
+    if (!result.ok) {
+        // Keep the last known update list
+        qWarning() << "UpdateManagement: bad XML:" << result.errorString;
+        return;
     }
-}
 
-QString UpdateManagement::parseItem(QString html, int& lastPos, QString itemName) {
-    int begin = html.indexOf("<"+itemName+">", lastPos);
-    if (begin != -1) {
-        int end = html.indexOf("</"+itemName+">", begin);
-        if (end != -1) {
-            lastPos = end + 1;
-            begin = begin + itemName.length() + 2;
-            QString result = html.mid(begin, (end-begin));
-            //qDebug() << itemName + ": " + result;
-            return result;
+    QSettings settings("WunderWungiel", "Wunderland");
+    int highestSeenId = settings.value("apps/highestSeenId", -1).toInt();
+    QStringList updateIds;
+
+    int updateAvailable = 0;
+    int highestId = 0;
+    int newApps = 0;
+
+    for (int a = 0; a < result.apps.count(); a++) {
+        const AppFields &app = result.apps.at(a);
+
+        int id = app.value("id").toInt();
+        // ID hasn't been seen
+        if (id > highestId) highestId = id;
+
+        QString uid = app.value("uid");
+        QString uidstore = app.value("uidstore");
+        QString uidunsigned = app.value("uidunsigned");
+
+        QString version = app.value("version");
+        QString versionstore = app.value("versionstore");
+        QString versionunsigned = app.value("versionunsigned");
+
+        if (checkForUpdate(uid, uidstore, (useUnsigned ? uidunsigned : "update"), version, versionstore, (useUnsigned ? versionunsigned : "update"))) {
+            updateAvailable++;
+            updateIds.append(QString::number(id));
         }
     }
-    return "";
+    qDebug() << "UpdateManagement:" << result.apps.count() << "apps," << updateAvailable << "updates";
+
+    newApps = highestId - highestSeenId;
+
+    settings.setValue(settingsKey, QDateTime::currentDateTime());
+    settings.setValue("apps/updateIds", updateIds);
+    if (widget) emit loadingFinished(updateAvailable, newApps);
+    else emit loadingFinished(updateIds);
 }
 
 bool UpdateManagement::lastUpdateMoreThanADayAgo() {

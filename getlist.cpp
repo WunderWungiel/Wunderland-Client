@@ -216,9 +216,12 @@ void GetList::listLoaded() {
 }
 
 void GetList::parseList(QString html, int listId) {
-    if (html.length() > 0) {
-        int lastPos = 0;
-        QString minVersion = parseItem(html, lastPos, "minversion");
+    AppListResult result = AppListParser::parse(html);
+    if (!result.ok) qWarning() << "GetList: bad XML for list" << listId << ":" << result.errorString;
+
+    // A broken document still shows the apps read before the error
+    if (result.ok || !result.apps.isEmpty()) {
+        QString minVersion = result.minVersion;
 
         if (!appManagement.compareVersions(wunderlandVersion, minVersion)) {
             QSettings settings("WunderWungiel", "Wunderland");
@@ -230,39 +233,40 @@ void GetList::parseList(QString html, int listId) {
                 cleanList[listId] = false;
             }
 
-            while (html.indexOf("<app>", lastPos) != -1) {
+            for (int a = 0; a < result.apps.count(); a++) {
+                const AppFields &app = result.apps.at(a);
                 QStandardItem* item = new QStandardItem();
 
-                int id = parseItem(html, lastPos, "id").toInt();
+                int id = app.value("id").toInt();
                 item->setData(id, Qt::UserRole + 1);
                 // ID hasn't been seen, set as highest seen id
                 if (id > highestSeenId) highestSeenId = id;
 
-                item->setData(parseItem(html, lastPos, "name"), Qt::UserRole + 2);
+                item->setData(app.value("name"), Qt::UserRole + 2);
 
-                QString uid = parseItem(html, lastPos, "uid");
+                QString uid = app.value("uid");
                 item->setData(uid, Qt::UserRole + 3);
 
-                QString uidstore = parseItem(html, lastPos, "uidstore");
+                QString uidstore = app.value("uidstore");
                 item->setData(uidstore, Qt::UserRole + 4);
 
-                QString uidunsigned = parseItem(html, lastPos, "uidunsigned");
+                QString uidunsigned = app.value("uidunsigned");
                 item->setData(uidunsigned, Qt::UserRole + 5);
 
-                item->setData(parseItem(html, lastPos, "icon"), Qt::UserRole + 6);
+                item->setData(app.value("icon"), Qt::UserRole + 6);
 
-                QString version = parseItem(html, lastPos, "version");
+                QString version = app.value("version");
                 item->setData(version, Qt::UserRole + 7);
-                QString versionstore = parseItem(html, lastPos, "versionstore");
+                QString versionstore = app.value("versionstore");
                 item->setData(versionstore, Qt::UserRole + 8);
-                QString versionunsigned = parseItem(html, lastPos, "versionunsigned");
+                QString versionunsigned = app.value("versionunsigned");
                 item->setData(versionunsigned, Qt::UserRole + 9);
 
-                QDateTime versiondate = QDateTime::fromString(parseItem(html, lastPos, "versiondate"), "yyyy-MM-dd hh:mm:ss");
+                QDateTime versiondate = QDateTime::fromString(app.value("versiondate"), "yyyy-MM-dd hh:mm:ss");
                 item->setData(versiondate, Qt::UserRole + 10);
-                QDateTime versiondatestore = QDateTime::fromString(parseItem(html, lastPos, "versiondatestore"), "yyyy-MM-dd hh:mm:ss");
+                QDateTime versiondatestore = QDateTime::fromString(app.value("versiondatestore"), "yyyy-MM-dd hh:mm:ss");
                 item->setData(versiondatestore, Qt::UserRole + 11);
-                QDateTime versiondateunsigned = QDateTime::fromString(parseItem(html, lastPos, "versiondateunsigned"), "yyyy-MM-dd hh:mm:ss");
+                QDateTime versiondateunsigned = QDateTime::fromString(app.value("versiondateunsigned"), "yyyy-MM-dd hh:mm:ss");
                 item->setData(versiondateunsigned, Qt::UserRole + 12);
 
                 // Save installed UID
@@ -309,31 +313,31 @@ void GetList::parseList(QString html, int listId) {
                     item->setData("false", Qt::UserRole + 35);
                 }
 
-                item->setData(parseItem(html, lastPos, "category").toInt(), Qt::UserRole + 14);
-                item->setData(parseItem(html, lastPos, "language"), Qt::UserRole + 15);
-                item->setData(parseItem(html, lastPos, "os"), Qt::UserRole + 16);
-                item->setData(parseItem(html, lastPos, "developer"), Qt::UserRole + 17);
-                item->setData(parseItem(html, lastPos, "mail"), Qt::UserRole + 18);
-                item->setData(parseItem(html, lastPos, "website"), Qt::UserRole + 19);
-                item->setData(parseItem(html, lastPos, "twitter"), Qt::UserRole + 20);
-                item->setData(parseItem(html, lastPos, "facebook"), Qt::UserRole + 21);
-                item->setData(parseItem(html, lastPos, "donation"), Qt::UserRole + 22);
-                item->setData(parseItem(html, lastPos, "aas"), Qt::UserRole + 23);
-                item->setData(parseItem(html, lastPos, "price").toDouble(), Qt::UserRole + 24);
-                item->setData(parseItem(html, lastPos, "description"), Qt::UserRole + 25);
-                item->setData(parseItem(html, lastPos, "image1"), Qt::UserRole + 26);
-                item->setData(parseItem(html, lastPos, "image2"), Qt::UserRole + 27);
-                item->setData(parseItem(html, lastPos, "image3"), Qt::UserRole + 28);
-                item->setData(parseItem(html, lastPos, "image4"), Qt::UserRole + 36);
-                item->setData(parseItem(html, lastPos, "image5"), Qt::UserRole + 37);
-                item->setData(parseItem(html, lastPos, "tags"), Qt::UserRole + 29);
-                item->setData(parseItem(html, lastPos, "changelog"), Qt::UserRole + 30);
-                item->setData(parseItem(html, lastPos, "unsignednote"), Qt::UserRole + 31);
-                item->setData(parseItem(html, lastPos, "download"), Qt::UserRole + 32);
-                item->setData(parseItem(html, lastPos, "downloadsize"), Qt::UserRole + 38);
-                item->setData(parseItem(html, lastPos, "downloadstore"), Qt::UserRole + 33);
-                item->setData(parseItem(html, lastPos, "downloadunsigned"), Qt::UserRole + 34);
-                item->setData(parseItem(html, lastPos, "downloadunsignedsize"), Qt::UserRole + 39);
+                item->setData(app.value("category").toInt(), Qt::UserRole + 14);
+                item->setData(app.value("language"), Qt::UserRole + 15);
+                item->setData(app.value("os"), Qt::UserRole + 16);
+                item->setData(app.value("developer"), Qt::UserRole + 17);
+                item->setData(app.value("mail"), Qt::UserRole + 18);
+                item->setData(app.value("website"), Qt::UserRole + 19);
+                item->setData(app.value("twitter"), Qt::UserRole + 20);
+                item->setData(app.value("facebook"), Qt::UserRole + 21);
+                item->setData(app.value("donation"), Qt::UserRole + 22);
+                item->setData(app.value("aas"), Qt::UserRole + 23);
+                item->setData(app.value("price").toDouble(), Qt::UserRole + 24);
+                item->setData(app.value("description"), Qt::UserRole + 25);
+                item->setData(app.value("image1"), Qt::UserRole + 26);
+                item->setData(app.value("image2"), Qt::UserRole + 27);
+                item->setData(app.value("image3"), Qt::UserRole + 28);
+                item->setData(app.value("image4"), Qt::UserRole + 36);
+                item->setData(app.value("image5"), Qt::UserRole + 37);
+                item->setData(app.value("tags"), Qt::UserRole + 29);
+                item->setData(app.value("changelog"), Qt::UserRole + 30);
+                item->setData(app.value("unsignednote"), Qt::UserRole + 31);
+                item->setData(app.value("download"), Qt::UserRole + 32);
+                item->setData(app.value("downloadsize"), Qt::UserRole + 38);
+                item->setData(app.value("downloadstore"), Qt::UserRole + 33);
+                item->setData(app.value("downloadunsigned"), Qt::UserRole + 34);
+                item->setData(app.value("downloadunsignedsize"), Qt::UserRole + 39);
 
 
                 // Is part of installed list but not installed (anymore) remove
@@ -363,25 +367,9 @@ void GetList::parseList(QString html, int listId) {
             emit appListUpdate();
         }
     } else {
-        // Empty answer
-        qWarning() << "GetList: empty answer for list" << listId;
+        // Empty or not XML
         emit loadingError(listId, StoreApi::InvalidResponse);
     }
-}
-
-QString GetList::parseItem(QString html, int& lastPos, QString itemName) {
-    int begin = html.indexOf("<"+itemName+">", lastPos);
-    if (begin != -1) {
-        int end = html.indexOf("</"+itemName+">", begin);
-        if (end != -1) {
-            lastPos = end + 1;
-            begin = begin + itemName.length() + 2;
-            QString result = html.mid(begin, (end-begin));
-            //qDebug() << itemName + ": '" + result + "'";
-            return result;
-        }
-    }
-    return "";
 }
 
 int GetList::buttonAction(int index) {

@@ -1,4 +1,5 @@
 #include "update.h"
+#include "applistparser.h"
 
 Update::Update(StoreApi *_api, QObject *parent) :
     QObject(parent)
@@ -26,20 +27,25 @@ void Update::parseData() {
     if (!reply) return; // deletes itself
     const bool all = reply->property("all").toBool();
 
-    // An empty body takes the "could not be loaded" path below
-    QString html;
-    if (reply->error() == StoreApi::NoError) html = reply->text();
+    // An empty or broken body takes the "could not be loaded" path below
+    QHash<QString, QString> fields;
+    if (reply->error() == StoreApi::NoError) {
+        QString error;
+        fields = AppListParser::parseFields(reply->text(), &error);
+        if (!error.isEmpty()) {
+            qWarning() << "Update: bad XML:" << error;
+            fields.clear();
+        }
+    }
 
-    if (html.length() > 0) {
-        int lastPos = html.indexOf("<url>") + 5;
-        fileUrl = html.mid(lastPos, html.indexOf("</url>", lastPos)-lastPos);
-
-        lastPos = html.indexOf("<message>") + 9;
+    if (fields.contains("message")) {
         if (all) {
-            _changelog = html.mid(lastPos, html.indexOf("</message>", lastPos)-lastPos);
+            // changelog.xml has no <url>: keep the one from version.xml
+            _changelog = fields.value("message");
             emit changelogChanged();
         } else {
-            emit loadingDone(true, html.mid(lastPos, html.indexOf("</message>", lastPos)-lastPos));
+            fileUrl = fields.value("url");
+            emit loadingDone(true, fields.value("message"));
         }
     } else {
         if (all) {

@@ -34,7 +34,6 @@ private:
     AppManagement appManagement;
     StoreApi *api;
     void parseList(QString html);
-    QString parseItem(QString html, int& lastPos, QString itemName);
 
     bool widget, useUnsigned;
 

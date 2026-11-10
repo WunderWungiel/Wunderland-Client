@@ -140,7 +140,7 @@ sends the same parameters as before (the widget request has no `os`/`resolution`
 personal and update lists have no `language`). `GetList::loadingError(int listId, int error)`
 carries a `StoreApi::Error`; the QML side is 7.5. `Downloader` still has its own QNAM (2.3).
 
-### [ ] 2.2 Replace the hand-written XML parsing with `QXmlStreamReader`
+### [x] 2.2 Replace the hand-written XML parsing with `QXmlStreamReader`
 `GetList::parseItem` and `UpdateManagement::parseItem` (identical copies) run `indexOf` over
 the whole response, and the order matters: each field must come after the previous one, or
 the parser reads the *next app's* value (and a missing field quietly shifts the rest).
@@ -148,6 +148,18 @@ the parser reads the *next app's* value (and a missing field quietly shifts the 
 into a map, with no order dependency, and decodes entities properly. Do the same for
 `News::parseFeed` (RSS) and `Update::parseData` (`version.xml`/`changelog.xml`). Write it
 once as an `AppListParser` that returns `QList<AppEntry>` (see 3.1).
+
+Done as `applistparser.*`: `AppListParser::parse()` returns the `minversion` and a
+`QList<AppFields>` (`QHash<QString, QString>` by tag name, a placeholder until 3.1 turns it into
+`AppEntry`), `parseFields()` reads `version.xml`/`changelog.xml`, `parseFeed()` reads the RSS
+items. A broken document keeps the complete `<app>`s read before the error; with none,
+`GetList` emits `loadingError(listId, InvalidResponse)`, and `UpdateManagement` keeps the last
+update list. Checked on desktop Qt 4.7.4 against the live server (618 apps). Found on the way,
+not changed here: the server sends the unsigned version as `<unsigned>`, not `<versionunsigned>`
+(so it is always empty, as it was before), has no `<aas>`, and sends `versiondate` without
+seconds (so the `yyyy-MM-dd hh:mm:ss` parse gives an invalid date). Its `feed.xml` is not
+well-formed (whitespace before `<?xml`, `<rssversion="2.0">`), so `parseFeed()` starts at
+`<channel>`; fix the server template, then that workaround can go.
 
 ### [ ] 2.3 Move `Downloader` onto the shared layer
 - Follow redirects (fixes 1.4 for downloads).

@@ -49,7 +49,8 @@ SOURCES += main.cpp \
     appitem.cpp \
     reviewitem.cpp \
     logger.cpp \
-    storeapi.cpp
+    storeapi.cpp \
+    applistparser.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -77,7 +78,8 @@ HEADERS += \
     appitem.h \
     reviewitem.h \
     logger.h \
-    storeapi.h
+    storeapi.h \
+    applistparser.h
 
 addFiles.pkg_postrules += "\"C:\\Wunderland.png\" - \"c:\\system\Wunderland.png\""
 addFiles.pkg_postrules += "\"C:\\HSWidgetxWunderland_E9320736_rel.dll\" - \"!:\\sys\\bin\\HSWidgetxWunderland_E9320736_rel.dll\""

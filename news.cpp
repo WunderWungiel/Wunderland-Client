@@ -1,4 +1,5 @@
 #include "news.h"
+#include "applistparser.h"
 
 News::News(StoreApi *_api, QObject *parent) :
     QObject(parent)
@@ -64,63 +65,24 @@ void News::feedFetchFinished() {
 }
 
 void News::parseFeed(QString html) {
+    QString error;
+    QList<FeedItem> items = AppListParser::parseFeed(html, &error);
+    if (items.isEmpty() && !error.isEmpty()) qWarning() << "News: bad feed:" << error;
+
     QTextDocument text;
-
-    int lastPos = 0; int lastPosItem = 0;
-
     model->clear();
 
-    while (html.indexOf("<item>", lastPosItem) != -1) {
-        lastPosItem = html.indexOf("<item>", lastPosItem) + 6;
-        QString item = html.mid(lastPosItem, ((html.indexOf("</item>", lastPosItem))-lastPosItem));
-        lastPos = item.indexOf("<title>") + 7;
+    for (int i = 0; i < items.count(); i++) {
+        const FeedItem &item = items.at(i);
 
-        //Title
-        QString title = item.mid(lastPos, (item.indexOf("</title>", lastPos) - lastPos));
-        title.replace("&quot;", "\"");
-
-        text.setHtml(title);
-        title = text.toPlainText();
-
-
-        //Description
-        lastPos = item.indexOf("<description>") + 13;
-        QString description = item.mid(lastPos, (item.indexOf("</description>", lastPos) - lastPos));
-
-        if (description.indexOf("<![CDATA[") != -1) {
-            description.remove("<![CDATA[");
-            description.remove("]]>");
-        }
-        while (description.mid(0,1) == " ") description.remove(0,1);
-
-        while (description.indexOf("<") != -1) {
-            int klammerPos = description.indexOf("<");
-            int klammerLength = description.indexOf(">", klammerPos) - klammerPos + 1;
-            description.remove(klammerPos, klammerLength);
-        }
-        while (description.indexOf("&lt;") != -1) {
-            int klammerPos = description.indexOf("&lt;");
-            int klammerLength = description.indexOf("&gt;", klammerPos) - klammerPos + 4;
-            description.remove(klammerPos, klammerLength);
-        }
+        // The description may be HTML: keep only its text
+        QString description = item.description;
         description.remove("Continue reading");
-        description.remove("&#8594;");
-
+        description.remove(QChar(0x2192)); // "&#8594;"
         text.setHtml(description);
-        description = text.toPlainText();
+        description = text.toPlainText().trimmed();
 
-
-        lastPos = item.indexOf("<pubDate>") + 9;
-        //Publication time of the news item
-        QString date = item.mid(lastPos, item.indexOf("</pubDate>", lastPos)-lastPos);
-        //Convert to local time
-        //date = timeChanges.tweetZeitUmrechnen(date);
-
-
-        //Link
-        lastPos = item.indexOf("<link>") + 6;
-        QString link = item.mid(lastPos, item.indexOf("</link>", lastPos)-lastPos);
-
+        QString link = item.link;
         //Mobilen Link, falls formula1.com
         if (link.startsWith("http://www.formula1.com/") || link.startsWith("http://formula1.com/")) {
             link.replace("http://www.formula1.com", "http://mobile.formula1.com");
@@ -128,17 +90,10 @@ void News::parseFeed(QString html) {
             link.remove(".html");
         }
 
-
-        /*qDebug() << title;
-        qDebug() << description;
-        qDebug() << date;
-        qDebug() << link;*/
-
-        //tweet in Model speichern
         QStandardItem* standardItem = new QStandardItem();
-        standardItem->setData(title, Qt::UserRole+1);
+        standardItem->setData(item.title, Qt::UserRole+1);
         standardItem->setData(description, Qt::UserRole+2);
-        standardItem->setData(date, Qt::UserRole+3);
+        standardItem->setData(item.date, Qt::UserRole+3);
         standardItem->setData(link, Qt::UserRole+4);
 
         model->appendRow(standardItem);
