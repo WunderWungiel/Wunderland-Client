@@ -2,11 +2,9 @@
 #define UPDATE_H
 
 #include <QObject>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
 #include <QDebug>
 #include "downloader.h"
+#include "storeapi.h"
 
 class Update : public QObject
 {
@@ -14,7 +12,7 @@ class Update : public QObject
 
     Q_PROPERTY(QString changelog READ changelog NOTIFY changelogChanged)
 public:
-    explicit Update(QObject *parent = 0);
+    explicit Update(StoreApi *api, QObject *parent = 0);
 
     Q_INVOKABLE void loadUpdateData(bool all = false);
     Q_INVOKABLE void startDownload();
@@ -35,7 +33,7 @@ public slots:
     }
 
 private:
-    QNetworkAccessManager* n_manager;
+    StoreApi *api;
     QString fileUrl;
 
     QString _changelog;

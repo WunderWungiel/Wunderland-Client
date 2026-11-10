@@ -1,10 +1,10 @@
 #include "updatemanagement.h"
 #include <QDebug>
 
-UpdateManagement::UpdateManagement(bool _widget, QObject *parent) :
+UpdateManagement::UpdateManagement(StoreApi *_api, bool _widget, QObject *parent) :
     QObject(parent)
 {
-    n_manager = new QNetworkAccessManager(this);
+    api = _api;
 
     widget = _widget;
     if (widget) {
@@ -25,19 +25,13 @@ void UpdateManagement::loadList() {
     if (lastUpdateMoreThanADayAgo() || !widget) {
         QSettings settings("WunderWungiel", "Wunderland");
         QStringList installedIds = settings.value("apps/installedIds").toStringList();
-        QString ids = "";
-        for (int i=0; i<installedIds.length(); i++) {
-            ids += installedIds.at(i);
-            if (i+1<installedIds.length()) ids += ",";
-        }
 
-        useUnsigned = settings.value("apps/unsigned", false).toBool();
+        useUnsigned = api->useUnsigned();
 
-        QUrl url("http://ovi.wunderwungiel.pl/applist.php?id=" + ids + "&widget=true&unsigned=" + (useUnsigned ? "true" : "false"));
-
-        qDebug() << url.toString();
-
-        QNetworkReply *reply = n_manager->get(QNetworkRequest(url));
+        QueryItems query;
+        query << qMakePair(QString("id"), installedIds.join(","))
+              << qMakePair(QString("widget"), QString("true"));
+        ApiReply *reply = api->get(api->buildUrl("/applist.php", query, StoreApi::UnsignedParam));
         connect(reply, SIGNAL(finished()),
                 this, SLOT(listLoaded()));
     } else {
@@ -46,28 +40,11 @@ void UpdateManagement::loadList() {
 }
 
 void UpdateManagement::listLoaded() {
-    QNetworkReply *pReply = qobject_cast<QNetworkReply *>(sender());
-    if (!pReply) return;
-    pReply->deleteLater();
+    ApiReply *reply = qobject_cast<ApiReply *>(sender());
+    if (!reply) return; // deletes itself
 
-    // Empty unless the server redirected us somewhere valid
-    QUrl urlRedirectedTo = redirectUrl(pReply);
-
-    // If the URL is not empty, we're being redirected.
-    if(!urlRedirectedTo.isEmpty()) {
-        QNetworkReply *redirected = n_manager->get(QNetworkRequest(urlRedirectedTo));
-        redirected->setProperty("redirects", pReply->property("redirects").toInt() + 1);
-
-        connect(redirected, SIGNAL(finished()),
-                this, SLOT(listLoaded()));
-    } else if (pReply->error() != QNetworkReply::NoError) {
-        qWarning() << "UpdateManagement: request failed:" << pReply->url().toString() << pReply->errorString();
-        parseList(QString());
-    } else {
-        QByteArray data=pReply->readAll();
-        QString html = QString::fromUtf8(data);
-        parseList(html);
-    }
+    // On error keep the last known update list
+    if (reply->error() == StoreApi::NoError) parseList(reply->text());
 }
 
 void UpdateManagement::parseList(QString html) {

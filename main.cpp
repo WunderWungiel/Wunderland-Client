@@ -2,6 +2,7 @@
 #include <QDeclarativeContext>
 #include <QDeclarativeEngine>
 #include <QDeclarativeComponent>
+#include <QNetworkAccessManager>
 #include "qmlapplicationviewer.h"
 
 #include "getlist.h"
@@ -14,6 +15,7 @@
 #include "settings.h"
 #include "symbian.h"
 #include "logger.h"
+#include "storeapi.h"
 
 #include <QDebug>
 
@@ -37,20 +39,26 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         }
     }
 
+    // Before the widget, so its texts are translated. Never deleted.
+    Language *language = new Language();
+
+    // The one network manager; declared before its users so it outlives them
+    QNetworkAccessManager networkManager;
+    StoreApi storeApi(&networkManager, language);
+
     qDebug() << "registerWidgetBefore";
-    HSWidget widget;
+    HSWidget widget(&storeApi);
     widget.registerWidget();
     qDebug() << "registerWidgetAfter";
 
     AppManagement appManagement;
     if (!appManagement.appsScanned()) appManagement.scanApps();
 
-    News news;
-    Update update;
-    Language *language = new Language();
+    News news(&storeApi);
+    Update update(&storeApi);
     Subscriber subscriber;
     Settings settings;
-    GetList getList(language);
+    GetList getList(&storeApi, language);
     Symbian symbianFunctions;
 
     app->installEventFilter(&getList);

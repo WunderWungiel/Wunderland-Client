@@ -120,7 +120,7 @@ Right now there are five `QNetworkAccessManager`s (GetList, UpdateManagement ×2
 plus one per Downloader), four copies of the redirect helper, and the base URL
 `http://ovi.wunderwungiel.pl` written out in about 10 places.
 
-### [ ] 2.1 Add `StoreApi` (or `ApiClient`)
+### [x] 2.1 Add `StoreApi` (or `ApiClient`)
 - One shared `QNetworkAccessManager`, owned in `main.cpp` and passed to whoever needs it.
 - One `static const` base URL (or a value in QSettings, so a test server can be used).
 - `QUrl buildUrl(const QString &path, const QList<QPair<QString,QString> > &query)`, which
@@ -132,6 +132,13 @@ plus one per Downloader), four copies of the redirect helper, and the base URL
 - Per-request timeouts with a `QTimer` (Qt 4.7 QNAM has none; Symbisend's `Sender` already
   does this). A dead connection currently spins forever.
 - Emit errors as codes/enums. QML turns them into translated text.
+
+Done as `storeapi.*`: `StoreApi::get()` returns an `ApiReply` that emits `finished()` once and
+deletes itself; context goes on it with `setProperty`. The base URL can be overridden with the
+`network/baseUrl` setting. `buildUrl()` takes flags for the common parameters, so each request
+sends the same parameters as before (the widget request has no `os`/`resolution`; the
+personal and update lists have no `language`). `GetList::loadingError(int listId, int error)`
+carries a `StoreApi::Error`; the QML side is 7.5. `Downloader` still has its own QNAM (2.3).
 
 ### [ ] 2.2 Replace the hand-written XML parsing with `QXmlStreamReader`
 `GetList::parseItem` and `UpdateManagement::parseItem` (identical copies) run `indexOf` over

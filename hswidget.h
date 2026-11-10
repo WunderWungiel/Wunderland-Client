@@ -9,7 +9,7 @@ class HSWidget : public QObject
 {
     Q_OBJECT
 public:
-    explicit HSWidget(QObject *parent = 0);
+    explicit HSWidget(StoreApi *api, QObject *parent = 0);
     Q_INVOKABLE void registerWidget();
     Q_INVOKABLE void publishWidget();
     Q_INVOKABLE void removeWidget();

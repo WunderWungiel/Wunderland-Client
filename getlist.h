@@ -2,9 +2,6 @@
 #define GETLIST_H
 
 #include <QObject>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
 #include <QDebug>
 #include <QSettings>
 #include <QDateTime>
@@ -14,6 +11,7 @@
 #include "updatemanagement.h"
 #include "language.h"
 #include "downloader.h"
+#include "storeapi.h"
 
 class GetList : public QObject
 {
@@ -28,7 +26,7 @@ class GetList : public QObject
 
 public:
     explicit GetList(QObject *parent = 0);
-    explicit GetList(Language *__language, QObject *parent = 0);
+    GetList(StoreApi *api, Language *__language, QObject *parent = 0);
     
     Q_INVOKABLE void loadMainList();
     Q_INVOKABLE void loadCategoryList(int categoryId, int start, bool clean);
@@ -106,8 +104,8 @@ protected:
     }
 
 private:
+    StoreApi *api;
     Language *_language;
-    QNetworkAccessManager* n_manager;
 
     RoleItemModel *list[5];
     RoleItemModel* _mainList() { return list[0]; }
@@ -129,7 +127,6 @@ private:
 
     Downloader downloader;
     int downloadProgress;
-    QString os, resolution;
     bool downloadFromStoreStarted;
     int activateCount;
 
@@ -137,21 +134,6 @@ private:
 
     QVariantMap currentItem, downloadingItem, emptyItem;
     QString parseItem(QString html, int& lastPos, QString itemName);
-
-    // Returns the redirect target of a finished reply, resolved against the request URL.
-    // Returns an empty URL if there is no redirect, if it points back to the same URL, or
-    // if the hop limit is reached (the hop count is kept in the reply's "redirects" property).
-    QUrl redirectUrl(const QNetworkReply* reply) const {
-        QUrl target = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
-        if (target.isEmpty()) return QUrl();
-        target = reply->url().resolved(target);
-        if (target == reply->url()) return QUrl();
-        if (reply->property("redirects").toInt() >= 5) {
-            qWarning() << "Network: too many redirects, giving up at" << reply->url().toString();
-            return QUrl();
-        }
-        return target;
-    }
 
     //QString debug;
 
@@ -163,7 +145,9 @@ signals:
     void updateListChanged();
     //To display that a new AppList version is required
     void appListUpdate();
-    void loadingError(QString error);
+    // A list could not be loaded. listId: 0 main, 1 category, 2 search,
+    // 3 personal, 4 updates. error: a StoreApi::Error code.
+    void loadingError(int listId, int error);
 
     void updateCountChanged();
 

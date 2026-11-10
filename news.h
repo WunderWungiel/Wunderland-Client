@@ -3,13 +3,11 @@
 
 #include <QObject>
 #include <QSettings>
-#include <QNetworkAccessManager>
-#include <QNetworkRequest>
-#include <QNetworkReply>
 #include <QDebug>
 #include <QTextDocument>
 
 #include "roleitemmodel.h"
+#include "storeapi.h"
 
 class News : public QObject
 {
@@ -22,11 +20,11 @@ private slots:
     void htmlFetchFinished();
 
 public:
-    explicit News(QObject *parent = 0);
+    explicit News(StoreApi *api, QObject *parent = 0);
 
     RoleItemModel* _model() {return model;}
     RoleItemModel *model;
-    QNetworkAccessManager* comm_manager;
+    StoreApi *api;
 
     QString url, htmlContent;
 
@@ -37,7 +35,7 @@ public:
         if (!updating) {
             qDebug() << "fetch feedUpdateStarted";
             qDebug() << "feedUrl: " + url;
-            QNetworkReply *reply = comm_manager->get(QNetworkRequest(QUrl::fromPercentEncoding(url.toUtf8())));
+            ApiReply *reply = api->get(QUrl(url));
 
             updating = true;
             connect(reply, SIGNAL(finished()),
@@ -49,7 +47,7 @@ public:
 
     Q_INVOKABLE void fetchHtml(QString link) {
         qDebug() << "fetch HTMLStarted " + link;
-        QNetworkReply *reply = comm_manager->get(QNetworkRequest(QUrl(link)));
+        ApiReply *reply = api->get(QUrl(link));
         connect(reply, SIGNAL(finished()),
                 this, SLOT(htmlFetchFinished()));
     }
@@ -70,21 +68,6 @@ public:
         QSettings settings("WunderWungiel", "Wunderland");
         openInBrowser = newSetting;
         settings.setValue("news/openInBrowser", newSetting);
-    }
-
-    // Returns the redirect target of a finished reply, resolved against the request URL.
-    // Returns an empty URL if there is no redirect, if it points back to the same URL, or
-    // if the hop limit is reached (the hop count is kept in the reply's "redirects" property).
-    QUrl redirectUrl(const QNetworkReply* reply) const {
-        QUrl target = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
-        if (target.isEmpty()) return QUrl();
-        target = reply->url().resolved(target);
-        if (target == reply->url()) return QUrl();
-        if (reply->property("redirects").toInt() >= 5) {
-            qWarning() << "Network: too many redirects, giving up at" << reply->url().toString();
-            return QUrl();
-        }
-        return target;
     }
     
 signals:

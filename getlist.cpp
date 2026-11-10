@@ -2,19 +2,17 @@
 #include <QApplication>
 #include <QDesktopServices>
 #include <QStringList>
-#include <QDesktopWidget>
-#include <QSystemInfo>
 
 GetList::GetList(QObject *parent) :
     QObject(parent)
 {
 }
 
-GetList::GetList(Language *__language, QObject *parent) :
+GetList::GetList(StoreApi *_api, Language *__language, QObject *parent) :
     QObject(parent)
 {
+    api = _api;
     _language = __language;
-    n_manager = new QNetworkAccessManager(this);
 
     wunderlandVersion = QApplication::instance()->applicationVersion();
 
@@ -29,25 +27,10 @@ GetList::GetList(Language *__language, QObject *parent) :
     connect(&appManagement, SIGNAL(installServerFinished()),
             this, SLOT(installServerFinishedReceived()));
 
-    os=""; resolution="";
-
     downloadFromStoreStarted = false;
     activateCount = 0;
 
-    QtMobility::QSystemInfo si;
-    os = si.version(QtMobility::QSystemInfo::Os);
-
-    QDesktopWidget* desktopWidget = QApplication::desktop();
-    int width = desktopWidget->screenGeometry().width();
-    qDebug() << width;
-    if (width == 480) resolution = "1"; //E6
-    else {
-        width = desktopWidget->screenGeometry().height();
-        if (width == 480) resolution = "1"; //E6 landscape
-        else resolution = "0";
-    }
-
-    updateManagement = new UpdateManagement(false);
+    updateManagement = new UpdateManagement(api, false, this);
     connect(updateManagement, SIGNAL(loadingFinished(QStringList)),
             this, SLOT(updateDataUpdated(QStringList)));
     updateManagement->loadList();
@@ -159,107 +142,77 @@ GetList::GetList(Language *__language, QObject *parent) :
     lastSearchTerm = "";
 }
 
+static QPair<QString, QString> queryItem(const char *key, const QString &value) {
+    return qMakePair(QString::fromLatin1(key), value);
+}
+
 void GetList::loadMainList() {
-    QString language = _language->languagesForUrl();
-    if (language != "") language = "&language="+language;
-    QUrl url("http://ovi.wunderwungiel.pl/applist.php?latest=true&count=7"+language+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
+    QueryItems query;
+    query << queryItem("latest", "true") << queryItem("count", "7");
     cleanList[0] = true;
-    loadList(url,0);
+    loadList(api->buildUrl("/applist.php", query), 0);
 }
 
 void GetList::loadCategoryList(int categoryId, int start, bool clean) {
-    QString language = _language->languagesForUrl();
-    if (language != "") language = "&language="+language;
-    QUrl url("http://ovi.wunderwungiel.pl/applist.php?category=" + QString::number(categoryId) + "&start=" + QString::number(start) + language+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
+    QueryItems query;
+    query << queryItem("category", QString::number(categoryId))
+          << queryItem("start", QString::number(start));
     cleanList[1] = clean;
-    loadList(url,1);
+    loadList(api->buildUrl("/applist.php", query), 1);
 }
 
 void GetList::loadSearchList(QString searchTerm, int start, bool clean) {
-    QString language = _language->languagesForUrl();
-    QUrl url("http://ovi.wunderwungiel.pl/applist.php");
-    // Qt 4's addQueryItem() leaves '+' unencoded (servers read it as a space),
-    // so percent-encode the user-typed term ourselves.
-    url.addEncodedQueryItem("search", QUrl::toPercentEncoding(searchTerm));
-    url.addQueryItem("start", QString::number(start));
-    if (language != "") url.addQueryItem("language", language);
-    url.addQueryItem("os", os);
-    url.addQueryItem("resolution", resolution);
-    url.addQueryItem("unsigned", useUnsigned ? "true" : "false");
+    QueryItems query;
+    query << queryItem("search", searchTerm)
+          << queryItem("start", QString::number(start));
     cleanList[2] = clean;
     lastSearchTerm = searchTerm;
-    loadList(url,2);
+    loadList(api->buildUrl("/applist.php", query), 2);
 }
 
 void GetList::loadPersonalList(int start, bool clean) {
     QSettings settings("WunderWungiel", "Wunderland");
     QStringList installedIds = settings.value("apps/installedIds").toStringList();
-    QString ids = "";
-    for (int i=(installedIds.length()-1); i>=0; i--) {
-        ids += installedIds.at(i);
-        if (i-1>=0) ids += ",";
-    }
+    QStringList ids;
+    for (int i=(installedIds.length()-1); i>=0; i--) ids << installedIds.at(i); // newest first
 
-    QUrl url("http://ovi.wunderwungiel.pl/applist.php?id=" + ids + "&start=" + QString::number(start)+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
+    QueryItems query;
+    query << queryItem("id", ids.join(",")) << queryItem("start", QString::number(start));
     cleanList[3] = clean;
-    //qDebug() << url.toString();
-    loadList(url,3);
+    loadList(api->buildUrl("/applist.php", query, StoreApi::DeviceParams | StoreApi::UnsignedParam), 3);
 }
 
 void GetList::loadUpdateList(int start, bool clean) {
-    QSettings settings("WunderWungiel", "Wunderland");
-    QString ids = "";
-    for (int i=0; i<updateIds.length(); i++) {
-        ids += updateIds.at(i);
-        if (i+1<updateIds.length()) ids += ",";
-    }
-
-    QUrl url("http://ovi.wunderwungiel.pl/applist.php?id=" + ids + "&start=" + QString::number(start)+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
+    QueryItems query;
+    query << queryItem("id", updateIds.join(",")) << queryItem("start", QString::number(start));
     cleanList[4] = clean;
-    //qDebug() << url.toString();
-    loadList(url,4);
+    loadList(api->buildUrl("/applist.php", query, StoreApi::DeviceParams | StoreApi::UnsignedParam), 4);
 }
 
 void GetList::loadUpdateList(int id) {
-    QUrl url("http://ovi.wunderwungiel.pl/applist.php?id=" + QString::number(id) + "&start=0&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
+    QueryItems query;
+    query << queryItem("id", QString::number(id)) << queryItem("start", "0");
     cleanList[4] = true;
-    //qDebug() << url.toString();
-    loadList(url,4);
+    loadList(api->buildUrl("/applist.php", query, StoreApi::DeviceParams | StoreApi::UnsignedParam), 4);
 }
 
 void GetList::loadList(QUrl url, int listId) {
-    //qDebug() << "loading started";
-    QNetworkReply *reply = n_manager->get(QNetworkRequest(url));
-    reply->setObjectName(QString::number(listId));
+    ApiReply *reply = api->get(url);
+    reply->setProperty("listId", listId);
     connect(reply, SIGNAL(finished()),
             this, SLOT(listLoaded()));
 }
 
 void GetList::listLoaded() {
-    QNetworkReply *pReply = qobject_cast<QNetworkReply *>(sender());
-    if (!pReply) return;
-    pReply->deleteLater();
+    ApiReply *reply = qobject_cast<ApiReply *>(sender());
+    if (!reply) return; // deletes itself
 
-    // Empty unless the server redirected us somewhere valid
-    QUrl urlRedirectedTo = redirectUrl(pReply);
-
-    // If the URL is not empty, we're being redirected.
-    if(!urlRedirectedTo.isEmpty()) {
-        QNetworkReply *redirected = n_manager->get(QNetworkRequest(urlRedirectedTo));
-        redirected->setObjectName(pReply->objectName()); // list id
-        redirected->setProperty("redirects", pReply->property("redirects").toInt() + 1);
-
-        connect(redirected, SIGNAL(finished()),
-                this, SLOT(listLoaded()));
-    } else if (pReply->error() != QNetworkReply::NoError) {
-        qWarning() << "GetList: request failed:" << pReply->url().toString() << pReply->errorString();
-        parseList(QString(), pReply->objectName().toInt()); // empty -> loadingError
-    } else {
-        QByteArray data=pReply->readAll();
-        QString html = QString::fromUtf8(data);
-        //qDebug() << html;
-        parseList(html, pReply->objectName().toInt());
+    int listId = reply->property("listId").toInt();
+    if (reply->error() != StoreApi::NoError) {
+        emit loadingError(listId, reply->error());
+        return;
     }
+    parseList(reply->text(), listId);
 }
 
 void GetList::parseList(QString html, int listId) {
@@ -410,8 +363,9 @@ void GetList::parseList(QString html, int listId) {
             emit appListUpdate();
         }
     } else {
-        // Could not be loaded
-        emit loadingError("The AppList couldn't be downloaded. Please check your internet connection.");
+        // Empty answer
+        qWarning() << "GetList: empty answer for list" << listId;
+        emit loadingError(listId, StoreApi::InvalidResponse);
     }
 }
 
@@ -542,12 +496,12 @@ bool GetList::buttonPressed(int actionId) {
 
     if (actionId == 1) {
         // Download/update self-signed
-        downloader.startDownload(currentItem.value("download").toString(), currentItem.value("downloadsize").toLongLong(), QString::number(currentItem.value("id").toInt()), _language->currentLanguage(), os, resolution);
+        downloader.startDownload(currentItem.value("download").toString(), currentItem.value("downloadsize").toLongLong(), QString::number(currentItem.value("id").toInt()), _language->currentLanguage(), api->os(), api->resolution());
         downloadingItem = currentItem;
         //debug += "1: " + QString::number(downloadingItem.value("id").toInt());
     } else if (actionId == 2) {
         // Download/update unsigned
-        downloader.startDownload(currentItem.value("downloadunsigned").toString(), currentItem.value("downloadunsignedsize").toLongLong(), QString::number(currentItem.value("id").toInt()), _language->currentLanguage(), os, resolution);
+        downloader.startDownload(currentItem.value("downloadunsigned").toString(), currentItem.value("downloadunsignedsize").toLongLong(), QString::number(currentItem.value("id").toInt()), _language->currentLanguage(), api->os(), api->resolution());
         downloadingItem = currentItem;
         //debug += "2: " + QString::number(downloadingItem.value("id").toInt());
     } else if (actionId == 3) {

@@ -48,7 +48,8 @@ SOURCES += main.cpp \
     symbian.cpp \
     appitem.cpp \
     reviewitem.cpp \
-    logger.cpp
+    logger.cpp \
+    storeapi.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -75,7 +76,8 @@ HEADERS += \
     symbian.h \
     appitem.h \
     reviewitem.h \
-    logger.h
+    logger.h \
+    storeapi.h
 
 addFiles.pkg_postrules += "\"C:\\Wunderland.png\" - \"c:\\system\Wunderland.png\""
 addFiles.pkg_postrules += "\"C:\\HSWidgetxWunderland_E9320736_rel.dll\" - \"!:\\sys\\bin\\HSWidgetxWunderland_E9320736_rel.dll\""

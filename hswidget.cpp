@@ -15,8 +15,8 @@ const QString sw_image ("image1");
 const QString row1 ("text1");
 const QString row2 ("text2");
 
-HSWidget::HSWidget(QObject *parent) : QObject(parent) {
-    updateManagement = new UpdateManagement(true);
+HSWidget::HSWidget(StoreApi *api, QObject *parent) : QObject(parent) {
+    updateManagement = new UpdateManagement(api, true, this);
     connect(updateManagement, SIGNAL(loadingFinished(int, int)),
             this, SLOT(dataUpdated(int,int)));
     connect(updateManagement, SIGNAL(updateWidgetCount(int)),

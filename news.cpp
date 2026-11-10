@@ -1,9 +1,9 @@
 #include "news.h"
 
-News::News(QObject *parent) :
+News::News(StoreApi *_api, QObject *parent) :
     QObject(parent)
 {
-    comm_manager = new QNetworkAccessManager(this);
+    api = _api;
 
     struct NewsEntry {
         enum NewsRoles {
@@ -25,21 +25,16 @@ News::News(QObject *parent) :
     QSettings settings("WunderWungiel", "Wunderland");
     openInBrowser = settings.value("news/openInBrowser", false).toBool();
 
-    url = "http://ovi.wunderwungiel.pl/feed.xml";
+    url = api->url("/feed.xml").toString();
     htmlContent = "";
 }
 
 void News::htmlFetchFinished() {
-    QNetworkReply *pReply = qobject_cast<QNetworkReply *>(sender());
-    if (!pReply) return;
-    pReply->deleteLater();
+    ApiReply *reply = qobject_cast<ApiReply *>(sender());
+    if (!reply) return; // deletes itself
 
     QString html;
-    if (pReply->error() == QNetworkReply::NoError) {
-        html = QString::fromUtf8(pReply->readAll());
-    } else {
-        qWarning() << "News: page request failed:" << pReply->url().toString() << pReply->errorString();
-    }
+    if (reply->error() == StoreApi::NoError) html = reply->text();
     QTextDocument text;
 
     if (html != "") {
@@ -56,32 +51,15 @@ void News::htmlFetchFinished() {
 }
 
 void News::feedFetchFinished() {
-    QNetworkReply *pReply = qobject_cast<QNetworkReply *>(sender());
-    if (!pReply) return;
-    pReply->deleteLater();
+    ApiReply *reply = qobject_cast<ApiReply *>(sender());
+    if (!reply) return; // deletes itself
 
-    // Empty unless the server redirected us somewhere valid
-    QUrl urlRedirectedTo = redirectUrl(pReply);
-
-    // If the URL is not empty, we're being redirected.
-    if(!urlRedirectedTo.isEmpty()) {
-        QNetworkReply *redirected = comm_manager->get(QNetworkRequest(urlRedirectedTo));
-        redirected->setProperty("redirects", pReply->property("redirects").toInt() + 1);
-
-        qDebug() << "redirect to " + urlRedirectedTo.toString();
-
-        connect(redirected, SIGNAL(finished()),
-                this, SLOT(feedFetchFinished()));
-    } else if (pReply->error() != QNetworkReply::NoError) {
-        qWarning() << "News: feed request failed:" << pReply->url().toString() << pReply->errorString();
+    if (reply->error() != StoreApi::NoError) {
         // Keep the old items, but stop the spinner
         updating = false;
         emit listChanged();
     } else {
-        QByteArray data=pReply->readAll();
-        QString html = QString::fromUtf8(data);
-        //qDebug() << "html: " + html;
-        parseFeed(html);
+        parseFeed(reply->text());
     }
 }
 
