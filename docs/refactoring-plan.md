@@ -78,7 +78,7 @@ object that isn't initialised yet into its own initialiser (`getlist.cpp:235`,
   until restart.
 Fixed for good by the shared network layer in 2.1. A quick fix is fine first.
 
-### [ ] 1.5 Network errors are ignored, and replies leak
+### [x] 1.5 Network errors are ignored, and replies leak
 None of the `finished()` handlers check `reply->error()` or call `deleteLater()`. An HTTP 500
 error page gets "parsed", and every request leaks a `QNetworkReply`. `GetList::loadingError`
 is emitted with a hard-coded English string, and **no QML connects to it**, so the user sees an

@@ -73,6 +73,10 @@ void Downloader::startDownloadWithoutStats(QString _source) {
 }
 
 void Downloader::startRealDownload() {
+    statReply->deleteLater();
+    if (statReply->error() != QNetworkReply::NoError) {
+        qWarning() << "Downloader: stats request failed:" << statReply->url().toString() << statReply->errorString();
+    }
     QByteArray data=statReply->readAll();
     QString returnCode = QString::fromUtf8(data);
 
@@ -100,6 +104,9 @@ void Downloader::startRealDownload() {
 }
 
 void Downloader::downloadFinished() {
+    // Deleted on the next event loop pass; cancelDownload() only touches `reply` while downloading
+    reply->deleteLater();
+
     // Empty unless the server redirected us somewhere valid (ignored after a cancel)
     QUrl urlRedirectedTo = aborted ? QUrl() : redirectUrl(reply);
 
@@ -124,15 +131,20 @@ void Downloader::downloadFinished() {
     } else {
         file.close();
 
-        if (!aborted) {
+        if (aborted) {
+            aborted = false;
+        } else if (reply->error() != QNetworkReply::NoError) {
+            // Don't hand an error page or a partial file to the installer
+            qWarning() << "Downloader: download failed:" << reply->url().toString() << reply->errorString();
+            deleteFile();
+            emit downloadError(0);
+        } else {
             qDebug() << "downloadFinished";
 
             //bool ok = QDesktopServices::openUrl(QUrl("file:///"+sourcePath));
             AppManagement::openInstaller(sourcePath);
 
             emit downloadDone();
-        } else {
-            aborted = false;
         }
 
         downloading = false;

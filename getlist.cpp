@@ -230,6 +230,8 @@ void GetList::loadList(QUrl url, int listId) {
 
 void GetList::listLoaded() {
     QNetworkReply *pReply = qobject_cast<QNetworkReply *>(sender());
+    if (!pReply) return;
+    pReply->deleteLater();
 
     // Empty unless the server redirected us somewhere valid
     QUrl urlRedirectedTo = redirectUrl(pReply);
@@ -242,6 +244,9 @@ void GetList::listLoaded() {
 
         connect(redirected, SIGNAL(finished()),
                 this, SLOT(listLoaded()));
+    } else if (pReply->error() != QNetworkReply::NoError) {
+        qWarning() << "GetList: request failed:" << pReply->url().toString() << pReply->errorString();
+        parseList(QString(), pReply->objectName().toInt()); // empty -> loadingError
     } else {
         QByteArray data=pReply->readAll();
         QString html = QString::fromUtf8(data);

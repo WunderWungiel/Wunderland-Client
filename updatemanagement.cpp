@@ -47,6 +47,8 @@ void UpdateManagement::loadList() {
 
 void UpdateManagement::listLoaded() {
     QNetworkReply *pReply = qobject_cast<QNetworkReply *>(sender());
+    if (!pReply) return;
+    pReply->deleteLater();
 
     // Empty unless the server redirected us somewhere valid
     QUrl urlRedirectedTo = redirectUrl(pReply);
@@ -58,6 +60,9 @@ void UpdateManagement::listLoaded() {
 
         connect(redirected, SIGNAL(finished()),
                 this, SLOT(listLoaded()));
+    } else if (pReply->error() != QNetworkReply::NoError) {
+        qWarning() << "UpdateManagement: request failed:" << pReply->url().toString() << pReply->errorString();
+        parseList(QString());
     } else {
         QByteArray data=pReply->readAll();
         QString html = QString::fromUtf8(data);

@@ -31,8 +31,15 @@ News::News(QObject *parent) :
 
 void News::htmlFetchFinished() {
     QNetworkReply *pReply = qobject_cast<QNetworkReply *>(sender());
-    QByteArray data=pReply->readAll();
-    QString html = QString::fromUtf8(data);
+    if (!pReply) return;
+    pReply->deleteLater();
+
+    QString html;
+    if (pReply->error() == QNetworkReply::NoError) {
+        html = QString::fromUtf8(pReply->readAll());
+    } else {
+        qWarning() << "News: page request failed:" << pReply->url().toString() << pReply->errorString();
+    }
     QTextDocument text;
 
     if (html != "") {
@@ -50,11 +57,11 @@ void News::htmlFetchFinished() {
 
 void News::feedFetchFinished() {
     QNetworkReply *pReply = qobject_cast<QNetworkReply *>(sender());
+    if (!pReply) return;
+    pReply->deleteLater();
 
     // Empty unless the server redirected us somewhere valid
     QUrl urlRedirectedTo = redirectUrl(pReply);
-
-    qDebug() << "error: " + pReply->errorString();
 
     // If the URL is not empty, we're being redirected.
     if(!urlRedirectedTo.isEmpty()) {
@@ -65,6 +72,11 @@ void News::feedFetchFinished() {
 
         connect(redirected, SIGNAL(finished()),
                 this, SLOT(feedFetchFinished()));
+    } else if (pReply->error() != QNetworkReply::NoError) {
+        qWarning() << "News: feed request failed:" << pReply->url().toString() << pReply->errorString();
+        // Keep the old items, but stop the spinner
+        updating = false;
+        emit listChanged();
     } else {
         QByteArray data=pReply->readAll();
         QString html = QString::fromUtf8(data);

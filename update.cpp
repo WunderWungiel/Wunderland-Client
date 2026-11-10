@@ -24,8 +24,16 @@ void Update::startDownload() {
 
 void Update::parseData() {
     QNetworkReply *pReply = qobject_cast<QNetworkReply *>(sender());
-    QByteArray data=pReply->readAll();
-    QString html = QString::fromUtf8(data);
+    if (!pReply) return;
+    pReply->deleteLater();
+
+    // An empty body takes the "could not be loaded" path below
+    QString html;
+    if (pReply->error() == QNetworkReply::NoError) {
+        html = QString::fromUtf8(pReply->readAll());
+    } else {
+        qWarning() << "Update: request failed:" << pReply->url().toString() << pReply->errorString();
+    }
 
     if (html.length() > 0) {
         int lastPos = html.indexOf("<url>") + 5;
