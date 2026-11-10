@@ -61,8 +61,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     GetList getList(&storeApi, language);
     Symbian symbianFunctions;
 
-    app->installEventFilter(&getList);
-
     QmlApplicationViewer viewer;
 
     qmlRegisterType<RoleItemModel>("com.applist.RoleItemModel", 1, 0, "RoleItemModel");

@@ -139,11 +139,6 @@ bool AppManagement::checkAppInstalled(QString uid) {
     }
 }
 
-bool AppManagement::checkAppInstalled(QString installed, bool withSource) {
-    // With a source, the last character is the variant suffix, not part of the UID
-    if (withSource) installed.chop(1);
-    return checkAppInstalled(installed);
-}
 
 void AppManagement::startInstallServerListening() {
     qDebug() << "listening started";

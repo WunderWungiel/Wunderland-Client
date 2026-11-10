@@ -69,7 +69,6 @@ ListView {
 
         Label {
             id: appVersion
-            //text: (version !== "") ? version : (versionunsigned !== "") ? versionunsigned : versionstore
             text: l.categoryName(category)
             width: parent.width - 15 - appIcon.width
             wrapMode: TextEdit.Wrap

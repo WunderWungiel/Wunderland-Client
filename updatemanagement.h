@@ -20,7 +20,7 @@ public:
     // Update count sync for widget
     int updateCount();
 
-    bool checkForUpdate(QString uid, QString uidstore, QString uidunsigned, QString version, QString versionstore, QString versionunsigned);
+    bool checkForUpdate(QString uid, QString version);
     
 signals:
     void loadingFinished(int updates, int newApps);
@@ -35,7 +35,7 @@ private:
     StoreApi *api;
     void parseList(QString html);
 
-    bool widget, useUnsigned;
+    bool widget;
 
     QString settingsKey;
     bool lastUpdateMoreThanADayAgo();

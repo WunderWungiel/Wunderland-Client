@@ -25,12 +25,10 @@
         <file alias="MainPage.qml">qml/Wunderland/MainPage.qml</file>
         <file alias="NewsElement.qml">qml/Wunderland/NewsElement.qml</file>
         <file alias="PersonalPage.qml">qml/Wunderland/PersonalPage.qml</file>
-        <file alias="SelectVersion.qml">qml/Wunderland/SelectVersion.qml</file>
         <file alias="SplashScreen.qml">qml/Wunderland/SplashScreen.qml</file>
         <file alias="UpdatePage.qml">qml/Wunderland/UpdatePage.qml</file>
         <file alias="SearchPage.qml">qml/Wunderland/SearchPage.qml</file>
         <file alias="DialogComp.qml">qml/Wunderland/DialogComp.qml</file>
-        <file alias="SelectVersionItem.qml">qml/Wunderland/SelectVersionItem.qml</file>
         <file alias="SettingsPage.qml">qml/Wunderland/SettingsPage.qml</file>
         <file alias="UpdatesPage.qml">qml/Wunderland/UpdatesPage.qml</file>
         <file alias="MultiSelectionDialog.qml">qml/Wunderland/MultiSelectionDialog.qml</file>

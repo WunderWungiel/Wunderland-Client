@@ -27,7 +27,6 @@ public:
 
     bool launchApp(QString uid);
     Q_INVOKABLE bool checkAppInstalled(QString uid);
-    Q_INVOKABLE bool checkAppInstalled(QString installed, bool withSource);
     Q_INVOKABLE void startInstallServerListening();
 
     bool appsScanned();

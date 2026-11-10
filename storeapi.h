@@ -42,9 +42,8 @@ public:
     // Common query parameters buildUrl() can add.
     enum QueryParam {
         DeviceParams  = 0x1, // os, resolution
-        UnsignedParam = 0x2, // unsigned=true|false (setting apps/unsigned)
-        LanguageParam = 0x4, // language=EN,PL,... (left out when empty)
-        AllParams     = DeviceParams | UnsignedParam | LanguageParam
+        LanguageParam = 0x2, // language=EN,PL,... (left out when empty)
+        AllParams     = DeviceParams | LanguageParam
     };
 
     StoreApi(QNetworkAccessManager *nam, Language *language, QObject *parent = 0);
@@ -66,7 +65,6 @@ public:
 
     QString os() const { return m_os; }
     QString resolution() const { return m_resolution; }
-    bool useUnsigned() const;
 
     QNetworkAccessManager *networkManager() const { return m_nam; }
 

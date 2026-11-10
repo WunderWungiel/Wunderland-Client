@@ -14,7 +14,6 @@ UpdateManagement::UpdateManagement(StoreApi *_api, bool _widget, QObject *parent
         settingsKey = "personal/lastUpdateTime";
     }
 
-    useUnsigned = false;
 }
 
 int UpdateManagement::updateCount() {
@@ -27,12 +26,10 @@ void UpdateManagement::loadList() {
         QSettings settings("WunderWungiel", "Wunderland");
         QStringList installedIds = settings.value("apps/installedIds").toStringList();
 
-        useUnsigned = api->useUnsigned();
-
         QueryItems query;
         query << qMakePair(QString("id"), installedIds.join(","))
               << qMakePair(QString("widget"), QString("true"));
-        ApiReply *reply = api->get(api->buildUrl("/applist.php", query, StoreApi::UnsignedParam));
+        ApiReply *reply = api->get(api->buildUrl("/applist.php", query, 0));
         connect(reply, SIGNAL(finished()),
                 this, SLOT(listLoaded()));
     } else {
@@ -71,15 +68,7 @@ void UpdateManagement::parseList(QString html) {
         // ID hasn't been seen
         if (id > highestId) highestId = id;
 
-        QString uid = app.value("uid");
-        QString uidstore = app.value("uidstore");
-        QString uidunsigned = app.value("uidunsigned");
-
-        QString version = app.value("version");
-        QString versionstore = app.value("versionstore");
-        QString versionunsigned = app.value("versionunsigned");
-
-        if (checkForUpdate(uid, uidstore, (useUnsigned ? uidunsigned : "update"), version, versionstore, (useUnsigned ? versionunsigned : "update"))) {
+        if (checkForUpdate(app.value("uid"), app.value("version"))) {
             updateAvailable++;
             updateIds.append(QString::number(id));
         }
@@ -106,37 +95,7 @@ bool UpdateManagement::lastUpdateMoreThanADayAgo() {
     }
 }
 
-bool UpdateManagement::checkForUpdate(QString uid, QString uidstore, QString uidunsigned, QString version, QString versionstore, QString versionunsigned) {
-    QString installedVersion = "";
-
-    qDebug() << "checkForUpdate: " + uid + " - " + uidunsigned + " - " + versionunsigned;
-
-    if ((installedVersion = appManagement.getVersion(uid)).length() > 0) {
-        // Check for selfsigned install if there are updates
-
-        // Check if selfsigned was updated later
-        if (!version.isEmpty() && appManagement.compareVersions(installedVersion, version)) return true;
-        // Check if unsigned version is newer
-        if (!versionunsigned.isEmpty() && appManagement.compareVersions(installedVersion, versionunsigned)) return true;
-
-    }
-    if ((installedVersion = appManagement.getVersion(uidunsigned)).length() > 0) {
-        // Check for unsigned install if there are updates
-
-        // Check if unsigned version is newer
-        if (!versionunsigned.isEmpty() && appManagement.compareVersions(installedVersion, versionunsigned)) return true;
-    }
-    if ((installedVersion = appManagement.getVersion(uidstore)).length() > 0) {
-        // Check for Store version install if there are updates
-
-        // Check if selfsigned was updated later
-        if (!version.isEmpty() && appManagement.compareVersions(installedVersion, version)) return true;
-        // Check if unsigned version is newer
-        if (!versionunsigned.isEmpty() && appManagement.compareVersions(installedVersion, versionunsigned)) return true;
-        // Check if Store version is newer
-        if (!versionstore.isEmpty() && appManagement.compareVersions(installedVersion, versionstore)) return true;
-
-    }
-
-    return false;
+bool UpdateManagement::checkForUpdate(QString uid, QString version) {
+    QString installedVersion = appManagement.getVersion(uid);
+    return installedVersion.length() > 0 && !version.isEmpty() && appManagement.compareVersions(installedVersion, version);
 }

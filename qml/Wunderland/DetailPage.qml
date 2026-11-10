@@ -11,14 +11,6 @@ Page {
     property int listIndex: 0
     property variant detailItem: -1
 
-    signal backFromSelectVersion(string installed)
-    onBackFromSelectVersion: {
-        // Coming back from SelectVersion
-        if (installed === "0") detailItem["installed"] = "0"
-
-        downloadProgress.visible = true
-    }
-
     Rectangle {
         id: background
         color: window.white
@@ -101,8 +93,8 @@ Page {
 
             Label {
                 id: appVersion
-                property string sizeString: ((detailItem["versionunsigned"] !== "" && getList.getUseUnsigned()) ? (detailItem["downloadunsignedsize"] !== "0" ? ( parseInt(detailItem["downloadunsignedsize"]) > 1000000 ? (detailItem["downloadunsignedsize"]/1000000.0).toFixed(1)+" MB" : (detailItem["downloadunsignedsize"]/1000.0).toFixed()+" KB") : "") : (detailItem["version"] !== "") ? (detailItem["downloadsize"] !== "0" ? ( parseInt(detailItem["downloadsize"]) > 1000000 ? (detailItem["downloadsize"]/1000000.0).toFixed(1)+" MB" : (detailItem["downloadsize"]/1000.0).toFixed()+" KB") : "") : "")
-                text: ((detailItem["versionunsigned"] !== "" && getList.getUseUnsigned()) ? detailItem["versionunsigned"] : (detailItem["version"] !== "") ? detailItem["version"] : detailItem["versionstore"]) + (sizeString != "" ? " - " + sizeString : "")
+                property string sizeString: (detailItem["version"] !== "") ? (detailItem["downloadsize"] !== "0" ? ( parseInt(detailItem["downloadsize"]) > 1000000 ? (detailItem["downloadsize"]/1000000.0).toFixed(1)+" MB" : (detailItem["downloadsize"]/1000.0).toFixed()+" KB") : "") : ""
+                text: detailItem["version"] + (sizeString != "" ? " - " + sizeString : "")
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 20
                 color: window.grey
@@ -165,7 +157,7 @@ Page {
         Button {
             id: appButton
             property int buttonAction: getList.buttonAction(listIndex)
-            text: (buttonAction == 0 || buttonAction == 7) ? (qsTr("Download") + l.emptyString) : (buttonAction == 1 || buttonAction == 2 || buttonAction == 3 || buttonAction == 5) ? (qsTr("Update") + l.emptyString) : (qsTr("Launch") + l.emptyString)
+            text: (buttonAction == 0) ? (qsTr("Download") + l.emptyString) : (buttonAction == 1) ? (qsTr("Update") + l.emptyString) : (qsTr("Launch") + l.emptyString)
             anchors.top: appIcon.bottom
             anchors.topMargin: 10
             anchors.right: parent.right
@@ -174,17 +166,8 @@ Page {
             visible: !downloadProgress.visible
             onClicked: {
                 if (buttonAction == 4) getList.buttonPressed(4)
-                else if (buttonAction == 5 || buttonAction == 7) openSelectVersion()
-                else {
-                    // No update selection required, directly start downloading
-                    // buttonPressed returns if displaying downloadProgress
-                    // Shall not happen if Store version
-
-                    // Nokia Store: open dialog if first time
-                    if ((buttonAction == 3 || (buttonAction == 0 && detailItem["downloadstore"] !== "" && detailItem["download"] === "" && detailItem["downloadunsigned"] === "")) && getList.getStoreNote()) storeDialog.open()
-                    // Not Nokia Store
-                    else downloadProgress.visible = getList.buttonPressed(buttonAction)
-                }
+                // Download/update; buttonPressed returns if displaying downloadProgress
+                else downloadProgress.visible = getList.buttonPressed(buttonAction)
             }
         }
 
@@ -208,7 +191,7 @@ Page {
 
             Text {
                 id: appDescriptionLabel
-                text: ((appButton.buttonAction == 1 || appButton.buttonAction == 2 || appButton.buttonAction == 3 || appButton.buttonAction == 5) && (detailItem["changelog"] !== "")) ? detailItem["changelog"] + "\n\n" + detailItem["description"] : detailItem["description"]
+                text: ((appButton.buttonAction == 1) && (detailItem["changelog"] !== "")) ? detailItem["changelog"] + "\n\n" + detailItem["description"] : detailItem["description"]
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
@@ -492,10 +475,6 @@ Page {
         flickableItem: flickArea
     }
 
-    function openSelectVersion() {
-        detailPage.pageStack.push(Qt.createComponent("SelectVersion.qml"), {downloadUrl: detailItem["download"], downloadStoreUrl: detailItem["downloadstore"], downloadUnsignedUrl: detailItem["downloadunsigned"], version: detailItem["version"], versionStore: detailItem["versionstore"], versionUnsigned: detailItem["versionunsigned"], versiondate: Qt.formatDate(detailItem["versiondate"], "d.MM.yy"), versiondateStore: Qt.formatDate(detailItem["versiondatestore"], "d.MM.yy"), versiondateUnsigned: Qt.formatDate(detailItem["versiondateunsigned"], "d.MM.yy"), unsignedNote: detailItem["unsignednote"], installed: detailItem["installed"], sameUid: (detailItem["uid"] === detailItem["uidunsigned"]), download: (appButton.buttonAction == 0 || appButton.buttonAction == 7)})
-    }
-
     InfoBanner {
         id: infoBanner
         text: ""
@@ -510,8 +489,7 @@ Page {
                 // Successful installation
                 updateButton()
             } else {
-                if (appButton.buttonAction === 2 || (appButton.buttonAction === 0 && detailItem["downloadunsigned"] != "" && getList.getUseUnsigned())) infoBanner.text = qsTr("Installation failed or was aborted. You have tried to install an unsigned app. Are you sure you have a hacked phone?")
-                else infoBanner.text = qsTr("Installation failed or was aborted.")
+                infoBanner.text = qsTr("Installation failed or was aborted.")
                 infoBanner.open()
                 updateButton()
             }
@@ -535,25 +513,8 @@ Page {
 
     function updateButton() {
         appButton.buttonAction = getList.buttonAction(listIndex)
-        appButton.text = (appButton.buttonAction == 0 || appButton.buttonAction == 7) ? (qsTr("Download") + l.emptyString) : (appButton.buttonAction == 1 || appButton.buttonAction == 2 || appButton.buttonAction == 3 || appButton.buttonAction == 5) ? (qsTr("Update") + l.emptyString) : (qsTr("Launch") + l.emptyString)
+        appButton.text = (appButton.buttonAction == 0) ? (qsTr("Download") + l.emptyString) : (appButton.buttonAction == 1) ? (qsTr("Update") + l.emptyString) : (qsTr("Launch") + l.emptyString)
         downloadProgress.visible = false
-    }
-
-    DialogComp {
-        id: storeDialog
-        text: qsTr("In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to Wunderland to finish the installation process.") + l.emptyString
-        buttonTexts: ["Ok"]
-        titleText: "Note"
-        displayCheckBox: true
-        checkBoxText: qsTr("Don't display again") + l.emptyString
-
-        onButtonClicked: {
-            downloadProgress.visible = getList.buttonPressed(appButton.buttonAction)
-        }
-
-        onCheckBoxCheckedChanged: {
-            getList.setStoreNote(!checkBoxChecked)
-        }
     }
 
     ThemeEffect {

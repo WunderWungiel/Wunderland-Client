@@ -76,15 +76,7 @@ QUrl StoreApi::buildUrl(const QString &path, const QueryItems &query, int params
         addQueryItem(u, "os", m_os);
         addQueryItem(u, "resolution", m_resolution);
     }
-    if (params & UnsignedParam)
-        addQueryItem(u, "unsigned", useUnsigned() ? "true" : "false");
     return u;
-}
-
-bool StoreApi::useUnsigned() const
-{
-    QSettings settings("WunderWungiel", "Wunderland");
-    return settings.value("apps/unsigned", false).toBool();
 }
 
 ApiReply *StoreApi::get(const QUrl &url)

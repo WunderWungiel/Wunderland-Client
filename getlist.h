@@ -5,7 +5,6 @@
 #include <QDebug>
 #include <QSettings>
 #include <QDateTime>
-#include <QEvent>
 #include "roleitemmodel.h"
 #include "appmanagement.h"
 #include "updatemanagement.h"
@@ -44,8 +43,7 @@ public:
 
     Q_INVOKABLE int buttonAction(int index);
     /* ActionId to do when downloadButton pressed
-       1 = Download/update self-signed
-       2 = Download/update unsigned, 3 = Download/update Store, 4 = Launch*/
+       0/1 = Download/update, 4 = Launch */
     Q_INVOKABLE bool buttonPressed(int actionId);
 
     int _downloadProgress() { return downloadProgress; }
@@ -60,48 +58,6 @@ public:
         } else {
             return false;
         }
-    }
-
-    bool useUnsigned;
-    Q_INVOKABLE bool getUseUnsigned () { return useUnsigned; }
-    Q_INVOKABLE void setUseUnsigned (bool newSetting) {
-        QSettings settings("WunderWungiel", "Wunderland");
-        useUnsigned = newSetting;
-        settings.setValue("apps/unsigned", newSetting);
-    }
-
-    Q_INVOKABLE void setStoreNote (bool newSetting) {
-        QSettings settings("WunderWungiel", "Wunderland");
-        settings.setValue("settings/storeNote", newSetting);
-    }
-    Q_INVOKABLE bool getStoreNote() {
-        // true = display Store download explanation, false = don't display
-        QSettings settings("WunderWungiel", "Wunderland");
-        return settings.value("settings/storeNote", true).toBool();
-    }
-
-protected:
-    bool eventFilter(QObject *object, QEvent *event) {
-        //qDebug() << "eventFilter";
-        if (event->type() == QEvent::ApplicationDeactivate) {
-            // The application deactivation can be handled here
-            qDebug() << event->type();
-            return true; // The event is handled
-        }
-
-        if (event->type() == QEvent::ApplicationActivate) {
-            // The application activation can be handled here
-            qDebug() << event->type();
-            if (activateCount == 0) {
-                // Workaround for being called after using QDesktopServices::openUrl()
-                activateCount++;
-            } else if (downloadFromStoreStarted) {
-                installServerFinishedReceived();
-                downloadFromStoreStarted = false;
-            }
-            return true;
-        }
-        return QObject::eventFilter(object, event); // Unhandled events are passed to the base class
     }
 
 private:
@@ -128,8 +84,6 @@ private:
 
     Downloader downloader;
     int downloadProgress;
-    bool downloadFromStoreStarted;
-    int activateCount;
 
     QString wunderlandVersion;
 
@@ -181,92 +135,37 @@ public slots:
         // Delete file after installation
         downloader.deleteFile();
 
-        /*debug += "\niSFR: " + QString::number(currentItem.value("id").toInt()) + " - " + QString::number(downloadingItem.value("id").toInt()) + " - " + currentItem.value("uid").toString() + " - " + downloadingItem.value("uid").toString() + (downloadingItem == emptyItem ? " - empty" : "");
+        // Installation was successful if the downloaded version is now installed
+        QString uid = downloadingItem.value("uid").toString();
+        QString installedVersion = appManagement.getVersion(uid);
+        if (installedVersion.length() > 0 && QString::compare(installedVersion, downloadingItem.value("version").toString()) == 0) {
+            // Go through all 5 lists
+            for (int i=0; i<5; i++) {
+                // Find updated/installed item in all lists and update "installed" field
+                for (int l=0; l<list[i]->rowCount(); l++) {
+                    if (list[i]->getModelData(l).value("id").toString() == downloadingItem.value("id").toString()) {
+                        QStandardItem *tempItem = list[i]->item(l);
 
-        debug += "\n\nself: "+ appManagement.getVersion(downloadingItem.value("uid").toString()) + " - " + downloadingItem.value("version").toString();
-        debug += "\nunsigned: "+ appManagement.getVersion(downloadingItem.value("uidunsigned").toString()) + " - " + downloadingItem.value("versionunsigned").toString();
-        debug += "\nstore: "+ appManagement.getVersion(downloadingItem.value("uidstore").toString()) + " - " + downloadingItem.value("versionstore").toString();
-        debug += "\ninstalled: " + downloadingItem.value("installed").toString();*/
+                        tempItem->setData(uid+"1", Qt::UserRole + 13);
+                        // Set update value to false
+                        tempItem->setData("false", Qt::UserRole + 35);
 
-        // If installation was successful
-        // Get installed version and check if it matches the equal version and if this version is installed
-        if ( (QString::compare(appManagement.getVersion(downloadingItem.value("uid").toString()), downloadingItem.value("version").toString()) == 0 && appManagement.getVersion(downloadingItem.value("uid").toString()).length() > 0 )
-         || ( QString::compare(appManagement.getVersion(downloadingItem.value("uidunsigned").toString()), downloadingItem.value("versionunsigned").toString()) == 0 && appManagement.getVersion(downloadingItem.value("uidunsigned").toString()).length() > 0 )
-         || ( QString::compare(appManagement.getVersion(downloadingItem.value("uidstore").toString()), downloadingItem.value("versionstore").toString()) == 0 && appManagement.getVersion(downloadingItem.value("uidstore").toString()).length() > 0 )) {
+                        // Update item
+                        list[i]->setItem(l, tempItem);
 
-            // Get installed UID
-            QString uid = downloadingItem.value("installed").toString();
-            // Get source of old installation (0=not installed, 1=selfsigned, 2=unsigned, 3=store)
-            int source = uid.mid(uid.length()-1).toInt();
+                        // Update currentItem
+                        if (currentItem == downloadingItem) currentItem = list[i]->getModelData(l);
 
-            // Compare old source and new version for every source. If changed update list item(s)
-            // 1) App was not installed at all
-            if (true) { //(source == 0)
-            // 2) Old source was not self-signed, new one is self-signed
-        //     || (source != 1 && appManagement.getVersion(downloadingItem.value("uid").toString()) != "")
-            // 3) Old source was not selfsigned, new is
-        //     || (source != 2 && appManagement.getVersion(downloadingItem.value("uidunsigned").toString()) != "")
-            // 4) Old source was not store, new is store
-        //     || (source != 3 && appManagement.getVersion(downloadingItem.value("uidstore").toString()) != "")) {
-                // Go through all 5 lists
-                for (int i=0; i<5; i++) {
-                    // Go through all list items until found or all items checked
-                    for (int l=0; l<list[i]->rowCount(); l++) {
-                        // Find updated/installed item in all lists and update "installed" field
-                        if (list[i]->getModelData(l).value("id").toString() == downloadingItem.value("id").toString()) {
-                            QStandardItem *tempItem = list[i]->item(l);
-
-                            // Update installed UID data in the item
-                            QString uid = downloadingItem.value("uid").toString();
-                            QString installedVersion = appManagement.getVersion(uid);
-                            if (installedVersion.length() > 0 && uid.length() > 0 && QString::compare(uid, downloadingItem.value("uidunsigned").toString()) == 0) {
-                                /* uid and uidunsigned are the same. The unsigned version must then be the newer one,
-                                  and the installed version is either <= self-signed or >= unsigned
-                                  */
-                                if (appManagement.compareVersions(downloadingItem.value("version").toString(), installedVersion)) {
-                                    // Installed version is newer than the last self-signed one, so the unsigned one is installed
-                                    tempItem->setData(downloadingItem.value("uidunsigned").toString()+"2", Qt::UserRole + 13);
-                                } else {
-                                    tempItem->setData(uid+"1", Qt::UserRole + 13);
-                                }
-                            }
-                            else if (installedVersion.length() > 0) tempItem->setData(uid+"1", Qt::UserRole + 13);
-                            else {
-                                uid = downloadingItem.value("uidunsigned").toString();
-                                installedVersion = appManagement.getVersion(uid);
-
-                                if (installedVersion.length() > 0) tempItem->setData(uid+"2", Qt::UserRole + 13);
-                                else {
-                                    uid = downloadingItem.value("uidstore").toString();
-                                    installedVersion = appManagement.getVersion(uid);
-                                    if (installedVersion.length() > 0) tempItem->setData(uid+"3", Qt::UserRole + 13);
-                                    else tempItem->setData("0", Qt::UserRole + 13);
-                                }
-                            }
-
-                            // Set update value to false
-                            tempItem->setData("false", Qt::UserRole + 35);
-
-                            // Update item
-                            list[i]->setItem(l, tempItem);
-
-                            // Update currentItem
-                            if (currentItem == downloadingItem) {
-                                currentItem = list[i]->getModelData(l);
-                                //debug += "tI: " + tempItem->data(Qt::UserRole + 13).toString();
-                            }
-
-                            // Notify list changes
-                            switch (i) {
-                                case 0: mainListChanged(); break;
-                                case 1: categoryListChanged(); break;
-                                case 2: searchListChanged(); break;
-                                case 3: personalListChanged(); break;
-                                case 4: updateListChanged(); break;
-                            }
-
-                            break;
+                        // Notify list changes
+                        switch (i) {
+                            case 0: mainListChanged(); break;
+                            case 1: categoryListChanged(); break;
+                            case 2: searchListChanged(); break;
+                            case 3: personalListChanged(); break;
+                            case 4: updateListChanged(); break;
                         }
+
+                        break;
                     }
                 }
             }
