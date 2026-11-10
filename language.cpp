@@ -1,13 +1,47 @@
 #include "language.h"
 
+namespace {
+struct LanguageEntry {
+    const char *code;
+    const char *name;   // UTF-8
+};
+
+// Code and display name in one table, so the two lists cannot drift apart.
+// Keep sorted by code.
+const LanguageEntry kLanguages[] = {
+    { "bg", "\u0411\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438" },
+    { "cs", "\u010Ce\u0161tina" },
+    { "da", "Dansk" },
+    { "de", "Deutsch" },
+    { "el", "\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac" },
+    { "en", "English" },
+    { "es", "Espa�ol" },
+    { "fi", "Suomi" },
+    { "fr", "Fran�ais" },
+    { "hu", "Magyar" },
+    { "it", "Italiano" },
+    { "nl", "Nederlands" },
+    { "pl", "Polski" },
+    { "pt", "Portugu�s" },
+    { "ru", "\u0420\u0443\u0441\u0441\u043A\u0438\u0439" },
+    { "sv", "Svenska" },
+    { "tr", "T�rk�e" },
+    { "uk", "\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430" },
+    { "vi", "Ti\u1EBFng Vi\u1EC7t" },
+    { "zh", "\u4E2D\u6587" },
+};
+}
+
 Language::Language(QObject *parent) :
     QObject(parent)
 {
     QtMobility::QSystemInfo si;
     _currentLanguage = si.currentLanguage().toLower();
 
-    _allLanguages << QString::fromUtf8("\u0411\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438") << QString::fromUtf8("\u010Ce\u0161tina") << "Dansk" << "Deutsch" << QString::fromUtf8("\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac") << "English" << "Espa�ol" << "Suomi" << "Fran�ais" << "Magyar" << "Italiano" << "Nederlands" << "Polski" << "Portugu�s" << QString::fromUtf8("\u0420\u0443\u0441\u0441\u043A\u0438\u0439") << "Svenska" << "T�rk�e" << QString::fromUtf8("\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430") << QString::fromUtf8("\u4E2D\u6587");
-    _languageCodes << "bg" << "cs" << "da" << "de" << "el" << "en" << "es" << "fi" << "fr" << "hu" << "it" << "nl" << "pl" << "pt" << "ru" << "sv" << "tr" << "uk" << "vi" << "zh";
+    for (unsigned i = 0; i < sizeof(kLanguages) / sizeof(kLanguages[0]); ++i) {
+        _languageCodes << QString::fromLatin1(kLanguages[i].code);
+        _allLanguages << QString::fromUtf8(kLanguages[i].name);
+    }
 
     if (_currentLanguage != "en" && _languageCodes.contains(_currentLanguage)) {
         translator = new QTranslator(this);

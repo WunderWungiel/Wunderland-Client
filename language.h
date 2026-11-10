@@ -35,7 +35,7 @@ public:
     Q_INVOKABLE void addLanguage(QString languageCode);
     Q_INVOKABLE void removeLanguage(QString languageCode);
 
-    Q_INVOKABLE QString getLanguageName(int __id) { return _allLanguages.at(__id); }
+    Q_INVOKABLE QString getLanguageName(int __id) { return _allLanguages.value(__id); }
     Q_INVOKABLE bool getSelected(QString languageCode) { return _myLanguages.contains(languageCode); }
 
     QStringList languageCodes() { return _languageCodes; }      // Returns language list for the selection listView

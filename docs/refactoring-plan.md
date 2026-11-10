@@ -38,7 +38,7 @@ Nothing uses QTest. It only makes the binary bigger and adds a runtime dependenc
 These are bugs I confirmed by reading the code. Fix them before any restructuring, so that
 the refactor doesn't hide them or change their behaviour by accident.
 
-### [ ] 1.1 Language list off by one (regression from `e4d2284`) — **crash**
+### [x] 1.1 Language list off by one (regression from `e4d2284`) — **crash**
 `language.cpp:9-10`: *(Fix exists on the unmerged branch `fix-vietnamese-language-name`.)* `"vi"` was added to `_languageCodes` (now 20 entries), but no display
 name was added to `_allLanguages` (still 19). `MultiSelectionDialog.qml` calls
 `l.getLanguageName(index)`, so Vietnamese shows as "中文", and `zh` (index 19) runs
