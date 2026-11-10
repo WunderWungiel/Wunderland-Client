@@ -1,0 +1,35 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this is
+
+Wunderland is a native Symbian (Anna / Belle) client for the [Wunderland Store](https://github.com/WunderWungiel/Wunderland-Store). It is a rebranded fork of schumi1331's AppList client, so comments, QML import URIs (`com.applist.RoleItemModel`) and some identifiers still say "AppList". Stack: Qt 4.7/4.8 + QtQuick 1.1 + Symbian Qt Components (`com.nokia.symbian 1.1`) + Qt Mobility (feedback, systeminfo, publishsubscribe), plus native Symbian C++ APIs.
+
+## Building
+
+There is no test suite, linter, or desktop build. The project only builds with the Symbian Qt SDK (Qt Creator + Nokia Qt SDK / Symbian toolchain) from `Wunderland.pro`, producing a `.sis`/`.sisx`. Generated files (`Makefile`, `*.mmp`, `*.pkg`, `bld.inf`, `moc`, `rcc`) are gitignored.
+
+- `HSWidgetxWunderland*.dll` are prebuilt homescreen-widget publisher binaries shipped via `DEPLOYMENT` rules in the `.pro`; they are not built from this repo.
+- `#xqinstaller*` sources are intentionally commented out of `SOURCES`/`HEADERS`.
+
+## Architecture
+
+- `main.cpp` constructs the C++ backend singletons and exposes them to QML as context properties: `getList`, `appManagement`, `news`, `update`, `l` (Language), `subscriber`, `settings`, `symbianFunctions`, plus `launchAppId` (parsed from an `appListId:<n>` launch argument). It also registers the homescreen widget (`HSWidget`) before the UI starts.
+- QML entry point is `qrc:/qml/Wunderland/MainAppLoader.qml` → `main.qml` (PageStackWindow; pages pushed with `Qt.createComponent`). **All QML, images and `.qm` files are loaded from `Qml.qrc`, not from disk** (`DEPLOYMENTFOLDERS` is disabled) — any new QML/image/translation file must be added to `Qml.qrc`.
+- `GetList` is the central model: it fetches app lists from `http://ovi.wunderwungiel.pl/applist.php?...` (latest / category / search / personal / updates), parses the XML response by hand with string `indexOf` (`parseItem`), and fills `RoleItemModel`s whose fields live in `Qt::UserRole + N` slots. Keep role numbers consistent between `getlist.cpp`, `roleitemmodel`, and the QML that reads them. It also drives download/install via `Downloader` and `AppManagement`.
+- `AppManagement` wraps Symbian's SIS registry (`sisregistrysession.h`/`sisregistryentry.h`, `-lsisregistryclient`) to detect installed apps and compare versions. On first run it maps installed UIDs to store IDs using the bundled `apps.txt`.
+- `UpdateManagement` checks for updates of installed apps; it is used both by `GetList` and by `HSWidget` (homescreen widget update count). `Update` checks for a new version of Wunderland itself (`version.xml` / `changelog.xml` on the server). `News` reads `feed.xml`.
+- Each app can have three variants — self-signed, unsigned, and Store — hence the triplets `uid/uidstore/uidunsigned`, `version/versionstore/versionunsigned`, etc.
+- Persistent state uses `QSettings("WunderWungiel", "Wunderland")` (keys like `settings/languages`, `apps/installedIds`, `apps/highestSeenId`).
+- `resources/*.xml` are sample/template server files, not used at runtime.
+
+## Translations
+
+- `.ts` sources and compiled `.qm` files are both committed at the repo root; `wunderland_template.ts` is the base for new languages.
+- Adding a language requires: the `.ts`/`.qm` pair, an entry in `TRANSLATIONS` in `Wunderland.pro`, the `.qm` in `Qml.qrc`, and the language code (alphabetical) in `_languageCodes` in `language.cpp` (with its display name in `_allLanguages` at the same index). The UI translator is loaded from `:/wunderland_<code>` based on the device language.
+- Category names are translated in `Language::initCategories()`; their order defines category IDs (head categories are 0, 12, 19).
+
+## Version bumps
+
+The version is hardcoded in three places that must be updated together: `VERSION` in `Wunderland.pro` (e.g. `2.0.5`), and the display strings in `qml/Wunderland/AboutPage.qml` and `qml/Wunderland/SplashScreen.qml` (e.g. `2.00(5)`).
