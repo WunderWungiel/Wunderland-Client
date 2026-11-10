@@ -25,6 +25,9 @@ GetList::GetList(Language *__language, QObject *parent) :
             this, SLOT(downloadDoneReceived()));
     connect(&downloader, SIGNAL(downloadError(int)),
             this, SLOT(downloadErrorReceived(int)));
+    // Connected once here; connecting per download made the handler run N times
+    connect(&appManagement, SIGNAL(installServerFinished()),
+            this, SLOT(installServerFinishedReceived()));
 
     os=""; resolution="";
 

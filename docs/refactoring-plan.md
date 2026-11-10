@@ -55,7 +55,7 @@ U+FFFD (`�`) for good:
 - `getlist.cpp`, `getlist.h`, `appmanagement.cpp`: German comments with `�`. Translate them to
   English (or remove them) while you're there.
 
-### [ ] 1.3 Signal connections pile up on every download — **duplicate install handling**
+### [x] 1.3 Signal connections pile up on every download — **duplicate install handling**
 - `GetList::downloadDoneReceived()` (`getlist.h:174`) connects
   `appManagement.installServerFinished` → `installServerFinishedReceived` every time a download
   finishes.

@@ -174,8 +174,6 @@ public slots:
     void downloadDoneReceived() {
         qDebug() << "downloadDone";
 
-        connect(&appManagement, SIGNAL(installServerFinished()),
-                this, SLOT(installServerFinishedReceived()));
         appManagement.startInstallServerListening();
 
         emit downloadDone();

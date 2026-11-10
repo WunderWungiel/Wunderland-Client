@@ -3,6 +3,9 @@
 AppManagement::AppManagement(QObject *parent) :
     QObject(parent)
 {
+    // Connected once here; connecting per start made the handler run N times
+    connect(&installServerThread, SIGNAL(finished()),
+            this, SLOT(receiveThreadSignal()));
 }
 
 QString AppManagement::getVersion(QString uid) {
@@ -148,8 +151,6 @@ bool AppManagement::checkAppInstalled(QString installed, bool withSource) {
 
 void AppManagement::startInstallServerListening() {
     qDebug() << "listening started";
-    connect(&installServerThread, SIGNAL(finished()),
-            this, SLOT(receiveThreadSignal()));
     installServerThread.start();
 }
 
