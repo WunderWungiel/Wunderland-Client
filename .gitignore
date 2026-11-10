@@ -1,17 +1,37 @@
-*.pro.user
-*.sis
-*.sisx
-rcc
-moc
-.make.cache
+# Qt Creator
+*.pro.user*
+
+# qmake / Symbian (sbsv2) generated files
+Makefile*
+bld.inf
 *.mmp
 *.pkg
-*.rss
-*.pkg*
+*.pkg_@@@
 *.loc
-bld.inf
-Makefile
-.vscode
+*.rss
+*.sis
+*.sisx
+*.mif
+.make.cache
 moc_*.cpp
 qrc_*.cpp
-*.mif
+ui_*.h
+*.o
+*.obj
+.qmake.stash
+*_template.pkg
+*_installer.pkg
+Wunderland_exe.mmp
+Wunderland_reg.rss
+Wunderland.rss
+Wunderland.loc
+
+# Build dirs
+debug/
+release/
+*-build-*/
+moc/
+rcc/
+
+# Editors
+.vscode/
