@@ -177,8 +177,15 @@ void GetList::loadCategoryList(int categoryId, int start, bool clean) {
 
 void GetList::loadSearchList(QString searchTerm, int start, bool clean) {
     QString language = _language->languagesForUrl();
-    if (language != "") language = "&language="+language;
-    QUrl url("http://ovi.wunderwungiel.pl/applist.php?search=" + searchTerm + "&start=" + QString::number(start) + language+"&os="+os+"&resolution="+resolution+"&unsigned="+(useUnsigned ? "true" : "false"));
+    QUrl url("http://ovi.wunderwungiel.pl/applist.php");
+    // Qt 4's addQueryItem() leaves '+' unencoded (servers read it as a space),
+    // so percent-encode the user-typed term ourselves.
+    url.addEncodedQueryItem("search", QUrl::toPercentEncoding(searchTerm));
+    url.addQueryItem("start", QString::number(start));
+    if (language != "") url.addQueryItem("language", language);
+    url.addQueryItem("os", os);
+    url.addQueryItem("resolution", resolution);
+    url.addQueryItem("unsigned", useUnsigned ? "true" : "false");
     cleanList[2] = clean;
     lastSearchTerm = searchTerm;
     loadList(url,2);

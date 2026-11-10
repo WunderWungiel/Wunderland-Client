@@ -88,7 +88,7 @@ endless spinner. Add `deleteLater()` everywhere now. Error handling comes with 2
 `SearchPage.qml:118`: `getList.loadSearchList(searchField.text, 25, false)`. The third page
 repeats the second one. Use `appList.count`, as `CategoryListPage`/`PersonalPage` do.
 
-### [ ] 1.7 Search term is not URL-encoded
+### [x] 1.7 Search term is not URL-encoded
 `getlist.cpp:178` pastes `searchTerm` into the query string. `&`, `#`, `+` or non-ASCII
 characters break the request. Use `QUrl::addQueryItem` (Qt 4) instead of joining strings.
 
