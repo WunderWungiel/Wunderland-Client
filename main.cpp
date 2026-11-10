@@ -13,45 +13,19 @@
 #include "subscriber.h"
 #include "settings.h"
 #include "symbian.h"
+#include "logger.h"
 
 #include <QDebug>
-
-#include <fstream>
-#include <QTime>
-
-using namespace std;
-ofstream logfile;
-
-void SimpleLoggingHandler(QtMsgType type, const char *msg) {
-    switch (type) {
-        case QtDebugMsg:
-            logfile << QTime::currentTime().toString().toAscii().data() << " Debug: " << msg << "\n";
-            logfile.flush();
-            break;
-        case QtCriticalMsg:
-            logfile << QTime::currentTime().toString().toAscii().data() << " Critical: " << msg << "\n";
-            logfile.flush();
-            break;
-        case QtWarningMsg:
-            logfile << QTime::currentTime().toString().toAscii().data() << " Warning: " << msg << "\n";
-            logfile.flush();
-            break;
-        case QtFatalMsg:
-            logfile << QTime::currentTime().toString().toAscii().data() <<  " Fatal: " << msg << "\n";
-            abort();
-    }
-}
-
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
-    //QString _appVersion = "1.0.266";
     app->setApplicationVersion(APP_Version);
 
-    //logfile.open("c:\\data\\applistlog.txt", ios::app);
-    //qInstallMsgHandler(SimpleLoggingHandler);
+    Logger::install();
+    qDebug() << "Wunderland" << app->applicationVersion() << "starting";
+    qDebug() << "Log file:" << Logger::instance()->logFilePath();
 
     // Manage, if an app has started AppList
     int launchAppId = -1;
@@ -93,6 +67,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.rootContext()->setContextProperty("subscriber", &subscriber);
     viewer.rootContext()->setContextProperty("settings", &settings);
     viewer.rootContext()->setContextProperty("symbianFunctions", &symbianFunctions);
+    viewer.rootContext()->setContextProperty("logger", Logger::instance());
 
     viewer.rootContext()->setContextProperty("launchAppId", launchAppId);
 
