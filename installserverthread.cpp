@@ -25,7 +25,7 @@ void InstallServerThread::run() {
         //QString data = "installserver";
         //TPtrC8 aExeName(reinterpret_cast<const TUint8*>(data.toUtf8().constData()));
 
-        qDebug() << "situationFlag: " + situationFlag;
+        qDebug() << "situationFlag:" << situationFlag;
 
         TFindProcess processSearch;
         TFullName processFullName;

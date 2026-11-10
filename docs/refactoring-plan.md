@@ -92,7 +92,7 @@ repeats the second one. Use `appList.count`, as `CategoryListPage`/`PersonalPage
 `getlist.cpp:178` pastes `searchTerm` into the query string. `&`, `#`, `+` or non-ASCII
 characters break the request. Use `QUrl::addQueryItem` (Qt 4) instead of joining strings.
 
-### [ ] 1.8 Undefined behaviour and small crashes
+### [x] 1.8 Undefined behaviour and small crashes
 - `AppManagement::checkAppInstalled(QString, bool)` (`appmanagement.cpp:142`) returns nothing
   when `withSource == false`.
 - `Downloader::progress` divides by `bytesTotal`, which is `-1`/`0` when the server sends no

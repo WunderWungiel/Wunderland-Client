@@ -7,6 +7,7 @@
 #include <QNetworkRequest>
 #include <QFile>
 #include <QFileInfo>
+#include <QDir>
 #include <QSystemStorageInfo>
 #include <QDesktopServices>
 
@@ -39,6 +40,8 @@ public slots:
         file.write(reply->read(reply->bytesAvailable()));
     }
     void progress(qint64 bytesReceived, qint64 bytesTotal) {
+        // bytesTotal is -1 (or 0) when the server sends no Content-Length
+        if (bytesTotal <= 0) return;
         emit progressChanged((int)(((double)bytesReceived/bytesTotal)*100));
     }
     void startRealDownload();

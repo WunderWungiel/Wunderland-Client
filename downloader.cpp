@@ -50,13 +50,26 @@ void Downloader::startDownloadWithoutStats(QString _source) {
         downloading = true;
         source = _source;
 
-        file.setFileName("e:/installs/"+source.mid(source.lastIndexOf("/")+1));
-
-        file.open(QIODevice::WriteOnly);
-        sourcePath = "e:/installs/" + source.mid(source.lastIndexOf("/")+1);
-        //qDebug() << source;
-        //qDebug() << source.mid(source.lastIndexOf("/")+1);
-        //qDebug() << sourcePath;
+        // Memory card first (as before), then the other drives; a phone may have no E:
+        const char *folders[] = { "e:/installs/", "f:/installs/", "c:/data/installs/" };
+        const QString fileName = source.mid(source.lastIndexOf("/")+1);
+        sourcePath = "";
+        for (unsigned i = 0; i < sizeof(folders) / sizeof(folders[0]); ++i) {
+            QString folder = QString::fromLatin1(folders[i]);
+            if (!QDir(folder.left(3)).exists() || !QDir().mkpath(folder)) continue;
+            file.setFileName(folder + fileName);
+            if (file.open(QIODevice::WriteOnly)) {
+                sourcePath = folder + fileName;
+                break;
+            }
+            qWarning() << "Downloader: cannot write" << file.fileName() << file.errorString();
+        }
+        if (sourcePath.isEmpty()) {
+            qWarning() << "Downloader: no writable drive for the self-update";
+            downloading = false;
+            emit downloadError(1);
+            return;
+        }
 
         if (n_manager == NULL) {
             n_manager = new QNetworkAccessManager(this);

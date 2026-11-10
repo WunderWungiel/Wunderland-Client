@@ -16,6 +16,8 @@ QString AppManagement::getVersion(QString uid) {
     Swi::RSisRegistrySession iSisRegSession;
 
     if (KErrNone != iSisRegSession.Connect() ) {
+        qWarning() << "AppManagement: cannot connect to the SIS registry";
+        return version;
     }
     CleanupClosePushL( iSisRegSession );
 
@@ -26,13 +28,8 @@ QString AppManagement::getVersion(QString uid) {
     if( KErrNone == packageEntry.Open( iSisRegSession, packageId ) ) {
         CleanupClosePushL( packageEntry );
 
-        int major = packageEntry.VersionL().iMajor;
-        int minor = packageEntry.VersionL().iMinor;
-        int build = packageEntry.VersionL().iBuild;
-
-        version = QString::number(major) + "." + QString::number(minor) + "." + QString::number(build);
-        // Add here your application version numbers as in your project PKG file.
-        //version = packageEntry.VersionL().iMajor; // + "." + packageEntry.VersionL().iMinor + std::string(".") + packageEntry.VersionL().iBuild;
+        const TVersion v = packageEntry.VersionL();
+        version = QString::number(v.iMajor) + "." + QString::number(v.iMinor) + "." + QString::number(v.iBuild);
 
         CleanupStack::PopAndDestroy( &packageEntry );
     }
@@ -143,10 +140,9 @@ bool AppManagement::checkAppInstalled(QString uid) {
 }
 
 bool AppManagement::checkAppInstalled(QString installed, bool withSource) {
-    if (withSource) {
-        installed.chop(1);
-        return checkAppInstalled(installed);
-    }
+    // With a source, the last character is the variant suffix, not part of the UID
+    if (withSource) installed.chop(1);
+    return checkAppInstalled(installed);
 }
 
 void AppManagement::startInstallServerListening() {
