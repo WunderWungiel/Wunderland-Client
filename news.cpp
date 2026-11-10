@@ -51,21 +51,19 @@ void News::htmlFetchFinished() {
 void News::feedFetchFinished() {
     QNetworkReply *pReply = qobject_cast<QNetworkReply *>(sender());
 
-    //  http://spechard.wordpress.com/2009/07/23/tip-handling-an-http-redirection-with-qnetworkaccessmanager/
-    QVariant possibleRedirectUrl = pReply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-
-    // We'll deduct if the redirection is valid in the redirectUrl function
-    QUrl urlRedirectedTo = redirectUrl(possibleRedirectUrl.toUrl(), urlRedirectedTo);
+    // Empty unless the server redirected us somewhere valid
+    QUrl urlRedirectedTo = redirectUrl(pReply);
 
     qDebug() << "error: " + pReply->errorString();
 
     // If the URL is not empty, we're being redirected.
     if(!urlRedirectedTo.isEmpty()) {
-        pReply = comm_manager->get(QNetworkRequest(urlRedirectedTo));
+        QNetworkReply *redirected = comm_manager->get(QNetworkRequest(urlRedirectedTo));
+        redirected->setProperty("redirects", pReply->property("redirects").toInt() + 1);
 
         qDebug() << "redirect to " + urlRedirectedTo.toString();
 
-        connect(pReply, SIGNAL(finished()),
+        connect(redirected, SIGNAL(finished()),
                 this, SLOT(feedFetchFinished()));
     } else {
         QByteArray data=pReply->readAll();

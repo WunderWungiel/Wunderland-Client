@@ -48,17 +48,15 @@ void UpdateManagement::loadList() {
 void UpdateManagement::listLoaded() {
     QNetworkReply *pReply = qobject_cast<QNetworkReply *>(sender());
 
-    //  http://spechard.wordpress.com/2009/07/23/tip-handling-an-http-redirection-with-qnetworkaccessmanager/
-    QVariant possibleRedirectUrl = pReply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-
-    // We'll deduct if the redirection is valid in the redirectUrl function
-    QUrl urlRedirectedTo = redirectUrl(possibleRedirectUrl.toUrl(), urlRedirectedTo);
+    // Empty unless the server redirected us somewhere valid
+    QUrl urlRedirectedTo = redirectUrl(pReply);
 
     // If the URL is not empty, we're being redirected.
     if(!urlRedirectedTo.isEmpty()) {
-        pReply = n_manager->get(QNetworkRequest(urlRedirectedTo));
+        QNetworkReply *redirected = n_manager->get(QNetworkRequest(urlRedirectedTo));
+        redirected->setProperty("redirects", pReply->property("redirects").toInt() + 1);
 
-        connect(pReply, SIGNAL(finished()),
+        connect(redirected, SIGNAL(finished()),
                 this, SLOT(listLoaded()));
     } else {
         QByteArray data=pReply->readAll();

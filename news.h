@@ -72,12 +72,19 @@ public:
         settings.setValue("news/openInBrowser", newSetting);
     }
 
-    //  http://spechard.wordpress.com/2009/07/23/tip-handling-an-http-redirection-with-qnetworkaccessmanager/
-    QUrl redirectUrl(const QUrl& possibleRedirectUrl, const QUrl& oldRedirectUrl) const {
-        QUrl redirectUrl;
-        if(!possibleRedirectUrl.isEmpty() && possibleRedirectUrl != oldRedirectUrl)
-            redirectUrl = possibleRedirectUrl;
-        return redirectUrl;
+    // Returns the redirect target of a finished reply, resolved against the request URL.
+    // Returns an empty URL if there is no redirect, if it points back to the same URL, or
+    // if the hop limit is reached (the hop count is kept in the reply's "redirects" property).
+    QUrl redirectUrl(const QNetworkReply* reply) const {
+        QUrl target = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
+        if (target.isEmpty()) return QUrl();
+        target = reply->url().resolved(target);
+        if (target == reply->url()) return QUrl();
+        if (reply->property("redirects").toInt() >= 5) {
+            qWarning() << "Network: too many redirects, giving up at" << reply->url().toString();
+            return QUrl();
+        }
+        return target;
     }
     
 signals:

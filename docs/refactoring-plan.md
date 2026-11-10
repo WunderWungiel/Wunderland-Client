@@ -67,7 +67,7 @@ After N downloads, one install runs the handler about N² times. The second and 
 failed") for an install that worked. Fix: connect once in the constructors, or use
 `Qt::UniqueConnection`.
 
-### [ ] 1.4 Redirect handling is broken in all four copies
+### [x] 1.4 Redirect handling is broken in all four copies
 `QUrl urlRedirectedTo = redirectUrl(possibleRedirectUrl.toUrl(), urlRedirectedTo);` passes an
 object that isn't initialised yet into its own initialiser (`getlist.cpp:235`,
 `updatemanagement.cpp`, `news.cpp`, `downloader.cpp:107`). Also:

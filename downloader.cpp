@@ -100,25 +100,27 @@ void Downloader::startRealDownload() {
 }
 
 void Downloader::downloadFinished() {
-    //  http://spechard.wordpress.com/2009/07/23/tip-handling-an-http-redirection-with-qnetworkaccessmanager/
-    QVariant possibleRedirectUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-
-    // We'll deduct if the redirection is valid in the redirectUrl function
-    QUrl urlRedirectedTo = redirectUrl(possibleRedirectUrl.toUrl(), urlRedirectedTo);
+    // Empty unless the server redirected us somewhere valid (ignored after a cancel)
+    QUrl urlRedirectedTo = aborted ? QUrl() : redirectUrl(reply);
 
     // If the URL is not empty, we're being redirected.
     if(!urlRedirectedTo.isEmpty()) {
-        /*file.setFileName("e:/installs/"+source.mid(source.lastIndexOf("/")+1));
+        qDebug() << "Downloader: redirect to" << urlRedirectedTo.toString();
+
+        // Throw away the body of the redirect response: reopening with WriteOnly truncates the file
+        file.close();
         file.open(QIODevice::WriteOnly);
 
+        int redirects = reply->property("redirects").toInt() + 1;
         reply = n_manager->get(QNetworkRequest(urlRedirectedTo));
+        reply->setProperty("redirects", redirects);
 
         connect(reply, SIGNAL(downloadProgress(qint64,qint64)),
                 this, SLOT(progress(qint64,qint64)));
         connect(reply, SIGNAL(readyRead()),
                 this, SLOT(saveBytes()));
         connect(reply, SIGNAL(finished()),
-                this, SLOT(downloadFinished()));*/
+                this, SLOT(downloadFinished()));
     } else {
         file.close();
 
