@@ -133,7 +133,7 @@ symbian {
     LIBS += -lapmime
 }
 
-QT += network testlib
+QT += network
 
 RESOURCES += \
     Qml.qrc
