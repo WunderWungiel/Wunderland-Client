@@ -84,10 +84,10 @@ Page {
                     anchors.rightMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
 
-                    checked: news.getOpenInBrowser()
+                    checked: settings.newsOpenInBrowser
 
                     onClicked: {
-                        news.setOpenInBrowser(checked)
+                        settings.newsOpenInBrowser = checked
                     }
                 }
             }
@@ -126,10 +126,10 @@ Page {
                     anchors.rightMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
 
-                    checked: settings.darkTheme()
+                    checked: settings.darkTheme
 
                     onClicked: {
-                        settings.setDarkTheme(checked)
+                        settings.darkTheme = checked
                         infoBanner.open()
                     }
                 }
@@ -169,10 +169,10 @@ Page {
                     anchors.rightMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
 
-                    checked: settings.aasFeed()
+                    checked: settings.aasFeed
 
                     onClicked: {
-                        settings.setAasFeed(checked)
+                        settings.aasFeed = checked
                         infoBanner.open()
                     }
                 }

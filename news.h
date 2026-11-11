@@ -2,7 +2,6 @@
 #define NEWS_H
 
 #include <QObject>
-#include <QSettings>
 #include <QDebug>
 #include <QTextDocument>
 
@@ -39,10 +38,6 @@ public:
 
     Q_INVOKABLE void setFeedUrl(QString _url);
     Q_INVOKABLE QString feedUrl();
-
-    bool openInBrowser;
-    Q_INVOKABLE bool getOpenInBrowser();
-    Q_INVOKABLE void setOpenInBrowser(bool newSetting);
 
 signals:
     void listChanged();

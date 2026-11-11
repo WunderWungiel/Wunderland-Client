@@ -34,6 +34,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
+    // Before anything uses QSettings, so QSettings() needs no arguments
+    app->setOrganizationName(QLatin1String("WunderWungiel"));
+    app->setApplicationName(QLatin1String("Wunderland"));
     app->setApplicationVersion(QLatin1String(WL_STRINGIFY(APP_Version)));
 
     Logger::install();

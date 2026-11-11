@@ -25,9 +25,6 @@ News::News(StoreApi *_api, QObject *parent) :
 
     updating = false;
 
-    QSettings settings("WunderWungiel", "Wunderland");
-    openInBrowser = settings.value("news/openInBrowser", false).toBool();
-
     url = api->url("/feed.xml").toString();
     htmlContent = "";
 }
@@ -65,16 +62,6 @@ void News::setFeedUrl(QString _url) {
 
 QString News::feedUrl() {
     return url;
-}
-
-bool News::getOpenInBrowser() {
-    return openInBrowser;
-}
-
-void News::setOpenInBrowser(bool newSetting) {
-    QSettings settings("WunderWungiel", "Wunderland");
-    openInBrowser = newSetting;
-    settings.setValue("news/openInBrowser", newSetting);
 }
 
 void News::htmlFetchFinished() {

@@ -29,7 +29,7 @@ bool AppManagement::checkAppInstalled(QString uid) {
 
 // App scanning
 bool AppManagement::appsScanned() {
-    QSettings settings("WunderWungiel", "Wunderland");
+    QSettings settings;
     return settings.value("settings/appsScanned", false).toBool();
 }
 
@@ -47,7 +47,7 @@ void AppManagement::scanApps() {
     }
 
     QStringList installed;
-    QSettings settings("WunderWungiel", "Wunderland");
+    QSettings settings;
     if (settings.contains("apps/installedIds")) installed = settings.value("apps/installedIds").toStringList();
 
     for (int i=0; i<apps.count(); i++) {

@@ -11,7 +11,7 @@ static const char *LastCheckKey = "widget/lastUpdateTime";
 UpdateTracker::UpdateTracker(StoreApi *api, AppManagement *appManagement, QObject *parent) :
     QObject(parent), m_api(api), m_appManagement(appManagement)
 {
-    QSettings settings("WunderWungiel", "Wunderland");
+    QSettings settings;
     m_updateIds = settings.value("apps/updateIds").toStringList();
     m_installedIds = settings.value("apps/installedIds").toStringList();
     m_highestSeenId = settings.value("apps/highestSeenId", 0).toInt();
@@ -48,7 +48,7 @@ void UpdateTracker::checkLoaded() {
     }
     qDebug() << "UpdateTracker:" << result.apps.count() << "apps," << updateIds.count() << "updates";
 
-    QSettings settings("WunderWungiel", "Wunderland");
+    QSettings settings;
     settings.setValue(LastCheckKey, QDateTime::currentDateTime());
     setUpdateIds(updateIds);
 
@@ -56,7 +56,7 @@ void UpdateTracker::checkLoaded() {
 }
 
 bool UpdateTracker::lastCheckOlderThanADay() const {
-    QSettings settings("WunderWungiel", "Wunderland");
+    QSettings settings;
     if (!settings.contains(LastCheckKey)) return true;
     QDateTime lastCheck = settings.value(LastCheckKey).toDateTime();
     return qAbs(lastCheck.daysTo(QDateTime::currentDateTime())) >= 1;
@@ -67,7 +67,7 @@ bool UpdateTracker::track(AppEntry &app) {
 
     if (app.id > m_highestSeenId) {
         m_highestSeenId = app.id;
-        QSettings settings("WunderWungiel", "Wunderland");
+        QSettings settings;
         settings.setValue("apps/highestSeenId", m_highestSeenId);
     }
 
@@ -110,7 +110,7 @@ void UpdateTracker::installFinished(int id, bool success) {
 }
 
 void UpdateTracker::setUpdateIds(const QStringList &ids) {
-    QSettings settings("WunderWungiel", "Wunderland");
+    QSettings settings;
     settings.setValue("apps/updateIds", ids);
     if (ids == m_updateIds) return;
     m_updateIds = ids;
@@ -118,6 +118,6 @@ void UpdateTracker::setUpdateIds(const QStringList &ids) {
 }
 
 void UpdateTracker::saveInstalledIds() {
-    QSettings settings("WunderWungiel", "Wunderland");
+    QSettings settings;
     settings.setValue("apps/installedIds", m_installedIds);
 }

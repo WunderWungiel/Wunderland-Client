@@ -21,7 +21,7 @@ PageStackWindow {
     property bool aasFeed: true
 
     Component.onCompleted: {
-        if (settings.darkTheme()) {
+        if (settings.darkTheme) {
             invert = true
             white = "black"
             whiteTransparent = "#00000000"
@@ -36,7 +36,8 @@ PageStackWindow {
             black = "black"
         }
 
-        aasFeed = settings.aasFeed()
+        // Not a binding: the setting applies after a restart
+        aasFeed = settings.aasFeed
 
         appCatalog.loadMainList()
 

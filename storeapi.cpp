@@ -46,7 +46,7 @@ StoreApi::StoreApi(QNetworkAccessManager *nam, Language *language, QObject *pare
 
 QString StoreApi::baseUrl() const
 {
-    QSettings settings("WunderWungiel", "Wunderland");
+    QSettings settings;
     QString base = settings.value("network/baseUrl").toString().trimmed();
     if (base.isEmpty())
         base = QLatin1String(kDefaultBaseUrl);

@@ -14,7 +14,7 @@ Rectangle {
     property bool browserStatus: false
 
     Component.onCompleted: {
-        if (settings.aasFeed()) {
+        if (settings.aasFeed) {
             if (news.updateRunning()) {
                 loadingItem.start()
             } else if (newsList.count == 0) {
@@ -50,7 +50,7 @@ Rectangle {
                     onPressed: tf.play()
                     onReleased: tf.play()
                     onClicked: {
-                        if (!news.getOpenInBrowser()) {
+                        if (!settings.newsOpenInBrowser) {
                             news.fetchHtml(link);
                             //webView.url = "http://www.readability.com/read?url=" + link
                             newsElement.browserStatus = true

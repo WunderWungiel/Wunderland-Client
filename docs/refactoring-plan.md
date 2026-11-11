@@ -433,7 +433,7 @@ strings, and delete the commented-out code (≈40 lines in `bringToFront`).
 
 ## [ ] Phase 6 — Settings and persistence
 
-### [ ] 6.1 One `Settings` class with `Q_PROPERTY`s
+### [x] 6.1 One `Settings` class with `Q_PROPERTY`s
 `QSettings("WunderWungiel", "Wunderland")` is built from string literals in about 20 places,
 in 6 classes. Settings live in `Settings` (`darkTheme`, `aasFeed`), `GetList`
 (`apps/unsigned`, `settings/storeNote`), `News` (`news/openInBrowser`) and `Language`.

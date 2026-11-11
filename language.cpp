@@ -49,7 +49,7 @@ Language::Language(QObject *parent) :
         QCoreApplication::instance()->installTranslator(translator);
     }
 
-    QSettings settings("WunderWungiel", "Wunderland");
+    QSettings settings;
     if (!settings.contains("settings/languages")) {
         // Init
         _myLanguages << "en";
@@ -69,7 +69,7 @@ void Language::addLanguage(QString languageCode) {
 
         _myLanguages.sort();
 
-        QSettings settings("WunderWungiel", "Wunderland");
+        QSettings settings;
         settings.setValue("settings/languages", _myLanguages);
 
         emit myLanguagesChanged();
@@ -80,7 +80,7 @@ void Language::removeLanguage(QString languageCode) {
     if (_myLanguages.contains(languageCode)) {
         _myLanguages.removeAll(languageCode);
 
-        QSettings settings("WunderWungiel", "Wunderland");
+        QSettings settings;
         settings.setValue("settings/languages", _myLanguages);
 
         emit myLanguagesChanged();
