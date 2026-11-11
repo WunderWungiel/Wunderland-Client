@@ -219,21 +219,19 @@ finished" (the pages use them to stop the spinner), so a finished install no lon
 The news model still uses `RoleItemModel` (7.6). Both types are registered with the URI-less
 `qmlRegisterType<T>()`, so the `com.applist.RoleItemModel` import is gone (no QML used it).
 
-### [ ] 3.3 Put "which variant is installed / is there an update" in one place
-The same 25-line block that decides between self-signed, unsigned and Store (with the special
-case `uid == uidunsigned`) is copied in `GetList::parseList` (`getlist.cpp:~300`) and
-`GetList::installServerFinishedReceived` (`getlist.h:~240`). Update detection is copied again
-in `UpdateManagement::checkForUpdate` and once more in `GetList::buttonAction`. Make it one
-pure function on `AppEntry`:
-```cpp
-enum Variant { NotInstalled, SelfSigned, Unsigned, Store };
-struct InstallState { Variant variant; QString uid; QString version; };
-InstallState resolveInstallState(const AppEntry &, const InstalledApps &);
-bool hasUpdate(const AppEntry &, const InstallState &, bool useUnsigned);
-```
-Also remove the encoding `installed = uid + "1"` (a variant digit appended to the UID string
-and split off again with `chop(1)` in 4 places), and the `"update"` placeholder UID that
-`UpdateManagement::parseList` passes to mean "skip unsigned".
+### [ ] 3.3 Install state and update detection in one place
+Dropping the unsigned/Store variants removed the variant-selection block (and the
+`uid == uidunsigned` case and the `"update"` placeholder UID). What is left:
+
+- Update detection is still written twice: `UpdateManagement::checkForUpdate`
+  (`updatemanagement.cpp:~98`) and inline in `GetList::buttonAction` (`getlist.cpp:~215`,
+  `getVersion` + `compareVersions`). Make it one helper, e.g. `bool AppManagement::hasUpdate(uid,
+  version)`, used by both. Do it together with 3.4, which renames `compareVersions`.
+- The `installed` role is still encoded as `"<uid>1"` / `"0"` (built in `getlist.cpp:~150` and
+  `getlist.h:~148`, split again with `chop(1)` in `buttonAction` and `buttonPressed`). The digit
+  used to name the variant; with one variant it carries nothing. No QML reads `installed`, so
+  make it a `bool` in `AppEntry` (same role number) and use `uid` directly where `chop(1)` is
+  done now.
 
 ### [ ] 3.4 Version comparison
 `AppManagement::compareVersions` parses with nested `indexOf`/`mid` and returns "is web newer",
@@ -399,11 +397,11 @@ if so, use the `QXmlStreamReader` RSS parser from 2.2.
 | 2 | [x] | 1.1–1.8 | language dialog OK; install 2 apps in a row shows success both times; search page 3; a redirected download finishes |
 | 3 | [x] | 1.9 + `lupdate` | strings are right in EN + one translation |
 | 4 | [x] | 2.1–2.3 | all 5 lists load; a redirected download finishes; a cancelled or failed download leaves no file |
-| 5 | [ ] | 3.1–3.5 | install state/update badges are the same as before for self-signed, unsigned and Store apps |
+| 5 | [ ] | 3.1–3.5 | install state/update badges are the same as before; Download/Update/Open buttons right for not installed, outdated and current apps |
 | 6 | [ ] | 4.1–4.4, 5.1–5.2 | Store flow, launch, cancel download, widget count |
 | 7 | [ ] | 6.x | settings survive an upgrade from 2.00(5) |
 | 8 | [ ] | 7.x, 8.x | general UI pass; airplane mode shows an error, not a spinner (7.5) |
 
-Risky areas, which need extra device testing: the variant/upgrade logic (3.3; test the case
-where an app has `uid == uidunsigned`), the Store-redirect event-filter flow (4.2), and
+Risky areas, which need extra device testing: the install-state/update logic (3.3, 3.4; test
+an app installed in an older version and one updated from inside Wunderland), the Store-redirect event-filter flow (4.2), and
 anything that touches the persisted `apps/*` keys (6.2).
