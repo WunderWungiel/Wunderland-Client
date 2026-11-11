@@ -546,9 +546,11 @@ finish was shown).
    `.pro` lists had no commented-out lines left. Deleted the four `xqinstaller*` files and the
    last commented-out code (`main.cpp`'s `setMainQmlFile`, `NewsElement.qml`,
    `MultiSelectionDialog.qml`).
-3. [ ] **One version source:** `VERSION` in `.pro` is already passed as `APP_Version`; expose
+3. [x] **One version source:** `VERSION` in `.pro` is already passed as `APP_Version`; expose
    `appVersion` as a context property and use it in `AboutPage.qml`/`SplashScreen.qml`
    instead of hard-coding it 3 times (CLAUDE.md "Version bumps").
+   Done: `appVersion` is the display form (`2.0.5` → `2.00(5)`, minor padded to two digits),
+   built in `main.cpp` from `applicationVersion()`.
 4. [ ] **Rename leftovers:** QML import `com.applist.RoleItemModel` (goes away with 3.2), the
    `appListId:` launch-argument and `/appList` value-space path (*keep these*: other apps and
    the widget DLL may use them; document them instead). Also the QML-facing names with an

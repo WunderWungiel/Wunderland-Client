@@ -30,6 +30,18 @@
 #define WL_STRINGIFY2(x) #x
 #define WL_STRINGIFY(x) WL_STRINGIFY2(x)
 
+// The version as the UI shows it, Symbian style: "2.0.5" -> "2.00(5)"
+static QString displayVersion(const QString &version)
+{
+    const QStringList parts = version.split(QLatin1Char('.'));
+    if (parts.size() != 3)
+        return version;
+    return QString::fromLatin1("%1.%2(%3)")
+            .arg(parts.at(0))
+            .arg(parts.at(1), 2, QLatin1Char('0'))
+            .arg(parts.at(2));
+}
+
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QScopedPointer<QApplication> app(createApplication(argc, argv));
@@ -104,6 +116,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.rootContext()->setContextProperty("logger", Logger::instance());
 
     viewer.rootContext()->setContextProperty("launchAppId", launchAppId);
+    viewer.rootContext()->setContextProperty("appVersion", displayVersion(app->applicationVersion()));
 
     viewer.setSource(QUrl("qrc:/qml/Wunderland/MainAppLoader.qml"));
     viewer.showExpanded();

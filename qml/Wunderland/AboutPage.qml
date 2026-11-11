@@ -85,7 +85,7 @@ Page {
             color: window.textColor
             font.pixelSize: 20
 
-            text: "Wunderland 2.00(5)<br>
+            text: "Wunderland " + appVersion + "<br>
 Wunder Wungiel<br>
 Copyright (C) 2026"
         }

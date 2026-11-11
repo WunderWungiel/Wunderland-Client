@@ -209,6 +209,11 @@ DLL use them.
 The store id from an `appListId:<n>` command line argument (Wunderland started by another
 app to show that app), else `-1`.
 
+## `appVersion` — string
+
+Wunderland's version for display, Symbian style (`2.00(5)` for `VERSION = 2.0.5` in
+`Wunderland.pro`).
+
 ## `symbianFunctions`
 
 - `openUrlInDefaultBrowser(url)` → bool — opens `url` in the browser chosen in the phone

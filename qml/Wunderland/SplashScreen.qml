@@ -28,7 +28,7 @@ Item {
         anchors.bottomMargin: 5
         font.pixelSize: 19
         color: "#FCFCFC"
-        text: "Wunderland Store 2.00(5)"
+        text: "Wunderland Store " + appVersion
     }
 
     Text {
