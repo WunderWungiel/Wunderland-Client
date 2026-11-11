@@ -38,7 +38,7 @@ QHash<int, QByteArray> appRoleNames()
 }
 
 AppEntry::AppEntry()
-    : id(0), category(0), price(0.0), installed("0"), updateAvailable(false)
+    : id(0), category(0), price(0.0), installed(false), updateAvailable(false)
 {
 }
 

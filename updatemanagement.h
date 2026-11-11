@@ -19,8 +19,6 @@ public:
 
     // Update count sync for widget
     int updateCount();
-
-    bool checkForUpdate(QString uid, QString version);
     
 signals:
     void loadingFinished(int updates, int newApps);

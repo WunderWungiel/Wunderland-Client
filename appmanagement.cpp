@@ -39,6 +39,14 @@ QString AppManagement::getVersion(QString uid) {
     return version;
 }
 
+bool AppManagement::hasUpdate(QString uid, QString availableVersion) {
+    return isUpdate(getVersion(uid), availableVersion);
+}
+
+bool AppManagement::isUpdate(QString installedVersion, QString availableVersion) {
+    return !installedVersion.isEmpty() && !availableVersion.isEmpty() && compareVersions(installedVersion, availableVersion);
+}
+
 bool AppManagement::compareVersions(QString appVersion, QString webVersion) {
     //appVersion -> installed, webVersion -> newest one in the list
     //Returns true if webVersion is newer

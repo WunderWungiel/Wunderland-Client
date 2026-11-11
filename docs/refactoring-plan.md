@@ -219,7 +219,7 @@ finished" (the pages use them to stop the spinner), so a finished install no lon
 The news model still uses `RoleItemModel` (7.6). Both types are registered with the URI-less
 `qmlRegisterType<T>()`, so the `com.applist.RoleItemModel` import is gone (no QML used it).
 
-### [ ] 3.3 Install state and update detection in one place
+### [x] 3.3 Install state and update detection in one place
 Dropping the unsigned/Store variants removed the variant-selection block (and the
 `uid == uidunsigned` case and the `"update"` placeholder UID). What is left:
 
@@ -232,6 +232,13 @@ Dropping the unsigned/Store variants removed the variant-selection block (and th
   used to name the variant; with one variant it carries nothing. No QML reads `installed`, so
   make it a `bool` in `AppEntry` (same role number) and use `uid` directly where `chop(1)` is
   done now.
+
+Done: `AppManagement::hasUpdate(uid, availableVersion)` reads the registry and calls the static
+`isUpdate(installedVersion, availableVersion)`, which `GetList::parseList` and `buttonAction` use
+with the version they have already read (one registry read per app, as before).
+`UpdateManagement::checkForUpdate` is gone. `compareVersions` is static now but otherwise
+unchanged (3.4 replaces it). `AppEntry::installed` is a `bool`, `updateInstalledState()` takes a
+`bool`, and `buttonAction`/`buttonPressed` read the `uid` role.
 
 ### [ ] 3.4 Version comparison
 `AppManagement::compareVersions` parses with nested `indexOf`/`mid` and returns "is web newer",

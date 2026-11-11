@@ -36,7 +36,7 @@ void AppListModel::clear()
     emit countChanged();
 }
 
-bool AppListModel::updateInstalledState(int id, const QString &installed, bool updateAvailable)
+bool AppListModel::updateInstalledState(int id, bool installed, bool updateAvailable)
 {
     bool found = false;
     for (int row = 0; row < entries.count(); row++) {

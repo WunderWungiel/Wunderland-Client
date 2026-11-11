@@ -26,7 +26,7 @@ public:
 
     // Sets the install state of every row with this app id (dataChanged per row).
     // Returns true if a row was found.
-    bool updateInstalledState(int id, const QString &installed, bool updateAvailable);
+    bool updateInstalledState(int id, bool installed, bool updateAvailable);
 
     const AppEntry &entry(int row) const { return entries.at(row); }
 

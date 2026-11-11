@@ -52,11 +52,11 @@ struct AppEntry
     AppEntry();
 
     // Builds an entry from the text of the child elements of one <app>, by tag name.
-    // Missing fields are empty/0. installed and updateAvailable are not set.
+    // Missing fields are empty/0. installed and updateAvailable are false.
     static AppEntry fromFields(const QHash<QString, QString> &fields);
 
     // The value for a model role, typed as the QML pages expect it
-    // (installed and updateAvailable as strings, downloadSize as text).
+    // (updateAvailable as a string, downloadSize as text).
     QVariant data(int role) const;
 
     // From the server
@@ -89,7 +89,7 @@ struct AppEntry
     QString downloadSize;   // bytes, as sent
 
     // Client state
-    QString installed;      // "<uid>1" when installed, "0" when not
+    bool installed;
     bool updateAvailable;
 };
 

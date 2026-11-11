@@ -145,14 +145,13 @@ void GetList::parseList(QString html, int listId) {
                 // ID hasn't been seen, set as highest seen id
                 if (id > highestSeenId) highestSeenId = id;
 
-                // Installed UID is "<uid>1" when installed, "0" when not
                 QString installedVersion = appManagement.getVersion(app.uid);
-                app.installed = installedVersion.length() > 0 ? app.uid + "1" : QString("0");
+                app.installed = !installedVersion.isEmpty();
 
                 // If installed add to installedIds-List
-                if (installedVersion.length() > 0 && !installedIds.contains(QString::number(id))) {
+                if (app.installed && !installedIds.contains(QString::number(id))) {
                     // If not in installedId list check for update, otherwise it will be checked within updatelist
-                    if (updateManagement->checkForUpdate(app.uid, app.version)) {
+                    if (AppManagement::isUpdate(installedVersion, app.version)) {
                         app.updateAvailable = true;
                         updateIds.append(QString::number(id));
                         emit updateCountChanged();
@@ -164,7 +163,7 @@ void GetList::parseList(QString html, int listId) {
                 }
 
                 // Is part of installed list but not installed (anymore) remove
-                if (installedVersion.length() == 0 && installedIds.contains(QString::number(id))) {
+                if (!app.installed && installedIds.contains(QString::number(id))) {
                     installedIds.removeAll(QString::number(id));
                     // Add to list if not in personal list
                     if (listId != 3) apps.append(app);
@@ -207,14 +206,12 @@ int GetList::buttonAction(int index) {
 
     if (downloadingItem == currentItem) return 6;
 
-    // Installed UID is "<uid>1", or "0" when not installed
-    QString uid = currentItem.value("installed").toString();
-    if (uid == "0" || uid.isEmpty()) return 0;
-    uid.chop(1);
+    if (!currentItem.value("installed").toBool()) return 0;
 
-    QString installedVersion = appManagement.getVersion(uid);
+    // Read the registry again: the app may have been removed since the list was loaded
+    QString installedVersion = appManagement.getVersion(currentItem.value("uid").toString());
     if (installedVersion.isEmpty()) return 0;
-    if (appManagement.compareVersions(installedVersion, currentItem.value("version").toString())) return 1;
+    if (AppManagement::isUpdate(installedVersion, currentItem.value("version").toString())) return 1;
     return 4;
 }
 
@@ -232,9 +229,7 @@ bool GetList::buttonPressed(int actionId) {
         return isDownloading();
     } else if (actionId == 4) {
         // Launch app
-        QString installedUID = currentItem.value("installed").toString();
-        installedUID.chop(1);
-        appManagement.launchApp(installedUID);
+        appManagement.launchApp(currentItem.value("uid").toString());
     }
 
     // return if download progress shall be displayed

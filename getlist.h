@@ -145,11 +145,11 @@ public slots:
         if (installedVersion.length() > 0 && QString::compare(installedVersion, downloadingItem.value("version").toString()) == 0) {
             // Update the install state in all 5 lists (rows emit dataChanged)
             int id = downloadingItem.value("id").toInt();
-            for (int i=0; i<5; i++) list[i]->updateInstalledState(id, uid+"1", false);
+            for (int i=0; i<5; i++) list[i]->updateInstalledState(id, true, false);
 
             // Update currentItem
             if (currentItem == downloadingItem) {
-                currentItem["installed"] = uid+"1";
+                currentItem["installed"] = true;
                 currentItem["updateAvailable"] = QString("false");
             }
 

@@ -68,7 +68,7 @@ void UpdateManagement::parseList(QString html) {
         // ID hasn't been seen
         if (id > highestId) highestId = id;
 
-        if (checkForUpdate(app.uid, app.version)) {
+        if (appManagement.hasUpdate(app.uid, app.version)) {
             updateAvailable++;
             updateIds.append(QString::number(id));
         }
@@ -93,9 +93,4 @@ bool UpdateManagement::lastUpdateMoreThanADayAgo() {
     } else {
         return false;
     }
-}
-
-bool UpdateManagement::checkForUpdate(QString uid, QString version) {
-    QString installedVersion = appManagement.getVersion(uid);
-    return installedVersion.length() > 0 && !version.isEmpty() && appManagement.compareVersions(installedVersion, version);
 }
