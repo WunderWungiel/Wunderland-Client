@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QVariant>
-#include "installserverthread.h"
+#include "installerwatcher.h"
 
 class StoreApi;
 class AppManagement;
@@ -72,7 +72,7 @@ private:
     UpdateTracker *m_updateTracker;
     Language *m_language;
     Downloader *m_downloader;
-    InstallServerThread m_installServerThread;
+    InstallerWatcher m_installerWatcher;
 
     State m_state;
     int m_progress;

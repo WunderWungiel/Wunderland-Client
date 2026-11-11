@@ -373,11 +373,22 @@ the next start tries again. A missing `application/x-web-browse` handler falls b
 built-in browser instead of failing. `HSWidget::bringToFront()` checks `RProcess::Create()`'s
 result directly (no leave needed).
 
-### [ ] 5.2 Replace `InstallServerThread` polling
+### [x] 5.2 Replace `InstallServerThread` polling
 It sleeps 10 s and then lists all processes once per second on a separate thread to find out
 when `installserver` exits. Options, best first: a `RProcess::Logon` on the installer process
 started by `StartDocument`; a `QTimer` on the UI thread (no thread needed); or keep the poll,
 but with a timeout, not as a `QThread` subclass, and only connected once (see 1.3).
+
+Done: `InstallServerThread` is replaced by `InstallerWatcher` (`installerwatcher.*`), which runs
+on the UI thread. `AppManagement::openInstaller()` returns the thread id from `StartDocument`
+(through an optional out parameter; `Downloader::installerThreadId()` keeps it), and the
+watcher does an `RThread::Logon` on it from a private `CActive` (`RunL` only queues a call, so
+no Qt code runs inside the active scheduler). When that thread exits and an `installserver*`
+process is still running (the installer handed the work off), or when it can't log on (no id,
+`RThread::Open` fails), it falls back to a `QTimer` poll every second: it waits up to 10 s for
+`installserver` to appear, then until it is gone, and gives up after 30 min. `finished()` is
+connected once in `InstallManager`'s constructor, as before. To check on a device: which of the
+two paths runs (the log shows "installer thread exited" and, if any, "polling").
 
 ### [ ] 5.3 Keep Symbian code behind one boundary
 Collect the native calls (`AppManagement`'s SIS registry/AppArc, `Symbian`, the `HSWidget`

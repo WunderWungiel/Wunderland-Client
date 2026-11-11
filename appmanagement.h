@@ -34,8 +34,9 @@ public:
     bool appsScanned();
     void scanApps();
 
-    // False (and a log line) if the installer could not be started
-    static bool openInstaller(QString path);
+    // False (and a log line) if the installer could not be started.
+    // installerThreadId (if given) gets the installer's main thread id, for InstallerWatcher
+    static bool openInstaller(QString path, quint64 *installerThreadId = 0);
 private:
     // Get all installed UIDs; false if AppArc could not be read
     bool applications(QStringList &applications) const;

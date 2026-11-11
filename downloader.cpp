@@ -9,7 +9,8 @@
 
 Downloader::Downloader(StoreApi *api, QObject *parent) :
     QObject(parent),
-    m_api(api)
+    m_api(api),
+    m_installerThreadId(0)
 {
 }
 
@@ -102,7 +103,7 @@ void Downloader::onFinished() {
 
     if (error == StoreApi::NoError) {
         qDebug() << "Downloader: done" << m_file.fileName() << m_file.size() << "bytes";
-        if (!AppManagement::openInstaller(m_file.fileName())) {
+        if (!AppManagement::openInstaller(m_file.fileName(), &m_installerThreadId)) {
             deleteFile();
             emit downloadError(InstallerError);
             return;

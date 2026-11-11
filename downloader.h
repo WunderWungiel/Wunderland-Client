@@ -36,6 +36,9 @@ public:
 
     bool deleteFile();
 
+    // The installer's main thread id after downloadDone(), 0 if unknown
+    quint64 installerThreadId() const { return m_installerThreadId; }
+
     // "<drive>/download/Wunderland" on F:, E: or C:/Data (in this order),
     // the first one that exists, can be created and has more than minFree
     // bytes free. Empty if none.
@@ -57,6 +60,7 @@ private:
     StoreApi *m_api;
     QPointer<ApiReply> m_reply;
     QFile m_file;
+    quint64 m_installerThreadId;
 };
 
 #endif // DOWNLOADER_H

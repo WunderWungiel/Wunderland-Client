@@ -23,7 +23,7 @@ InstallManager::InstallManager(StoreApi *api, AppManagement *appManagement, Upda
     connect(m_downloader, SIGNAL(downloadError(int)),
             this, SLOT(onDownloadError(int)));
     // Connected once here; connecting per download made the handler run N times
-    connect(&m_installServerThread, SIGNAL(finished()),
+    connect(&m_installerWatcher, SIGNAL(finished()),
             this, SLOT(onInstallerClosed()));
 }
 
@@ -75,7 +75,7 @@ void InstallManager::onProgress(int percent) {
 void InstallManager::onDownloadDone() {
     qDebug() << "InstallManager: download done, waiting for the installer";
     setState(Installing);
-    m_installServerThread.start();
+    m_installerWatcher.watch(m_downloader->installerThreadId());
 }
 
 void InstallManager::onDownloadError(int code) {

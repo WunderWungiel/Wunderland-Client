@@ -65,13 +65,12 @@ TBool launchAppL(TUid appUid)
     return found;
 }
 
-void openInstallerL(const TDesC &file)
+void openInstallerL(const TDesC &file, TThreadId &threadId)
 {
     RApaLsSession session;
     User::LeaveIfError(session.Connect());
     CleanupClosePushL(session);
 
-    TThreadId threadId;
     User::LeaveIfError(session.StartDocument(file, threadId));
 
     CleanupStack::PopAndDestroy(&session);
@@ -150,15 +149,18 @@ bool AppManagement::checkAppInstalled(QString uid) {
 }
 
 
-bool AppManagement::openInstaller(QString path) {
+bool AppManagement::openInstaller(QString path, quint64 *installerThreadId) {
+    if (installerThreadId) *installerThreadId = 0;
     path.replace("/", "\\");
     TPtrC file(reinterpret_cast<const TText*>(path.constData()), path.length());
 
-    TRAPD(err, openInstallerL(file));
+    TThreadId threadId;
+    TRAPD(err, openInstallerL(file, threadId));
     if (err != KErrNone) {
         qWarning() << "AppManagement: cannot open the installer for" << path << "- error" << err;
         return false;
     }
+    if (installerThreadId) *installerThreadId = threadId.Id();
     return true;
 }
 

@@ -40,7 +40,7 @@ SOURCES += main.cpp \
     updatetracker.cpp \
     hswidget.cpp \
     downloader.cpp \
-    installserverthread.cpp \
+    installerwatcher.cpp \
     news.cpp \
     update.cpp \
     language.cpp \
@@ -71,7 +71,7 @@ HEADERS += \
     qhswidget.h \
     hswidget.h \
     downloader.h \
-    installserverthread.h \
+    installerwatcher.h \
     news.h \
     update.h \
     language.h \
