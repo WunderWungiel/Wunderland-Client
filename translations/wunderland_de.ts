@@ -26,6 +26,10 @@
         <source>Loading</source>
         <translation>Lade</translation>
     </message>
+    <message>
+        <source>Tap to retry.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CategoryPage</name>
@@ -373,6 +377,10 @@
         <source>Update</source>
         <translation>Aktualisieren</translation>
     </message>
+    <message>
+        <source>There is not enough space available on your device to download the update.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UpdatesPage</name>
@@ -394,6 +402,38 @@
     <message>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>The app could not be opened.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tap to retry.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not connect to the Wunderland Store. Please check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Wunderland Store did not answer in time.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Wunderland Store is not available right now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Wunderland Store sent an invalid response.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The download could not be saved on your device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The app was downloaded, but the installer could not be started.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

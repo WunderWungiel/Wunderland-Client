@@ -4,23 +4,23 @@
 <context>
     <name>AboutPage</name>
     <message>
-        <location filename="qml/Wunderland/AboutPage.qml" line="40"/>
+        <location filename="../qml/Wunderland/AboutPage.qml" line="44"/>
         <source>About Wunderland</source>
         <translation>Thông tin về Wunderland</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/AboutPage.qml" line="109"/>
+        <location filename="../qml/Wunderland/AboutPage.qml" line="116"/>
         <source>Changelog</source>
         <translation>Nhật ký thay đổi</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/AboutPage.qml" line="173"/>
+        <location filename="../qml/Wunderland/AboutPage.qml" line="180"/>
         <source>Loading</source>
         <translatorcomment>Có thể để là loading cũng không sao</translatorcomment>
         <translation>Đang tải</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/AboutPage.qml" line="178"/>
+        <location filename="../qml/Wunderland/AboutPage.qml" line="185"/>
         <source>Failed to load changelog history.</source>
         <translation>Không thể tải lịch sử nhật ký thay đổi.</translation>
     </message>
@@ -28,15 +28,20 @@
 <context>
     <name>AppListView</name>
     <message>
-        <location filename="qml/Wunderland/AppListView.qml" line="141"/>
+        <location filename="../qml/Wunderland/AppListView.qml" line="150"/>
         <source>Loading</source>
         <translation>Đang tải</translation>
+    </message>
+    <message>
+        <location filename="../qml/Wunderland/AppListView.qml" line="158"/>
+        <source>Tap to retry.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>CategoryPage</name>
     <message>
-        <location filename="qml/Wunderland/CategoryPage.qml" line="23"/>
+        <location filename="../qml/Wunderland/CategoryPage.qml" line="27"/>
         <source>Categories</source>
         <translation>Phân loại</translation>
     </message>
@@ -44,57 +49,57 @@
 <context>
     <name>DetailPage</name>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="109"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="111"/>
         <source>Free</source>
         <translation>Miễn phí</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="131"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="131"/>
         <source>Cancel</source>
         <translation>Hủy</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="138"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="138"/>
         <source>Download cancelled.</source>
         <translation>Đã hủy cài đặt ứng dụng.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="141"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="141"/>
         <source>Download could not be cancelled.</source>
         <translation>Không thể hủy cài đặt.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="516"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="437"/>
         <source>Download</source>
         <translation>Tải xuống</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="517"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="438"/>
         <source>Update</source>
         <translation>Cập nhật</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="518"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="439"/>
         <source>Launch</source>
         <translation>Khởi động</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="268"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="268"/>
         <source>Contact the developer</source>
         <translation>Liên hệ nhà phát triển</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="419"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="349"/>
         <source>Screenshots</source>
         <translation>Ảnh chụp màn hình</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="438"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="368"/>
         <source>Donate</source>
         <translation>tặng</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="457"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="387"/>
         <source>Read on All About Symbian</source>
         <translation>Đọc trên All About Symbian</translation>
     </message>
@@ -103,22 +108,22 @@
         <translation type="obsolete">Quá trình cài đặt thất bại hoặc bị hủy bỏ. Bạn đã cố gắng cài đặt một ứng dụng chưa được ký. Bạn có chắc chắn điện thoại của mình đã hackphone không?</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="493"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="421"/>
         <source>Installation failed or was aborted.</source>
         <translation>Cài đặt lỗi hoặc đã bị hủy bỏ.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="500"/>
+        <location filename="../qml/Wunderland/main.qml" line="158"/>
         <source>A connection error appeared while trying to start the download.</source>
         <translation>Đã xảy ra lỗi kết nối khi cố gắng bắt đầu tải xuống.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="504"/>
+        <location filename="../qml/Wunderland/DetailPage.qml" line="428"/>
         <source>There is not enough space available on your device to download this app. At least %1 is required.</source>
         <translation>Điện thoại của bạn không đủ dung lượng để tải ứng dụng này. Phải có ít nhất %1 bộ nhớ.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/DetailPage.qml" line="508"/>
+        <location filename="../qml/Wunderland/main.qml" line="161"/>
         <source>An unknown error appeared while trying to start the download.</source>
         <translation>Đã xảy ra lỗi không xác định trong quá trình tải xuống.</translation>
     </message>
@@ -134,27 +139,27 @@
 <context>
     <name>HSWidget</name>
     <message>
-        <location filename="platform/hswidget.cpp" line="22"/>
+        <location filename="../src/platform/hswidget.cpp" line="25"/>
         <source>With the Wunderland homescreen widget you will not miss any updates for your app. Visit the Wunderland help menu to see how it works.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="platform/hswidget.cpp" line="98"/>
+        <location filename="../src/platform/hswidget.cpp" line="98"/>
         <source>1 update available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="platform/hswidget.cpp" line="99"/>
+        <location filename="../src/platform/hswidget.cpp" line="99"/>
         <source>%1 updates available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="platform/hswidget.cpp" line="103"/>
+        <location filename="../src/platform/hswidget.cpp" line="103"/>
         <source>1 new app</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="platform/hswidget.cpp" line="104"/>
+        <location filename="../src/platform/hswidget.cpp" line="104"/>
         <source>%1 new apps</source>
         <translation type="unfinished"></translation>
     </message>
@@ -162,7 +167,7 @@
 <context>
     <name>ImagePage</name>
     <message>
-        <location filename="qml/Wunderland/ImagePage.qml" line="21"/>
+        <location filename="../qml/Wunderland/ImagePage.qml" line="25"/>
         <source>Loading</source>
         <translation>Đang tải</translation>
     </message>
@@ -170,102 +175,102 @@
 <context>
     <name>Language</name>
     <message>
-        <location filename="language.cpp" line="121"/>
+        <location filename="../src/language.cpp" line="125"/>
         <source>Applications</source>
         <translation>Ứng dụng</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="122"/>
+        <location filename="../src/language.cpp" line="126"/>
         <source>Camera, photos, videos</source>
         <translation>Camera, hình ảnh và video</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="123"/>
+        <location filename="../src/language.cpp" line="127"/>
         <source>Emulator</source>
         <translation>Giả lập</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="124"/>
+        <location filename="../src/language.cpp" line="128"/>
         <source>Extras</source>
         <translation>Tiện ích bổ sung</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="125"/>
+        <location filename="../src/language.cpp" line="129"/>
         <source>File manager &amp; cloud</source>
         <translation>Quản lí tệp tin và đám mây</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="126"/>
+        <location filename="../src/language.cpp" line="130"/>
         <source>Internet</source>
         <translation>Internet</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="127"/>
+        <location filename="../src/language.cpp" line="131"/>
         <source>Music</source>
         <translation>Âm nhạc</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="128"/>
+        <location filename="../src/language.cpp" line="132"/>
         <source>Office</source>
         <translation>Văn phòng</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="129"/>
+        <location filename="../src/language.cpp" line="133"/>
         <source>Other apps</source>
         <translation>các ứng dụng khác</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="130"/>
+        <location filename="../src/language.cpp" line="134"/>
         <source>Social</source>
         <translation>Xã hội</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="132"/>
+        <location filename="../src/language.cpp" line="136"/>
         <source>Weather &amp; GPS</source>
         <translation>Thời tiết và GPS</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="134"/>
+        <location filename="../src/language.cpp" line="138"/>
         <source>Action</source>
         <translation>Hành động</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="135"/>
+        <location filename="../src/language.cpp" line="139"/>
         <source>Adventure</source>
         <translation>Phiêu lưu</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="136"/>
+        <location filename="../src/language.cpp" line="140"/>
         <source>Other games</source>
         <translation>các trò chơi khác</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="137"/>
+        <location filename="../src/language.cpp" line="141"/>
         <source>Puzzles &amp; cards</source>
         <translation>Giải đố và thẻ bài</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="138"/>
+        <location filename="../src/language.cpp" line="142"/>
         <source>Sports</source>
         <translation>Thể thao</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="139"/>
+        <location filename="../src/language.cpp" line="143"/>
         <source>Strategy</source>
         <translation>Chiến thuật</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="140"/>
+        <location filename="../src/language.cpp" line="144"/>
         <source>Themes</source>
         <translation>Chủ đề</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="131"/>
+        <location filename="../src/language.cpp" line="135"/>
         <source>Tools</source>
         <translation>Công cụ</translation>
     </message>
     <message>
-        <location filename="language.cpp" line="133"/>
+        <location filename="../src/language.cpp" line="137"/>
         <source>Games</source>
         <translation>Trò chơi</translation>
     </message>
@@ -273,7 +278,7 @@
 <context>
     <name>Loading</name>
     <message>
-        <location filename="qml/Wunderland/Loading.qml" line="41"/>
+        <location filename="../qml/Wunderland/Loading.qml" line="45"/>
         <source>Loading</source>
         <translation>Đang tải</translation>
     </message>
@@ -281,12 +286,12 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="qml/Wunderland/MainPage.qml" line="23"/>
+        <location filename="../qml/Wunderland/MainPage.qml" line="28"/>
         <source>Latest apps and games</source>
         <translation>Ứng dụng và trò chơi mới nhất</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/MainPage.qml" line="87"/>
+        <location filename="../qml/Wunderland/MainPage.qml" line="93"/>
         <source>Latest news from Wunderland Store</source>
         <translation>Tin tức mới nhất từ Wunderland Store</translation>
     </message>
@@ -294,12 +299,12 @@
 <context>
     <name>NewsElement</name>
     <message>
-        <location filename="qml/Wunderland/NewsElement.qml" line="108"/>
+        <location filename="../qml/Wunderland/NewsElement.qml" line="109"/>
         <source>Error fetching news feed</source>
         <translation>Lỗi khi tải nguồn cấp tin tức</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/NewsElement.qml" line="126"/>
+        <location filename="../qml/Wunderland/NewsElement.qml" line="127"/>
         <source>Loading</source>
         <translation>Đang tải</translation>
     </message>
@@ -307,27 +312,27 @@
 <context>
     <name>PersonalPage</name>
     <message>
-        <location filename="qml/Wunderland/PersonalPage.qml" line="35"/>
+        <location filename="../qml/Wunderland/PersonalPage.qml" line="40"/>
         <source>Settings / About Wunderland</source>
         <translation>Cài đặt / Thông tin về Wunderland</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/PersonalPage.qml" line="71"/>
+        <location filename="../qml/Wunderland/PersonalPage.qml" line="76"/>
         <source>Settings</source>
         <translation>Cài đặt</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/PersonalPage.qml" line="112"/>
+        <location filename="../qml/Wunderland/PersonalPage.qml" line="117"/>
         <source>Help &amp; info about Wunderland</source>
         <translation>Thông tin và trợ giúp về Wunderland</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/PersonalPage.qml" line="153"/>
+        <location filename="../qml/Wunderland/PersonalPage.qml" line="158"/>
         <source>My apps</source>
         <translation>Ứng dụng của tôi</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/PersonalPage.qml" line="190"/>
+        <location filename="../qml/Wunderland/PersonalPage.qml" line="195"/>
         <source>Updates available</source>
         <translation>Có bản cập nhật khả dụng</translation>
     </message>
@@ -335,22 +340,22 @@
 <context>
     <name>SearchPage</name>
     <message>
-        <location filename="qml/Wunderland/SearchPage.qml" line="24"/>
+        <location filename="../qml/Wunderland/SearchPage.qml" line="29"/>
         <source>Search</source>
         <translation>Tìm kiếm</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SearchPage.qml" line="52"/>
+        <location filename="../qml/Wunderland/SearchPage.qml" line="57"/>
         <source>Search...</source>
         <translation>Tìm kiếm...</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SearchPage.qml" line="109"/>
+        <location filename="../qml/Wunderland/SearchPage.qml" line="115"/>
         <source>Search for apps and games in the Wunderland database...</source>
         <translation>Tìm ứng dụng và trò chơi trong kho dữ liệu của WunderlandStore...</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SearchPage.qml" line="126"/>
+        <location filename="../qml/Wunderland/SearchPage.qml" line="132"/>
         <source>No search results found or no internet connection available.</source>
         <translation>Không tìm thấy kết quả hoặc không có kết nối internet.</translation>
     </message>
@@ -401,27 +406,27 @@
 <context>
     <name>SettingsPage</name>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="24"/>
+        <location filename="../qml/Wunderland/SettingsPage.qml" line="28"/>
         <source>Settings</source>
         <translation>Cài đặt</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="70"/>
+        <location filename="../qml/Wunderland/SettingsPage.qml" line="74"/>
         <source>Open links in phone browser</source>
         <translation>Mở liên kết ở trình duyệt điện thoại</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="112"/>
+        <location filename="../qml/Wunderland/SettingsPage.qml" line="116"/>
         <source>Dark theme</source>
         <translation>Chế độ nền tối</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="155"/>
+        <location filename="../qml/Wunderland/SettingsPage.qml" line="159"/>
         <source>Show latest news from Wunderland Store</source>
         <translation>Xem tin tức mới nhất từ ​WunderlandStore</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/SettingsPage.qml" line="196"/>
+        <location filename="../qml/Wunderland/SettingsPage.qml" line="200"/>
         <source>This setting change will take effect after restarting Wunderland.</source>
         <translation>Thay đổi cài đặt này sẽ có hiệu lực sau khi khởi động lại Wunderland.</translation>
     </message>
@@ -429,25 +434,30 @@
 <context>
     <name>UpdatePage</name>
     <message>
-        <location filename="qml/Wunderland/UpdatePage.qml" line="28"/>
+        <location filename="../qml/Wunderland/UpdatePage.qml" line="33"/>
         <source>Update</source>
         <translation>Cập nhật</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/UpdatePage.qml" line="115"/>
+        <location filename="../qml/Wunderland/UpdatePage.qml" line="120"/>
         <source>Cancel</source>
         <translation>Hủy</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/UpdatePage.qml" line="131"/>
+        <location filename="../qml/Wunderland/UpdatePage.qml" line="136"/>
         <source>There was an error getting more data about the update. Please check your internet connection.</source>
         <translation>Đã xảy ra lỗi khi tải thêm dữ liệu về bản cập nhật. Vui lòng kiểm tra kết nối internet của bạn.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Wunderland/UpdatePage.qml" line="145"/>
+        <source>There is not enough space available on your device to download the update.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>UpdatesPage</name>
     <message>
-        <location filename="qml/Wunderland/UpdatesPage.qml" line="36"/>
+        <location filename="../qml/Wunderland/UpdatesPage.qml" line="41"/>
         <source>My updates</source>
         <translation>Cập nhật của tôi</translation>
     </message>
@@ -455,17 +465,57 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="qml/Wunderland/main.qml" line="132"/>
+        <location filename="../qml/Wunderland/main.qml" line="59"/>
+        <source>The app could not be opened.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Wunderland/main.qml" line="59"/>
+        <source>Tap to retry.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Wunderland/main.qml" line="146"/>
+        <source>Could not connect to the Wunderland Store. Please check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Wunderland/main.qml" line="148"/>
+        <source>The Wunderland Store did not answer in time.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Wunderland/main.qml" line="150"/>
+        <source>The Wunderland Store is not available right now.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Wunderland/main.qml" line="151"/>
+        <source>The Wunderland Store sent an invalid response.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Wunderland/main.qml" line="159"/>
+        <source>The download could not be saved on your device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Wunderland/main.qml" line="160"/>
+        <source>The app was downloaded, but the installer could not be started.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/Wunderland/main.qml" line="171"/>
         <source>You are currently downloading an app. If you will now close Wunderland, the download will be aborted and has to be restarted next time.</source>
         <translation>Bạn hiện đang tải xuống một ứng dụng. Nếu bạn đóng Danh sách ứng dụng ngay bây giờ, quá trình tải xuống sẽ bị gián đoạn và bạn cần phải bắt đầu lại vào lần sau.</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/main.qml" line="133"/>
+        <location filename="../qml/Wunderland/main.qml" line="172"/>
         <source>Close</source>
         <translation>đóng</translation>
     </message>
     <message>
-        <location filename="qml/Wunderland/main.qml" line="133"/>
+        <location filename="../qml/Wunderland/main.qml" line="172"/>
         <source>Cancel</source>
         <translation>Hủy bỏ</translation>
     </message>

@@ -32,7 +32,7 @@ There is no test suite or linter. The app is built with the Symbian Qt SDK (Qt 4
 
 ## Translations
 
-- The `.ts` sources are in `translations/`; `wunderland_template.ts` is the base for new languages. The `.qm` files are not committed: the build compiles them next to the `.ts` files with `lrelease` (a `QMAKE_EXTRA_COMPILERS` step in `Wunderland.pro`, plus a `system()` call at qmake time for missing ones, so qmake's `rcc -list` finds them). Update the `.ts` files with `lupdate Wunderland.pro`.
+- The `.ts` sources are in `translations/`; `wunderland_template.ts` is the base for new languages. The `.qm` files are not committed: the build compiles them next to the `.ts` files with `lrelease` (a `QMAKE_EXTRA_COMPILERS` step in `Wunderland.pro`, plus a `system()` call at qmake time for missing ones, so qmake's `rcc -list` finds them). Update the `.ts` files with `lupdate Wunderland.pro`: the Symbian SDK has no `lupdate`, so use the desktop Qt's (`C:\QtSDK\Desktop\Qt\4.8.1\mingw\bin`, which must be on `PATH` for its DLLs).
 - Adding a language requires: the `.ts` in `translations/`, an entry in `TRANSLATIONS` in `Wunderland.pro`, `translations/wunderland_<code>.qm` in `translations.qrc`, and the language code (alphabetical) in `_languageCodes` in `language.cpp` (with its display name in `_allLanguages` at the same index). The UI translator is loaded from `:/translations/wunderland_<code>.qm` based on the device language.
 - Category names are translated in `Language::initCategories()`; their order defines category IDs (head categories are 0, 12, 19).
 
