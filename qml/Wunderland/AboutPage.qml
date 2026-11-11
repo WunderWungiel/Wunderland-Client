@@ -89,9 +89,10 @@ Page {
             color: window.textColor
             font.pixelSize: 20
 
-            text: "Wunderland " + appVersion + "<br>
-Wunder Wungiel<br>
-Copyright (C) 2026"
+            // An expression, not a literal: JS strings can't span lines
+            text: "Wunderland " + appVersion + "<br>"
+                  + "Wunder Wungiel<br>"
+                  + "Copyright (C) 2026"
         }
     }
 
@@ -171,7 +172,7 @@ Based on AppList by Sebastian (schumi1331). Thank you!<br><br>
 - Bhavin: Beta testing<br>
 - Fabian (@huellif): Symbian C++ and beta testing<br>
 - Kush: Beta testing<br>
-- István: Beta testing- Kush: Beta testing<br>
+- István: Beta testing<br>
 - Lily: Beta testing<br>
 - Lyubomir (@batezippi): Beta testing<br>
 - Magissia: Hosting<br>
