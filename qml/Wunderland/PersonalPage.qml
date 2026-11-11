@@ -80,7 +80,7 @@ Page {
 
                 onPressed: tf.play()
                 onReleased: tf.play()
-                onClicked: personalPage.pageStack.push( Qt.createComponent("SettingsPage.qml") )
+                onClicked: personalPage.pageStack.push( Qt.resolvedUrl("SettingsPage.qml") )
             }
         }
 
@@ -121,7 +121,7 @@ Page {
 
                 onPressed: tf.play()
                 onReleased: tf.play()
-                onClicked: personalPage.pageStack.push( Qt.createComponent("AboutPage.qml") )
+                onClicked: personalPage.pageStack.push( Qt.resolvedUrl("AboutPage.qml") )
             }
         }
     }
@@ -207,7 +207,7 @@ Page {
 
                 onPressed: tf.play()
                 onReleased: tf.play()
-                onClicked: personalPage.pageStack.push( Qt.createComponent("UpdatesPage.qml") )
+                onClicked: personalPage.pageStack.push( Qt.resolvedUrl("UpdatesPage.qml") )
             }
         }
 

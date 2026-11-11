@@ -139,7 +139,7 @@ Page {
             iconSource: "toolbar-list"
             visible: !newsElement.browserStatus
             enabled: !newsElement.browserStatus
-            onClicked: window.pageStack.push( Qt.createComponent("CategoryPage.qml") )
+            onClicked: window.pageStack.push( Qt.resolvedUrl("CategoryPage.qml") )
         }
 
         ToolButton {
@@ -147,7 +147,7 @@ Page {
             iconSource: "toolbar-search"
             visible: !newsElement.browserStatus
             enabled: !newsElement.browserStatus
-            onClicked: window.pageStack.push( Qt.createComponent("SearchPage.qml") )
+            onClicked: window.pageStack.push( Qt.resolvedUrl("SearchPage.qml") )
         }
 
         ToolButton {
@@ -155,7 +155,7 @@ Page {
             iconSource: "images/contacts.svg"
             visible: !newsElement.browserStatus
             enabled: !newsElement.browserStatus
-            onClicked: window.pageStack.push ( Qt.createComponent("PersonalPage.qml") )
+            onClicked: window.pageStack.push ( Qt.resolvedUrl("PersonalPage.qml") )
 
             Image {
                 anchors.verticalCenter: parent.verticalCenter

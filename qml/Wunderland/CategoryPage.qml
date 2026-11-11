@@ -64,7 +64,7 @@ Page {
                     onPressed: tf.play()
                     onReleased: tf.play()
                     onClicked: {
-                        window.pageStack.push (Qt.createComponent("CategoryListPage.qml"), {categoryId : index} )
+                        window.pageStack.push (Qt.resolvedUrl("CategoryListPage.qml"), {categoryId : index} )
                     }
                 }
             }

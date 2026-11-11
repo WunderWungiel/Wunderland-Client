@@ -420,7 +420,7 @@ Page {
                 show: (detailItem["image1"] !== "" || detailItem["image2"] !== "" || detailItem["image3"] !== "" || detailItem["image4"] !== "" || detailItem["image5"] !== "")
                 visible: show
                 anchors.top: parent.top
-                onClicked: detailPage.pageStack.push(Qt.createComponent("ImagePage.qml"), {image1: detailItem["image1"], image2: detailItem["image2"], image3: detailItem["image3"], image4: detailItem["image4"], image5: detailItem["image5"]})
+                onClicked: detailPage.pageStack.push(Qt.resolvedUrl("ImagePage.qml"), {image1: detailItem["image1"], image2: detailItem["image2"], image3: detailItem["image3"], image4: detailItem["image4"], image5: detailItem["image5"]})
             }
 
             Rectangle {

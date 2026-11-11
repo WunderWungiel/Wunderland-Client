@@ -469,10 +469,14 @@ Symbisend instead binds `platformInverted` on the window and every page and uses
 `platformStyle` colours, so its theme switches live; that would change the look here (light
 toolbar), so it is left for the UI pass.
 
-### [ ] 7.3 Push pages without `Qt.createComponent` strings everywhere
+### [x] 7.3 Push pages without `Qt.createComponent` strings everywhere
 About 15 places call `pageStack.push(Qt.createComponent("X.qml"))`. Using the file name works
 (`pageStack.push(Qt.resolvedUrl("X.qml"))`), or declare reused pages once as `Component`s.
 `Qt.createComponent` without checking `status` hides load errors.
+Done: all 14 calls use `pageStack.push(Qt.resolvedUrl("X.qml"), ...)`. The Symbian `PageStack`
+creates the component itself and throws `Error while loading page: <errorString>` (shown in the
+log) if it fails. `Qt.resolvedUrl` is needed because a bare name would resolve relative to
+`PageStack.js`.
 
 ### [ ] 7.4 Simplify `DetailPage.qml` (563 lines)
 Move the size/version formatting (`DetailPage.qml:104-105`, single-line nested ternaries)

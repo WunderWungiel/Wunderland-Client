@@ -43,12 +43,12 @@ PageStackWindow {
         target: appCatalog
         onAppListUpdate: {
             console.debug("appListUpdate QML")
-            window.pageStack.push(Qt.createComponent("UpdatePage.qml"))
+            window.pageStack.push(Qt.resolvedUrl("UpdatePage.qml"))
         }
         onUpdateListChanged: {
             if (appId !== -1) {
                 appId = -1
-                window.pageStack.push (Qt.createComponent("DetailPage.qml"), { "detailItem": appCatalog._updateList.get(0) })
+                window.pageStack.push (Qt.resolvedUrl("DetailPage.qml"), { "detailItem": appCatalog._updateList.get(0) })
             }
         }
     }
@@ -80,19 +80,19 @@ PageStackWindow {
         ToolButton {
             flat: true
             iconSource: "toolbar-list"
-            onClicked: window.pageStack.push( Qt.createComponent("CategoryPage.qml") )
+            onClicked: window.pageStack.push( Qt.resolvedUrl("CategoryPage.qml") )
         }
 
         ToolButton {
             flat: true
             iconSource: "toolbar-search"
-            onClicked: window.pageStack.push( Qt.createComponent("SearchPage.qml") )
+            onClicked: window.pageStack.push( Qt.resolvedUrl("SearchPage.qml") )
         }
 
         ToolButton {
             flat: true
             iconSource: "images/contacts.svg"
-            onClicked: window.pageStack.push ( Qt.createComponent("PersonalPage.qml") )
+            onClicked: window.pageStack.push ( Qt.resolvedUrl("PersonalPage.qml") )
 
             Image {
                 anchors.verticalCenter: parent.verticalCenter
