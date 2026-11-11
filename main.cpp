@@ -10,7 +10,7 @@
 #include "installmanager.h"
 #include "updatetracker.h"
 #include "appmanagement.h"
-#include "roleitemmodel.h"
+#include "newsmodel.h"
 #include "applistmodel.h"
 #ifdef Q_OS_SYMBIAN
 #include "platform/hswidget.h"
@@ -84,7 +84,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     // Not creatable from QML; registered so the model properties can be read
     qmlRegisterType<AppListModel>();
-    qmlRegisterType<RoleItemModel>();
+    qmlRegisterType<NewsModel>();
     // Only for the enums (InstallManager.Download, ...); the instance is the installManager property
     qmlRegisterUncreatableType<InstallManager>("Wunderland", 1, 0, "InstallManager", "Use the installManager context property");
     // Only for the enums: AppCatalog.SearchList, StoreApi.NetworkError, ...

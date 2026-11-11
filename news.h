@@ -2,46 +2,47 @@
 #define NEWS_H
 
 #include <QObject>
-#include <QDebug>
-#include <QTextDocument>
+#include <QPointer>
 
-#include "roleitemmodel.h"
+#include "newsmodel.h"
 #include "storeapi.h"
 
+// The store news feed (feed.xml) and the pages it links to.
 class News : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(RoleItemModel* _model READ _model NOTIFY listChanged)
+    Q_PROPERTY(NewsModel* _model READ _model CONSTANT)
+
+public:
+    explicit News(StoreApi *api, QObject *parent = 0);
+
+    NewsModel *_model() { return model; }
+
+    Q_INVOKABLE bool updateRunning() const { return updating; }
+    // Loads the feed and replaces the rows; ignored while a fetch is running
+    Q_INVOKABLE void fetch();
+
+    // Loads a news page; htmlChanged() when it is done, then getHtml() has it
+    Q_INVOKABLE void fetchHtml(const QString &link);
+    Q_INVOKABLE QString getHtml() const { return htmlContent; }
+
+signals:
+    void listChanged();
+    void htmlChanged();
 
 private slots:
     void feedFetchFinished();
     void htmlFetchFinished();
 
-public:
-    explicit News(StoreApi *api, QObject *parent = 0);
+private:
+    void parseFeed(const QString &xml);
 
-    RoleItemModel* _model() {return model;}
-    RoleItemModel *model;
     StoreApi *api;
-
-    QString url, htmlContent;
-
+    NewsModel *model;
+    QString htmlContent;
+    QPointer<ApiReply> htmlReply;   // the page that was asked for last
     bool updating;
-    Q_INVOKABLE bool updateRunning();
-
-    Q_INVOKABLE void fetch();
-    void parseFeed(QString html);
-
-    Q_INVOKABLE void fetchHtml(QString link);
-    Q_INVOKABLE QString getHtml();
-
-    Q_INVOKABLE void setFeedUrl(QString _url);
-    Q_INVOKABLE QString feedUrl();
-
-signals:
-    void listChanged();
-    void htmlChanged();
 };
 
 #endif // NEWS_H

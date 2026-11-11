@@ -174,14 +174,14 @@ Signals: `darkThemeChanged()`, `aasFeedChanged()`, `newsOpenInBrowserChanged()`.
 
 ## `news` — the store news feed (`feed.xml`)
 
-- `_model` — list model, roles `title`, `description` (plain text, HTML stripped),
+- `_model` — list model (`count`), roles `title`, `description` (plain text, HTML stripped),
   `date` (string, the feed's `pubDate` unchanged), `link` (string).
 - `fetch()` — loads the feed and replaces the rows. Ignored while a fetch is running
   (`updateRunning()` → bool).
 - Signal `listChanged()` — a fetch finished. On an error the old rows are kept.
 - `fetchHtml(link)` → signal `htmlChanged()`, then `getHtml()` returns the page (or a short
-  error page).
-- `feedUrl()` → the feed URL. `setFeedUrl(url)` does nothing (plan 7.6).
+  error page). Only the page asked for last counts: an earlier one that finishes later is
+  ignored.
 
 ## `update` — new versions of Wunderland itself
 

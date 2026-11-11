@@ -195,41 +195,6 @@ Rectangle {
         newsElement.browserStatus = false
     }
 
-    ToolBarLayout {
-        ToolButton {
-            id: centerButton
-            flat: true
-            iconSource: "toolbar-settings"
-            enabled: true
-            visible: true
-
-            onClicked: {
-                if (news.feedUrl() != "") {
-                    textField.text = news.feedUrl()
-                    textField.urlBeforeChange = news.feedUrl()
-                }
-                settingsDialog.open()
-            }
-        }
-
-        ToolButton {
-            id: rightButton
-            flat: true
-            iconSource: "toolbar-refresh"
-
-            onClicked: {
-                if (flickArea.state == "") {
-                    loadingItem.start()
-                    news.fetch();
-                } else if (flickArea.state == "browser") {
-                    webView.stop.trigger()
-                    webView.html = "<!DOCTYPE html>\n<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>\n<body style=\"background-color: #000000; color: #DDDDDD;\">\n</body>\n</html>"
-                    flickArea.state = ""
-                }
-            }
-        }
-    }
-
     ThemeEffect {
         id: tf
         effect: ThemeEffect.BasicButton;

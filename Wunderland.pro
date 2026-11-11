@@ -40,7 +40,7 @@ DEFINES += APP_Version=$$VERSION
 # Not built: xqinstaller.cpp, xqinstaller_p.cpp, xqinstaller.h, xqinstaller_p.h
 SOURCES += main.cpp \
     appmanagement.cpp \
-    roleitemmodel.cpp \
+    newsmodel.cpp \
     appcatalog.cpp \
     installmanager.cpp \
     updatetracker.cpp \
@@ -67,7 +67,7 @@ qtcAddDeployment()
 
 HEADERS += \
     appmanagement.h \
-    roleitemmodel.h \
+    newsmodel.h \
     appcatalog.h \
     installmanager.h \
     updatetracker.h \

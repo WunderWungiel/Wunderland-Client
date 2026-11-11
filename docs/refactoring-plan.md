@@ -511,10 +511,19 @@ existing download texts keep their `DetailPage` translation context (`qsTranslat
 new strings need `lupdate`. Not changed: the search page's "No search results found or no
 internet connection available." (a failed search now gets the error banner instead).
 
-### [ ] 7.6 News
+### [x] 7.6 News
 `News::setFeedUrl` is empty, `fetchHtml` loads arbitrary HTML into a `WebView`, and the
 `formula1.com` rewrite is left over from another app. Decide whether news is still wanted;
 if so, use the `QXmlStreamReader` RSS parser from 2.2.
+Done: news stays, and so does showing the linked page as HTML in the `WebView` (the expected
+behaviour for now; `settings.newsOpenInBrowser` opens it in the browser instead). The feed
+already used the 2.2 parser. `setFeedUrl`/`feedUrl()` are gone, with `NewsElement`'s
+`ToolBarLayout`, the only caller: it was never shown (nothing set it as `tools`) and opened a
+`settingsDialog` that doesn't exist. The `formula1.com` link rewrite is gone. The model is
+`NewsModel` (`newsmodel.*`, a `QAbstractListModel` over `QList<FeedItem>`, same role names
+and numbers, plus `count`), so `roleitemmodel.*` is deleted. `News` members are private;
+`fetchHtml` ignores a page that finishes after a newer one was asked for (before, the last to
+finish was shown).
 
 ---
 
@@ -537,7 +546,7 @@ if so, use the `QXmlStreamReader` RSS parser from 2.2.
    AppList-style `_` prefix: `appCatalog._mainList`, `_categoryList`, `_searchList`,
    `_personalList`, `_updateList` → without `_`, `news._model` → `news.model`, and the
    getter-style invokables (`getLastSearchTerm()`, `l.getLanguageName()`, `l.getSelected()`,
-   `news.updateRunning()`, `news.feedUrl()`, `news.getHtml()`) → properties where they are
+   `news.updateRunning()`, `news.getHtml()`) → properties where they are
    plain state. Update the QML and `docs/qml-api.md` in the same commit.
 5. [ ] **Licence headers** (SPDX), as Symbisend has, and a `CLAUDE.md` update after each phase.
 6. [ ] **Line endings:** sources are CRLF; add `.gitattributes` so that edits don't create
