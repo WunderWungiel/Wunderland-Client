@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: Sebastian (schumi1331)
+# SPDX-FileCopyrightText: 2026 Wunder Wungiel
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # Add more folders to ship with the application, here
 folder_01.source = qml/Wunderland
 folder_01.target = qml

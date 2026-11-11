@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: Sebastian (schumi1331)
+// SPDX-FileCopyrightText: 2026 Wunder Wungiel
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #ifndef LANGUAGE_H
 #define LANGUAGE_H
 

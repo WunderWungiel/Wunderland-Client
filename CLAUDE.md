@@ -36,6 +36,10 @@ There is no test suite or linter. The app is built with the Symbian Qt SDK (Qt 4
 - Adding a language requires: the `.ts`/`.qm` pair, an entry in `TRANSLATIONS` in `Wunderland.pro`, the `.qm` in `Qml.qrc`, and the language code (alphabetical) in `_languageCodes` in `language.cpp` (with its display name in `_allLanguages` at the same index). The UI translator is loaded from `:/wunderland_<code>` based on the device language.
 - Category names are translated in `Language::initCategories()`; their order defines category IDs (head categories are 0, 12, 19).
 
+## Licence headers
+
+Every source file (`main.cpp`, `src/`, `qml/Wunderland/`, `Wunderland.pro`, `build_symbian.bat`) starts with SPDX lines: `SPDX-FileCopyrightText: 2026 Wunder Wungiel` and `SPDX-License-Identifier: GPL-3.0-or-later`, plus `SPDX-FileCopyrightText: Sebastian (schumi1331)` first in the files that come from AppList (also code split or moved out of them). New files get the same header without the AppList line. Third-party files (`src/platform/qhswidget.h`, `src/platform/sisregistry*.h`) and the generated `qmlapplicationviewer/` keep their own headers.
+
 ## Commits
 
 Don't put refactoring-plan step numbers (e.g. "plan 2.1") in commit titles. Describe the change itself.

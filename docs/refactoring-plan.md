@@ -565,7 +565,13 @@ finish was shown).
    `appCatalog.lastSearchTerm`, `news.updating`, `news.html`, `l.languageNames` (CONSTANT,
    same index as `languageCodes`). `l.getSelected(code)` takes an argument, so it stays an
    invokable, as `l.isSelected(code)`.
-5. [ ] **Licence headers** (SPDX), as Symbisend has, and a `CLAUDE.md` update after each phase.
+5. [x] **Licence headers** (SPDX), as Symbisend has, and a `CLAUDE.md` update after each phase.
+   Done: as Symbisend (`2026 Wunder Wungiel`, `GPL-3.0-or-later`). The files from AppList's
+   initial import, and the ones split or moved out of them (`appcatalog`, `installmanager`,
+   `updatetracker`, `platform/apps`, `device`, `subscriber`), also credit
+   `Sebastian (schumi1331)`, without a year (the original sources have none). Not changed:
+   `qhswidget.h` (Motaz Alnuweiri), Nokia's `sisregistry*.h`, `qmlapplicationviewer/`.
+   The rule is in `CLAUDE.md` ("Licence headers"); `CLAUDE.md` was updated with each step.
 6. [ ] **Line endings:** sources are CRLF; add `.gitattributes` so that edits don't create
    whole-file diffs.
 
