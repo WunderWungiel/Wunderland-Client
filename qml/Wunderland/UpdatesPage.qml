@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import Wunderland 1.0
 import QtMobility.feedback 1.1
 
 Page {
@@ -58,6 +59,7 @@ Page {
 
             displayUpdateRect: false
 
+            listId: AppCatalog.UpdateList
             listModel: appCatalog._updateList
 
             onAtYEndChanged: {

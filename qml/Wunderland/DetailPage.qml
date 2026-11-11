@@ -420,19 +420,12 @@ Page {
             }
         }
         onDownloadError: {
-            if (code == 0) {
-                infoBanner.text = qsTr("A connection error appeared while trying to start the download.")
-                infoBanner.open()
-                updateButton()
-            } else if (code == 1) {
+            if (code == 1)
                 infoBanner.text = qsTr("There is not enough space available on your device to download this app. At least %1 is required.").arg(detailPage.sizeText)
-                infoBanner.open()
-                updateButton()
-            } else {
-                infoBanner.text = qsTr("An unknown error appeared while trying to start the download.")
-                infoBanner.open()
-                updateButton()
-            }
+            else
+                infoBanner.text = window.downloadErrorText(code)
+            infoBanner.open()
+            updateButton()
         }
     }
 

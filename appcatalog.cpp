@@ -76,7 +76,14 @@ void AppCatalog::markInstalled(int id) {
     for (int i = 0; i < ListCount; i++) m_lists[i]->updateInstalledState(id, true, false);
 }
 
+void AppCatalog::retry(int listId) {
+    if (listId < 0 || listId >= ListCount || m_lastUrl[listId].isEmpty()) return;
+    // m_cleanList is still the failed load's: it is only reset when a load succeeds
+    loadList(m_lastUrl[listId], listId);
+}
+
 void AppCatalog::loadList(const QUrl &url, int listId) {
+    m_lastUrl[listId] = url;
     ApiReply *reply = m_api->get(url);
     reply->setProperty("listId", listId);
     connect(reply, SIGNAL(finished()),

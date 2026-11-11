@@ -1,6 +1,8 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import com.nokia.extras 1.1
 import QtMobility.feedback 1.1
+import Wunderland 1.0
 
 ListView {
     id: appList
@@ -13,6 +15,9 @@ ListView {
     property bool displayUpdateRect: true
     property bool allowLoadingMore: true
     property bool currentlyLoading: false //Verhindern von multiple load more elements requests
+    // The AppCatalog list shown here (AppCatalog.MainList, ...). A failed load of it
+    // stops the spinner and shows a banner; tapping it repeats the request.
+    property int listId: -1
 
     property bool allowPullToRefresh: true
     property bool platformInverted: !window.darkTheme
@@ -139,6 +144,27 @@ ListView {
         anchors.fill: parent
 
         text: qsTr("Loading") + "..."
+    }
+
+    Connections {
+        target: appCatalog
+        onLoadingError: {
+            if (listId != appList.listId) return
+            appList.stopLoading()
+            errorBanner.text = window.loadingErrorText(error) + " " + qsTr("Tap to retry.")
+            errorBanner.open()
+        }
+    }
+
+    InfoBanner {
+        id: errorBanner
+        interactive: true
+        timeout: 6000
+        onClicked: {
+            close()
+            appList.startLoading()
+            appCatalog.retry(appList.listId)
+        }
     }
 
     function startLoading() {

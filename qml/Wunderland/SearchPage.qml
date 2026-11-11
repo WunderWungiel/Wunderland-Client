@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import Wunderland 1.0
 import com.nokia.extras 1.1
 
 Page {
@@ -104,6 +105,7 @@ Page {
         id: appList
         anchors { top: border2.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; }
 
+        listId: AppCatalog.SearchList
         listModel: appCatalog._searchList
 
         text: qsTr("Search for apps and games in the Wunderland database...")

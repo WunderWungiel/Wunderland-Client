@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import com.nokia.extras 1.1
 
 Page {
     id: updatePage
@@ -133,8 +134,19 @@ Page {
         }
 
         onProgressChanged: downloadProgress.text = "Downloading (" + progress + "%)"
-        // Show the Download button again (error texts come with plan 7.5)
-        onDownloadError: downloadProgress.visible = false
+        onDownloadError: {
+            // Show the Download button again
+            downloadProgress.visible = false
+            if (code == 1)
+                errorBanner.text = qsTr("There is not enough space available on your device to download the update.")
+            else
+                errorBanner.text = window.downloadErrorText(code)
+            errorBanner.open()
+        }
+    }
+
+    InfoBanner {
+        id: errorBanner
     }
 
     ToolBarLayout {

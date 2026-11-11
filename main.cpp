@@ -87,6 +87,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<RoleItemModel>();
     // Only for the enums (InstallManager.Download, ...); the instance is the installManager property
     qmlRegisterUncreatableType<InstallManager>("Wunderland", 1, 0, "InstallManager", "Use the installManager context property");
+    // Only for the enums: AppCatalog.SearchList, StoreApi.NetworkError, ...
+    qmlRegisterUncreatableType<AppCatalog>("Wunderland", 1, 0, "AppCatalog", "Use the appCatalog context property");
+    qmlRegisterUncreatableType<StoreApi>("Wunderland", 1, 0, "StoreApi", "Not used from QML directly");
 
     viewer.rootContext()->setContextProperty("appCatalog", &appCatalog);
     viewer.rootContext()->setContextProperty("installManager", &installManager);

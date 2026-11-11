@@ -494,9 +494,22 @@ the bottom of the last item (the old sum read `downloadProgress.viaible`, so it 
 progress bar), and the Cancel button anchors to its parent instead of `appIcon`, which is not
 a sibling.
 
-### [ ] 7.5 Show errors
+### [x] 7.5 Show errors
 Connect `loadingError`/new error enums to an `InfoBanner` on the list pages, so a failed
 request stops the spinner and offers a retry (see 1.5).
+Done: `AppListView` has a `listId` (`AppCatalog.MainList`, ..., set on the five list pages);
+on a `loadingError` for it, it stops the spinner and shows an interactive `InfoBanner`
+(6 s) with the error text and "Tap to retry.", which calls the new `AppCatalog::retry(listId)`
+(repeats the list's last URL; the `clean` flag is only reset on success, so it still
+applies). `AppCatalog` and `StoreApi` are registered as uncreatable types for their enums.
+The texts are in `main.qml`: `loadingErrorText(error)` and `downloadErrorText(code)`. Also:
+`main.qml` handles a failed load of the app to open (`launchAppId`/`subscriber`): before,
+`appId` stayed set and the next update list load opened that list's first app; now it shows
+a retry banner. `DetailPage` has texts for `WriteError` and `InstallerError` (were "unknown
+error"), and `UpdatePage` shows download errors (it only hid the progress). The two
+existing download texts keep their `DetailPage` translation context (`qsTranslate`); the
+new strings need `lupdate`. Not changed: the search page's "No search results found or no
+internet connection available." (a failed search now gets the error banner instead).
 
 ### [ ] 7.6 News
 `News::setFeedUrl` is empty, `fetchHtml` loads arbitrary HTML into a `WebView`, and the

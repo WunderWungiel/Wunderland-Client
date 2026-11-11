@@ -1,7 +1,8 @@
 # Wunderland QML API
 
 The C++ objects the QML in `qml/Wunderland/` can use. All of them are context properties
-set in `main.cpp`, except the `InstallManager` enums (QML import `Wunderland 1.0`). Keep this
+set in `main.cpp`, except the `InstallManager`, `AppCatalog` and `StoreApi` enums (QML import
+`Wunderland 1.0`; the types are not creatable). Keep this
 file up to date when the QML-facing API changes.
 
 QtQuick 1.1: invokables return plain values (enums as `int`), and a list row is read as a
@@ -38,6 +39,8 @@ clears the list when the load finishes (true for page 1, false to append the nex
 - `loadUpdateList(id)` — only the app with this store id, into `_updateList` (cleared).
   `main.qml` uses it for `launchAppId` and `subscriber`, then opens
   `_updateList.get(0)` on `updateListChanged`.
+- `retry(listId)` — repeats the last request of that list (same rows, same `clean`), after
+  a `loadingError`. Does nothing if the list was never loaded.
 
 Every request sends the device's `os` and `resolution`; the main, category and search
 lists also send the store languages selected in `l` (the personal and update lists are
@@ -48,9 +51,10 @@ Signals:
   `personalListChanged()`, `updateListChanged()` — a load of that list finished, also when
   it added no rows. Not emitted on an error.
 - `loadingError(listId, error)` — a list could not be loaded. `listId`: 0 main,
-  1 category, 2 search, 3 personal, 4 update. `error`: a [`StoreApi` error](#error-codes).
-  The list keeps its rows. *Not connected in QML yet* (plan 7.5): a failed load
-  leaves the spinner running.
+  1 category, 2 search, 3 personal, 4 update (`AppCatalog.MainList` ... `AppCatalog.UpdateList`).
+  `error`: a [`StoreApi` error](#error-codes). The list keeps its rows. `AppListView` with
+  that `listId` stops its spinner and shows a banner that calls `retry()` when tapped;
+  `main.qml` does the same for an app it was asked to open.
 - `appListUpdate()` — the server requires a newer Wunderland (`minversion` in the
   response); the list is not changed. `main.qml` opens `UpdatePage.qml`.
 
@@ -226,7 +230,8 @@ Exposed, but not used by the QML. `checkAppInstalled(uid)` → bool. Prefer
 
 ## Error codes
 
-`StoreApi::Error` (`appCatalog.loadingError`):
+`StoreApi::Error` (`appCatalog.loadingError`; in QML `StoreApi.NetworkError`, ...;
+`window.loadingErrorText(error)` gives the text):
 
 | code | name               | meaning                                         |
 |------|--------------------|-------------------------------------------------|
@@ -238,7 +243,8 @@ Exposed, but not used by the QML. `checkAppInstalled(uid)` → bool. Prefer
 | 5    | `InvalidResponse`  | empty or not the expected XML                   |
 | 6    | `WriteError`       | (downloads only)                                |
 
-`Downloader::ErrorCode` (`installManager.downloadError`, `update.downloadError`):
+`Downloader::ErrorCode` (`installManager.downloadError`, `update.downloadError`;
+`window.downloadErrorText(code)` gives the text for all but 1):
 
 | code | name              | meaning                                                     |
 |------|-------------------|-------------------------------------------------------------|

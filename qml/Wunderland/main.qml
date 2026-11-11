@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import com.nokia.extras 1.1
 import QtMobility.feedback 1.1
 import Wunderland 1.0
 
@@ -9,7 +10,8 @@ PageStackWindow {
     showStatusBar: true
     showToolBar: true
 
-    property int appId: -1
+    property int appId: -1 // the app to open when the update list has loaded
+    property int failedAppId: -1
 
     // Theme. The pages use these colour roles, never colour names. The
     // Symbian components (toolbar, dialogs, switches) keep their default
@@ -44,6 +46,15 @@ PageStackWindow {
         onAppListUpdate: {
             console.debug("appListUpdate QML")
             window.pageStack.push(Qt.resolvedUrl("UpdatePage.qml"))
+        }
+        onLoadingError: {
+            // The app to open (launchAppId, subscriber) could not be loaded
+            if (listId == AppCatalog.UpdateList && appId !== -1) {
+                failedAppId = appId
+                appId = -1
+                openAppBanner.text = qsTr("The app could not be opened.") + " " + loadingErrorText(error) + " " + qsTr("Tap to retry.")
+                openAppBanner.open()
+            }
         }
         onUpdateListChanged: {
             if (appId !== -1) {
@@ -112,6 +123,38 @@ PageStackWindow {
                 }
             }
         }
+    }
+
+    InfoBanner {
+        id: openAppBanner
+        interactive: true
+        timeout: 6000
+        onClicked: {
+            close()
+            appId = failedAppId
+            appCatalog.retry(AppCatalog.UpdateList)
+        }
+    }
+
+    // Text for a StoreApi error code (appCatalog.loadingError)
+    function loadingErrorText(error) {
+        if (error == StoreApi.NetworkError)
+            return qsTr("Could not connect to the Wunderland Store. Please check your internet connection.")
+        if (error == StoreApi.TimeoutError)
+            return qsTr("The Wunderland Store did not answer in time.")
+        if (error == StoreApi.HttpError)
+            return qsTr("The Wunderland Store is not available right now.")
+        return qsTr("The Wunderland Store sent an invalid response.")
+    }
+
+    // Text for a Downloader error code (installManager/update.downloadError),
+    // except NoSpaceError (1), which needs the download size. The DetailPage
+    // context keeps the existing translations of the texts that came from there.
+    function downloadErrorText(code) {
+        if (code == 0) return qsTranslate("DetailPage", "A connection error appeared while trying to start the download.")
+        if (code == 2) return qsTr("The download could not be saved on your device.")
+        if (code == 3) return qsTr("The app was downloaded, but the installer could not be started.")
+        return qsTranslate("DetailPage", "An unknown error appeared while trying to start the download.")
     }
 
     function closeApp() {

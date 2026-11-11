@@ -1,5 +1,6 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
+import Wunderland 1.0
 import QtMobility.feedback 1.1
 
 Page {
@@ -43,6 +44,7 @@ Page {
             id: appList
             anchors { top: appListHeader.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; }
 
+            listId: AppCatalog.MainList
             listModel: appCatalog._mainList
 
             onRefreshEvent: {

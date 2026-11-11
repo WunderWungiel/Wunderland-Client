@@ -20,6 +20,7 @@ class AppCatalog : public QObject
     Q_PROPERTY(AppListModel *_searchList READ searchList CONSTANT)
     Q_PROPERTY(AppListModel *_personalList READ personalList CONSTANT)
     Q_PROPERTY(AppListModel *_updateList READ updateList CONSTANT)
+    Q_ENUMS(ListId)
 
 public:
     // listId values in loadingError()
@@ -41,6 +42,8 @@ public:
     Q_INVOKABLE void loadUpdateList(int start, bool clean);
     // Only this app, into the update list (opening an app from a launch argument)
     Q_INVOKABLE void loadUpdateList(int id);
+    // Repeats the last request of that list (after a loadingError)
+    Q_INVOKABLE void retry(int listId);
 
 public slots:
     // Marks the app as installed and up to date in every list
@@ -71,6 +74,7 @@ private:
 
     AppListModel *m_lists[ListCount];
     bool m_cleanList[ListCount]; // clear the list when the next load finishes
+    QUrl m_lastUrl[ListCount];   // for retry()
     QString m_lastSearchTerm;
 };
 
