@@ -551,7 +551,7 @@ finish was shown).
    instead of hard-coding it 3 times (CLAUDE.md "Version bumps").
    Done: `appVersion` is the display form (`2.0.5` → `2.00(5)`, minor padded to two digits),
    built in `main.cpp` from `applicationVersion()`.
-4. [ ] **Rename leftovers:** QML import `com.applist.RoleItemModel` (goes away with 3.2), the
+4. [x] **Rename leftovers:** QML import `com.applist.RoleItemModel` (goes away with 3.2), the
    `appListId:` launch-argument and `/appList` value-space path (*keep these*: other apps and
    the widget DLL may use them; document them instead). Also the QML-facing names with an
    AppList-style `_` prefix: `appCatalog._mainList`, `_categoryList`, `_searchList`,
@@ -559,6 +559,12 @@ finish was shown).
    getter-style invokables (`getLastSearchTerm()`, `l.getLanguageName()`, `l.getSelected()`,
    `news.updateRunning()`, `news.getHtml()`) → properties where they are
    plain state. Update the QML and `docs/qml-api.md` in the same commit.
+   Done: the `RoleItemModel` import was already gone (7.6). `appListId:` and `/appList` are
+   documented as kept (`docs/qml-api.md`, `main.cpp`, `subscriber.h`). The lists are
+   `appCatalog.mainList` ... `updateList` and `news.model`. Properties now:
+   `appCatalog.lastSearchTerm`, `news.updating`, `news.html`, `l.languageNames` (CONSTANT,
+   same index as `languageCodes`). `l.getSelected(code)` takes an argument, so it stays an
+   invokable, as `l.isSelected(code)`.
 5. [ ] **Licence headers** (SPDX), as Symbisend has, and a `CLAUDE.md` update after each phase.
 6. [ ] **Line endings:** sources are CRLF; add `.gitattributes` so that edits don't create
    whole-file diffs.

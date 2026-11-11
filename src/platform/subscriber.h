@@ -13,7 +13,8 @@ QTM_END_NAMESPACE
 
 // Emits appListIdReceived() when another app asks (through the Qt Mobility
 // value space, path /appList) to show an app. Never emits on other platforms,
-// which have no Qt Mobility.
+// which have no Qt Mobility. The path and the appListId:<n> value are kept
+// from AppList on purpose: other apps and the widget DLL use them.
 class Subscriber : public QObject
 {
     Q_OBJECT

@@ -206,7 +206,8 @@ DLL use them.
 ## `launchAppId` — int
 
 The store id from an `appListId:<n>` command line argument (Wunderland started by another
-app to show that app), else `-1`.
+app to show that app), else `-1`. Like the `/appList` path, the argument keeps its AppList
+name on purpose.
 
 ## `appVersion` — string
 

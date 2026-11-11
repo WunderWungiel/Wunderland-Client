@@ -55,7 +55,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qDebug() << "Wunderland" << app->applicationVersion() << "starting";
     qDebug() << "Log file:" << Logger::instance()->logFilePath();
 
-    // Manage, if an app has started AppList
+    // Another app started Wunderland to show one app: appListId:<n>. The name is
+    // kept from AppList on purpose, other apps use it.
     int launchAppId = -1;
     const QStringList list = app->arguments();
     for (int i=0; i<list.length(); i++) {
