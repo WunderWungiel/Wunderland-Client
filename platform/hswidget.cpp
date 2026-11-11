@@ -1,6 +1,5 @@
 #include "hswidget.h"
 #include <QDebug>
-#include <QSettings>
 #include <e32std.h> // RProcess
 
 static const char *sw_type = "tworows";
@@ -42,8 +41,7 @@ void HSWidget::publishWidget() {
 
 void HSWidget::removeWidget() {
     if (!widget) return;
-    QSettings settings;
-    settings.remove("widget");
+    updateTracker->resetLastCheck();
     widget->RemoveWidget();
 }
 
@@ -58,11 +56,9 @@ void HSWidget::handleEvent( QHSWidget* /*aSender*/, QHSEvent aEvent ) {
             qDebug() << "HSWidget: resume";
             refresh();
             break;
-        case EDeactivate: {
-                qDebug() << "HSWidget: deactivate";
-                QSettings settings;
-                settings.remove("widget/lastUpdateTime");
-            }
+        case EDeactivate:
+            qDebug() << "HSWidget: deactivate";
+            updateTracker->resetLastCheck();
             break;
         default:
             break;

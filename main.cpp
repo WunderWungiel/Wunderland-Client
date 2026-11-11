@@ -61,9 +61,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     StoreApi storeApi(&networkManager, &language);
 
     AppManagement appManagement;
-    if (!appManagement.appsScanned()) appManagement.scanApps();
-
-    // After scanApps(), which fills apps/installedIds on the first run
+    // On the first run it also maps the installed apps to store IDs
     UpdateTracker updateTracker(&storeApi, &appManagement);
 
 #ifdef Q_OS_SYMBIAN

@@ -6,15 +6,34 @@
 #include <QDateTime>
 #include <QDebug>
 
+// Keys from older versions; don't rename, or users lose their state on upgrade
+static const char *InstalledIdsKey = "apps/installedIds";
+static const char *UpdateIdsKey = "apps/updateIds";
+static const char *HighestSeenIdKey = "apps/highestSeenId";
+static const char *AppsScannedKey = "settings/appsScanned";
 static const char *LastCheckKey = "widget/lastUpdateTime";
 
 UpdateTracker::UpdateTracker(StoreApi *api, AppManagement *appManagement, QObject *parent) :
     QObject(parent), m_api(api), m_appManagement(appManagement)
 {
     QSettings settings;
-    m_updateIds = settings.value("apps/updateIds").toStringList();
-    m_installedIds = settings.value("apps/installedIds").toStringList();
-    m_highestSeenId = settings.value("apps/highestSeenId", 0).toInt();
+    m_updateIds = settings.value(UpdateIdsKey).toStringList();
+    m_installedIds = settings.value(InstalledIdsKey).toStringList();
+    m_highestSeenId = settings.value(HighestSeenIdKey, 0).toInt();
+
+    if (!settings.value(AppsScannedKey, false).toBool()) scanInstalledApps();
+}
+
+void UpdateTracker::scanInstalledApps() {
+    QStringList ids;
+    // Not marked as scanned, so the next start tries again
+    if (!m_appManagement->installedStoreIds(ids)) return;
+
+    for (int i = 0; i < ids.count(); i++) {
+        if (!m_installedIds.contains(ids.at(i))) m_installedIds.append(ids.at(i));
+    }
+    saveInstalledIds();
+    QSettings().setValue(AppsScannedKey, true);
 }
 
 void UpdateTracker::check() {
@@ -62,13 +81,17 @@ bool UpdateTracker::lastCheckOlderThanADay() const {
     return qAbs(lastCheck.daysTo(QDateTime::currentDateTime())) >= 1;
 }
 
+void UpdateTracker::resetLastCheck() {
+    QSettings().remove(LastCheckKey);
+}
+
 bool UpdateTracker::track(AppEntry &app) {
     QString id = QString::number(app.id);
 
     if (app.id > m_highestSeenId) {
         m_highestSeenId = app.id;
         QSettings settings;
-        settings.setValue("apps/highestSeenId", m_highestSeenId);
+        settings.setValue(HighestSeenIdKey, m_highestSeenId);
     }
 
     QString installedVersion = m_appManagement->getVersion(app.uid);
@@ -111,7 +134,7 @@ void UpdateTracker::installFinished(int id, bool success) {
 
 void UpdateTracker::setUpdateIds(const QStringList &ids) {
     QSettings settings;
-    settings.setValue("apps/updateIds", ids);
+    settings.setValue(UpdateIdsKey, ids);
     if (ids == m_updateIds) return;
     m_updateIds = ids;
     emit countChanged();
@@ -119,5 +142,5 @@ void UpdateTracker::setUpdateIds(const QStringList &ids) {
 
 void UpdateTracker::saveInstalledIds() {
     QSettings settings;
-    settings.setValue("apps/installedIds", m_installedIds);
+    settings.setValue(InstalledIdsKey, m_installedIds);
 }

@@ -431,7 +431,7 @@ strings, and delete the commented-out code (≈40 lines in `bringToFront`).
 
 ---
 
-## [ ] Phase 6 — Settings and persistence
+## [x] Phase 6 — Settings and persistence (done)
 
 ### [x] 6.1 One `Settings` class with `Q_PROPERTY`s
 `QSettings("WunderWungiel", "Wunderland")` is built from string literals in about 20 places,
@@ -442,7 +442,7 @@ once in `main.cpp` (so `QSettings()` needs no arguments), make every user option
 `Q_PROPERTY` with NOTIFY, and keep the key strings in one place. QML then binds
 (`checked: settings.darkTheme`) instead of calling getter/setter pairs.
 
-### [ ] 6.2 Keep app state apart from preferences
+### [x] 6.2 Keep app state apart from preferences
 `apps/installedIds`, `apps/updateIds`, `apps/highestSeenId`, `settings/appsScanned` belong to
 `UpdateTracker` (4.2), not to scattered code. Keep the existing keys, so that current users
 keep their state when they upgrade.

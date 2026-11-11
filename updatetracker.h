@@ -8,10 +8,12 @@
 
 class AppManagement;
 
-// Which store apps are installed, which have updates and the highest app id seen
-// (persisted as apps/installedIds, apps/updateIds, apps/highestSeenId), plus the
-// update check against the server. One instance, shared by the app lists, the
-// install flow and the homescreen widget.
+// Which store apps are installed, which have updates and the highest app id seen,
+// plus the update check against the server. One instance, shared by the app
+// lists, the install flow and the homescreen widget. It is the only owner of
+// this persisted app state (apps/installedIds, apps/updateIds, apps/highestSeenId,
+// settings/appsScanned, widget/lastUpdateTime); the keys are kept from older
+// versions, so the state survives an upgrade.
 class UpdateTracker : public QObject
 {
     Q_OBJECT
@@ -29,8 +31,10 @@ public:
     // Asks the server for the installed apps and replaces the update list.
     // On an error the last known list is kept.
     void check();
-    // True if check() has not succeeded in the last day (or the widget reset it)
+    // True if check() has not succeeded in the last day (or resetLastCheck() was called)
     bool lastCheckOlderThanADay() const;
+    // The next lastCheckOlderThanADay() returns true (the widget was deactivated or removed)
+    void resetLastCheck();
 
     // For an app from a store list: sets app.installed (from the registry) and
     // app.updateAvailable, records its id as seen, and adds it to or removes it
@@ -51,6 +55,8 @@ private slots:
     void checkLoaded();
 
 private:
+    // First run: adds the installed apps known from apps.txt to the installed list
+    void scanInstalledApps();
     void setUpdateIds(const QStringList &ids);
     void saveInstalledIds();
 

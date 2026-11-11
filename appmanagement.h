@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QStringList>
 
 // Installed apps, for the update check and the detail page. The native calls
 // are in platform/apps.*.
@@ -23,9 +24,10 @@ public:
     bool launchApp(QString uid);
     Q_INVOKABLE bool checkAppInstalled(QString uid);
 
-    bool appsScanned();
-    // Maps the installed apps to store IDs (apps.txt) on the first run
-    void scanApps();
+    // Store IDs of the installed apps that are listed in the bundled apps.txt
+    // (for the first run, before the store lists have been opened). False if
+    // the installed apps could not be read.
+    bool installedStoreIds(QStringList &ids);
 };
 
 #endif // APPMANAGEMENT_H
