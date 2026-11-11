@@ -138,7 +138,7 @@ ListView {
 
         anchors.fill: parent
 
-        text: qsTr("Loading") + "..." + l.emptyString
+        text: qsTr("Loading") + "..."
     }
 
     function startLoading() {

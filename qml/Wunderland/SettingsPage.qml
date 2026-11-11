@@ -21,7 +21,7 @@ Page {
 
         Text {
             id: settingsHeaderText
-            text: qsTr("Settings") + l.emptyString
+            text: qsTr("Settings")
             width: parent.width - 20
             wrapMode: TextEdit.Wrap
             font.pixelSize: 18
@@ -67,7 +67,7 @@ Page {
                 height: 50
 
                 Text {
-                    text: qsTr("Open links in phone browser") + ":" + l.emptyString
+                    text: qsTr("Open links in phone browser") + ":"
                     color: window.textColor
                     font.pixelSize: 20
                     anchors.left: parent.left
@@ -109,7 +109,7 @@ Page {
                 height: 50
 
                 Text {
-                    text: qsTr("Dark theme") + ":" + l.emptyString
+                    text: qsTr("Dark theme") + ":"
                     color: window.textColor
                     font.pixelSize: 20
                     anchors.left: parent.left
@@ -152,7 +152,7 @@ Page {
                 height: 50
 
                 Text {
-                    text: qsTr("Show latest news from Wunderland Store") + ":" + l.emptyString
+                    text: qsTr("Show latest news from Wunderland Store") + ":"
                     color: window.textColor
                     font.pixelSize: 20
                     anchors.left: parent.left

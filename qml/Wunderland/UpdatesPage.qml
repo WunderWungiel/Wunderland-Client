@@ -33,7 +33,7 @@ Page {
 
             Text {
                 id: updateListHeaderText
-                text: qsTr("My updates") + l.emptyString
+                text: qsTr("My updates")
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18

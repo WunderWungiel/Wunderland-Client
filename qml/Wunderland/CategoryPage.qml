@@ -20,7 +20,7 @@ Page {
 
         Text {
             id: categoryHeaderText
-            text: qsTr("Categories") + l.emptyString
+            text: qsTr("Categories")
             width: parent.width - 20
             wrapMode: TextEdit.Wrap
             font.pixelSize: 18

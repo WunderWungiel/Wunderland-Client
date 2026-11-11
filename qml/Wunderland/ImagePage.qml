@@ -18,7 +18,7 @@ Page {
 
         anchors.fill: parent
 
-        text: qsTr("Loading") + "..." + l.emptyString
+        text: qsTr("Loading") + "..."
     }
 
     Image {

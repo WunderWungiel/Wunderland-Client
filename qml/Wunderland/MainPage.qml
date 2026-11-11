@@ -20,7 +20,7 @@ Page {
 
             Text {
                 id: appListHeaderText
-                text: qsTr("Latest apps and games") + l.emptyString
+                text: qsTr("Latest apps and games")
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
@@ -84,7 +84,7 @@ Page {
 
             Text {
                 id: newsHeaderText
-                text: qsTr("Latest news from Wunderland Store") + l.emptyString
+                text: qsTr("Latest news from Wunderland Store")
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18

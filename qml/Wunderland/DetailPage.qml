@@ -12,6 +12,9 @@ Page {
     // The app, as AppListModel.get() returns it
     property variant detailItem: -1
 
+    // Download size for display ("1.5 MB", "300 KB"), "" if unknown
+    property string sizeText: detailItem["version"] !== "" ? formatSize(parseInt(detailItem["downloadsize"])) : ""
+
     Rectangle {
         id: background
         color: window.bgColor
@@ -20,18 +23,14 @@ Page {
 
     Flickable {
         id: flickArea
-        height: parent.height// - aboutHeader.height - basicInfo.height
+        height: parent.height
         width: parent.width
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: parent.top //basicInfo.bottom
+        anchors.top: parent.top
         contentWidth: parent.width
-        contentHeight: 74 + appName.height + appIcon.height + (downloadProgress.viaible ? downloadProgress.height : appButton.height) + appDescription.height + contactsHeader.height + appContactLinks.height + appLinks.height
+        contentHeight: appLinks.y + appLinks.height
         flickableDirection: Flickable.VerticalFlick
         clip: true
-
-        function flickAreaHeight() {
-            return 74 + appName.height + appIcon.height + (downloadProgress.viaible ? downloadProgress.height : appButton.height) + appDescription.height + contactsHeader.height + appContactLinks.height + appLinks.height
-        }
 
         Label {
             id: appName
@@ -94,8 +93,7 @@ Page {
 
             Label {
                 id: appVersion
-                property string sizeString: (detailItem["version"] !== "") ? (detailItem["downloadsize"] !== "0" ? ( parseInt(detailItem["downloadsize"]) > 1000000 ? (detailItem["downloadsize"]/1000000.0).toFixed(1)+" MB" : (detailItem["downloadsize"]/1000.0).toFixed()+" KB") : "") : ""
-                text: detailItem["version"] + (sizeString != "" ? " - " + sizeString : "")
+                text: detailItem["version"] + (detailPage.sizeText !== "" ? " - " + detailPage.sizeText : "")
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 20
                 color: window.subtleColor
@@ -106,7 +104,7 @@ Page {
 
         Label {
             id: appPrice
-            text: (detailItem["price"] > 0) ? (detailItem["price"] + " €") : (qsTr("Free") + l.emptyString)
+            text: (detailItem["price"] > 0) ? (detailItem["price"] + " €") : qsTr("Free")
             font.pixelSize: 24
             color: window.textColor
             anchors.left: parent.left
@@ -124,12 +122,10 @@ Page {
             visible: appButton.buttonAction == InstallManager.Downloading
             height: cancelButton.height + progressBar.height + 10
 
-            //onVisibleChanged: flickArea.contentHeight = flickArea.flickAreaHeight()
-
             Button {
                 id: cancelButton
-                text: qsTr("Cancel") + l.emptyString
-                anchors.top: appIcon.bottom
+                text: qsTr("Cancel")
+                anchors.top: parent.top
                 anchors.right: parent.right
                 width: (detailPage.width/5) * 2
                 onClicked: {
@@ -265,7 +261,7 @@ Page {
 
             Text {
                 id: contactsText
-                text: qsTr("Contact the developer") + l.emptyString
+                text: qsTr("Contact the developer")
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
@@ -291,109 +287,39 @@ Page {
             anchors.top: contactsHeader.bottom
             color: window.bgColor
 
-            Rectangle {
-                id: appTwitter
-                height: parent.width/4
-                width: parent.width/4
-                color: (mouseAreaTwitter.pressed && (detailItem["twitter"] !== "")) ? window.highlightColor : window.bgColor
-                anchors.left: parent.left
-                anchors.top: parent.top
+            Row {
+                anchors.fill: parent
 
-                Image {
-                    anchors.centerIn: parent
-                    asynchronous: true
+                ContactButton {
+                    width: parent.width/4
+                    height: parent.height
                     source: "images/twitter.png"
-                    opacity: (detailItem["twitter"] !== "") ? 1 : 0.3
+                    active: detailItem["twitter"] !== ""
+                    onClicked: Qt.openUrlExternally("https://twitter.com/" + detailItem["twitter"])
                 }
 
-                MouseArea {
-                    id: mouseAreaTwitter
-                    anchors.fill: parent
-                    onPressed: tf.play()
-                    onReleased: tf.play()
-                    onClicked: {
-                        if (detailItem["twitter"] !== "") Qt.openUrlExternally("https://twitter.com/"+detailItem["twitter"])
-                    }
-                }
-            }
-
-            Rectangle {
-                id: appFacebook
-                height: parent.width/4
-                width: parent.width/4
-                color: (mouseAreaFacebook.pressed && (detailItem["facebook"] !== "")) ? window.highlightColor : window.bgColor
-                anchors.left: parent.left
-                anchors.leftMargin: parent.width/4
-                anchors.top: parent.top
-
-                Image {
-                    anchors.centerIn: parent
-                    asynchronous: true
+                ContactButton {
+                    width: parent.width/4
+                    height: parent.height
                     source: "images/facebook.png"
-                    opacity: (detailItem["facebook"] !== "") ? 1 : 0.3
+                    active: detailItem["facebook"] !== ""
+                    onClicked: Qt.openUrlExternally(detailItem["facebook"])
                 }
 
-                MouseArea {
-                    id: mouseAreaFacebook
-                    anchors.fill: parent
-                    onPressed: tf.play()
-                    onReleased: tf.play()
-                    onClicked: {
-                        if (detailItem["facebook"] !== "") Qt.openUrlExternally(detailItem["facebook"])
-                    }
-                }
-            }
-
-            Rectangle {
-                id: appMail
-                height: parent.width/4
-                width: parent.width/4
-                color: (mouseAreaMail.pressed && (detailItem["mail"] !== "")) ? window.highlightColor : window.bgColor
-                anchors.right: parent.right
-                anchors.rightMargin: parent.width/4
-                anchors.top: parent.top
-
-                Image {
-                    anchors.centerIn: parent
-                    asynchronous: true
+                ContactButton {
+                    width: parent.width/4
+                    height: parent.height
                     source: "images/mail.png"
-                    opacity: (detailItem["mail"] !== "") ? 1 : 0.3
+                    active: detailItem["mail"] !== ""
+                    onClicked: Qt.openUrlExternally("mailto:" + detailItem["mail"] + "?subject=" + detailItem["name"] + " on Wunderland")
                 }
 
-                MouseArea {
-                    id: mouseAreaMail
-                    anchors.fill: parent
-                    onPressed: tf.play()
-                    onReleased: tf.play()
-                    onClicked: {
-                        if (detailItem["mail"] !== "") Qt.openUrlExternally("mailto:"+detailItem["mail"]+"?subject="+detailItem["name"]+" on Wunderland")
-                    }
-                }
-            }
-
-            Rectangle {
-                id: appWebsite
-                height: parent.width/4
-                width: parent.width/4
-                color: (mouseAreaWebsite.pressed && (detailItem["website"] !== "")) ? window.highlightColor : window.bgColor
-                anchors.right: parent.right
-                anchors.top: parent.top
-
-                Image {
-                    anchors.centerIn: parent
-                    asynchronous: true
+                ContactButton {
+                    width: parent.width/4
+                    height: parent.height
                     source: "images/web.png"
-                    opacity: (detailItem["website"] !== "") ? 1 : 0.3
-                }
-
-                MouseArea {
-                    id: mouseAreaWebsite
-                    anchors.fill: parent
-                    onPressed: tf.play()
-                    onReleased: tf.play()
-                    onClicked: {
-                        if (detailItem["website"] !== "") Qt.openUrlExternally(detailItem["website"])
-                    }
+                    active: detailItem["website"] !== ""
+                    onClicked: Qt.openUrlExternally(detailItem["website"])
                 }
             }
         }
@@ -416,7 +342,7 @@ Page {
             AppLink {
                 id: appLinkImages
                 width: parent.width
-                text: qsTr("Screenshots") + l.emptyString
+                text: qsTr("Screenshots")
                 show: (detailItem["image1"] !== "" || detailItem["image2"] !== "" || detailItem["image3"] !== "" || detailItem["image4"] !== "" || detailItem["image5"] !== "")
                 visible: show
                 anchors.top: parent.top
@@ -435,7 +361,7 @@ Page {
             AppLink {
                 id: appLinkDonate
                 width: parent.width
-                text: qsTr("Donate") + l.emptyString
+                text: qsTr("Donate")
                 show: (detailItem["donation"] !== "")
                 visible: show
                 anchors.top: border5.bottom
@@ -454,7 +380,7 @@ Page {
             AppLink {
                 id: appLinkAAS
                 width: parent.width
-                text: qsTr("Read on All About Symbian") + l.emptyString
+                text: qsTr("Read on All About Symbian")
                 show: (detailItem["aas"] !== "")
                 visible: show
                 anchors.top: border6.bottom
@@ -484,8 +410,6 @@ Page {
     Connections {
         target: installManager
         onInstallServerFinished: {
-            //appDescriptionLabel.text = debug
-
             if (statusCode === 0) {
                 // Successful installation
                 updateButton()
@@ -501,7 +425,7 @@ Page {
                 infoBanner.open()
                 updateButton()
             } else if (code == 1) {
-                infoBanner.text = qsTr("There is not enough space available on your device to download this app. At least %1 is required.").arg(appVersion.sizeString)
+                infoBanner.text = qsTr("There is not enough space available on your device to download this app. At least %1 is required.").arg(detailPage.sizeText)
                 infoBanner.open()
                 updateButton()
             } else {
@@ -513,9 +437,15 @@ Page {
     }
 
     function buttonText(action) {
-        if (action == InstallManager.Download) return qsTr("Download") + l.emptyString
-        if (action == InstallManager.Update) return qsTr("Update") + l.emptyString
-        return qsTr("Launch") + l.emptyString
+        if (action == InstallManager.Download) return qsTr("Download")
+        if (action == InstallManager.Update) return qsTr("Update")
+        return qsTr("Launch")
+    }
+
+    function formatSize(bytes) {
+        if (!(bytes > 0)) return ""
+        if (bytes > 1000000) return (bytes / 1000000.0).toFixed(1) + " MB"
+        return (bytes / 1000.0).toFixed() + " KB"
     }
 
     function updateButton() {

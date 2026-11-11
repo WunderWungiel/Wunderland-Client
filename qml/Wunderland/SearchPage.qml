@@ -21,7 +21,7 @@ Page {
 
         Text {
             id: searchHeaderText
-            text: qsTr("Search") + l.emptyString
+            text: qsTr("Search")
             width: parent.width - 20
             wrapMode: TextEdit.Wrap
             font.pixelSize: 18
@@ -49,7 +49,7 @@ Page {
         TextField {
             id: searchField
             text: appCatalog.getLastSearchTerm()
-            placeholderText: qsTr("Search...") + l.emptyString
+            placeholderText: qsTr("Search...")
             anchors.left: parent.left
             anchors.leftMargin: 7
             anchors.right: searchButton.left
@@ -106,7 +106,7 @@ Page {
 
         listModel: appCatalog._searchList
 
-        text: qsTr("Search for apps and games in the Wunderland database...") + l.emptyString
+        text: qsTr("Search for apps and games in the Wunderland database...")
 
         onAtYEndChanged: {
             if (atYEnd && appList.count > 0 && appList.count%25 == 0 && !appList.currentlyLoading) {

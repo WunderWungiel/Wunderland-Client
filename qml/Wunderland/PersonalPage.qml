@@ -32,7 +32,7 @@ Page {
 
             Text {
                 id: settingsHeaderText
-                text: qsTr("Settings / About Wunderland") + l.emptyString
+                text: qsTr("Settings / About Wunderland")
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
@@ -68,7 +68,7 @@ Page {
                 width: parent.width
                 wrapMode: Text.WordWrap
 
-                text: qsTr("Settings") + l.emptyString
+                text: qsTr("Settings")
                 font.pixelSize: 20
 
                 color: (settingsMouseArea.pressed) ? window.bgColor : window.textColor
@@ -109,7 +109,7 @@ Page {
                 width: parent.width
                 wrapMode: Text.WordWrap
 
-                text: qsTr("Help & info about Wunderland") + l.emptyString
+                text: qsTr("Help & info about Wunderland")
                 font.pixelSize: 20
 
                 color: (mouseArea.pressed) ? window.bgColor : window.textColor
@@ -150,7 +150,7 @@ Page {
 
             Text {
                 id: personalListHeaderText
-                text: qsTr("My apps") + l.emptyString
+                text: qsTr("My apps")
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
@@ -187,7 +187,7 @@ Page {
                 width: parent.width
                 wrapMode: Text.WordWrap
 
-                text: qsTr("Updates available") + l.emptyString
+                text: qsTr("Updates available")
                 font.pixelSize: 20
 
                 color: (updateMouseArea.pressed) ? window.textColor : "#FCFCFC"

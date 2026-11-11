@@ -155,9 +155,6 @@ Categories (names translated):
 - `isHeadCategory(id)` → true for 0 (Applications), 12 (Games), 19 (Themes). The
   subcategories of a head category are the ids up to the next head category.
 
-- `emptyString` (string, always `""`) — retranslation hack appended to `qsTr()` strings
-  (`qsTr("…") + l.emptyString`). Deprecated; to be removed (plan 7.4).
-
 ## `settings` — user options (persisted)
 
 All read/write bool; assign directly (`settings.darkTheme = checked`).

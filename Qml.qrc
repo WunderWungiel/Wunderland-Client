@@ -17,6 +17,7 @@
         <file alias="AppListView.qml">qml/Wunderland/AppListView.qml</file>
         <file alias="CategoryListPage.qml">qml/Wunderland/CategoryListPage.qml</file>
         <file alias="CategoryPage.qml">qml/Wunderland/CategoryPage.qml</file>
+        <file alias="ContactButton.qml">qml/Wunderland/ContactButton.qml</file>
         <file alias="DetailPage.qml">qml/Wunderland/DetailPage.qml</file>
         <file alias="ImagePage.qml">qml/Wunderland/ImagePage.qml</file>
         <file alias="Loading.qml">qml/Wunderland/Loading.qml</file>

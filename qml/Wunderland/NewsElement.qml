@@ -105,7 +105,7 @@ Rectangle {
         opacity: 0.4
         visible: newsList.count > 0 ? false : true
 
-        text: "<div align=\"center\">"+qsTr("Error fetching news feed")+"...</div>" + l.emptyString
+        text: "<div align=\"center\">"+qsTr("Error fetching news feed")+"...</div>"
     }
 
     Connections {
@@ -123,7 +123,7 @@ Rectangle {
 
         anchors.fill: parent
 
-        text: qsTr("Loading") + "..." + l.emptyString
+        text: qsTr("Loading") + "..."
     }
 
     Rectangle {

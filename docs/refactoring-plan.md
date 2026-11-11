@@ -478,12 +478,21 @@ creates the component itself and throws `Error while loading page: <errorString>
 log) if it fails. `Qt.resolvedUrl` is needed because a bare name would resolve relative to
 `PageStack.js`.
 
-### [ ] 7.4 Simplify `DetailPage.qml` (563 lines)
+### [x] 7.4 Simplify `DetailPage.qml` (563 lines)
 Move the size/version formatting (`DetailPage.qml:104-105`, single-line nested ternaries)
 into C++ (`AppEntry::displayVersion(useUnsigned)`, `displaySize(...)`) or a small JS helper.
 Split the social-link buttons into a reusable `AppLink` (that file already exists).
 Remove the `+ l.emptyString` retranslation hack once the language can't change at runtime,
 or switch to a real `rev` property, as Symbisend's `i18n.rev` does.
+Done (531 → 461 lines): the size text is `DetailPage.sizeText`, built by a `formatSize(bytes)`
+function (also used by the "not enough space" message; an empty or non-numeric
+`downloadsize` now gives no size instead of `NaN KB`). The four contact buttons are
+`ContactButton.qml` (`source`, `active`, `clicked()`) in a `Row`; `AppLink` stays for the
+text rows. The UI language is picked once at startup, so `+ l.emptyString` was a no-op: it is
+gone from all pages, and `Language::emptyString` with it (from 8.2). Also: `contentHeight` is
+the bottom of the last item (the old sum read `downloadProgress.viaible`, so it ignored the
+progress bar), and the Cancel button anchors to its parent instead of `appIcon`, which is not
+a sibling.
 
 ### [ ] 7.5 Show errors
 Connect `loadingError`/new error enums to an `InfoBanner` on the list pages, so a failed
@@ -502,7 +511,7 @@ if so, use the `QXmlStreamReader` RSS parser from 2.2.
    `.pro` (one entry per line, ` \` continuations, check with `grep -nF '\n'`).
 2. [ ] **Dead code:** `xqinstaller*` (4 files, commented out of the `.pro`), `appitem.*`,
    `reviewitem.*`, `GetList(QObject*)` (empty constructor that leaves members uninitialised),
-   `Language::emptyString` once 7.4 is done, commented-out blocks in `getlist.cpp`
+   commented-out blocks in `getlist.cpp`
    (`buttonAction`), `hswidget.cpp` and `downloader.cpp`. Clean up `SOURCES`/`HEADERS` in `.pro`:
    the commented-out `#xqinstaller*` lines in the middle of a ` \`-continued list (one with a
    ` \` and one without) are fragile. Delete them.

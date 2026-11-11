@@ -27,7 +27,6 @@ class Language : public QObject {
     Q_OBJECT
     Q_PROPERTY(QStringList languageCodes READ languageCodes NOTIFY myLanguagesChanged)
     Q_PROPERTY(QString subtitleString READ subtitleString NOTIFY myLanguagesChanged)
-    Q_PROPERTY(QString emptyString READ emptyString)
 public:
     Language(QObject *parent = 0);
 
@@ -41,8 +40,6 @@ public:
     QString subtitleString();                                   // Display the selected languages in the settings
     QString languagesForUrl();                                  // Returns language string passed for requests
     QString currentLanguage() { return _currentLanguage; }      // Returns the current language
-
-    QString emptyString() { return ""; }                        // Deprecated
 signals:
     void myLanguagesChanged();
 private:

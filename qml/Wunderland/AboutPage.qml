@@ -37,7 +37,7 @@ Page {
 
         Text {
             id: aboutHeaderText
-            text: qsTr("About Wunderland") + l.emptyString
+            text: qsTr("About Wunderland")
             width: parent.width - 20
             wrapMode: TextEdit.Wrap
             font.pixelSize: 18
@@ -108,7 +108,7 @@ Copyright (C) 2026"
             width: parent.width
             wrapMode: Text.WordWrap
 
-            text: qsTr("Changelog") + l.emptyString
+            text: qsTr("Changelog")
             font.pixelSize: 20
 
             color: (changelogMouseArea.pressed) ? window.bgColor : window.textColor
@@ -193,7 +193,7 @@ Based on AppList by Sebastian (schumi1331). Thank you!<br><br>
     Loading {
         id: loading
         anchors.fill: parent
-        text: qsTr("Loading") + "..." + l.emptyString
+        text: qsTr("Loading") + "..."
     }
 
     InfoBanner {
