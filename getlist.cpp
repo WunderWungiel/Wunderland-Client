@@ -35,73 +35,7 @@ GetList::GetList(StoreApi *_api, Language *__language, QObject *parent) :
     QSettings settings("WunderWungiel", "Wunderland");
     updateIds = settings.value("apps/updateIds", updateIds).toStringList();
 
-    // Gaps (4, 5, 8, 9, 11, 12, 31, 33, 34, 39) were the unsigned/Store variant roles
-    struct ListEntry {
-        enum ListRoles {
-            IdRole = Qt::UserRole + 1,
-            NameRole = Qt::UserRole + 2,
-            UidRole = Qt::UserRole + 3,
-            IconRole = Qt::UserRole + 6,
-            VersionRole = Qt::UserRole + 7,
-            VersionDateRole = Qt::UserRole + 10,
-            InstalledUidRole = Qt::UserRole + 13,
-            CategoryRole = Qt::UserRole + 14,
-            LanguageRole = Qt::UserRole + 15,
-            OsRole = Qt::UserRole + 16,
-            DeveloperRole = Qt::UserRole + 17,
-            MailRole = Qt::UserRole + 18,
-            WebsiteRole = Qt::UserRole + 19,
-            TwitterRole = Qt::UserRole + 20,
-            FacebookRole = Qt::UserRole + 21,
-            DonationRole = Qt::UserRole + 22,
-            AASRole = Qt::UserRole + 23,
-            PriceRole = Qt::UserRole + 24,
-            DescriptionRole = Qt::UserRole + 25,
-            Image1Role = Qt::UserRole + 26,
-            Image2Role = Qt::UserRole + 27,
-            Image3Role = Qt::UserRole + 28,
-            TagsRole = Qt::UserRole + 29,
-            ChangelogRole = Qt::UserRole + 30,
-            DownloadRole = Qt::UserRole + 32,
-            UpdateRole = Qt::UserRole + 35,
-            Image4Role = Qt::UserRole + 36,
-            Image5Role = Qt::UserRole + 37,
-            DownloadSizeRole = Qt::UserRole + 38
-        };
-    };
-    QHash<int, QByteArray> roleNames;
-    roleNames[ListEntry::IdRole] = "id";
-    roleNames[ListEntry::NameRole] =  "name";
-    roleNames[ListEntry::UidRole] = "uid";
-    roleNames[ListEntry::IconRole] = "icon";
-    roleNames[ListEntry::VersionRole] = "version";
-    roleNames[ListEntry::VersionDateRole] = "versiondate";
-    roleNames[ListEntry::InstalledUidRole] = "installed";
-    roleNames[ListEntry::CategoryRole] = "category";
-    roleNames[ListEntry::LanguageRole] = "language";
-    roleNames[ListEntry::OsRole] = "os";
-    roleNames[ListEntry::DeveloperRole] = "developer";
-    roleNames[ListEntry::MailRole] = "mail";
-    roleNames[ListEntry::WebsiteRole] = "website";
-    roleNames[ListEntry::TwitterRole] = "twitter";
-    roleNames[ListEntry::FacebookRole] = "facebook";
-    roleNames[ListEntry::DonationRole] = "donation";
-    roleNames[ListEntry::AASRole] = "aas";
-    roleNames[ListEntry::PriceRole] = "price";
-    roleNames[ListEntry::DescriptionRole] = "description";
-    roleNames[ListEntry::Image1Role] = "image1";
-    roleNames[ListEntry::Image2Role] = "image2";
-    roleNames[ListEntry::Image3Role] = "image3";
-    roleNames[ListEntry::TagsRole] = "tags";
-    roleNames[ListEntry::ChangelogRole] = "changelog";
-    roleNames[ListEntry::DownloadRole] = "download";
-    roleNames[ListEntry::UpdateRole] = "updateAvailable";
-    roleNames[ListEntry::Image4Role] = "image4";
-    roleNames[ListEntry::Image5Role] = "image5";
-    roleNames[ListEntry::DownloadSizeRole] = "downloadsize";
-
-    //RoleItemModel *_list[2] = {new RoleItemModel(roleNames), new RoleItemModel(roleNames), new RoleItemModel(roleNames)};
-    //list = _list;
+    QHash<int, QByteArray> roleNames = appRoleNames();
     list[0] = new RoleItemModel(roleNames);
     list[1] = new RoleItemModel(roleNames);
     list[2] = new RoleItemModel(roleNames);
@@ -203,6 +137,7 @@ void GetList::parseList(QString html, int listId) {
             QSettings settings("WunderWungiel", "Wunderland");
             int highestSeenId = settings.value("apps/highestSeenId", 0).toInt();
             QStringList installedIds = settings.value("apps/installedIds").toStringList();
+            QHash<int, QByteArray> roleNames = appRoleNames();
 
             if (cleanList[listId]) {
                 list[listId]->clear();
@@ -210,72 +145,32 @@ void GetList::parseList(QString html, int listId) {
             }
 
             for (int a = 0; a < result.apps.count(); a++) {
-                const AppFields &app = result.apps.at(a);
-                QStandardItem* item = new QStandardItem();
-
-                int id = app.value("id").toInt();
-                item->setData(id, Qt::UserRole + 1);
+                AppEntry app = result.apps.at(a);
+                int id = app.id;
                 // ID hasn't been seen, set as highest seen id
                 if (id > highestSeenId) highestSeenId = id;
 
-                item->setData(app.value("name"), Qt::UserRole + 2);
-
-                QString uid = app.value("uid");
-                item->setData(uid, Qt::UserRole + 3);
-
-                item->setData(app.value("icon"), Qt::UserRole + 6);
-
-                QString version = app.value("version");
-                item->setData(version, Qt::UserRole + 7);
-
-                QDateTime versiondate = QDateTime::fromString(app.value("versiondate"), "yyyy-MM-dd hh:mm:ss");
-                item->setData(versiondate, Qt::UserRole + 10);
-
-                // Save installed UID ("<uid>1" when installed, "0" when not)
-                QString installedVersion = appManagement.getVersion(uid);
-                if (installedVersion.length() > 0) item->setData(uid+"1", Qt::UserRole + 13);
-                else item->setData("0", Qt::UserRole + 13);
+                // Installed UID is "<uid>1" when installed, "0" when not
+                QString installedVersion = appManagement.getVersion(app.uid);
+                app.installed = installedVersion.length() > 0 ? app.uid + "1" : QString("0");
 
                 // If installed add to installedIds-List
                 if (installedVersion.length() > 0 && !installedIds.contains(QString::number(id))) {
                     // If not in installedId list check for update, otherwise it will be checked within updatelist
-                    if (updateManagement->checkForUpdate(uid, version)) {
-                        item->setData("true", Qt::UserRole + 35);
+                    if (updateManagement->checkForUpdate(app.uid, app.version)) {
+                        app.updateAvailable = true;
                         updateIds.append(QString::number(id));
                         emit updateCountChanged();
-                    } else {
-                        item->setData("false", Qt::UserRole + 35);
                     }
 
                     installedIds.append(QString::number(id));
                 } else if (updateIds.contains(QString::number(id))) {
-                    item->setData("true", Qt::UserRole + 35);
-                } else {
-                    item->setData("false", Qt::UserRole + 35);
+                    app.updateAvailable = true;
                 }
 
-                item->setData(app.value("category").toInt(), Qt::UserRole + 14);
-                item->setData(app.value("language"), Qt::UserRole + 15);
-                item->setData(app.value("os"), Qt::UserRole + 16);
-                item->setData(app.value("developer"), Qt::UserRole + 17);
-                item->setData(app.value("mail"), Qt::UserRole + 18);
-                item->setData(app.value("website"), Qt::UserRole + 19);
-                item->setData(app.value("twitter"), Qt::UserRole + 20);
-                item->setData(app.value("facebook"), Qt::UserRole + 21);
-                item->setData(app.value("donation"), Qt::UserRole + 22);
-                item->setData(app.value("aas"), Qt::UserRole + 23);
-                item->setData(app.value("price").toDouble(), Qt::UserRole + 24);
-                item->setData(app.value("description"), Qt::UserRole + 25);
-                item->setData(app.value("image1"), Qt::UserRole + 26);
-                item->setData(app.value("image2"), Qt::UserRole + 27);
-                item->setData(app.value("image3"), Qt::UserRole + 28);
-                item->setData(app.value("image4"), Qt::UserRole + 36);
-                item->setData(app.value("image5"), Qt::UserRole + 37);
-                item->setData(app.value("tags"), Qt::UserRole + 29);
-                item->setData(app.value("changelog"), Qt::UserRole + 30);
-                item->setData(app.value("download"), Qt::UserRole + 32);
-                item->setData(app.value("downloadsize"), Qt::UserRole + 38);
-
+                QStandardItem* item = new QStandardItem();
+                QList<int> roles = roleNames.keys();
+                for (int r = 0; r < roles.count(); r++) item->setData(app.data(roles.at(r)), roles.at(r));
 
                 // Is part of installed list but not installed (anymore) remove
                 if (installedVersion.length() == 0 && installedIds.contains(QString::number(id))) {

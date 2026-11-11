@@ -4,15 +4,12 @@
 #include <QString>
 #include <QList>
 #include <QHash>
-
-// The fields of one <app> element, by tag name ("id", "name", "uid", ...).
-// A missing field reads as an empty string. Becomes AppEntry in plan 3.1.
-typedef QHash<QString, QString> AppFields;
+#include "appentry.h"
 
 struct AppListResult
 {
     QString minVersion;
-    QList<AppFields> apps;   // the complete <app> elements read before any error
+    QList<AppEntry> apps;    // the complete <app> elements read before any error
     bool ok;                 // the whole document was well-formed
     QString errorString;
 };

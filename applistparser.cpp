@@ -39,8 +39,8 @@ AppListResult AppListParser::parse(const QString &xml)
         if (reader.name() == "minversion") {
             result.minVersion = reader.readElementText();
         } else if (reader.name() == "app") {
-            AppFields app = readChildren(reader);
-            if (!reader.hasError()) result.apps.append(app);
+            QHash<QString, QString> fields = readChildren(reader);
+            if (!reader.hasError()) result.apps.append(AppEntry::fromFields(fields));
         }
     }
 

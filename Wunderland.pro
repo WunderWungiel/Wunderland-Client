@@ -46,11 +46,10 @@ SOURCES += main.cpp \
     subscriber.cpp \
     settings.cpp \
     symbian.cpp \
-    appitem.cpp \
-    reviewitem.cpp \
     logger.cpp \
     storeapi.cpp \
-    applistparser.cpp
+    applistparser.cpp \
+    appentry.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -75,11 +74,10 @@ HEADERS += \
     subscriber.h \
     settings.h \
     symbian.h \
-    appitem.h \
-    reviewitem.h \
     logger.h \
     storeapi.h \
-    applistparser.h
+    applistparser.h \
+    appentry.h
 
 addFiles.pkg_postrules += "\"C:\\Wunderland.png\" - \"c:\\system\Wunderland.png\""
 addFiles.pkg_postrules += "\"C:\\HSWidgetxWunderland_E9320736_rel.dll\" - \"!:\\sys\\bin\\HSWidgetxWunderland_E9320736_rel.dll\""

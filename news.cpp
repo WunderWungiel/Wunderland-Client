@@ -1,19 +1,21 @@
 #include "news.h"
 #include "applistparser.h"
 
+// Roles of the news model
+struct NewsEntry {
+    enum NewsRoles {
+        TitleRole = Qt::UserRole + 1,
+        DescriptionRole = Qt::UserRole + 2,
+        DateRole = Qt::UserRole + 3,
+        LinkRole = Qt::UserRole + 4
+    };
+};
+
 News::News(StoreApi *_api, QObject *parent) :
     QObject(parent)
 {
     api = _api;
 
-    struct NewsEntry {
-        enum NewsRoles {
-            TitleRole = Qt::UserRole + 1,
-            DescriptionRole = Qt::UserRole + 2,
-            DateRole = Qt::UserRole + 3,
-            LinkRole = Qt::UserRole + 4
-        };
-    };
     QHash<int, QByteArray> roleNames;
     roleNames[NewsEntry::TitleRole] =  "title";
     roleNames[NewsEntry::DescriptionRole] = "description";
@@ -91,10 +93,10 @@ void News::parseFeed(QString html) {
         }
 
         QStandardItem* standardItem = new QStandardItem();
-        standardItem->setData(item.title, Qt::UserRole+1);
-        standardItem->setData(description, Qt::UserRole+2);
-        standardItem->setData(item.date, Qt::UserRole+3);
-        standardItem->setData(link, Qt::UserRole+4);
+        standardItem->setData(item.title, NewsEntry::TitleRole);
+        standardItem->setData(description, NewsEntry::DescriptionRole);
+        standardItem->setData(item.date, NewsEntry::DateRole);
+        standardItem->setData(link, NewsEntry::LinkRole);
 
         model->appendRow(standardItem);
     }

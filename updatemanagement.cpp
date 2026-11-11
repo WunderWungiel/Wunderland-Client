@@ -62,13 +62,13 @@ void UpdateManagement::parseList(QString html) {
     int newApps = 0;
 
     for (int a = 0; a < result.apps.count(); a++) {
-        const AppFields &app = result.apps.at(a);
+        const AppEntry &app = result.apps.at(a);
 
-        int id = app.value("id").toInt();
+        int id = app.id;
         // ID hasn't been seen
         if (id > highestId) highestId = id;
 
-        if (checkForUpdate(app.value("uid"), app.value("version"))) {
+        if (checkForUpdate(app.uid, app.version)) {
             updateAvailable++;
             updateIds.append(QString::number(id));
         }

@@ -12,6 +12,7 @@
 #include "downloader.h"
 #include "storeapi.h"
 #include "applistparser.h"
+#include "appentry.h"
 
 class GetList : public QObject
 {
@@ -147,9 +148,9 @@ public slots:
                     if (list[i]->getModelData(l).value("id").toString() == downloadingItem.value("id").toString()) {
                         QStandardItem *tempItem = list[i]->item(l);
 
-                        tempItem->setData(uid+"1", Qt::UserRole + 13);
+                        tempItem->setData(uid+"1", InstalledRole);
                         // Set update value to false
-                        tempItem->setData("false", Qt::UserRole + 35);
+                        tempItem->setData("false", UpdateAvailableRole);
 
                         // Update item
                         list[i]->setItem(l, tempItem);

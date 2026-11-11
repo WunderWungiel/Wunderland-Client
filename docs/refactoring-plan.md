@@ -186,7 +186,7 @@ ping is sent next to the download and only logged. `downloadError` codes: 0 conn
 
 ## [ ] Phase 3 — Domain model: one source of truth for app data
 
-### [ ] 3.1 Introduce an `AppEntry` struct and a role enum in one header
+### [x] 3.1 Introduce an `AppEntry` struct and a role enum in one header
 The 39 roles are defined as a local `struct ListEntry` inside the `GetList` constructor, but
 used as bare magic numbers elsewhere (`Qt::UserRole + 13`, `+ 35` in `getlist.h`), and QML
 reads them by name through `getModelData()`. Move them into `appentry.h`:
@@ -195,6 +195,15 @@ reads them by name through `getModelData()`. Move them into `appentry.h`:
 
 Delete the unused `AppItem`/`ReviewItem` classes (`appitem.*`, `reviewitem.*`: compiled but
 never used), or turn `AppItem` into this struct if a `QObject` per app is really wanted.
+
+Done as `appentry.*`: `AppRole` (the same numbers, with the gaps), `appRoleNames()`, and
+`AppEntry` with typed fields, `fromFields()` (from the parsed `<app>` children) and
+`data(role)`, which returns each value with the type the model had before (`id`/`category`
+int, `price` double, `versiondate` QDateTime, `installed`/`updateAvailable`/`downloadsize`
+strings). `AppListParser::parse()` now returns `QList<AppEntry>`; `GetList::parseList` fills
+each `QStandardItem` with a loop over the roles, which 3.2 can reuse in `data()`. The news
+model's roles got names too (`NewsEntry`, file scope in `news.cpp`). `appitem.*` and
+`reviewitem.*` are deleted. There are 29 roles, not 39 (the variant roles went with the unsigned/Store variants).
 
 ### [ ] 3.2 Replace `RoleItemModel` (QStandardItemModel) with an `AppListModel`
 A `QAbstractListModel` over `QList<AppEntry>` with `append(list)`, `clear()`,
