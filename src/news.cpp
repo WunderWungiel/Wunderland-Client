@@ -8,7 +8,7 @@
 News::News(StoreApi *_api, QObject *parent) :
     QObject(parent),
     api(_api),
-    model(new NewsModel(this)),
+    m_model(new NewsModel(this)),
     updating(false)
 {
 }
@@ -72,5 +72,5 @@ void News::parseFeed(const QString &xml) {
         items[i].description = text.toPlainText().trimmed();
     }
 
-    model->setItems(items);
+    m_model->setItems(items);
 }

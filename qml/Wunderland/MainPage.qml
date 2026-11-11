@@ -45,7 +45,7 @@ Page {
             anchors { top: appListHeader.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; }
 
             listId: AppCatalog.MainList
-            listModel: appCatalog._mainList
+            listModel: appCatalog.mainList
 
             onRefreshEvent: {
                 appCatalog.loadMainList()

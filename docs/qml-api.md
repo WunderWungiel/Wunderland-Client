@@ -8,9 +8,6 @@ file up to date when the QML-facing API changes.
 QtQuick 1.1: invokables return plain values (enums as `int`), and a list row is read as a
 JS object with `get(row)`.
 
-Names starting with `_` (`appCatalog._mainList`, `news._model`) and the getter-style
-invokables are AppList leftovers, to be renamed in plan step 8.4.
-
 ## `appCatalog` — the store app lists
 
 Five fixed `AppListModel`s (see [App list models](#app-list-models)), all loaded from
@@ -18,11 +15,11 @@ Five fixed `AppListModel`s (see [App list models](#app-list-models)), all loaded
 
 | property                    | filled by                        | used on                         |
 |-----------------------------|----------------------------------|---------------------------------|
-| `_mainList`                 | `loadMainList()`                 | main page (the 7 newest apps)   |
-| `_categoryList`             | `loadCategoryList(...)`          | category page                   |
-| `_searchList`               | `loadSearchList(...)`            | search page                     |
-| `_personalList`             | `loadPersonalList(...)`          | "My apps" (installed, newest install first) |
-| `_updateList`               | `loadUpdateList(...)`            | updates page, and opening one app by id |
+| `mainList`                  | `loadMainList()`                 | main page (the 7 newest apps)   |
+| `categoryList`              | `loadCategoryList(...)`          | category page                   |
+| `searchList`                | `loadSearchList(...)`            | search page                     |
+| `personalList`              | `loadPersonalList(...)`          | "My apps" (installed, newest install first) |
+| `updateList`                | `loadUpdateList(...)`            | updates page, and opening one app by id |
 
 The model objects never change (`CONSTANT`); a finished load changes their rows.
 
@@ -36,9 +33,9 @@ clears the list when the load finishes (true for page 1, false to append the nex
 - `loadPersonalList(start, clean)` — the apps in `updateTracker`'s installed list. Apps
   that are no longer installed are left out (and dropped from that list).
 - `loadUpdateList(start, clean)` — the apps in `updateTracker`'s update list.
-- `loadUpdateList(id)` — only the app with this store id, into `_updateList` (cleared).
+- `loadUpdateList(id)` — only the app with this store id, into `updateList` (cleared).
   `main.qml` uses it for `launchAppId` and `subscriber`, then opens
-  `_updateList.get(0)` on `updateListChanged`.
+  `updateList.get(0)` on `updateListChanged`.
 - `retry(listId)` — repeats the last request of that list (same rows, same `clean`), after
   a `loadingError`. Does nothing if the list was never loaded.
 
@@ -174,7 +171,7 @@ Signals: `darkThemeChanged()`, `aasFeedChanged()`, `newsOpenInBrowserChanged()`.
 
 ## `news` — the store news feed (`feed.xml`)
 
-- `_model` — list model (`count`), roles `title`, `description` (plain text, HTML stripped),
+- `model` — list model (`count`), roles `title`, `description` (plain text, HTML stripped),
   `date` (string, the feed's `pubDate` unchanged), `link` (string).
 - `fetch()` — loads the feed and replaces the rows. Ignored while a fetch is running
   (`updateRunning()` → bool).

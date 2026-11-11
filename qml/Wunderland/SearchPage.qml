@@ -106,7 +106,7 @@ Page {
         anchors { top: border2.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; }
 
         listId: AppCatalog.SearchList
-        listModel: appCatalog._searchList
+        listModel: appCatalog.searchList
 
         text: qsTr("Search for apps and games in the Wunderland database...")
 

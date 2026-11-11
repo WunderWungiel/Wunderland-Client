@@ -60,7 +60,7 @@ Page {
             displayUpdateRect: false
 
             listId: AppCatalog.UpdateList
-            listModel: appCatalog._updateList
+            listModel: appCatalog.updateList
 
             onAtYEndChanged: {
                 if (atYEnd && updateList.count > 0 && updateList.count%25 == 0 && !updateList.currentlyLoading) {

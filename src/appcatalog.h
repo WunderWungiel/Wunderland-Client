@@ -15,11 +15,11 @@ class AppCatalog : public QObject
 {
     Q_OBJECT
     // The models are fixed objects; the *ListChanged signals say that a load finished.
-    Q_PROPERTY(AppListModel *_mainList READ mainList CONSTANT)
-    Q_PROPERTY(AppListModel *_categoryList READ categoryList CONSTANT)
-    Q_PROPERTY(AppListModel *_searchList READ searchList CONSTANT)
-    Q_PROPERTY(AppListModel *_personalList READ personalList CONSTANT)
-    Q_PROPERTY(AppListModel *_updateList READ updateList CONSTANT)
+    Q_PROPERTY(AppListModel *mainList READ mainList CONSTANT)
+    Q_PROPERTY(AppListModel *categoryList READ categoryList CONSTANT)
+    Q_PROPERTY(AppListModel *searchList READ searchList CONSTANT)
+    Q_PROPERTY(AppListModel *personalList READ personalList CONSTANT)
+    Q_PROPERTY(AppListModel *updateList READ updateList CONSTANT)
     Q_ENUMS(ListId)
 
 public:

@@ -58,7 +58,7 @@ Page {
             anchors { top: categoryListHeader.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; }
 
             listId: AppCatalog.CategoryList
-            listModel: appCatalog._categoryList
+            listModel: appCatalog.categoryList
 
             onAtYEndChanged: {
                 if (atYEnd && appList.count > 0 && appList.count%25 == 0 && !appList.currentlyLoading) {

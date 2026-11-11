@@ -12,12 +12,12 @@ class News : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(NewsModel* _model READ _model CONSTANT)
+    Q_PROPERTY(NewsModel *model READ model CONSTANT)
 
 public:
     explicit News(StoreApi *api, QObject *parent = 0);
 
-    NewsModel *_model() { return model; }
+    NewsModel *model() const { return m_model; }
 
     Q_INVOKABLE bool updateRunning() const { return updating; }
     // Loads the feed and replaces the rows; ignored while a fetch is running
@@ -39,7 +39,7 @@ private:
     void parseFeed(const QString &xml);
 
     StoreApi *api;
-    NewsModel *model;
+    NewsModel *m_model;
     QString htmlContent;
     QPointer<ApiReply> htmlReply;   // the page that was asked for last
     bool updating;

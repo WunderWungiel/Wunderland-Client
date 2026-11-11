@@ -217,7 +217,7 @@ Page {
             anchors { top: updateItem.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; }
 
             listId: AppCatalog.PersonalList
-            listModel: appCatalog._personalList
+            listModel: appCatalog.personalList
 
             onAtYEndChanged: {
                 if (atYEnd && personalList.count > 0 && personalList.count%25 == 0 && !personalList.currentlyLoading) {

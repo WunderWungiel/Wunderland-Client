@@ -59,7 +59,7 @@ PageStackWindow {
         onUpdateListChanged: {
             if (appId !== -1) {
                 appId = -1
-                window.pageStack.push (Qt.resolvedUrl("DetailPage.qml"), { "detailItem": appCatalog._updateList.get(0) })
+                window.pageStack.push (Qt.resolvedUrl("DetailPage.qml"), { "detailItem": appCatalog.updateList.get(0) })
             }
         }
     }

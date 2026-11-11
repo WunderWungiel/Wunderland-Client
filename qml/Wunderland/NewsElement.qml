@@ -32,7 +32,7 @@ Rectangle {
         anchors { top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; }
         clip: true
 
-        model: news._model
+        model: news.model
 
         delegate: Item {
             id: delegate
