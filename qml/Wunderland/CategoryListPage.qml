@@ -15,14 +15,14 @@ Page {
     }
 
     Rectangle {
-        color: window.white
+        color: window.bgColor
         anchors.fill: parent
 
         Rectangle {
             id: categoryListHeader
             width: parent.width
             height: categoryListHeaderText.height + 11
-            color: window.white
+            color: window.bgColor
 
             Text {
                 id: categoryListHeaderText
@@ -30,7 +30,7 @@ Page {
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
-                color: window.black
+                color: window.textColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -40,7 +40,7 @@ Page {
                 id: border
                 height: 1
                 width: parent.width
-                color: window.black
+                color: window.textColor
                 anchors.bottom: parent.bottom
             }
 

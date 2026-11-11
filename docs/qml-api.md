@@ -163,6 +163,8 @@ Categories (names translated):
 All read/write bool; assign directly (`settings.darkTheme = checked`).
 
 - `darkTheme` (default true) — read by `main.qml` at startup only: applies after a restart.
+  `main.qml` turns it into colour roles on `window` (`bgColor`, `textColor`, `subtleColor`,
+  `lineColor`, `highlightColor`, `bgTransparentColor`) and `window.darkTheme`; pages use those.
 - `aasFeed` (default false) — show the news feed on the main page; also at startup only.
 - `newsOpenInBrowser` (default false) — news items open in the default browser instead
   of inside the app.

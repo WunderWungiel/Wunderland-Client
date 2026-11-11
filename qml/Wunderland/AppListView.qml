@@ -15,7 +15,7 @@ ListView {
     property bool currentlyLoading: false //Verhindern von multiple load more elements requests
 
     property bool allowPullToRefresh: true
-    property bool platformInverted: true
+    property bool platformInverted: !window.darkTheme
     property int latency: 600
     property int rotationThreshold: 135
     property string pullMessageString: "Pull and hold to refresh..."
@@ -29,7 +29,7 @@ ListView {
 
         Rectangle {
             anchors.fill: parent
-            color: mouseArea.pressed ? "#4791D9" : window.white //(index%2==0) ? window.black : "#292929"
+            color: mouseArea.pressed ? window.highlightColor : window.bgColor //(index%2==0) ? window.textColor : "#292929"
 
             MouseArea {
                 id: mouseArea
@@ -59,7 +59,7 @@ ListView {
             text: name
             width: parent.width - 15 - appIcon.width
             font.pixelSize: 28
-            color: mouseArea.pressed ? window.white : window.black
+            color: mouseArea.pressed ? window.bgColor : window.textColor
             anchors.top: parent.top
             anchors.topMargin: 10
             anchors.left: appIcon.right
@@ -73,7 +73,7 @@ ListView {
             width: parent.width - 15 - appIcon.width
             wrapMode: TextEdit.Wrap
             font.pixelSize: 20
-            color: window.grey
+            color: window.subtleColor
             anchors.bottom: parent.bottom
             anchors.bottomMargin: 11
             anchors.left: appIcon.right
@@ -82,7 +82,7 @@ ListView {
 
         Rectangle {
             id: updateRect
-            color: "#4791D9"
+            color: window.highlightColor
             height: parent.height
             width: 10
             anchors.left: parent.left
@@ -94,7 +94,7 @@ ListView {
             height: 1
             width: parent.width
             anchors.bottom: parent.bottom
-            color: window.lightgrey
+            color: window.lineColor
             visible: ((index < (appList.count-1)) || ((index+1)%25 == 0 && appList.allowLoadingMore)) ? true : false
         }
     }
@@ -103,7 +103,7 @@ ListView {
         id: footerRect
         height: (appList.count%25 == 0 && appList.allowLoadingMore && appList.count > 0) ? 91 : 0 //91 = appIcon.height+11
         width: appList.width
-        color: window.white
+        color: window.bgColor
 
         BusyIndicator {
             id: footerIndicator
@@ -123,7 +123,7 @@ ListView {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
-        color: window.grey
+        color: window.subtleColor
         font.pixelSize: 29
         opacity: 0.4
         visible: appList.count > 0 ? false : true

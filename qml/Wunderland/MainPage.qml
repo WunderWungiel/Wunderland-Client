@@ -10,13 +10,13 @@ Page {
         id: appListItem
         width: parent.width
         height: window.aasFeed ? parent.height/2 : parent.height
-        color: window.white
+        color: window.bgColor
 
         Rectangle {
             id: appListHeader
             width: parent.width
             height: appListHeaderText.height + 11
-            color: window.white
+            color: window.bgColor
 
             Text {
                 id: appListHeaderText
@@ -24,7 +24,7 @@ Page {
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
-                color: window.black
+                color: window.textColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -34,7 +34,7 @@ Page {
                 id: border
                 height: 1
                 width: parent.width
-                color: window.black
+                color: window.textColor
                 anchors.bottom: parent.bottom
             }
         }
@@ -63,7 +63,7 @@ Page {
         id: border2
         height: 2
         width: parent.width
-        color: window.black
+        color: window.textColor
         anchors.top: appListItem.bottom
         anchors.topMargin: -1
     }
@@ -73,14 +73,14 @@ Page {
         width: parent.width
         height: window.aasFeed ? parent.height/2 : 0
         anchors.top: border2.bottom
-        color: window.white
+        color: window.bgColor
         visible: window.aasFeed
 
         Rectangle {
             id: newsHeader
             width: parent.width
             height: newsHeaderText.height + 11
-            color: window.white
+            color: window.bgColor
 
             Text {
                 id: newsHeaderText
@@ -88,7 +88,7 @@ Page {
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
-                color: window.black
+                color: window.textColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -98,7 +98,7 @@ Page {
                 id: border3
                 height: 1
                 width: parent.width
-                color: window.black
+                color: window.textColor
                 anchors.bottom: parent.bottom
             }
         }

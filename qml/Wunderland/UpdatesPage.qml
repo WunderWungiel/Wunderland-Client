@@ -23,13 +23,13 @@ Page {
         width: parent.width
         height: parent.height
         anchors.top: parent.top
-        color: window.white
+        color: window.bgColor
 
         Rectangle {
             id: updateListHeader
             width: parent.width
             height: updateListHeaderText.height + 11
-            color: window.white
+            color: window.bgColor
 
             Text {
                 id: updateListHeaderText
@@ -37,7 +37,7 @@ Page {
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
-                color: window.black
+                color: window.textColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -47,7 +47,7 @@ Page {
                 id: border3
                 height: 1
                 width: parent.width
-                color: window.black
+                color: window.textColor
                 anchors.bottom: parent.bottom
             }
         }

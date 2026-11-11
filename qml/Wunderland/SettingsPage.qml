@@ -9,7 +9,7 @@ Page {
 
     Rectangle {
         id: background
-        color: window.white
+        color: window.bgColor
         anchors.fill: parent
     }
 
@@ -17,7 +17,7 @@ Page {
         id: settingsHeader
         width: parent.width
         height: settingsHeaderText.height + 11
-        color: window.white
+        color: window.bgColor
 
         Text {
             id: settingsHeaderText
@@ -25,7 +25,7 @@ Page {
             width: parent.width - 20
             wrapMode: TextEdit.Wrap
             font.pixelSize: 18
-            color: window.black
+            color: window.textColor
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -35,7 +35,7 @@ Page {
             id: border
             height: 1
             width: parent.width
-            color: window.black
+            color: window.textColor
             anchors.bottom: parent.bottom
         }
     }
@@ -55,7 +55,7 @@ Page {
             id: settingsItem
             width: parent.width
             height: openInBrowserItem.height + darkThemeItem.height + aasFeedItem.height + aboutItem.height + 11 + 6
-            color: window.white
+            color: window.bgColor
 
             
 
@@ -68,7 +68,7 @@ Page {
 
                 Text {
                     text: qsTr("Open links in phone browser") + ":" + l.emptyString
-                    color: window.black
+                    color: window.textColor
                     font.pixelSize: 20
                     anchors.left: parent.left
                     anchors.leftMargin: 10
@@ -96,7 +96,7 @@ Page {
                 id: border1
                 height: 1
                 width: parent.width
-                color: window.lightgrey
+                color: window.lineColor
                 anchors.top: openInBrowserItem.bottom
                 anchors.topMargin: 5
             }
@@ -110,7 +110,7 @@ Page {
 
                 Text {
                     text: qsTr("Dark theme") + ":" + l.emptyString
-                    color: window.black
+                    color: window.textColor
                     font.pixelSize: 20
                     anchors.left: parent.left
                     anchors.leftMargin: 10
@@ -139,7 +139,7 @@ Page {
                 id: border2
                 height: 1
                 width: parent.width
-                color: window.lightgrey
+                color: window.lineColor
                 anchors.top: darkThemeItem.bottom
                 anchors.topMargin: 5
             }
@@ -153,7 +153,7 @@ Page {
 
                 Text {
                     text: qsTr("Show latest news from Wunderland Store") + ":" + l.emptyString
-                    color: window.black
+                    color: window.textColor
                     font.pixelSize: 20
                     anchors.left: parent.left
                     anchors.leftMargin: 10
@@ -182,7 +182,7 @@ Page {
                 id: border6
                 height: 1
                 width: parent.width
-                color: window.lightgrey
+                color: window.lineColor
                 anchors.top: aasFeedItem.bottom
                 anchors.topMargin: 5
             }

@@ -25,7 +25,7 @@ Rectangle {
         }
     }
 
-    color: window.white
+    color: window.bgColor
 
     ListView {
         id: newsList
@@ -41,7 +41,7 @@ Rectangle {
 
             Rectangle {
                 anchors.fill: parent
-                color: mouseArea.pressed ? "#4791D9" : window.white
+                color: mouseArea.pressed ? window.highlightColor : window.bgColor
 
                 MouseArea {
                     id: mouseArea
@@ -72,7 +72,7 @@ Rectangle {
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 19
-                color: mouseArea.pressed ? window.white : window.black
+                color: mouseArea.pressed ? window.bgColor : window.textColor
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
                 anchors.topMargin: 5
@@ -82,7 +82,7 @@ Rectangle {
                 id: border
                 height: 1
                 width: parent.width
-                color: window.lightgrey
+                color: window.lineColor
                 visible: (index == 0 || (index == (model.count-1))) ? false : true
             }
         }
@@ -100,7 +100,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
-        color: window.lightgrey
+        color: window.lineColor
         font.pixelSize: 29
         opacity: 0.4
         visible: newsList.count > 0 ? false : true
@@ -133,7 +133,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.topMargin: 0
         enabled: false
-        color: window.white
+        color: window.bgColor
         z: 5
 
         Flickable {

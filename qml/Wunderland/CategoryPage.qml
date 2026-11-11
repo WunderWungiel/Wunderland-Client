@@ -9,14 +9,14 @@ Page {
 
     Rectangle {
         anchors.fill: parent
-        color: window.white
+        color: window.bgColor
     }
 
     Rectangle {
         id: categoryHeader
         width: parent.width
         height: categoryHeaderText.height + 11
-        color: window.white
+        color: window.bgColor
 
         Text {
             id: categoryHeaderText
@@ -24,7 +24,7 @@ Page {
             width: parent.width - 20
             wrapMode: TextEdit.Wrap
             font.pixelSize: 18
-            color: window.black
+            color: window.textColor
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -34,7 +34,7 @@ Page {
             id: border
             height: 1
             width: parent.width
-            color: window.black
+            color: window.textColor
             anchors.bottom: parent.bottom
         }
     }
@@ -55,7 +55,7 @@ Page {
 
             Rectangle {
                 anchors.fill: parent
-                color: mouseArea.pressed ? "#4791D9" : (l.isHeadCategory(index)) ? window.lightgrey : window.white
+                color: mouseArea.pressed ? window.highlightColor : (l.isHeadCategory(index)) ? window.lineColor : window.bgColor
 
                 MouseArea {
                     id: mouseArea
@@ -75,7 +75,7 @@ Page {
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 25
-                color: mouseArea.pressed ? window.white : window.black
+                color: mouseArea.pressed ? window.bgColor : window.textColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -85,7 +85,7 @@ Page {
                 id: border2
                 height: 1
                 width: parent.width
-                color: window.lightgrey
+                color: window.lineColor
                 visible: (index === 0 || (index === (model.count-1))) ? false : true
             }
         }

@@ -8,7 +8,7 @@ Item {
 
     Rectangle {
         id: darkOverlay
-        color: window.black
+        color: window.textColor
         anchors.fill: parent
         opacity: 0.8
         visible: false
@@ -32,7 +32,7 @@ Item {
         Text {
             id: textLoading
             font.pixelSize: 23
-            color: window.lightgrey
+            color: window.lineColor
             z: 3
             anchors.top: indicatorLoading.bottom
             anchors.topMargin: 40

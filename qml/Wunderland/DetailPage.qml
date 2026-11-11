@@ -14,7 +14,7 @@ Page {
 
     Rectangle {
         id: background
-        color: window.white
+        color: window.bgColor
         anchors.fill: parent
     }
 
@@ -39,7 +39,7 @@ Page {
             width: parent.width - 20
             wrapMode: TextEdit.Wrap
             font.pixelSize: 30
-            color: window.black
+            color: window.textColor
             anchors.top: parent.top
             anchors.topMargin: 10
             anchors.left: parent.left
@@ -50,7 +50,7 @@ Page {
             id: border
             height: 1
             width: parent.width
-            color: window.lightgrey
+            color: window.lineColor
             anchors.top: appName.bottom
             anchors.topMargin: 10
         }
@@ -78,7 +78,7 @@ Page {
                 text: detailItem["developer"]
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 20
-                color: window.grey
+                color: window.subtleColor
                 anchors.top: parent.top
             }
 
@@ -87,7 +87,7 @@ Page {
                 text: l.categoryName(detailItem["category"])
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 20
-                color: window.grey
+                color: window.subtleColor
                 anchors.top: appDeveloper.bottom
                 anchors.topMargin: 0
             }
@@ -98,7 +98,7 @@ Page {
                 text: detailItem["version"] + (sizeString != "" ? " - " + sizeString : "")
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 20
-                color: window.grey
+                color: window.subtleColor
                 anchors.top: appCategory.bottom
                 anchors.topMargin: 0
             }
@@ -108,7 +108,7 @@ Page {
             id: appPrice
             text: (detailItem["price"] > 0) ? (detailItem["price"] + " €") : (qsTr("Free") + l.emptyString)
             font.pixelSize: 24
-            color: window.black
+            color: window.textColor
             anchors.left: parent.left
             anchors.leftMargin: 10
             anchors.verticalCenter: appButton.verticalCenter
@@ -176,7 +176,7 @@ Page {
             id: border2
             height: 1
             width: parent.width
-            color: window.lightgrey
+            color: window.lineColor
             anchors.top: downloadProgress.visible ? downloadProgress.bottom : appButton.bottom
             anchors.topMargin: 10
         }
@@ -196,7 +196,7 @@ Page {
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
-                color: window.black
+                color: window.textColor
                 anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -212,8 +212,8 @@ Page {
                 visible: !appDescription.opened
 
                 gradient: Gradient {
-                    GradientStop { position: 0.0; color: window.whiteTransparent }
-                    GradientStop { position: 1.0; color: window.white }
+                    GradientStop { position: 0.0; color: window.bgTransparentColor }
+                    GradientStop { position: 1.0; color: window.bgColor }
                 }
 
                 MouseArea {
@@ -242,7 +242,7 @@ Page {
             visible: !appDescription.opened
             width: parent.width
             height: appDescriptionLabel.paintedHeight
-            color: window.white
+            color: window.bgColor
             anchors.top: appDescription.bottom
             anchors.topMargin: 10
         }
@@ -251,7 +251,7 @@ Page {
             id: border3
             height: 1
             width: parent.width
-            color: window.lightgrey
+            color: window.lineColor
             anchors.top: appDescription.bottom
             anchors.topMargin: 10
         }
@@ -261,7 +261,7 @@ Page {
             width: parent.width
             height: contactsText.height + 11
             anchors.top: border3.bottom
-            color: window.white
+            color: window.bgColor
 
             Text {
                 id: contactsText
@@ -269,7 +269,7 @@ Page {
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
-                color: window.black
+                color: window.textColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -279,7 +279,7 @@ Page {
                 id: border8
                 height: 1
                 width: parent.width
-                color: window.lightgrey
+                color: window.lineColor
                 anchors.bottom: parent.bottom
             }
         }
@@ -289,13 +289,13 @@ Page {
             width: parent.width
             height: parent.width/4
             anchors.top: contactsHeader.bottom
-            color: window.white
+            color: window.bgColor
 
             Rectangle {
                 id: appTwitter
                 height: parent.width/4
                 width: parent.width/4
-                color: (mouseAreaTwitter.pressed && (detailItem["twitter"] !== "")) ? "#4791D9" : window.white
+                color: (mouseAreaTwitter.pressed && (detailItem["twitter"] !== "")) ? window.highlightColor : window.bgColor
                 anchors.left: parent.left
                 anchors.top: parent.top
 
@@ -321,7 +321,7 @@ Page {
                 id: appFacebook
                 height: parent.width/4
                 width: parent.width/4
-                color: (mouseAreaFacebook.pressed && (detailItem["facebook"] !== "")) ? "#4791D9" : window.white
+                color: (mouseAreaFacebook.pressed && (detailItem["facebook"] !== "")) ? window.highlightColor : window.bgColor
                 anchors.left: parent.left
                 anchors.leftMargin: parent.width/4
                 anchors.top: parent.top
@@ -348,7 +348,7 @@ Page {
                 id: appMail
                 height: parent.width/4
                 width: parent.width/4
-                color: (mouseAreaMail.pressed && (detailItem["mail"] !== "")) ? "#4791D9" : window.white
+                color: (mouseAreaMail.pressed && (detailItem["mail"] !== "")) ? window.highlightColor : window.bgColor
                 anchors.right: parent.right
                 anchors.rightMargin: parent.width/4
                 anchors.top: parent.top
@@ -375,7 +375,7 @@ Page {
                 id: appWebsite
                 height: parent.width/4
                 width: parent.width/4
-                color: (mouseAreaWebsite.pressed && (detailItem["website"] !== "")) ? "#4791D9" : window.white
+                color: (mouseAreaWebsite.pressed && (detailItem["website"] !== "")) ? window.highlightColor : window.bgColor
                 anchors.right: parent.right
                 anchors.top: parent.top
 
@@ -402,7 +402,7 @@ Page {
             id: border4
             height: 1
             width: parent.width
-            color: window.lightgrey
+            color: window.lineColor
             anchors.top: appContactLinks.bottom
         }
 
@@ -411,7 +411,7 @@ Page {
             width: parent.width
             height: appLinkImages.height + appLinkDonate.height + appLinkAAS.height
             anchors.top: border4.bottom
-            color: window.white
+            color: window.bgColor
 
             AppLink {
                 id: appLinkImages
@@ -427,7 +427,7 @@ Page {
                 id: border5
                 height: 1
                 width: parent.width
-                color: window.lightgrey
+                color: window.lineColor
                 anchors.top: appLinkImages.bottom
                 visible: appLinkImages.visible
             }
@@ -446,7 +446,7 @@ Page {
                 id: border6
                 height: 1
                 width: parent.width
-                color: window.lightgrey
+                color: window.lineColor
                 anchors.top: appLinkDonate.bottom
                 visible: appLinkDonate.visible
             }
@@ -465,7 +465,7 @@ Page {
                 id: border7
                 height: 1
                 width: parent.width
-                color: window.lightgrey
+                color: window.lineColor
                 anchors.top: appLinkAAS.bottom
                 visible: appLinkAAS.visible
             }

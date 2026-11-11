@@ -11,7 +11,7 @@ Rectangle {
     property alias showArrows: arrows.visible
 
     height: show ? label.height + 34 : 0
-    color: (mouseArea.pressed) ? "#4791D9" : window.white
+    color: (mouseArea.pressed) ? window.highlightColor : window.bgColor
 
     Text {
         id: label
@@ -26,7 +26,7 @@ Rectangle {
         text: ""
         font.pixelSize: 25
 
-        color: (mouseArea.pressed) ? window.white : window.black
+        color: (mouseArea.pressed) ? window.bgColor : window.textColor
     }
 
     Text {
@@ -39,7 +39,7 @@ Rectangle {
         text: ">>"
         font.pixelSize: 25
 
-        color: (mouseArea.pressed) ? window.white : window.black
+        color: (mouseArea.pressed) ? window.bgColor : window.textColor
     }
 
     MouseArea {

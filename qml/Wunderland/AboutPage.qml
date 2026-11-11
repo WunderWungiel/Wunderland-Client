@@ -25,7 +25,7 @@ Page {
     Rectangle {
         id: bg
         anchors.fill: parent
-        color: window.white
+        color: window.bgColor
     }
 
     Rectangle {
@@ -33,7 +33,7 @@ Page {
         width: parent.width
         height: aboutHeaderText.height + 11
         anchors.top: parent.top
-        color: window.white
+        color: window.bgColor
 
         Text {
             id: aboutHeaderText
@@ -41,7 +41,7 @@ Page {
             width: parent.width - 20
             wrapMode: TextEdit.Wrap
             font.pixelSize: 18
-            color: window.black
+            color: window.textColor
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -51,7 +51,7 @@ Page {
             id: border
             height: 1
             width: parent.width
-            color: window.black
+            color: window.textColor
             anchors.bottom: parent.bottom
         }
     }
@@ -60,7 +60,7 @@ Page {
         id: basicInfo
         anchors.top: aboutHeader.bottom
         anchors.left: parent.left
-        color: window.lightgrey
+        color: window.lineColor
         width: parent.width
         height: icon.height
 
@@ -82,7 +82,7 @@ Page {
             anchors.leftMargin: 10
             anchors.verticalCenter: parent.verticalCenter
 
-            color: window.black
+            color: window.textColor
             font.pixelSize: 20
 
             text: "Wunderland 2.00(5)<br>
@@ -95,7 +95,7 @@ Copyright (C) 2026"
         id: changelogItem
         anchors.top: basicInfo.bottom
         height: changelogLabel.height + 34
-        color: (changelogMouseArea.pressed) ? "#4791D9" : window.white
+        color: (changelogMouseArea.pressed) ? window.highlightColor : window.bgColor
         width: parent.width
 
         Text {
@@ -111,7 +111,7 @@ Copyright (C) 2026"
             text: qsTr("Changelog") + l.emptyString
             font.pixelSize: 20
 
-            color: (changelogMouseArea.pressed) ? window.white : window.black
+            color: (changelogMouseArea.pressed) ? window.bgColor : window.textColor
         }
 
         MouseArea {
@@ -135,7 +135,7 @@ Copyright (C) 2026"
         id: border7
         height: 1
         width: parent.width
-        color: window.lightgrey
+        color: window.lineColor
         anchors.top: changelogItem.bottom
     }
 
@@ -158,7 +158,7 @@ Copyright (C) 2026"
             anchors.top: parent.top
             anchors.topMargin: 5
 
-            color: window.black
+            color: window.textColor
             font.pixelSize: 19
 
             text: "Web: http://wunderwungiel.pl<br><br>

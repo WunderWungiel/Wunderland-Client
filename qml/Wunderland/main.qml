@@ -11,32 +11,23 @@ PageStackWindow {
 
     property int appId: -1
 
-    property bool invert: false
-    property string white: ""
-    property string whiteTransparent: ""
-    property string lightgrey: ""
-    property string grey: ""
-    property string black: ""
+    // Theme. The pages use these colour roles, never colour names. The
+    // Symbian components (toolbar, dialogs, switches) keep their default
+    // dark style; only ones drawn on bgColor follow the theme
+    // (platformInverted: !window.darkTheme).
+    property bool darkTheme: true
+    property color bgColor: darkTheme ? "black" : "#FCFCFC"
+    property color bgTransparentColor: darkTheme ? "#00000000" : "#00FFFFFF" // for gradients into bgColor
+    property color textColor: darkTheme ? "#FCFCFC" : "black"
+    property color subtleColor: darkTheme ? "lightgrey" : "grey" // secondary text
+    property color lineColor: darkTheme ? "grey" : "lightgrey" // separators, shaded rows
+    property color highlightColor: "#4791D9" // pressed items, update marks; text on it uses bgColor
 
     property bool aasFeed: true
 
     Component.onCompleted: {
-        if (settings.darkTheme) {
-            invert = true
-            white = "black"
-            whiteTransparent = "#00000000"
-            lightgrey = "grey"
-            grey = "lightgrey"
-            black = "#FCFCFC"
-        } else {
-            white = "#FCFCFC"
-            whiteTransparent = "#00FFFFFF"
-            lightgrey = "lightgrey"
-            grey = "grey"
-            black = "black"
-        }
-
-        // Not a binding: the setting applies after a restart
+        // Not bindings: these settings apply after a restart
+        darkTheme = settings.darkTheme
         aasFeed = settings.aasFeed
 
         appCatalog.loadMainList()

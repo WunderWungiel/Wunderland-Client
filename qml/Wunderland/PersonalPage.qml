@@ -22,13 +22,13 @@ Page {
         id: aboutItem
         width: parent.width
         height: settingsHeader.height + settingsItem.height + helpItem.height + 1 //11*2
-        color: window.white
+        color: window.bgColor
 
         Rectangle {
             id: settingsHeader
             width: parent.width
             height: settingsHeaderText.height + 11
-            color: window.white
+            color: window.bgColor
 
             Text {
                 id: settingsHeaderText
@@ -36,7 +36,7 @@ Page {
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
-                color: window.black
+                color: window.textColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -46,7 +46,7 @@ Page {
                 id: border
                 height: 1
                 width: parent.width
-                color: window.black
+                color: window.textColor
                 anchors.bottom: parent.bottom
             }
         }
@@ -55,7 +55,7 @@ Page {
             id: settingsItem
             anchors.top: settingsHeader.bottom
             height: settingsLabel.height + 34
-            color: (settingsMouseArea.pressed) ? "#4791D9" : window.white
+            color: (settingsMouseArea.pressed) ? window.highlightColor : window.bgColor
             width: parent.width
 
             Text {
@@ -71,7 +71,7 @@ Page {
                 text: qsTr("Settings") + l.emptyString
                 font.pixelSize: 20
 
-                color: (settingsMouseArea.pressed) ? window.white : window.black
+                color: (settingsMouseArea.pressed) ? window.bgColor : window.textColor
             }
 
             MouseArea {
@@ -88,7 +88,7 @@ Page {
             id: border7
             height: 1
             width: parent.width
-            color: window.lightgrey
+            color: window.lineColor
             anchors.top: settingsItem.bottom
         }
 
@@ -96,7 +96,7 @@ Page {
             id: helpItem
             anchors.top: border7.bottom
             height: label.height + 34
-            color: (mouseArea.pressed) ? "#4791D9" : window.white
+            color: (mouseArea.pressed) ? window.highlightColor : window.bgColor
             width: parent.width
 
             Text {
@@ -112,7 +112,7 @@ Page {
                 text: qsTr("Help & info about Wunderland") + l.emptyString
                 font.pixelSize: 20
 
-                color: (mouseArea.pressed) ? window.white : window.black
+                color: (mouseArea.pressed) ? window.bgColor : window.textColor
             }
 
             MouseArea {
@@ -130,7 +130,7 @@ Page {
         id: border2
         height: 2
         width: parent.width
-        color: window.black
+        color: window.textColor
         anchors.top: aboutItem.bottom
         anchors.topMargin: -1
     }
@@ -140,13 +140,13 @@ Page {
         width: parent.width
         height: parent.height - aboutItem.height
         anchors.top: border2.bottom
-        color: window.white
+        color: window.bgColor
 
         Rectangle {
             id: personalListHeader
             width: parent.width
             height: personalListHeaderText.height + 11
-            color: window.white
+            color: window.bgColor
 
             Text {
                 id: personalListHeaderText
@@ -154,7 +154,7 @@ Page {
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
-                color: window.black
+                color: window.textColor
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -164,7 +164,7 @@ Page {
                 id: border3
                 height: 1
                 width: parent.width
-                color: window.black
+                color: window.textColor
                 anchors.bottom: parent.bottom
             }
         }
@@ -173,7 +173,7 @@ Page {
             id: updateItem
             anchors.top: personalListHeader.bottom
             height: (updateTracker.count > 0) ? updateLabel.height + 34 : 0
-            color: (updateMouseArea.pressed) ? window.white : "#4791D9"
+            color: (updateMouseArea.pressed) ? window.bgColor : window.highlightColor
             width: parent.width
             visible: (updateTracker.count > 0)
 
@@ -190,14 +190,14 @@ Page {
                 text: qsTr("Updates available") + l.emptyString
                 font.pixelSize: 20
 
-                color: (updateMouseArea.pressed) ? window.black : "#FCFCFC"
+                color: (updateMouseArea.pressed) ? window.textColor : "#FCFCFC"
             }
 
             Rectangle {
                 id: border4
                 height: 1
                 width: parent.width
-                color: window.lightgrey
+                color: window.lineColor
                 anchors.bottom: parent.bottom
             }
 

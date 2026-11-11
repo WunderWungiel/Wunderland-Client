@@ -13,7 +13,7 @@ Page {
 
     Rectangle {
         id: background
-        color: window.white
+        color: window.bgColor
         anchors.fill: parent
     }
 
@@ -21,7 +21,7 @@ Page {
         id: updateHeader
         width: parent.width
         height: updateHeaderText.height + 11
-        color: window.white
+        color: window.bgColor
 
         Text {
             id: updateHeaderText
@@ -29,7 +29,7 @@ Page {
             width: parent.width - 20
             wrapMode: TextEdit.Wrap
             font.pixelSize: 18
-            color: window.black
+            color: window.textColor
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 10
@@ -39,7 +39,7 @@ Page {
             id: border
             height: 1
             width: parent.width
-            color: window.black
+            color: window.textColor
             anchors.bottom: parent.bottom
         }
     }
@@ -72,7 +72,7 @@ Page {
                 anchors.top: parent.top
                 anchors.topMargin: 15
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: window.black
+                color: window.textColor
 
                 text: ""
             }
@@ -81,7 +81,7 @@ Page {
                 id: downloadProgress
                 text: "Downloading (0%)"
                 font.pixelSize: 22
-                color: window.black
+                color: window.textColor
                 visible: false
                 anchors.centerIn: download
             }

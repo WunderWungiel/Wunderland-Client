@@ -456,10 +456,18 @@ List every context property, role and invokable, as Symbisend does. Do it during
 because those phases rename the QML-facing API (`_mainList` → `mainList`,
 `getUseUnsigned()` → `settings.useUnsigned`, …).
 
-### [ ] 7.2 Theme
+### [x] 7.2 Theme
 `main.qml` defines colours as `white/black/grey` properties that mean the opposite in dark
 mode (`white = "black"`). Rename them to roles (`bgColor`, `textColor`, `subtleColor`), or
 use `platformInverted` consistently.
+Done: roles `bgColor`, `textColor`, `subtleColor`, `lineColor`, `highlightColor` (was the
+`"#4791D9"` literal) and `bgTransparentColor`, bound to `window.darkTheme` (still read once at
+startup). The pull-to-refresh in `AppListView` was always `platformInverted` (dark icon and
+text on the black background of the dark theme); it now follows `!window.darkTheme`. The
+Symbian components (toolbar, status bar, dialogs) keep the default dark style in both themes.
+Symbisend instead binds `platformInverted` on the window and every page and uses
+`platformStyle` colours, so its theme switches live; that would change the look here (light
+toolbar), so it is left for the UI pass.
 
 ### [ ] 7.3 Push pages without `Qt.createComponent` strings everywhere
 About 15 places call `pageStack.push(Qt.createComponent("X.qml"))`. Using the file name works
