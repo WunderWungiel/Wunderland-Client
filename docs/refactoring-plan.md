@@ -279,11 +279,19 @@ their signatures, because QtQuick 1.1 does not reliably pass enum types through
 parsing, install-state tracking, the update count, download control, Store-redirect
 handling through an application event filter, and QSettings access.
 
-### [ ] 4.1 Remove the global "current list" state
+### [x] 4.1 Remove the global "current list" state
 QML calls `getList.setCurrentList(n)` on page activation, and `buttonAction(index)` then reads
 `list[currentList]`. Opening a detail page from the update banner while another page is
 active, or a `PageStatus` race, picks the wrong app. Pass the `AppEntry`/id (which
 `DetailPage` already has as `detailItem`) to the action methods instead.
+
+Done: `buttonAction(app)` and `buttonPressed(app, action)` take the row map
+(`DetailPage.detailItem`, a `QVariant` holding what `AppListModel::get()` returned).
+`setCurrentList`, `currentList`, `currentItem` and `DetailPage.listIndex` are gone. Because
+`detailItem` is a snapshot taken when the page opened, `buttonAction` no longer trusts its
+`installed` role and always reads the registry (one read per button refresh), and "is this
+the app being downloaded" compares ids instead of whole maps. This also replaces the old
+`currentItem` patching after an install.
 
 ### [ ] 4.2 Split responsibilities
 - `AppCatalog`: owns the 5 `AppListModel`s (main, category, search, personal, updates), and

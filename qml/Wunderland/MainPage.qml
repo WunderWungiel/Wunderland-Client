@@ -6,12 +6,6 @@ Page {
     id: mainPage
     tools: toolBarLayoutMain
 
-    onStatusChanged: {
-        if (status == PageStatus.Activating) {
-            getList.setCurrentList(0)
-        }
-    }
-
     Rectangle {
         id: appListItem
         width: parent.width

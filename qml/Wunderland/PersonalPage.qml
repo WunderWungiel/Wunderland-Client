@@ -10,7 +10,6 @@ Page {
 
     onStatusChanged: {
         if (status == PageStatus.Activating) {
-            getList.setCurrentList(3)
             if (!listLoaded) {
                 personalList.startLoading()
                 getList.loadPersonalList(0, true)

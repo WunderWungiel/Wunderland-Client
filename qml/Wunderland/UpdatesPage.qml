@@ -10,7 +10,6 @@ Page {
 
     onStatusChanged: {
         if (status == PageStatus.Activating) {
-            getList.setCurrentList(4)
             if (!listLoaded) {
                 updateList.startLoading()
                 getList.loadUpdateList(0, true)

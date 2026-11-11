@@ -9,7 +9,7 @@ Page {
 
     tools: toolBarLayout
 
-    property int listIndex: 0
+    // The app, as AppListModel.get() returns it
     property variant detailItem: -1
 
     Rectangle {
@@ -157,7 +157,7 @@ Page {
 
         Button {
             id: appButton
-            property int buttonAction: getList.buttonAction(listIndex)
+            property int buttonAction: getList.buttonAction(detailItem)
             text: buttonText(buttonAction)
             anchors.top: appIcon.bottom
             anchors.topMargin: 10
@@ -166,9 +166,9 @@ Page {
             width: (detailPage.width/5) * 2
             visible: !downloadProgress.visible
             onClicked: {
-                if (buttonAction == GetList.Launch) getList.buttonPressed(GetList.Launch)
+                if (buttonAction == GetList.Launch) getList.buttonPressed(detailItem, GetList.Launch)
                 // Download/update; buttonPressed returns if displaying downloadProgress
-                else downloadProgress.visible = getList.buttonPressed(buttonAction)
+                else downloadProgress.visible = getList.buttonPressed(detailItem, buttonAction)
             }
         }
 
@@ -519,7 +519,7 @@ Page {
     }
 
     function updateButton() {
-        appButton.buttonAction = getList.buttonAction(listIndex)
+        appButton.buttonAction = getList.buttonAction(detailItem)
         appButton.text = buttonText(appButton.buttonAction)
         downloadProgress.visible = false
     }

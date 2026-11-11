@@ -7,10 +7,6 @@ Page {
 
     tools: toolBarLayout
 
-    onStatusChanged: {
-        if (status == PageStatus.Activating) getList.setCurrentList(2)
-    }
-
     Rectangle {
         color: window.white
         anchors.fill: parent

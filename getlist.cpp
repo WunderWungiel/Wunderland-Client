@@ -38,7 +38,6 @@ GetList::GetList(StoreApi *_api, Language *__language, QObject *parent) :
 
     for (int i=0; i<5; i++) list[i] = new AppListModel(this);
 
-    currentList = 0;
     cleanList[0] = false;
     cleanList[1] = false;
     cleanList[2] = false;
@@ -196,21 +195,22 @@ void GetList::parseList(QString html, int listId) {
     }
 }
 
-int GetList::buttonAction(int index) {
-    currentItem = list[currentList]->get(index);
+int GetList::buttonAction(const QVariant &app) {
+    QVariantMap item = app.toMap();
 
-    if (downloadingItem == currentItem) return Downloading;
+    if (isDownloading() && downloadingItem.value("id").toInt() == item.value("id").toInt())
+        return Downloading;
 
-    if (!currentItem.value("installed").toBool()) return Download;
-
-    // Read the registry again: the app may have been removed since the list was loaded
-    QString installedVersion = appManagement.getVersion(currentItem.value("uid").toString());
+    // Read the registry, not the installed role: item is the snapshot the page was opened
+    // with, and the app may have been installed or removed since
+    QString installedVersion = appManagement.getVersion(item.value("uid").toString());
     if (installedVersion.isEmpty()) return Download;
-    if (isNewer(installedVersion, currentItem.value("version").toString())) return Update;
+    if (isNewer(installedVersion, item.value("version").toString())) return Update;
     return Launch;
 }
 
-bool GetList::buttonPressed(int action) {
+bool GetList::buttonPressed(const QVariant &app, int action) {
+    QVariantMap item = app.toMap();
 
     // Reset downloadProgress
     downloadProgress = 0;
@@ -218,11 +218,11 @@ bool GetList::buttonPressed(int action) {
 
     if (action == Download || action == Update) {
         // Set first: a failed start emits downloadError right away, which clears it
-        downloadingItem = currentItem;
-        downloader->startDownload(currentItem.value("download").toString(), currentItem.value("downloadsize").toLongLong(), QString::number(currentItem.value("id").toInt()), _language->currentLanguage());
+        downloadingItem = item;
+        downloader->startDownload(item.value("download").toString(), item.value("downloadsize").toLongLong(), QString::number(item.value("id").toInt()), _language->currentLanguage());
         return isDownloading();
     } else if (action == Launch) {
-        appManagement.launchApp(currentItem.value("uid").toString());
+        appManagement.launchApp(item.value("uid").toString());
     }
 
     // return if download progress shall be displayed

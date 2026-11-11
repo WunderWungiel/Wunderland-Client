@@ -9,10 +9,6 @@ Page {
 
     property int categoryId: 0
 
-    onStatusChanged: {
-        if (status === PageStatus.Activating) getList.setCurrentList(1)
-    }
-
     Component.onCompleted: {
         appList.startLoading()
         getList.loadCategoryList(categoryId,0,true)

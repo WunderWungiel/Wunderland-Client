@@ -50,13 +50,11 @@ public:
     void loadList(QUrl url, int listId);
     void parseList(QString html, int listId);
 
-    Q_INVOKABLE void setCurrentList(int i) { currentList = i; }
-
+    // app: a row as AppListModel::get() returns it (DetailPage's detailItem).
     // Returns an Action (int, so QtQuick 1.1 reads it)
-    Q_INVOKABLE int buttonAction(int index);
-    // Does the Action for the item of the last buttonAction() call; returns whether the
-    // download progress is shown
-    Q_INVOKABLE bool buttonPressed(int action);
+    Q_INVOKABLE int buttonAction(const QVariant &app);
+    // Does the Action for app; returns whether the download progress is shown
+    Q_INVOKABLE bool buttonPressed(const QVariant &app, int action);
 
     int _downloadProgress() { return downloadProgress; }
     Q_INVOKABLE bool isDownloading() {
@@ -84,7 +82,6 @@ private:
     AppListModel* _personalList() { return list[3]; }
     AppListModel* _updateList() { return list[4]; }
 
-    int currentList;
     int listLoading;
     bool cleanList[5];
 
@@ -99,7 +96,7 @@ private:
 
     QString wunderlandVersion;
 
-    QVariantMap currentItem, downloadingItem, emptyItem;
+    QVariantMap downloadingItem, emptyItem;
 
     //QString debug;
 
@@ -156,12 +153,6 @@ public slots:
             // Update the install state in all 5 lists (rows emit dataChanged)
             int id = downloadingItem.value("id").toInt();
             for (int i=0; i<5; i++) list[i]->updateInstalledState(id, true, false);
-
-            // Update currentItem
-            if (currentItem == downloadingItem) {
-                currentItem["installed"] = true;
-                currentItem["updateAvailable"] = QString("false");
-            }
 
             // Update order in installed IDs list
             QSettings settings("WunderWungiel", "Wunderland");

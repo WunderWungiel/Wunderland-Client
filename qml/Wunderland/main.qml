@@ -55,8 +55,7 @@ PageStackWindow {
         onUpdateListChanged: {
             if (appId !== -1) {
                 appId = -1
-                getList.setCurrentList(4)
-                window.pageStack.push (Qt.createComponent("DetailPage.qml"), { "listIndex" : 0, "detailItem": getList._updateList.get(0)})
+                window.pageStack.push (Qt.createComponent("DetailPage.qml"), { "detailItem": getList._updateList.get(0) })
             }
         }
     }
