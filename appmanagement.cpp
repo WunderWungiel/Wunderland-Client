@@ -1,4 +1,5 @@
 #include "appmanagement.h"
+#include "versioncompare.h"
 
 AppManagement::AppManagement(QObject *parent) :
     QObject(parent)
@@ -40,55 +41,7 @@ QString AppManagement::getVersion(QString uid) {
 }
 
 bool AppManagement::hasUpdate(QString uid, QString availableVersion) {
-    return isUpdate(getVersion(uid), availableVersion);
-}
-
-bool AppManagement::isUpdate(QString installedVersion, QString availableVersion) {
-    return !installedVersion.isEmpty() && !availableVersion.isEmpty() && compareVersions(installedVersion, availableVersion);
-}
-
-bool AppManagement::compareVersions(QString appVersion, QString webVersion) {
-    //appVersion -> installed, webVersion -> newest one in the list
-    //Returns true if webVersion is newer
-    if ((appVersion != webVersion) && (appVersion.length() > 0) && (webVersion.length() > 0)) {
-        //Versions differ, check whether it is newer
-        int webVersion1, webVersion2, webVersion3;
-        webVersion1 = webVersion.mid(0,webVersion.indexOf(".", 0)).toInt();
-        webVersion2 = webVersion.mid(webVersion.indexOf(".", 0)+1,webVersion.indexOf(".", webVersion.indexOf(".", 0)+1)-(webVersion.indexOf(".", 0)+1)).toInt();
-        webVersion3 = webVersion.mid(webVersion.indexOf(".", webVersion.indexOf(".", 0)+1)+1,webVersion.length()-webVersion.indexOf(".", webVersion.indexOf(".", 0)+1)+1).toInt();
-
-        int appVersion1, appVersion2, appVersion3;
-        appVersion1 = appVersion.mid(0,appVersion.indexOf(".", 0)).toInt();
-        appVersion2 = appVersion.mid(appVersion.indexOf(".", 0)+1,appVersion.indexOf(".", appVersion.indexOf(".", 0)+1)-(appVersion.indexOf(".", 0)+1)).toInt();
-        appVersion3 = appVersion.mid(appVersion.indexOf(".", appVersion.indexOf(".", 0)+1)+1,appVersion.length()-appVersion.indexOf(".", appVersion.indexOf(".", 0)+1)+1).toInt();
-
-        if (appVersion1 < webVersion1) {
-            //Major version is newer
-            return true;
-        } else if (appVersion1 > webVersion1) {
-            //Major version is older
-            return false;
-        } else {
-            if (appVersion2 < webVersion2) {
-                //Minor version is newer
-                return true;
-            } else if (appVersion2 > webVersion2) {
-                //Minor version is older
-                return false;
-            } else {
-                if (appVersion3 < webVersion3) {
-                    //Build number is newer
-                    return true;
-                } else {
-                    //Build number is older or equal
-                    return false;
-                }
-            }
-        }
-    } else {
-        //Versions are identical (or empty), result is false
-        return false;
-    }
+    return isNewer(getVersion(uid), availableVersion);
 }
 
 bool AppManagement::launchApp(QString uid) {

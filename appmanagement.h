@@ -23,13 +23,11 @@ public:
     explicit AppManagement(QObject *parent = 0);
     
     QString getVersion(QString uid);
-    static bool compareVersions(QString appVersion, QString webVersion);
 
-    // True if the app with this UID is installed in a version older than availableVersion
+    // True if the app with this UID is installed in a version older than availableVersion.
+    // Callers that already have the installed version (getVersion(), empty = not installed)
+    // use isNewer() from versioncompare.h, so the registry isn't read twice.
     bool hasUpdate(QString uid, QString availableVersion);
-    // The same check for an installed version already read with getVersion()
-    // (empty = not installed), so callers that need it too don't read the registry twice
-    static bool isUpdate(QString installedVersion, QString availableVersion);
 
     bool launchApp(QString uid);
     Q_INVOKABLE bool checkAppInstalled(QString uid);

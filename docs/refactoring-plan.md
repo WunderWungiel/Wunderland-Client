@@ -240,12 +240,21 @@ with the version they have already read (one registry read per app, as before).
 unchanged (3.4 replaces it). `AppEntry::installed` is a `bool`, `updateInstalledState()` takes a
 `bool`, and `buttonAction`/`buttonPressed` read the `uid` role.
 
-### [ ] 3.4 Version comparison
+### [x] 3.4 Version comparison
 `AppManagement::compareVersions` parses with nested `indexOf`/`mid` and returns "is web newer",
 under a name that doesn't say so. Replace it with `static int compareVersions(a, b)` (−1/0/1)
 that splits on `.`, plus `isNewer(installed, available)`. Write a few input/output pairs in a
 comment, or run them from a desktop `main()` (this is pure Qt, so it compiles without the
 Symbian SDK).
+
+Done as `versioncompare.*` (free functions, not `AppManagement` statics, so the file has no
+Symbian includes): `int compareVersions(a, b)` splits on `.`, pads missing parts with 0 and reads
+each part up to its first non-digit; `bool isNewer(installed, available)` is false when either is
+empty. It replaces `AppManagement::compareVersions` and `isUpdate` (`hasUpdate` stays and calls
+it); the input/output pairs are in `versioncompare.h`. Checked on desktop Qt 4.7.4 against the
+old code: the same result for every pair of `major.minor.build` versions with parts
+0/1/2/9/10/99/100 (117,649 pairs). It differs only for versions without three parts, where the
+old parser misread them (e.g. `1.0` installed and `1` available counted as an update).
 
 ### [ ] 3.5 Turn the `buttonAction` codes 0–7 into an enum
 `GetList::buttonAction` returns magic numbers 0–7, and `buttonPressed` takes a different set

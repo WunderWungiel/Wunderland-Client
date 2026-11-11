@@ -1,6 +1,7 @@
 #include "getlist.h"
 #include <QApplication>
 #include <QStringList>
+#include "versioncompare.h"
 
 GetList::GetList(QObject *parent) :
     QObject(parent)
@@ -128,7 +129,7 @@ void GetList::parseList(QString html, int listId) {
     if (result.ok || !result.apps.isEmpty()) {
         QString minVersion = result.minVersion;
 
-        if (!appManagement.compareVersions(wunderlandVersion, minVersion)) {
+        if (!isNewer(wunderlandVersion, minVersion)) {
             QSettings settings("WunderWungiel", "Wunderland");
             int highestSeenId = settings.value("apps/highestSeenId", 0).toInt();
             QStringList installedIds = settings.value("apps/installedIds").toStringList();
@@ -151,7 +152,7 @@ void GetList::parseList(QString html, int listId) {
                 // If installed add to installedIds-List
                 if (app.installed && !installedIds.contains(QString::number(id))) {
                     // If not in installedId list check for update, otherwise it will be checked within updatelist
-                    if (AppManagement::isUpdate(installedVersion, app.version)) {
+                    if (isNewer(installedVersion, app.version)) {
                         app.updateAvailable = true;
                         updateIds.append(QString::number(id));
                         emit updateCountChanged();
@@ -211,7 +212,7 @@ int GetList::buttonAction(int index) {
     // Read the registry again: the app may have been removed since the list was loaded
     QString installedVersion = appManagement.getVersion(currentItem.value("uid").toString());
     if (installedVersion.isEmpty()) return 0;
-    if (AppManagement::isUpdate(installedVersion, currentItem.value("version").toString())) return 1;
+    if (isNewer(installedVersion, currentItem.value("version").toString())) return 1;
     return 4;
 }
 

@@ -50,7 +50,8 @@ SOURCES += main.cpp \
     storeapi.cpp \
     applistparser.cpp \
     appentry.cpp \
-    applistmodel.cpp
+    applistmodel.cpp \
+    versioncompare.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -79,7 +80,8 @@ HEADERS += \
     storeapi.h \
     applistparser.h \
     appentry.h \
-    applistmodel.h
+    applistmodel.h \
+    versioncompare.h
 
 addFiles.pkg_postrules += "\"C:\\Wunderland.png\" - \"c:\\system\Wunderland.png\""
 addFiles.pkg_postrules += "\"C:\\HSWidgetxWunderland_E9320736_rel.dll\" - \"!:\\sys\\bin\\HSWidgetxWunderland_E9320736_rel.dll\""
