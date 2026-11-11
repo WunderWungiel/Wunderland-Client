@@ -499,7 +499,12 @@ if so, use the `QXmlStreamReader` RSS parser from 2.2.
    instead of hard-coding it 3 times (CLAUDE.md "Version bumps").
 4. [ ] **Rename leftovers:** QML import `com.applist.RoleItemModel` (goes away with 3.2), the
    `appListId:` launch-argument and `/appList` value-space path (*keep these*: other apps and
-   the widget DLL may use them; document them instead).
+   the widget DLL may use them; document them instead). Also the QML-facing names with an
+   AppList-style `_` prefix: `appCatalog._mainList`, `_categoryList`, `_searchList`,
+   `_personalList`, `_updateList` → without `_`, `news._model` → `news.model`, and the
+   getter-style invokables (`getLastSearchTerm()`, `l.getLanguageName()`, `l.getSelected()`,
+   `news.updateRunning()`, `news.feedUrl()`, `news.getHtml()`) → properties where they are
+   plain state. Update the QML and `docs/qml-api.md` in the same commit.
 5. [ ] **Licence headers** (SPDX), as Symbisend has, and a `CLAUDE.md` update after each phase.
 6. [ ] **Line endings:** sources are CRLF; add `.gitattributes` so that edits don't create
    whole-file diffs.

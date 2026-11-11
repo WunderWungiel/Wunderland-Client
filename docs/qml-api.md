@@ -7,8 +7,8 @@ file up to date when the QML-facing API changes.
 QtQuick 1.1: invokables return plain values (enums as `int`), and a list row is read as a
 JS object with `get(row)`.
 
-Names starting with `_` (`appCatalog._mainList`, `news._model`) are AppList leftovers and
-may be renamed later; this file will say so.
+Names starting with `_` (`appCatalog._mainList`, `news._model`) and the getter-style
+invokables are AppList leftovers, to be renamed in plan step 8.4.
 
 ## `appCatalog` — the store app lists
 
@@ -55,7 +55,7 @@ Signals:
   response); the list is not changed. `main.qml` opens `UpdatePage.qml`.
 
 When `installManager` reports an installed app (`appInstalled`), its rows in every list
-change to `installed` = true, `updateAvailable` = `"false"`.
+change to `installed` = true, `updateAvailable` = false.
 
 ## App list models
 
@@ -77,7 +77,7 @@ the server unless noted:
 | `version`         | string   | e.g. `1.2.3`                                             |
 | `versiondate`     | datetime | invalid if the server sent none                          |
 | `installed`       | bool     | client: installed (any version), from the SIS registry   |
-| `updateAvailable` | string   | client: **`"true"` / `"false"`**, not a bool; compare with `=== "true"` |
+| `updateAvailable` | bool     | client: installed in an older version than `version`     |
 | `category`        | int      | category id, see `l.categoryName()`                      |
 | `language`        | string   |                                                          |
 | `os`              | string   |                                                          |

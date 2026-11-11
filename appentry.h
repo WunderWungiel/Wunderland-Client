@@ -56,7 +56,7 @@ struct AppEntry
     static AppEntry fromFields(const QHash<QString, QString> &fields);
 
     // The value for a model role, typed as the QML pages expect it
-    // (updateAvailable as a string, downloadSize as text).
+    // (downloadSize as text).
     QVariant data(int role) const;
 
     // From the server

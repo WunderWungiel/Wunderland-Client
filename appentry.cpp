@@ -103,7 +103,7 @@ QVariant AppEntry::data(int role) const
     case TagsRole: return tags;
     case ChangelogRole: return changelog;
     case DownloadRole: return download;
-    case UpdateAvailableRole: return QString(updateAvailable ? "true" : "false");
+    case UpdateAvailableRole: return updateAvailable;
     case Image4Role: return image4;
     case Image5Role: return image5;
     case DownloadSizeRole: return downloadSize;

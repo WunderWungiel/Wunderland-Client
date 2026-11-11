@@ -86,7 +86,7 @@ ListView {
             height: parent.height
             width: 10
             anchors.left: parent.left
-            visible: ((updateAvailable === "true") && displayUpdateRect)
+            visible: updateAvailable && displayUpdateRect
         }
 
         Rectangle {
