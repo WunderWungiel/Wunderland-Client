@@ -451,7 +451,7 @@ keep their state when they upgrade.
 
 ## [ ] Phase 7 — QML layer
 
-### [ ] 7.1 Write `docs/qml-api.md`
+### [x] 7.1 Write `docs/qml-api.md`
 List every context property, role and invokable, as Symbisend does. Do it during Phases 3–6,
 because those phases rename the QML-facing API (`_mainList` → `mainList`,
 `getUseUnsigned()` → `settings.useUnsigned`, …).
