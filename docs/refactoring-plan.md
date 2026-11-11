@@ -449,7 +449,7 @@ keep their state when they upgrade.
 
 ---
 
-## [ ] Phase 7 — QML layer
+## [x] Phase 7 — QML layer (done)
 
 ### [x] 7.1 Write `docs/qml-api.md`
 List every context property, role and invokable, as Symbisend does. Do it during Phases 3–6,
@@ -579,17 +579,20 @@ finish was shown).
 
 ## Suggested order and checkpoints
 
+"Done" means the steps are committed; the checkpoint is what to check on a device for them.
+
 | # | Done | Steps | Checkpoint on device |
 |---|------|-------|----------------------|
 | 1 | [x] | 0.1–0.3 | builds from the script; log file appears |
 | 2 | [x] | 1.1–1.8 | language dialog OK; install 2 apps in a row shows success both times; search page 3; a redirected download finishes |
 | 3 | [x] | 1.9 + `lupdate` | strings are right in EN + one translation |
 | 4 | [x] | 2.1–2.3 | all 5 lists load; a redirected download finishes; a cancelled or failed download leaves no file |
-| 5 | [ ] | 3.1–3.5 | install state/update badges are the same as before; Download/Update/Open buttons right for not installed, outdated and current apps |
-| 6 | [ ] | 4.1–4.4, 5.1–5.2 | Store flow, launch, cancel download, widget count |
-| 7 | [ ] | 6.x | settings survive an upgrade from 2.00(5) |
-| 8 | [ ] | 7.x, 8.x | general UI pass; airplane mode shows an error, not a spinner (7.5) |
+| 5 | [x] | 3.1–3.5 | install state/update badges are the same as before; Download/Update/Open buttons right for not installed, outdated and current apps |
+| 6 | [x] | 4.1–4.4, 5.1–5.4 | install flow (the log shows "installer thread exited", and "polling" if the fallback ran); launch; cancel a download; browser links; widget count and widget registration after the splash screen |
+| 7 | [x] | 6.1–6.2 | settings and installed/update state survive an upgrade from 2.00(5) |
+| 8 | [ ] | 7.1–7.6, 8.1–8.6 + `lupdate` | general UI pass (theme colours, page pushes, `DetailPage`, news); airplane mode shows an error banner with retry, not a spinner (7.5); the new 7.5 strings are translated |
 
 Risky areas, which need extra device testing: the install-state/update logic (3.3, 3.4; test
-an app installed in an older version and one updated from inside Wunderland), the Store-redirect event-filter flow (4.2), and
-anything that touches the persisted `apps/*` keys (6.2).
+an app installed in an older version and one updated from inside Wunderland), waiting for the
+installer (5.2; both the `RThread::Logon` path and the poll fallback), and anything that
+touches the persisted `apps/*` keys (6.2).
