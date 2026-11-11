@@ -529,8 +529,13 @@ finish was shown).
 
 ## [ ] Phase 8 — Housekeeping
 
-1. [ ] **Folder layout:** move C++ into `src/` (and `src/platform/`), as Symbisend does; update
+1. [x] **Folder layout:** move C++ into `src/` (and `src/platform/`), as Symbisend does; update
    `.pro` (one entry per line, ` \` continuations, check with `grep -nF '\n'`).
+   Done: as in Symbisend, `main.cpp` stays at the root, everything else is in `src/` and
+   `src/platform/`, with `INCLUDEPATH += src` (so `#include "platform/apps.h"` and
+   `"updatetracker.h"` from `src/platform/` are unchanged). No header name in `src/` exists in
+   the SDK's `epoc32/include`. `qmlapplicationviewer/`, `apps.txt`, the translations and the
+   QML stay where they are.
 2. [x] **Dead code:** `xqinstaller*` (4 files, commented out of the `.pro`), `appitem.*`,
    `reviewitem.*`, `GetList(QObject*)` (empty constructor that leaves members uninitialised),
    commented-out blocks in `getlist.cpp`

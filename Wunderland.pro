@@ -19,7 +19,7 @@ symbian:TARGET.UID3 = 0xE9320736
 symbian:TARGET.CAPABILITY += NetworkServices #TrustedUI
 
 # Qt Mobility and the Symbian Qt Components are only used on Symbian. Desktop Qt
-# has neither, so the code that needs them is in platform/ behind
+# has neither, so the code that needs them is in src/platform/ behind
 # #ifdef Q_OS_SYMBIAN (the desktop build compiles, but the QML needs
 # com.nokia.symbian to run).
 symbian {
@@ -37,64 +37,66 @@ VERSION = 2.0.5
 # main.cpp turns it into a string.
 DEFINES += APP_Version=$$VERSION
 
+INCLUDEPATH += src
+
 SOURCES += main.cpp \
-    appmanagement.cpp \
-    newsmodel.cpp \
-    appcatalog.cpp \
-    installmanager.cpp \
-    updatetracker.cpp \
-    downloader.cpp \
-    news.cpp \
-    update.cpp \
-    language.cpp \
-    settings.cpp \
-    symbian.cpp \
-    logger.cpp \
-    storeapi.cpp \
-    applistparser.cpp \
-    appentry.cpp \
-    applistmodel.cpp \
-    versioncompare.cpp \
-    platform/apps.cpp \
-    platform/device.cpp \
-    platform/installerwatcher.cpp \
-    platform/subscriber.cpp
+    src/appmanagement.cpp \
+    src/newsmodel.cpp \
+    src/appcatalog.cpp \
+    src/installmanager.cpp \
+    src/updatetracker.cpp \
+    src/downloader.cpp \
+    src/news.cpp \
+    src/update.cpp \
+    src/language.cpp \
+    src/settings.cpp \
+    src/symbian.cpp \
+    src/logger.cpp \
+    src/storeapi.cpp \
+    src/applistparser.cpp \
+    src/appentry.cpp \
+    src/applistmodel.cpp \
+    src/versioncompare.cpp \
+    src/platform/apps.cpp \
+    src/platform/device.cpp \
+    src/platform/installerwatcher.cpp \
+    src/platform/subscriber.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    appmanagement.h \
-    newsmodel.h \
-    appcatalog.h \
-    installmanager.h \
-    updatetracker.h \
-    downloader.h \
-    news.h \
-    update.h \
-    language.h \
-    settings.h \
-    symbian.h \
-    logger.h \
-    storeapi.h \
-    applistparser.h \
-    appentry.h \
-    applistmodel.h \
-    versioncompare.h \
-    platform/apps.h \
-    platform/device.h \
-    platform/installerwatcher.h \
-    platform/subscriber.h
+    src/appmanagement.h \
+    src/newsmodel.h \
+    src/appcatalog.h \
+    src/installmanager.h \
+    src/updatetracker.h \
+    src/downloader.h \
+    src/news.h \
+    src/update.h \
+    src/language.h \
+    src/settings.h \
+    src/symbian.h \
+    src/logger.h \
+    src/storeapi.h \
+    src/applistparser.h \
+    src/appentry.h \
+    src/applistmodel.h \
+    src/versioncompare.h \
+    src/platform/apps.h \
+    src/platform/device.h \
+    src/platform/installerwatcher.h \
+    src/platform/subscriber.h
 
 # The homescreen widget (HSWidgetxWunderland*.dll) only exists on Symbian
 symbian {
-    SOURCES += platform/hswidget.cpp
+    SOURCES += src/platform/hswidget.cpp
     HEADERS += \
-        platform/hswidget.h \
-        platform/qhswidget.h \
-        platform/sisregistrysession.h \
-        platform/sisregistryentry.h
+        src/platform/hswidget.h \
+        src/platform/qhswidget.h \
+        src/platform/sisregistrysession.h \
+        src/platform/sisregistryentry.h
 }
 
 symbian {
