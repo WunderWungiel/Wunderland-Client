@@ -7,6 +7,7 @@
 
 #include "getlist.h"
 #include "roleitemmodel.h"
+#include "applistmodel.h"
 #include "hswidget.h"
 #include "news.h"
 #include "update.h"
@@ -63,7 +64,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     QmlApplicationViewer viewer;
 
-    qmlRegisterType<RoleItemModel>("com.applist.RoleItemModel", 1, 0, "RoleItemModel");
+    // Not creatable from QML; registered so the model properties can be read
+    qmlRegisterType<AppListModel>();
+    qmlRegisterType<RoleItemModel>();
 
     viewer.rootContext()->setContextProperty("getList", &getList);
     viewer.rootContext()->setContextProperty("appManagement", &appManagement);

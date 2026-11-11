@@ -35,12 +35,7 @@ GetList::GetList(StoreApi *_api, Language *__language, QObject *parent) :
     QSettings settings("WunderWungiel", "Wunderland");
     updateIds = settings.value("apps/updateIds", updateIds).toStringList();
 
-    QHash<int, QByteArray> roleNames = appRoleNames();
-    list[0] = new RoleItemModel(roleNames);
-    list[1] = new RoleItemModel(roleNames);
-    list[2] = new RoleItemModel(roleNames);
-    list[3] = new RoleItemModel(roleNames);
-    list[4] = new RoleItemModel(roleNames);
+    for (int i=0; i<5; i++) list[i] = new AppListModel(this);
 
     currentList = 0;
     cleanList[0] = false;
@@ -137,7 +132,7 @@ void GetList::parseList(QString html, int listId) {
             QSettings settings("WunderWungiel", "Wunderland");
             int highestSeenId = settings.value("apps/highestSeenId", 0).toInt();
             QStringList installedIds = settings.value("apps/installedIds").toStringList();
-            QHash<int, QByteArray> roleNames = appRoleNames();
+            QList<AppEntry> apps;
 
             if (cleanList[listId]) {
                 list[listId]->clear();
@@ -168,19 +163,16 @@ void GetList::parseList(QString html, int listId) {
                     app.updateAvailable = true;
                 }
 
-                QStandardItem* item = new QStandardItem();
-                QList<int> roles = roleNames.keys();
-                for (int r = 0; r < roles.count(); r++) item->setData(app.data(roles.at(r)), roles.at(r));
-
                 // Is part of installed list but not installed (anymore) remove
                 if (installedVersion.length() == 0 && installedIds.contains(QString::number(id))) {
                     installedIds.removeAll(QString::number(id));
                     // Add to list if not in personal list
-                    if (listId != 3) list[listId]->appendRow(item);
+                    if (listId != 3) apps.append(app);
                 } else {
-                    list[listId]->appendRow(item);
+                    apps.append(app);
                 }
             }
+            list[listId]->append(apps);
 
             //Save seen Ids
             settings.setValue("apps/highestSeenId", highestSeenId);
@@ -211,7 +203,7 @@ int GetList::buttonAction(int index) {
      *  4 - launch app
      *  6 - currently downloading item
      */
-    currentItem = list[currentList]->getModelData(index);
+    currentItem = list[currentList]->get(index);
 
     if (downloadingItem == currentItem) return 6;
 

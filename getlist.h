@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QSettings>
 #include <QDateTime>
-#include "roleitemmodel.h"
+#include "applistmodel.h"
 #include "appmanagement.h"
 #include "updatemanagement.h"
 #include "language.h"
@@ -16,11 +16,12 @@
 
 class GetList : public QObject
 {
-    Q_PROPERTY(RoleItemModel *_mainList READ _mainList NOTIFY mainListChanged)
-    Q_PROPERTY(RoleItemModel *_categoryList READ _categoryList NOTIFY categoryListChanged)
-    Q_PROPERTY(RoleItemModel *_searchList READ _searchList NOTIFY searchListChanged)
-    Q_PROPERTY(RoleItemModel *_personalList READ _personalList NOTIFY personalListChanged)
-    Q_PROPERTY(RoleItemModel *_updateList READ _updateList NOTIFY updateListChanged)
+    // The models are fixed objects; the *ListChanged signals say that a load finished.
+    Q_PROPERTY(AppListModel *_mainList READ _mainList CONSTANT)
+    Q_PROPERTY(AppListModel *_categoryList READ _categoryList CONSTANT)
+    Q_PROPERTY(AppListModel *_searchList READ _searchList CONSTANT)
+    Q_PROPERTY(AppListModel *_personalList READ _personalList CONSTANT)
+    Q_PROPERTY(AppListModel *_updateList READ _updateList CONSTANT)
     Q_PROPERTY(int _updates READ _updates NOTIFY updateCountChanged)
     Q_PROPERTY(int _downloadProgress READ _downloadProgress NOTIFY progressChanged)
     Q_OBJECT
@@ -65,13 +66,13 @@ private:
     StoreApi *api;
     Language *_language;
 
-    RoleItemModel *list[5];
-    RoleItemModel* _mainList() { return list[0]; }
-    RoleItemModel* _categoryList() { return list[1]; }
-    RoleItemModel* _searchList() { return list[2]; }
+    AppListModel *list[5];
+    AppListModel* _mainList() { return list[0]; }
+    AppListModel* _categoryList() { return list[1]; }
+    AppListModel* _searchList() { return list[2]; }
     QString lastSearchTerm;
-    RoleItemModel* _personalList() { return list[3]; }
-    RoleItemModel* _updateList() { return list[4]; }
+    AppListModel* _personalList() { return list[3]; }
+    AppListModel* _updateList() { return list[4]; }
 
     int currentList;
     int listLoading;
@@ -93,6 +94,7 @@ private:
     //QString debug;
 
 signals:
+    // A load of that list finished (also when it added no rows)
     void mainListChanged();
     void searchListChanged();
     void categoryListChanged();
@@ -141,35 +143,14 @@ public slots:
         QString uid = downloadingItem.value("uid").toString();
         QString installedVersion = appManagement.getVersion(uid);
         if (installedVersion.length() > 0 && QString::compare(installedVersion, downloadingItem.value("version").toString()) == 0) {
-            // Go through all 5 lists
-            for (int i=0; i<5; i++) {
-                // Find updated/installed item in all lists and update "installed" field
-                for (int l=0; l<list[i]->rowCount(); l++) {
-                    if (list[i]->getModelData(l).value("id").toString() == downloadingItem.value("id").toString()) {
-                        QStandardItem *tempItem = list[i]->item(l);
+            // Update the install state in all 5 lists (rows emit dataChanged)
+            int id = downloadingItem.value("id").toInt();
+            for (int i=0; i<5; i++) list[i]->updateInstalledState(id, uid+"1", false);
 
-                        tempItem->setData(uid+"1", InstalledRole);
-                        // Set update value to false
-                        tempItem->setData("false", UpdateAvailableRole);
-
-                        // Update item
-                        list[i]->setItem(l, tempItem);
-
-                        // Update currentItem
-                        if (currentItem == downloadingItem) currentItem = list[i]->getModelData(l);
-
-                        // Notify list changes
-                        switch (i) {
-                            case 0: mainListChanged(); break;
-                            case 1: categoryListChanged(); break;
-                            case 2: searchListChanged(); break;
-                            case 3: personalListChanged(); break;
-                            case 4: updateListChanged(); break;
-                        }
-
-                        break;
-                    }
-                }
+            // Update currentItem
+            if (currentItem == downloadingItem) {
+                currentItem["installed"] = uid+"1";
+                currentItem["updateAvailable"] = QString("false");
             }
 
             // Update order in installed IDs list

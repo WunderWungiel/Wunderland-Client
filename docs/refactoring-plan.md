@@ -205,11 +205,19 @@ each `QStandardItem` with a loop over the roles, which 3.2 can reuse in `data()`
 model's roles got names too (`NewsEntry`, file scope in `news.cpp`). `appitem.*` and
 `reviewitem.*` are deleted. There are 29 roles, not 39 (the variant roles went with the unsigned/Store variants).
 
-### [ ] 3.2 Replace `RoleItemModel` (QStandardItemModel) with an `AppListModel`
+### [x] 3.2 Replace `RoleItemModel` (QStandardItemModel) with an `AppListModel`
 A `QAbstractListModel` over `QList<AppEntry>` with `append(list)`, `clear()`,
 `updateInstalledState(id)`, `get(row)` (for QML), and a `count` property. This is lighter on
 memory than one `QStandardItem` × 39 `QVariant`s per app on a phone, and it allows per-row
 `dataChanged` instead of `setItem` plus re-emitting the property's NOTIFY signal.
+
+Done as `applistmodel.*`: `updateInstalledState(id, installed, updateAvailable)` changes every
+row with that id and emits `dataChanged` for it; `get(row)` replaces `getModelData()` in QML.
+`GetList::parseList` collects the entries and appends them in one `beginInsertRows`. The five
+`_*List` properties are now `CONSTANT`; the `*ListChanged` signals stay, but only mean "a load
+finished" (the pages use them to stop the spinner), so a finished install no longer emits them.
+The news model still uses `RoleItemModel` (7.6). Both types are registered with the URI-less
+`qmlRegisterType<T>()`, so the `com.applist.RoleItemModel` import is gone (no QML used it).
 
 ### [ ] 3.3 Put "which variant is installed / is there an update" in one place
 The same 25-line block that decides between self-signed, unsigned and Store (with the special

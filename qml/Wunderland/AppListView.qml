@@ -38,7 +38,7 @@ ListView {
                 onPressed: tf.play()
                 onReleased: tf.play()
                 onClicked: {
-                    window.pageStack.push (Qt.createComponent("DetailPage.qml"), { "listIndex" : index, "detailItem": listModel.getModelData(index)})
+                    window.pageStack.push (Qt.createComponent("DetailPage.qml"), { "listIndex" : index, "detailItem": listModel.get(index)})
                 }
             }
         }
