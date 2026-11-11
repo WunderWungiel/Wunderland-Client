@@ -1,6 +1,7 @@
 import QtQuick 1.1
 import com.nokia.symbian 1.1
 import QtMobility.feedback 1.1
+import Wunderland 1.0
 
 PageStackWindow {
     id: window
@@ -37,17 +38,17 @@ PageStackWindow {
 
         aasFeed = settings.aasFeed()
 
-        getList.loadMainList()
+        appCatalog.loadMainList()
 
         if (launchAppId !== -1) {
             // Open app in AppList
-            getList.loadUpdateList(launchAppId)
+            appCatalog.loadUpdateList(launchAppId)
             appId = launchAppId
         }
     }
 
     Connections {
-        target: getList
+        target: appCatalog
         onAppListUpdate: {
             console.debug("appListUpdate QML")
             window.pageStack.push(Qt.createComponent("UpdatePage.qml"))
@@ -55,7 +56,7 @@ PageStackWindow {
         onUpdateListChanged: {
             if (appId !== -1) {
                 appId = -1
-                window.pageStack.push (Qt.createComponent("DetailPage.qml"), { "detailItem": getList._updateList.get(0) })
+                window.pageStack.push (Qt.createComponent("DetailPage.qml"), { "detailItem": appCatalog._updateList.get(0) })
             }
         }
     }
@@ -64,7 +65,7 @@ PageStackWindow {
         target: subscriber
         onAppListIdReceived: {
             if (appListId !== -1) {
-                getList.loadUpdateList(appListId)
+                appCatalog.loadUpdateList(appListId)
                 appId = appListId
             }
         }
@@ -109,21 +110,20 @@ PageStackWindow {
                 width: parent.width/2
                 height: parent.height/2
                 source: "images/updateicon.png"
-                visible: (getList._updates > 0)
+                visible: (updateTracker.count > 0)
 
                 Text {
                     anchors.centerIn: parent
                     color: "#FCFCFC"
                     font.pixelSize: 16
-                    text: getList._updates
+                    text: updateTracker.count
                 }
             }
         }
     }
 
     function closeApp() {
-        //getList.saveUpdateIdList()
-        if (getList.isDownloading()) closeDialog.open()
+        if (installManager.state != InstallManager.Idle) closeDialog.open()
         else Qt.quit()
     }
 

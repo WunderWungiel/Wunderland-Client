@@ -5,7 +5,10 @@
 #include <QNetworkAccessManager>
 #include "qmlapplicationviewer.h"
 
-#include "getlist.h"
+#include "appcatalog.h"
+#include "installmanager.h"
+#include "updatetracker.h"
+#include "appmanagement.h"
 #include "roleitemmodel.h"
 #include "applistmodel.h"
 #include "hswidget.h"
@@ -47,19 +50,26 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QNetworkAccessManager networkManager;
     StoreApi storeApi(&networkManager, language);
 
-    qDebug() << "registerWidgetBefore";
-    HSWidget widget(&storeApi);
-    widget.registerWidget();
-    qDebug() << "registerWidgetAfter";
-
     AppManagement appManagement;
     if (!appManagement.appsScanned()) appManagement.scanApps();
+
+    // After scanApps(), which fills apps/installedIds on the first run
+    UpdateTracker updateTracker(&storeApi, &appManagement);
+
+    qDebug() << "registerWidgetBefore";
+    HSWidget widget(&updateTracker);
+    widget.registerWidget();
+    qDebug() << "registerWidgetAfter";
 
     News news(&storeApi);
     Update update(&storeApi);
     Subscriber subscriber;
     Settings settings;
-    GetList getList(&storeApi, language);
+    AppCatalog appCatalog(&storeApi, &updateTracker);
+    InstallManager installManager(&storeApi, &appManagement, &updateTracker, language);
+    QObject::connect(&installManager, SIGNAL(appInstalled(int)),
+                     &appCatalog, SLOT(markInstalled(int)));
+    updateTracker.check();
     Symbian symbianFunctions;
 
     QmlApplicationViewer viewer;
@@ -67,10 +77,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     // Not creatable from QML; registered so the model properties can be read
     qmlRegisterType<AppListModel>();
     qmlRegisterType<RoleItemModel>();
-    // Only for the Action enum (GetList.Download, ...); the instance is the getList property
-    qmlRegisterUncreatableType<GetList>("Wunderland", 1, 0, "GetList", "Use the getList context property");
+    // Only for the enums (InstallManager.Download, ...); the instance is the installManager property
+    qmlRegisterUncreatableType<InstallManager>("Wunderland", 1, 0, "InstallManager", "Use the installManager context property");
 
-    viewer.rootContext()->setContextProperty("getList", &getList);
+    viewer.rootContext()->setContextProperty("appCatalog", &appCatalog);
+    viewer.rootContext()->setContextProperty("installManager", &installManager);
+    viewer.rootContext()->setContextProperty("updateTracker", &updateTracker);
     viewer.rootContext()->setContextProperty("appManagement", &appManagement);
     viewer.rootContext()->setContextProperty("news", &news);
     viewer.rootContext()->setContextProperty("update", &update);

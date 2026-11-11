@@ -35,14 +35,15 @@ SOURCES += main.cpp \
     #xqinstaller.cpp \
     #xqinstaller_p.cpp
     roleitemmodel.cpp \
-    getlist.cpp \
+    appcatalog.cpp \
+    installmanager.cpp \
+    updatetracker.cpp \
     hswidget.cpp \
     downloader.cpp \
     installserverthread.cpp \
     news.cpp \
     update.cpp \
     language.cpp \
-    updatemanagement.cpp \
     subscriber.cpp \
     settings.cpp \
     symbian.cpp \
@@ -64,7 +65,9 @@ HEADERS += \
     sisregistrysession.h \
     sisregistryentry.h \
     roleitemmodel.h \
-    getlist.h \
+    appcatalog.h \
+    installmanager.h \
+    updatetracker.h \
     qhswidget.h \
     hswidget.h \
     downloader.h \
@@ -72,7 +75,6 @@ HEADERS += \
     news.h \
     update.h \
     language.h \
-    updatemanagement.h \
     subscriber.h \
     settings.h \
     symbian.h \

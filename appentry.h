@@ -8,7 +8,7 @@
 #include <QDateTime>
 #include <QVariant>
 
-// Model roles of an app list (GetList's AppListModels). QML reads them by the names in
+// Model roles of an app list (AppCatalog's AppListModels). QML reads them by the names in
 // appRoleNames(). The gaps (4, 5, 8, 9, 11, 12, 31, 33, 34, 39) were the removed
 // unsigned/Store variant roles; keep the numbers stable.
 enum AppRole {

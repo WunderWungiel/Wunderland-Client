@@ -1,5 +1,6 @@
 #include "hswidget.h"
 #include <QDebug>
+#include <QSettings>
 #include <apgcli.h> // for RApaLsSession
 #include <apacmdln.h> // for CApaCommandLine
 #include <apgtask.h> // bring to foreground
@@ -15,12 +16,11 @@ const QString sw_image ("image1");
 const QString row1 ("text1");
 const QString row2 ("text2");
 
-HSWidget::HSWidget(StoreApi *api, QObject *parent) : QObject(parent) {
-    updateManagement = new UpdateManagement(api, true, this);
-    connect(updateManagement, SIGNAL(loadingFinished(int, int)),
-            this, SLOT(dataUpdated(int,int)));
-    connect(updateManagement, SIGNAL(updateWidgetCount(int)),
-            this, SLOT(dataUpdated(int)));
+HSWidget::HSWidget(UpdateTracker *_updateTracker, QObject *parent) :
+    QObject(parent), updateTracker(_updateTracker), waitingForCheck(false)
+{
+    connect(updateTracker, SIGNAL(checkFinished(int,int)),
+            this, SLOT(checkFinished(int,int)));
 
     qDebug() << "init";
 
@@ -59,13 +59,13 @@ void HSWidget::handleEvent( QHSWidget* /*aSender*/, QHSEvent aEvent ) {
                 widget->SetItem(sw_image, "c:\\system\\Wunderland.png");
                 //updateWidget("c:\\data\\Images\\Pictures\\QtSunny2.JPG", "a", "b");
                 //publishWidget();
-                updateManagement->loadList();
+                refresh();
             }
             break;
         case EResume: {
                 qDebug() << "handlePublish";
                 //publishWidget();
-                updateManagement->loadList();
+                refresh();
                 qDebug() << "handlePublishAfter";
             }
             break;
@@ -86,7 +86,7 @@ void HSWidget::handleItemEvent( QHSWidget* /*aSender*/, QString aTemplateItemNam
         this->bringToFront();
         //updateWidget("c:\\data\\Images\\Pictures\\QtSunny2.JPG", "a", "b");
         //publishWidget();
-        //updateManagement->loadList();
+        //refresh();
     }
 }
 
@@ -161,9 +161,18 @@ void HSWidget::dataUpdated(int updates, int newApps) {
     publishWidget();
 }
 
-void HSWidget::dataUpdated(int updates) {
-    widget->SetItem(row1, updatesText(updates));
-    widget->SetItem(row2, newAppsText(0));
+void HSWidget::refresh() {
+    if (updateTracker->lastCheckOlderThanADay()) {
+        waitingForCheck = true;
+        updateTracker->check();
+    } else {
+        dataUpdated(updateTracker->count(), 0);
+    }
+}
 
-    publishWidget();
+void HSWidget::checkFinished(int updates, int newApps) {
+    // The app's own checks don't publish the widget
+    if (!waitingForCheck) return;
+    waitingForCheck = false;
+    dataUpdated(updates, newApps);
 }

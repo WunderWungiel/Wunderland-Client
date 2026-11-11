@@ -121,7 +121,7 @@ Page {
             anchors.right: parent.right
             anchors.rightMargin: 10
             width: parent.width - 20
-            visible: appButton.buttonAction == GetList.Downloading
+            visible: appButton.buttonAction == InstallManager.Downloading
             height: cancelButton.height + progressBar.height + 10
 
             //onVisibleChanged: flickArea.contentHeight = flickArea.flickAreaHeight()
@@ -133,7 +133,7 @@ Page {
                 anchors.right: parent.right
                 width: (detailPage.width/5) * 2
                 onClicked: {
-                    if (getList.cancelDownload()) {
+                    if (installManager.cancelDownload()) {
                         downloadProgress.visible = false;
                         infoBanner.text = qsTr("Download cancelled.")
                         infoBanner.open()
@@ -150,14 +150,14 @@ Page {
                 anchors.top: cancelButton.bottom
                 anchors.topMargin: 10
                 anchors.right: parent.right
-                value: getList._downloadProgress
+                value: installManager.progress
                 maximumValue: 100.0
             }
         }
 
         Button {
             id: appButton
-            property int buttonAction: getList.buttonAction(detailItem)
+            property int buttonAction: installManager.buttonAction(detailItem)
             text: buttonText(buttonAction)
             anchors.top: appIcon.bottom
             anchors.topMargin: 10
@@ -166,9 +166,9 @@ Page {
             width: (detailPage.width/5) * 2
             visible: !downloadProgress.visible
             onClicked: {
-                if (buttonAction == GetList.Launch) getList.buttonPressed(detailItem, GetList.Launch)
+                if (buttonAction == InstallManager.Launch) installManager.buttonPressed(detailItem, InstallManager.Launch)
                 // Download/update; buttonPressed returns if displaying downloadProgress
-                else downloadProgress.visible = getList.buttonPressed(detailItem, buttonAction)
+                else downloadProgress.visible = installManager.buttonPressed(detailItem, buttonAction)
             }
         }
 
@@ -192,7 +192,7 @@ Page {
 
             Text {
                 id: appDescriptionLabel
-                text: ((appButton.buttonAction == GetList.Update) && (detailItem["changelog"] !== "")) ? detailItem["changelog"] + "\n\n" + detailItem["description"] : detailItem["description"]
+                text: ((appButton.buttonAction == InstallManager.Update) && (detailItem["changelog"] !== "")) ? detailItem["changelog"] + "\n\n" + detailItem["description"] : detailItem["description"]
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
@@ -482,7 +482,7 @@ Page {
     }
 
     Connections {
-        target: getList
+        target: installManager
         onInstallServerFinished: {
             //appDescriptionLabel.text = debug
 
@@ -513,13 +513,13 @@ Page {
     }
 
     function buttonText(action) {
-        if (action == GetList.Download) return qsTr("Download") + l.emptyString
-        if (action == GetList.Update) return qsTr("Update") + l.emptyString
+        if (action == InstallManager.Download) return qsTr("Download") + l.emptyString
+        if (action == InstallManager.Update) return qsTr("Update") + l.emptyString
         return qsTr("Launch") + l.emptyString
     }
 
     function updateButton() {
-        appButton.buttonAction = getList.buttonAction(detailItem)
+        appButton.buttonAction = installManager.buttonAction(detailItem)
         appButton.text = buttonText(appButton.buttonAction)
         downloadProgress.visible = false
     }

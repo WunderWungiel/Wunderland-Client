@@ -293,7 +293,7 @@ Done: `buttonAction(app)` and `buttonPressed(app, action)` take the row map
 the app being downloaded" compares ids instead of whole maps. This also replaces the old
 `currentItem` patching after an install.
 
-### [ ] 4.2 Split responsibilities
+### [x] 4.2 Split responsibilities
 - `AppCatalog`: owns the 5 `AppListModel`s (main, category, search, personal, updates), and
   loads/paginates them through `StoreApi`.
 - `InstallManager`: download → installer → wait for install → refresh state. It owns the
@@ -304,6 +304,29 @@ the app being downloaded" compares ids instead of whole maps. This also replaces
   `UpdateManagement`, which each create their own `AppManagement`).
 Wire them together in `main.cpp`, like Symbisend does.
 
+Done: `GetList` and `UpdateManagement` are gone. All three classes are created in `main.cpp`
+and get their dependencies as pointers; `InstallManager::appInstalled(id)` is connected to
+`AppCatalog::markInstalled(id)` there.
+- `AppCatalog` (context property `appCatalog`) keeps the list API (`_mainList`…,
+  `load*List`, the `*ListChanged`/`appListUpdate`/`loadingError` signals).
+- `InstallManager` (`installManager`) owns the `Downloader` and the `InstallServerThread`
+  (moved out of `AppManagement`, which no longer has `startInstallServerListening` or
+  `installServerFinished`). The Store-flow event filter was already gone with the Store
+  variants (3.3). It has `state` (`Idle`/`Transferring`/`Installing`) and `progress`, the
+  `Action` enum (QML: `InstallManager.Launch`, ...), `buttonAction`, `buttonPressed`,
+  `cancelDownload`, and the `downloadError`/`installServerFinished` signals. `main.qml` uses
+  `installManager.state != InstallManager.Idle` instead of `isDownloading()`.
+- `UpdateTracker` (`updateTracker`, `count` property) keeps the three `apps/*` lists in memory
+  and writes them through. `track(app)` is the per-app part of the old `parseList`, and
+  `installFinished(id, ok)` the bookkeeping of the old `installServerFinishedReceived`. The
+  update check (`check()`, same `applist.php?widget=true` request as before) lives here too:
+  `main.cpp` runs it at startup, and `HSWidget` runs it when `lastCheckOlderThanADay()`,
+  otherwise it shows `count`. Both now see the same update list (before, the widget's check
+  wrote `apps/updateIds` behind `GetList`'s back). The widget only publishes the result of
+  checks it asked for. `personal/lastUpdateTime` is no longer written (it was never read);
+  every successful check sets `widget/lastUpdateTime`. `countChanged` is emitted only when
+  the list changes, not after every check.
+
 ### [ ] 4.3 Exactly one `AppManagement`
 There are currently four instances (`main.cpp:71`, `GetList`, and one inside each of the two
 `UpdateManagement`s), and each has its own `InstallServerThread`. Make it a single object that
@@ -311,10 +334,17 @@ is passed in. Also give `Language` an owner (`main.cpp:76` creates it with `new`
 frees it) and make `UpdateManagement` a child of its owner (`new UpdateManagement(false)` has
 no parent).
 
+After 4.2: the `AppManagement` and `UpdateManagement` parts are done (one `AppManagement` in
+`main.cpp`, passed to `UpdateTracker` and `InstallManager`; the thread lives in
+`InstallManager`). Only the `Language` owner is left.
+
 ### [ ] 4.4 Move logic out of headers
 `getlist.h` has `installServerFinishedReceived()` (≈110 lines) and the event filter; `news.h`
 has `fetch()`/`fetchHtml()`. Move them to `.cpp`. Put `Q_OBJECT` first in the class body
 (`getlist.h` has it after the `Q_PROPERTY`s).
+
+After 4.2: the `getlist.h` part is done (the new classes have `Q_OBJECT` first and their logic
+in `.cpp`). `news.h` is left.
 
 ---
 

@@ -43,15 +43,15 @@ Page {
             id: appList
             anchors { top: appListHeader.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; }
 
-            listModel: getList._mainList
+            listModel: appCatalog._mainList
 
             onRefreshEvent: {
-                getList.loadMainList()
+                appCatalog.loadMainList()
             }
         }
 
         Connections {
-            target: getList
+            target: appCatalog
             onMainListChanged: {
                 console.debug("mainListChanged QML")
                 appList.stopLoading()
@@ -165,13 +165,13 @@ Page {
                 width: parent.width/2
                 height: parent.height/2
                 source: "images/updateicon.png"
-                visible: (getList._updates > 0)
+                visible: (updateTracker.count > 0)
 
                 Text {
                     anchors.centerIn: parent
                     color: "#FFFFFF"
                     font.pixelSize: 16
-                    text: getList._updates
+                    text: updateTracker.count
                 }
             }
         }

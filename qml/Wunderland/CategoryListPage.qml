@@ -11,7 +11,7 @@ Page {
 
     Component.onCompleted: {
         appList.startLoading()
-        getList.loadCategoryList(categoryId,0,true)
+        appCatalog.loadCategoryList(categoryId,0,true)
     }
 
     Rectangle {
@@ -56,23 +56,23 @@ Page {
             id: appList
             anchors { top: categoryListHeader.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; }
 
-            listModel: getList._categoryList
+            listModel: appCatalog._categoryList
 
             onAtYEndChanged: {
                 if (atYEnd && appList.count > 0 && appList.count%25 == 0 && !appList.currentlyLoading) {
                     appList.currentlyLoading = true
-                    getList.loadCategoryList(categoryId, appList.count, false)
+                    appCatalog.loadCategoryList(categoryId, appList.count, false)
                 }
             }
 
             onRefreshEvent: {
-                getList.loadCategoryList(categoryId,0,true)
+                appCatalog.loadCategoryList(categoryId,0,true)
             }
         }
     }
 
     Connections {
-        target: getList
+        target: appCatalog
         onCategoryListChanged: {
             console.debug("categoryListChanged QML")
             appList.stopLoading()

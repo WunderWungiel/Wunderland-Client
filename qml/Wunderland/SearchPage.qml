@@ -48,7 +48,7 @@ Page {
 
         TextField {
             id: searchField
-            text: getList.getLastSearchTerm()
+            text: appCatalog.getLastSearchTerm()
             placeholderText: qsTr("Search...") + l.emptyString
             anchors.left: parent.left
             anchors.leftMargin: 7
@@ -63,7 +63,7 @@ Page {
                 dummy.focus = true
 
                 if (searchField.text !== "") {
-                    getList.loadSearchList(searchField.text, 0, true)
+                    appCatalog.loadSearchList(searchField.text, 0, true)
                     appList.startLoading()
                 }
             }
@@ -84,7 +84,7 @@ Page {
                 dummy.focus = true
 
                 if (searchField.text !== "") {
-                    getList.loadSearchList(searchField.text, 0, true)
+                    appCatalog.loadSearchList(searchField.text, 0, true)
                     appList.startLoading()
                 }
             }
@@ -104,14 +104,14 @@ Page {
         id: appList
         anchors { top: border2.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; }
 
-        listModel: getList._searchList
+        listModel: appCatalog._searchList
 
         text: qsTr("Search for apps and games in the Wunderland database...") + l.emptyString
 
         onAtYEndChanged: {
             if (atYEnd && appList.count > 0 && appList.count%25 == 0 && !appList.currentlyLoading) {
                 appList.currentlyLoading = true
-                getList.loadSearchList(searchField.text, appList.count, false)
+                appCatalog.loadSearchList(searchField.text, appList.count, false)
             }
         }
 
@@ -119,7 +119,7 @@ Page {
     }
 
     Connections {
-        target: getList
+        target: appCatalog
         onSearchListChanged: {
             appList.stopLoading()
             if (appList.count == 0) {

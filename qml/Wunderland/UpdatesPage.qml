@@ -12,7 +12,7 @@ Page {
         if (status == PageStatus.Activating) {
             if (!listLoaded) {
                 updateList.startLoading()
-                getList.loadUpdateList(0, true)
+                appCatalog.loadUpdateList(0, true)
                 listLoaded = true
             }
         }
@@ -58,32 +58,36 @@ Page {
 
             displayUpdateRect: false
 
-            listModel: getList._updateList
+            listModel: appCatalog._updateList
 
             onAtYEndChanged: {
                 if (atYEnd && updateList.count > 0 && updateList.count%25 == 0 && !updateList.currentlyLoading) {
                     updateList.currentlyLoading = true
-                    getList.loadUpdateList(updateList.count, false)
+                    appCatalog.loadUpdateList(updateList.count, false)
                 }
             }
 
             onRefreshEvent: {
-                getList.loadUpdateList(0, true)
+                appCatalog.loadUpdateList(0, true)
             }
         }
     }
 
     Connections {
-        target: getList
+        target: appCatalog
         onUpdateListChanged: {
             console.debug("updateListChanged QML")
             updateList.stopLoading()
         }
-        onUpdateCountChanged: {
-            console.debug("updateCountChanged QML")
+    }
+
+    Connections {
+        target: updateTracker
+        onCountChanged: {
+            console.debug("update count changed QML")
             if (updatePage.status == PageStatus.Active) {
                 updateList.startLoading()
-                getList.loadUpdateList(0, true)
+                appCatalog.loadUpdateList(0, true)
                 listLoaded = true
             } else {
                 // Force reload on next page opening

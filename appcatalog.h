@@ -1,0 +1,77 @@
+#ifndef APPCATALOG_H
+#define APPCATALOG_H
+
+#include <QObject>
+#include <QString>
+#include <QUrl>
+#include "applistmodel.h"
+
+class StoreApi;
+class UpdateTracker;
+
+// The five app lists (latest, category, search, personal, updates), loaded and
+// paginated from applist.php.
+class AppCatalog : public QObject
+{
+    Q_OBJECT
+    // The models are fixed objects; the *ListChanged signals say that a load finished.
+    Q_PROPERTY(AppListModel *_mainList READ mainList CONSTANT)
+    Q_PROPERTY(AppListModel *_categoryList READ categoryList CONSTANT)
+    Q_PROPERTY(AppListModel *_searchList READ searchList CONSTANT)
+    Q_PROPERTY(AppListModel *_personalList READ personalList CONSTANT)
+    Q_PROPERTY(AppListModel *_updateList READ updateList CONSTANT)
+
+public:
+    // listId values in loadingError()
+    enum ListId { MainList, CategoryList, SearchList, PersonalList, UpdateList, ListCount };
+
+    AppCatalog(StoreApi *api, UpdateTracker *updateTracker, QObject *parent = 0);
+
+    AppListModel *mainList() const { return m_lists[MainList]; }
+    AppListModel *categoryList() const { return m_lists[CategoryList]; }
+    AppListModel *searchList() const { return m_lists[SearchList]; }
+    AppListModel *personalList() const { return m_lists[PersonalList]; }
+    AppListModel *updateList() const { return m_lists[UpdateList]; }
+
+    Q_INVOKABLE void loadMainList();
+    Q_INVOKABLE void loadCategoryList(int categoryId, int start, bool clean);
+    Q_INVOKABLE void loadSearchList(QString searchTerm, int start, bool clean);
+    Q_INVOKABLE QString getLastSearchTerm() const { return m_lastSearchTerm; }
+    Q_INVOKABLE void loadPersonalList(int start, bool clean);
+    Q_INVOKABLE void loadUpdateList(int start, bool clean);
+    // Only this app, into the update list (opening an app from a launch argument)
+    Q_INVOKABLE void loadUpdateList(int id);
+
+public slots:
+    // Marks the app as installed and up to date in every list
+    void markInstalled(int id);
+
+signals:
+    // A load of that list finished (also when it added no rows)
+    void mainListChanged();
+    void searchListChanged();
+    void categoryListChanged();
+    void personalListChanged();
+    void updateListChanged();
+    // The server requires a newer Wunderland version
+    void appListUpdate();
+    // A list could not be loaded. listId: a ListId. error: a StoreApi::Error code.
+    void loadingError(int listId, int error);
+
+private slots:
+    void listLoaded();
+
+private:
+    void loadList(const QUrl &url, int listId);
+    void parseList(const QString &xml, int listId);
+
+    StoreApi *m_api;
+    UpdateTracker *m_updateTracker;
+    QString m_wunderlandVersion;
+
+    AppListModel *m_lists[ListCount];
+    bool m_cleanList[ListCount]; // clear the list when the next load finishes
+    QString m_lastSearchTerm;
+};
+
+#endif // APPCATALOG_H

@@ -2,7 +2,6 @@
 #define APPMANAGEMENT_H
 
 #include <QObject>
-#include <installserverthread.h>
 #include <sisregistrysession.h>
 #include <sisregistryentry.h>
 #include <QDebug>
@@ -31,23 +30,12 @@ public:
 
     bool launchApp(QString uid);
     Q_INVOKABLE bool checkAppInstalled(QString uid);
-    Q_INVOKABLE void startInstallServerListening();
 
     bool appsScanned();
     void scanApps();
 
     static void openInstaller(QString path);
-signals:
-    void installServerFinished();
-public slots:
-    void receiveThreadSignal() {
-        qDebug() << "receiveThreadSignal";
-        emit installServerFinished();
-    }
-
 private:
-    InstallServerThread installServerThread;
-
     // Get all installed UIDs
     QStringList applications() const;
 };

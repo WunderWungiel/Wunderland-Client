@@ -12,7 +12,7 @@ Page {
         if (status == PageStatus.Activating) {
             if (!listLoaded) {
                 personalList.startLoading()
-                getList.loadPersonalList(0, true)
+                appCatalog.loadPersonalList(0, true)
                 listLoaded = true
             }
         }
@@ -172,10 +172,10 @@ Page {
         Rectangle {
             id: updateItem
             anchors.top: personalListHeader.bottom
-            height: (getList._updates > 0) ? updateLabel.height + 34 : 0
+            height: (updateTracker.count > 0) ? updateLabel.height + 34 : 0
             color: (updateMouseArea.pressed) ? window.white : "#4791D9"
             width: parent.width
-            visible: (getList._updates > 0)
+            visible: (updateTracker.count > 0)
 
             Text {
                 id: updateLabel
@@ -215,12 +215,12 @@ Page {
             id: personalList
             anchors { top: updateItem.bottom; bottom: parent.bottom; left: parent.left; right: parent.right; }
 
-            listModel: getList._personalList
+            listModel: appCatalog._personalList
 
             onAtYEndChanged: {
                 if (atYEnd && personalList.count > 0 && personalList.count%25 == 0 && !personalList.currentlyLoading) {
                     personalList.currentlyLoading = true
-                    getList.loadPersonalList(personalList.count, false)
+                    appCatalog.loadPersonalList(personalList.count, false)
                 }
             }
 
@@ -229,7 +229,7 @@ Page {
     }
 
     Connections {
-        target: getList
+        target: appCatalog
         onPersonalListChanged: {
             console.debug("personalListChanged QML")
             personalList.stopLoading()
