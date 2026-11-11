@@ -273,7 +273,7 @@ their signatures, because QtQuick 1.1 does not reliably pass enum types through
 
 ---
 
-## [ ] Phase 4 — Break up `GetList`
+## [x] Phase 4 — Break up `GetList` (done)
 
 `GetList` (≈560 + 320 lines, much of the logic inside the header) does list fetching,
 parsing, install-state tracking, the update count, download control, Store-redirect
@@ -339,13 +339,16 @@ After 4.2: the `AppManagement` and `UpdateManagement` parts are done (one `AppMa
 `InstallManager`). Done: `Language` is now a stack object in `main.cpp`, declared before its
 users so it outlives them.
 
-### [ ] 4.4 Move logic out of headers
+### [x] 4.4 Move logic out of headers
 `getlist.h` has `installServerFinishedReceived()` (≈110 lines) and the event filter; `news.h`
 has `fetch()`/`fetchHtml()`. Move them to `.cpp`. Put `Q_OBJECT` first in the class body
 (`getlist.h` has it after the `Q_PROPERTY`s).
 
 After 4.2: the `getlist.h` part is done (the new classes have `Q_OBJECT` first and their logic
-in `.cpp`). `news.h` is left.
+in `.cpp`).
+Done: `News`'s `fetch()`, `fetchHtml()` and the other `Q_INVOKABLE`s are now in `news.cpp`
+(`Q_OBJECT` was already first). `Update::progressChangedReceived()`, a header slot that only
+re-emitted `Downloader::progressChanged`, is replaced by a signal-to-signal `connect`.
 
 ---
 

@@ -29,10 +29,6 @@ signals:
 public slots:
     void parseData();
 
-    void progressChangedReceived(int percent) {
-        emit progressChanged(percent);
-    }
-
 private:
     StoreApi *api;
     QString fileUrl;

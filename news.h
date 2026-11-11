@@ -29,47 +29,21 @@ public:
     QString url, htmlContent;
 
     bool updating;
-    Q_INVOKABLE bool updateRunning () { return updating; }
+    Q_INVOKABLE bool updateRunning();
 
-    Q_INVOKABLE void fetch() {
-        if (!updating) {
-            qDebug() << "fetch feedUpdateStarted";
-            qDebug() << "feedUrl: " + url;
-            ApiReply *reply = api->get(QUrl(url));
-
-            updating = true;
-            connect(reply, SIGNAL(finished()),
-                    this, SLOT(feedFetchFinished()));
-        }
-    }
-
+    Q_INVOKABLE void fetch();
     void parseFeed(QString html);
 
-    Q_INVOKABLE void fetchHtml(QString link) {
-        qDebug() << "fetch HTMLStarted " + link;
-        ApiReply *reply = api->get(QUrl(link));
-        connect(reply, SIGNAL(finished()),
-                this, SLOT(htmlFetchFinished()));
-    }
-    Q_INVOKABLE QString getHtml() {
-        return htmlContent;
-    }
+    Q_INVOKABLE void fetchHtml(QString link);
+    Q_INVOKABLE QString getHtml();
 
-    Q_INVOKABLE void setFeedUrl (QString _url) {
-    }
-
-    Q_INVOKABLE QString feedUrl () {
-        return url;
-    }
+    Q_INVOKABLE void setFeedUrl(QString _url);
+    Q_INVOKABLE QString feedUrl();
 
     bool openInBrowser;
-    Q_INVOKABLE bool getOpenInBrowser () { return openInBrowser; }
-    Q_INVOKABLE void setOpenInBrowser (bool newSetting) {
-        QSettings settings("WunderWungiel", "Wunderland");
-        openInBrowser = newSetting;
-        settings.setValue("news/openInBrowser", newSetting);
-    }
-    
+    Q_INVOKABLE bool getOpenInBrowser();
+    Q_INVOKABLE void setOpenInBrowser(bool newSetting);
+
 signals:
     void listChanged();
     void htmlChanged();

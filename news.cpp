@@ -32,6 +32,51 @@ News::News(StoreApi *_api, QObject *parent) :
     htmlContent = "";
 }
 
+bool News::updateRunning() {
+    return updating;
+}
+
+void News::fetch() {
+    if (!updating) {
+        qDebug() << "fetch feedUpdateStarted";
+        qDebug() << "feedUrl: " + url;
+        ApiReply *reply = api->get(QUrl(url));
+
+        updating = true;
+        connect(reply, SIGNAL(finished()),
+                this, SLOT(feedFetchFinished()));
+    }
+}
+
+void News::fetchHtml(QString link) {
+    qDebug() << "fetch HTMLStarted " + link;
+    ApiReply *reply = api->get(QUrl(link));
+    connect(reply, SIGNAL(finished()),
+            this, SLOT(htmlFetchFinished()));
+}
+
+QString News::getHtml() {
+    return htmlContent;
+}
+
+void News::setFeedUrl(QString _url) {
+    Q_UNUSED(_url);
+}
+
+QString News::feedUrl() {
+    return url;
+}
+
+bool News::getOpenInBrowser() {
+    return openInBrowser;
+}
+
+void News::setOpenInBrowser(bool newSetting) {
+    QSettings settings("WunderWungiel", "Wunderland");
+    openInBrowser = newSetting;
+    settings.setValue("news/openInBrowser", newSetting);
+}
+
 void News::htmlFetchFinished() {
     ApiReply *reply = qobject_cast<ApiReply *>(sender());
     if (!reply) return; // deletes itself

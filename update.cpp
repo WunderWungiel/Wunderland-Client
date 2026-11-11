@@ -11,7 +11,7 @@ Update::Update(StoreApi *_api, QObject *parent) :
 
     downloader = new Downloader(api, this);
     connect(downloader, SIGNAL(progressChanged(int)),
-            this, SLOT(progressChangedReceived(int)));
+            this, SIGNAL(progressChanged(int)));
     connect(downloader, SIGNAL(downloadError(int)),
             this, SIGNAL(downloadError(int)));
 }
