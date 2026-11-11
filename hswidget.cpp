@@ -95,8 +95,13 @@ void HSWidget::bringToFront() {
     task.SetWgId(CEikonEnv::Static()->RootWin().Identifier());
     task.BringToForeground();*/
 
+    // Not User::LeaveIfError: a leave in this slot would be an uncaught exception
     RProcess proc;
-    User::LeaveIfError(proc.Create(_L("Wunderland.exe"),KNullDesC));
+    TInt err = proc.Create(_L("Wunderland.exe"),KNullDesC);
+    if (err != KErrNone) {
+        qWarning() << "HSWidget: cannot start Wunderland.exe - error" << err;
+        return;
+    }
     proc.Resume();
     proc.Close();
 

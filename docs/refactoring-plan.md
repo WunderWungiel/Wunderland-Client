@@ -354,13 +354,24 @@ re-emitted `Downloader::progressChanged`, is replaced by a signal-to-signal `con
 
 ## [ ] Phase 5 — Symbian native code safety
 
-### [ ] 5.1 Trap every leaving call
+### [x] 5.1 Trap every leaving call
 `getVersion`, `launchApp`, `checkAppInstalled`, `applications`, `openInstaller`,
 `openUrlInDefaultBrowser` and `HSWidget::bringToFront` call `User::LeaveIfError`/`…L()`
 functions and use `CleanupStack` straight from Qt slots and Q_INVOKABLEs. A leave there (for
 example AppArc not being ready yet, or a corrupt SIS registry entry) is an uncaught exception
 and the app crashes. Wrap each one in `TRAPD`/`QT_TRAP_THROWING` and turn the error into a
 return value plus a log line.
+
+Done: each function's leaving code is in a `…L()` helper (file-local in `appmanagement.cpp`,
+private in `Symbian`) that only the public function calls, inside `TRAPD`, as Symbisend does.
+`openInstaller()` and `openUrlInDefaultBrowser()` now return `bool` and check the
+`StartDocument` result; when the installer can't be started, `Downloader` deletes the file and
+emits the new `InstallerError` code instead of `downloadDone()` (so `InstallManager` doesn't
+wait for an installer that never ran). `applications()` skips an app whose capabilities can't
+be read, and if AppArc can't be listed at all `scanApps()` doesn't mark the scan as done, so
+the next start tries again. A missing `application/x-web-browse` handler falls back to the
+built-in browser instead of failing. `HSWidget::bringToFront()` checks `RProcess::Create()`'s
+result directly (no leave needed).
 
 ### [ ] 5.2 Replace `InstallServerThread` polling
 It sleeps 10 s and then lists all processes once per second on a separate thread to find out

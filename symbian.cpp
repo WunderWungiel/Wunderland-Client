@@ -25,27 +25,37 @@ open a page from your app. To solve this, add "SwEvent" capability in your pro
 file, see the comments in the bug report:
 https://bugreports.qt-project.org/browse/QTBUG-15725?page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel
 */
-void Symbian::openUrlInDefaultBrowser(QString url) {
+bool Symbian::openUrlInDefaultBrowser(QString url) {
     // Convert QString to TBuf to use it within Symbian C++
     TPtrC myUrl (reinterpret_cast<const TText*>(url.constData()),url.length());
 
+    // A leave here would be an uncaught exception in a QML call
+    TRAPD(err, openUrlL(myUrl));
+    if (err != KErrNone) {
+        qWarning() << "Symbian: cannot open" << url << "in the browser - error" << err;
+        return false;
+    }
+    return true;
+}
+
+void Symbian::openUrlL(const TDesC& aUrl) {
     RApaLsSession lsSession;
     // create a session with apparc server.
     User::LeaveIfError(lsSession.Connect());
     CleanupClosePushL(lsSession);
     TDataType mimeDatatype(_L8("application/x-web-browse"));
-    TUid handlerUID;
+    TUid handlerUID = KNullUid;
     // get the default application uid for application/x-web-browse
-    lsSession.AppForDataType(mimeDatatype,handlerUID);
+    TInt err = lsSession.AppForDataType(mimeDatatype,handlerUID);
     // there may not be a mime-type handler defined, especially on S60 3.x
     // in such case we default to the built-in browser
-    if (handlerUID.iUid == 0) {
+    if (err != KErrNone || handlerUID.iUid == 0) {
         const TInt KWmlBrowserUid = 0x10008D39;
         TUid id( TUid::Uid( KWmlBrowserUid ) );
         handlerUID = id;
     }
     // Finally launch default browser
-    LaunchBrowserL(myUrl, handlerUID);
+    LaunchBrowserL(aUrl, handlerUID);
     // Cleanup
     CleanupStack::PopAndDestroy(&lsSession);
 }
@@ -77,9 +87,9 @@ void Symbian::LaunchBrowserL(const TDesC& aUrl, TUid& _id)
         RApaLsSession appArcSession;
                 // connect to AppArc server
         User::LeaveIfError(appArcSession.Connect());
+        CleanupClosePushL(appArcSession);
         TThreadId id;
-        appArcSession.StartDocument( *param, _id, id );
-        appArcSession.Close();
-        CleanupStack::PopAndDestroy(param);
+        User::LeaveIfError(appArcSession.StartDocument( *param, _id, id ));
+        CleanupStack::PopAndDestroy(2, param); // appArcSession, param
     }
 }

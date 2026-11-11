@@ -24,8 +24,12 @@ class Symbian : public QObject
 public:
     Symbian(QObject *parent = 0);
 
-    Q_INVOKABLE void openUrlInDefaultBrowser(QString url);
+    // False (and a log line) if the browser could not be started
+    Q_INVOKABLE bool openUrlInDefaultBrowser(QString url);
 
+private:
+    // These leave on errors; only openUrlInDefaultBrowser() calls them, inside a TRAP
+    void openUrlL(const TDesC& aUrl);
     void LaunchBrowserL(const TDesC& aUrl, TUid& _id);
 };
 

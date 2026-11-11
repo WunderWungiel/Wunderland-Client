@@ -18,7 +18,8 @@ public:
     enum ErrorCode {
         ConnectionError = 0, // network/HTTP error, timeout, too many redirects
         NoSpaceError = 1,    // no drive with enough free space
-        WriteError = 2       // the file could not be created or written
+        WriteError = 2,      // the file could not be created or written
+        InstallerError = 3   // the download is done, but the installer could not be started
     };
 
     explicit Downloader(StoreApi *api, QObject *parent = 0);

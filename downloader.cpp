@@ -102,7 +102,11 @@ void Downloader::onFinished() {
 
     if (error == StoreApi::NoError) {
         qDebug() << "Downloader: done" << m_file.fileName() << m_file.size() << "bytes";
-        AppManagement::openInstaller(m_file.fileName());
+        if (!AppManagement::openInstaller(m_file.fileName())) {
+            deleteFile();
+            emit downloadError(InstallerError);
+            return;
+        }
         emit downloadDone();
         return;
     }

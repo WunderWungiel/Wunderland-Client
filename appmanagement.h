@@ -34,10 +34,11 @@ public:
     bool appsScanned();
     void scanApps();
 
-    static void openInstaller(QString path);
+    // False (and a log line) if the installer could not be started
+    static bool openInstaller(QString path);
 private:
-    // Get all installed UIDs
-    QStringList applications() const;
+    // Get all installed UIDs; false if AppArc could not be read
+    bool applications(QStringList &applications) const;
 };
 
 #endif // APPMANAGEMENT_H

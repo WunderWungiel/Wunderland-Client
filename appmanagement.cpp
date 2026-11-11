@@ -1,40 +1,122 @@
 #include "appmanagement.h"
 #include "versioncompare.h"
 
+// The ...L() helpers may leave. Only the public functions call them, inside
+// TRAPD, so a leave turns into a return value and a log line instead of an
+// uncaught exception in a Qt slot.
+namespace {
+
+TUid uidFromString(const QString &uid)
+{
+    return TUid::Uid((TInt)uid.toUInt(0, 16));
+}
+
+// False if no package with this UID is in the SIS registry
+TBool packageVersionL(TUid packageId, TVersion &version)
+{
+    Swi::RSisRegistrySession session;
+    User::LeaveIfError(session.Connect());
+    CleanupClosePushL(session);
+
+    Swi::RSisRegistryEntry entry;
+    TBool found = entry.Open(session, packageId) == KErrNone;
+    if (found) {
+        CleanupClosePushL(entry);
+        version = entry.VersionL();
+        CleanupStack::PopAndDestroy(&entry);
+    }
+
+    CleanupStack::PopAndDestroy(&session);
+    return found;
+}
+
+// False if AppArc doesn't know an app with this UID
+TBool appInstalledL(TUid appUid)
+{
+    RApaLsSession session;
+    User::LeaveIfError(session.Connect());
+    CleanupClosePushL(session);
+
+    TApaAppInfo appInfo;
+    TBool found = session.GetAppInfo(appInfo, appUid) == KErrNone;
+
+    CleanupStack::PopAndDestroy(&session);
+    return found;
+}
+
+// False if AppArc doesn't know an app with this UID
+TBool launchAppL(TUid appUid)
+{
+    RApaLsSession session;
+    User::LeaveIfError(session.Connect());
+    CleanupClosePushL(session);
+
+    TApaAppInfo appInfo;
+    TBool found = session.GetAppInfo(appInfo, appUid) == KErrNone;
+    if (found) {
+        CApaCommandLine *cmdLine = CApaCommandLine::NewLC();
+        cmdLine->SetExecutableNameL(appInfo.iFullName);
+        cmdLine->SetCommandL(EApaCommandRun);
+        User::LeaveIfError(session.StartApp(*cmdLine));
+        CleanupStack::PopAndDestroy(cmdLine);
+    }
+
+    CleanupStack::PopAndDestroy(&session);
+    return found;
+}
+
+void openInstallerL(const TDesC &file)
+{
+    RApaLsSession session;
+    User::LeaveIfError(session.Connect());
+    CleanupClosePushL(session);
+
+    TThreadId threadId;
+    User::LeaveIfError(session.StartDocument(file, threadId));
+
+    CleanupStack::PopAndDestroy(&session);
+}
+
+// Visible apps (with a caption, not hidden) as "0x<UID>"
+void applicationsL(QStringList &applications)
+{
+    RApaLsSession session;
+    User::LeaveIfError(session.Connect());
+    CleanupClosePushL(session);
+
+    User::LeaveIfError(session.GetAllApps());
+
+    TApaAppInfo appInfo;
+    while (session.GetNextApp(appInfo) == KErrNone) {
+        TApaAppCapabilityBuf capability;
+        // Skip an app whose capabilities can't be read instead of giving up on all
+        if (session.GetAppCapability(capability, appInfo.iUid) != KErrNone) continue;
+        if (appInfo.iCaption.Length() > 0 && !capability().iAppIsHidden) {
+            applications.append("0x"+QString::number((TUint)appInfo.iUid.iUid, 16).toUpper());
+        }
+    }
+
+    CleanupStack::PopAndDestroy(&session);
+}
+
+} // namespace
+
 AppManagement::AppManagement(QObject *parent) :
     QObject(parent)
 {
 }
 
 QString AppManagement::getVersion(QString uid) {
-    QString version = "";
-
-    bool ok = false;
-    uint uidInt = uid.toUInt(&ok, 16);
-    Swi::RSisRegistrySession iSisRegSession;
-
-    if (KErrNone != iSisRegSession.Connect() ) {
-        qWarning() << "AppManagement: cannot connect to the SIS registry";
-        return version;
+    TVersion v;
+    TBool found = EFalse;
+    TRAPD(err, found = packageVersionL(uidFromString(uid), v));
+    if (err != KErrNone) {
+        qWarning() << "AppManagement: cannot read the SIS registry for" << uid << "- error" << err;
+        return QString();
     }
-    CleanupClosePushL( iSisRegSession );
+    if (!found) return QString();
 
-    //Add here you application UID to access your installed application PKG file.
-    const TUid packageId = TUid::Uid((TInt)uidInt);
-    Swi::RSisRegistryEntry packageEntry;
-
-    if( KErrNone == packageEntry.Open( iSisRegSession, packageId ) ) {
-        CleanupClosePushL( packageEntry );
-
-        const TVersion v = packageEntry.VersionL();
-        version = QString::number(v.iMajor) + "." + QString::number(v.iMinor) + "." + QString::number(v.iBuild);
-
-        CleanupStack::PopAndDestroy( &packageEntry );
-    }
-
-    CleanupStack::PopAndDestroy( &iSisRegSession );
-
-    return version;
+    return QString::number(v.iMajor) + "." + QString::number(v.iMinor) + "." + QString::number(v.iBuild);
 }
 
 bool AppManagement::hasUpdate(QString uid, QString availableVersion) {
@@ -42,72 +124,42 @@ bool AppManagement::hasUpdate(QString uid, QString availableVersion) {
 }
 
 bool AppManagement::launchApp(QString uid) {
-    bool ok = false;
-    uint uidInt = uid.toUInt(&ok, 16);
-    const TUid aAppUid = TUid::Uid((TInt)uidInt);
-
-    RApaLsSession apaLsSession;
-    User::LeaveIfError(apaLsSession.Connect());
-    CleanupClosePushL(apaLsSession);
-
-    TApaAppInfo appInfo;
-    TInt retVal = apaLsSession.GetAppInfo(appInfo, aAppUid);
-
-    if(retVal == KErrNone) {
-        CApaCommandLine* cmdLine = CApaCommandLine::NewLC();
-        cmdLine->SetExecutableNameL(appInfo.iFullName);
-        cmdLine->SetCommandL(EApaCommandRun);
-        User::LeaveIfError( apaLsSession.StartApp(*cmdLine) );
-
-        CleanupStack::PopAndDestroy(cmdLine);
-
-        ok = true;
-    } else {
-        // The application not found!
-        ok = false;
+    TBool found = EFalse;
+    TRAPD(err, found = launchAppL(uidFromString(uid)));
+    if (err != KErrNone) {
+        qWarning() << "AppManagement: cannot launch" << uid << "- error" << err;
+        return false;
     }
-
-    CleanupStack::PopAndDestroy(&apaLsSession);
-
-    return ok;
+    if (!found) {
+        qWarning() << "AppManagement: cannot launch" << uid << "- not installed";
+        return false;
+    }
+    return true;
 }
 
 bool AppManagement::checkAppInstalled(QString uid) {
-    qDebug() << "checkAppInstalled";
-
     if (uid.length() == 0) return false;
 
-    bool ok = false;
-    uint uidInt = uid.toUInt(&ok, 16);
-    const TUid aAppUid = TUid::Uid((TInt)uidInt);
-
-    RApaLsSession apaLsSession;
-    User::LeaveIfError(apaLsSession.Connect());
-    CleanupClosePushL(apaLsSession);
-
-    TApaAppInfo appInfo;
-    TInt retVal = apaLsSession.GetAppInfo(appInfo, aAppUid);
-
-    CleanupStack::PopAndDestroy(&apaLsSession);
-
-    if(retVal == KErrNone) {
-        return true;
-    } else {
+    TBool found = EFalse;
+    TRAPD(err, found = appInstalledL(uidFromString(uid)));
+    if (err != KErrNone) {
+        qWarning() << "AppManagement: cannot check if" << uid << "is installed - error" << err;
         return false;
     }
+    return found;
 }
 
 
-void AppManagement::openInstaller(QString path) {
+bool AppManagement::openInstaller(QString path) {
     path.replace("/", "\\");
-    TPtrC exe(reinterpret_cast<const TText*>(path.data()));
+    TPtrC file(reinterpret_cast<const TText*>(path.constData()), path.length());
 
-    RApaLsSession apaLsSession;
-    CleanupClosePushL(apaLsSession );
-    User::LeaveIfError(apaLsSession.Connect());
-    TThreadId threadId;
-    apaLsSession.StartDocument(exe, threadId);
-    CleanupStack::PopAndDestroy(&apaLsSession );
+    TRAPD(err, openInstallerL(file));
+    if (err != KErrNone) {
+        qWarning() << "AppManagement: cannot open the installer for" << path << "- error" << err;
+        return false;
+    }
+    return true;
 }
 
 
@@ -118,7 +170,9 @@ bool AppManagement::appsScanned() {
 }
 
 void AppManagement::scanApps() {
-    QStringList apps = applications();
+    QStringList apps;
+    // Not marked as scanned, so the next start tries again
+    if (!applications(apps)) return;
 
     QByteArray liste;
     QString filePath = ":/apps.txt";
@@ -146,27 +200,13 @@ void AppManagement::scanApps() {
     settings.setValue("settings/appsScanned", true);
 }
 
-QStringList AppManagement::applications() const
+bool AppManagement::applications(QStringList &applications) const
 {
-    RApaLsSession lsSession;
-    QStringList applications;
-
-    // Connect to application architecture server
-    User::LeaveIfError(lsSession.Connect());
-    CleanupClosePushL(lsSession);
-
-    TApaAppInfo appInfo;
-    lsSession.GetAllApps();
-
-    while (lsSession.GetNextApp(appInfo) == KErrNone) {
-        TApaAppCapabilityBuf capability;
-        User::LeaveIfError(lsSession.GetAppCapability(capability,
-            appInfo.iUid));
-        if (appInfo.iCaption.Length() > 0 && !capability().iAppIsHidden) {
-            applications.append("0x"+QString::number((TUint)appInfo.iUid.iUid, 16).toUpper());
-        }
+    TRAPD(err, applicationsL(applications));
+    if (err != KErrNone) {
+        qWarning() << "AppManagement: cannot list the installed apps - error" << err;
+        applications.clear();
+        return false;
     }
-    CleanupStack::PopAndDestroy(&lsSession);
-
-    return applications;
+    return true;
 }
