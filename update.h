@@ -22,6 +22,7 @@ public:
 signals:
     void loadingDone(bool loadResult, QString message);
     void progressChanged(int progress);
+    void downloadError(int code); // a Downloader::ErrorCode
 
     void changelogChanged();
 
@@ -38,7 +39,7 @@ private:
 
     QString _changelog;
 
-    Downloader downloader;
+    Downloader *downloader;
 };
 
 #endif // UPDATE_H

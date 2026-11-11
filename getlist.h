@@ -52,7 +52,7 @@ public:
         else return true;
     }
     Q_INVOKABLE bool cancelDownload() {
-        if (downloader.cancelDownload()) {
+        if (downloader->cancelDownload()) {
             downloadingItem = emptyItem;
             return true;
         } else {
@@ -82,7 +82,7 @@ private:
     QStringList updateIds;
     int _updates() { return updateIds.count(); }
 
-    Downloader downloader;
+    Downloader *downloader;
     int downloadProgress;
 
     QString wunderlandVersion;
@@ -124,6 +124,7 @@ public slots:
         emit downloadDone();
     }
     void downloadErrorReceived(int code) {
+        downloadingItem = emptyItem;
         emit downloadError(code);
     }
     void updateDataUpdated(QStringList _updateIds) {
@@ -133,7 +134,7 @@ public slots:
 
     void installServerFinishedReceived() {
         // Delete file after installation
-        downloader.deleteFile();
+        downloader->deleteFile();
 
         // Installation was successful if the downloaded version is now installed
         QString uid = downloadingItem.value("uid").toString();

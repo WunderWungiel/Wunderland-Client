@@ -1,14 +1,19 @@
 #include "update.h"
 #include "applistparser.h"
 
+#include <QVariant>
+
 Update::Update(StoreApi *_api, QObject *parent) :
     QObject(parent)
 {
     api = _api;
     fileUrl = "";
 
-    connect(&downloader, SIGNAL(progressChanged(int)),
+    downloader = new Downloader(api, this);
+    connect(downloader, SIGNAL(progressChanged(int)),
             this, SLOT(progressChangedReceived(int)));
+    connect(downloader, SIGNAL(downloadError(int)),
+            this, SIGNAL(downloadError(int)));
 }
 
 void Update::loadUpdateData(bool all) {
@@ -19,7 +24,7 @@ void Update::loadUpdateData(bool all) {
 }
 
 void Update::startDownload() {
-    downloader.startDownloadWithoutStats(fileUrl);
+    downloader->startDownloadWithoutStats(fileUrl);
 }
 
 void Update::parseData() {

@@ -2,73 +2,60 @@
 #define DOWNLOADER_H
 
 #include <QObject>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QNetworkRequest>
 #include <QFile>
-#include <QFileInfo>
-#include <QDir>
-#include <QSystemStorageInfo>
-#include <QDesktopServices>
+#include <QPointer>
+#include <QString>
 
-#include "appmanagement.h"
+#include "storeapi.h"
 
-#include <QDebug>
-
+// Downloads one file at a time through StoreApi into the download folder and
+// opens the installer when it is done.
 class Downloader : public QObject
 {
     Q_OBJECT
 public:
-    explicit Downloader(QObject *parent = 0);
-    
-    void startDownload(QString _source, long long size, QString id, QString lan, QString os, QString resolution);
-    void startDownloadWithoutStats(QString _source);
+    // downloadError() codes
+    enum ErrorCode {
+        ConnectionError = 0, // network/HTTP error, timeout, too many redirects
+        NoSpaceError = 1,    // no drive with enough free space
+        WriteError = 2       // the file could not be created or written
+    };
+
+    explicit Downloader(StoreApi *api, QObject *parent = 0);
+
+    // App download. source is a full URL or a file name under
+    // /static/content/files/ on the server. size is the expected size in
+    // bytes (used for the free space check). id and language go to the
+    // download statistics.
+    void startDownload(const QString &source, qint64 size, const QString &id, const QString &language);
+    // Self-update download: no statistics, no size known.
+    void startDownloadWithoutStats(const QString &source);
 
     bool cancelDownload();
 
     bool deleteFile();
 
+    // "<drive>/download/Wunderland" on F:, E: or C:/Data (in this order),
+    // the first one that exists, can be created and has more than minFree
+    // bytes free. Empty if none.
+    static QString downloadFolder(qint64 minFree = 0);
+
 signals:
     void downloadDone();
-    void downloadError(int code); // 0 -> error receive reply from stat server; 1 -> not enough space
+    void downloadError(int code); // an ErrorCode
     void progressChanged(int percent);
-    
-public slots:
-    void downloadFinished();
-    void saveBytes() {
-        //qDebug() << "saveBytes";
-        file.write(reply->read(reply->bytesAvailable()));
-    }
-    void progress(qint64 bytesReceived, qint64 bytesTotal) {
-        // bytesTotal is -1 (or 0) when the server sends no Content-Length
-        if (bytesTotal <= 0) return;
-        emit progressChanged((int)(((double)bytesReceived/bytesTotal)*100));
-    }
-    void startRealDownload();
+
+private slots:
+    void onProgress(qint64 received, qint64 total);
+    void onFinished();
+    void onStatsFinished();
 
 private:
-    QNetworkAccessManager* n_manager;
-    QFile file;
-    QNetworkReply* reply;
-    QNetworkReply* statReply;
+    bool start(const QString &source, qint64 size);
 
-    bool downloading, aborted;
-    QString sourcePath, source;
-    
-    // Returns the redirect target of a finished reply, resolved against the request URL.
-    // Returns an empty URL if there is no redirect, if it points back to the same URL, or
-    // if the hop limit is reached (the hop count is kept in the reply's "redirects" property).
-    QUrl redirectUrl(const QNetworkReply* reply) const {
-        QUrl target = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
-        if (target.isEmpty()) return QUrl();
-        target = reply->url().resolved(target);
-        if (target == reply->url()) return QUrl();
-        if (reply->property("redirects").toInt() >= 5) {
-            qWarning() << "Network: too many redirects, giving up at" << reply->url().toString();
-            return QUrl();
-        }
-        return target;
-    }
+    StoreApi *m_api;
+    QPointer<ApiReply> m_reply;
+    QFile m_file;
 };
 
 #endif // DOWNLOADER_H

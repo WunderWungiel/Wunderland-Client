@@ -98,8 +98,9 @@ Page {
 
                 visible: !downloadProgress.visible
                 onClicked: {
-                    update.startDownload()
+                    // First: a failed start (no space) hides it again right away
                     downloadProgress.visible = true
+                    update.startDownload()
                 }
             }
 
@@ -132,6 +133,8 @@ Page {
         }
 
         onProgressChanged: downloadProgress.text = "Downloading (" + progress + "%)"
+        // Show the Download button again (error texts come with plan 7.5)
+        onDownloadError: downloadProgress.visible = false
     }
 
     ToolBarLayout {

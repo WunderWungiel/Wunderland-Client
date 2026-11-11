@@ -138,7 +138,7 @@ deletes itself; context goes on it with `setProperty`. The base URL can be overr
 `network/baseUrl` setting. `buildUrl()` takes flags for the common parameters, so each request
 sends the same parameters as before (the widget request has no `os`/`resolution`; the
 personal and update lists have no `language`). `GetList::loadingError(int listId, int error)`
-carries a `StoreApi::Error`; the QML side is 7.5. `Downloader` still has its own QNAM (2.3).
+carries a `StoreApi::Error`; the QML side is 7.5. `Downloader` moved onto it in 2.3.
 
 ### [x] 2.2 Replace the hand-written XML parsing with `QXmlStreamReader`
 `GetList::parseItem` and `UpdateManagement::parseItem` (identical copies) run `indexOf` over
@@ -161,7 +161,7 @@ seconds (so the `yyyy-MM-dd hh:mm:ss` parse gives an invalid date). Its `feed.xm
 well-formed (whitespace before `<?xml`, `<rssversion="2.0">`), so `parseFeed()` starts at
 `<channel>`; fix the server template, then that workaround can go.
 
-### [ ] 2.3 Move `Downloader` onto the shared layer
+### [x] 2.3 Move `Downloader` onto the shared layer
 - Follow redirects (fixes 1.4 for downloads).
 - Choose a download folder like Symbisend's `Settings::defaultDownloadFolder()` (F: > E: >
   C:/Data, in a real `…/Wunderland/` folder, not the drive root), and use the same logic for
@@ -169,6 +169,18 @@ well-formed (whitespace before `<?xml`, `<rssversion="2.0">`), so `parseFeed()` 
 - Check `file.open()`/`write()` results; on error or cancel, delete partial files.
 - Make the stat ping (`applist-download.php`) fire-and-forget instead of a gate: today a
   failed stats request (`returnCode != "0"`) blocks the download.
+
+Done: `StoreApi::download(url, QIODevice*)` is `get()` that streams the body into the device
+(redirect and error bodies are skipped), emits `progress()`, and `ApiReply::abort()` finishes
+right away with `Aborted`; new codes `WriteError`/`Aborted`. So downloads now share the
+redirect handling and the 30 s stall timeout. `Downloader` takes a `StoreApi*`;
+`Downloader::downloadFolder(minFree)` picks `F:/E:/C:/Data` + `/download/Wunderland` (the log
+folder), with the free-space check (size + 10%) for app downloads and none for the
+self-update. Failed or cancelled downloads delete the file; `flush()` is checked. The stats
+ping is sent next to the download and only logged. `downloadError` codes: 0 connection,
+1 no space, 2 cannot write (DetailPage shows its generic text for 2 until 7.5). Also:
+`GetList` clears `downloadingItem` on a download error (the button stayed in state 6), and
+`Update` forwards `downloadError` so `UpdatePage` shows the Download button again.
 
 ---
 

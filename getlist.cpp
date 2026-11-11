@@ -16,11 +16,12 @@ GetList::GetList(StoreApi *_api, Language *__language, QObject *parent) :
     wunderlandVersion = QApplication::instance()->applicationVersion();
 
     downloadProgress = 0;
-    connect(&downloader, SIGNAL(progressChanged(int)),
+    downloader = new Downloader(api, this);
+    connect(downloader, SIGNAL(progressChanged(int)),
             this, SLOT(progressChangedReceived(int)));
-    connect(&downloader, SIGNAL(downloadDone()),
+    connect(downloader, SIGNAL(downloadDone()),
             this, SLOT(downloadDoneReceived()));
-    connect(&downloader, SIGNAL(downloadError(int)),
+    connect(downloader, SIGNAL(downloadError(int)),
             this, SLOT(downloadErrorReceived(int)));
     // Connected once here; connecting per download made the handler run N times
     connect(&appManagement, SIGNAL(installServerFinished()),
@@ -338,8 +339,10 @@ bool GetList::buttonPressed(int actionId) {
 
     if (actionId == 0 || actionId == 1) {
         // Download/update
-        downloader.startDownload(currentItem.value("download").toString(), currentItem.value("downloadsize").toLongLong(), QString::number(currentItem.value("id").toInt()), _language->currentLanguage(), api->os(), api->resolution());
+        // Set first: a failed start emits downloadError right away, which clears it
         downloadingItem = currentItem;
+        downloader->startDownload(currentItem.value("download").toString(), currentItem.value("downloadsize").toLongLong(), QString::number(currentItem.value("id").toInt()), _language->currentLanguage());
+        return isDownloading();
     } else if (actionId == 4) {
         // Launch app
         QString installedUID = currentItem.value("installed").toString();

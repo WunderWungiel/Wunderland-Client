@@ -12,6 +12,7 @@
 #include <QTimer>
 #include <QUrl>
 
+class QIODevice;
 class QNetworkAccessManager;
 class QNetworkReply;
 class Language;
@@ -36,7 +37,9 @@ public:
         TimeoutError,       // no data for a while
         HttpError,          // the server answered with status >= 400
         TooManyRedirects,
-        InvalidResponse     // set by callers: empty or unusable body
+        InvalidResponse,    // set by callers: empty or unusable body
+        WriteError,         // download(): writing to the output device failed
+        Aborted             // ApiReply::abort() was called
     };
 
     // Common query parameters buildUrl() can add.
@@ -63,6 +66,11 @@ public:
     // Starts a GET request. Connect to ApiReply::finished() right away.
     ApiReply *get(const QUrl &url);
 
+    // Like get(), but writes the body to out (open for writing) as it
+    // arrives instead of keeping it in data(). Bodies of redirects and error
+    // responses are not written. The caller owns out and closes it.
+    ApiReply *download(const QUrl &url, QIODevice *out);
+
     QString os() const { return m_os; }
     QString resolution() const { return m_resolution; }
 
@@ -78,13 +86,18 @@ private:
 // One logical request: follows redirects (up to a hop limit), gives up when
 // no data arrives for a while, and checks the network error and HTTP status.
 // Emits finished() exactly once and then deletes itself (deleteLater), so
-// callers read it in their slot and must not keep the pointer. Callers can
-// attach context with setProperty("listId", ...).
+// callers read it in their slot and must not keep the pointer (except to
+// call abort() before finished()). Callers can attach context with
+// setProperty("listId", ...).
 class ApiReply : public QObject
 {
     Q_OBJECT
 
 public:
+    // Stops the request and emits finished() with Aborted right away
+    // (unless it already finished).
+    void abort();
+
     StoreApi::Error error() const { return m_error; }
     QString errorString() const { return m_errorString; }
     int httpStatus() const { return m_httpStatus; }
@@ -94,21 +107,28 @@ public:
 
 signals:
     void finished();
+    // Bytes of the current (final, after redirects) response. total is -1
+    // when the server sends no Content-Length.
+    void progress(qint64 received, qint64 total);
 
 private slots:
     void onFinished();
-    void onProgress();
+    void onReadyRead();
+    void onProgress(qint64 received, qint64 total);
     void onTimeout();
 
 private:
     friend class StoreApi;
-    ApiReply(QNetworkAccessManager *nam, QObject *parent);
+    ApiReply(QNetworkAccessManager *nam, QIODevice *out, QObject *parent);
 
     void start(const QUrl &url);
+    bool isBodyWanted() const;
+    bool writeOut(const QByteArray &data);
     void dropReply();
     void finish(StoreApi::Error error, const QString &errorString);
 
     QNetworkAccessManager *m_nam;
+    QIODevice *m_out;
     QNetworkReply *m_reply;
     QTimer m_timer;
     QUrl m_url;

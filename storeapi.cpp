@@ -81,16 +81,24 @@ QUrl StoreApi::buildUrl(const QString &path, const QueryItems &query, int params
 
 ApiReply *StoreApi::get(const QUrl &url)
 {
-    ApiReply *reply = new ApiReply(m_nam, this);
+    ApiReply *reply = new ApiReply(m_nam, 0, this);
+    reply->start(url);
+    return reply;
+}
+
+ApiReply *StoreApi::download(const QUrl &url, QIODevice *out)
+{
+    ApiReply *reply = new ApiReply(m_nam, out, this);
     reply->start(url);
     return reply;
 }
 
 // ---------------------------------------------------------------- ApiReply
 
-ApiReply::ApiReply(QNetworkAccessManager *nam, QObject *parent)
+ApiReply::ApiReply(QNetworkAccessManager *nam, QIODevice *out, QObject *parent)
     : QObject(parent),
       m_nam(nam),
+      m_out(out),
       m_reply(0),
       m_redirects(0),
       m_error(StoreApi::NoError),
@@ -108,13 +116,60 @@ void ApiReply::start(const QUrl &url)
     qDebug() << "StoreApi: GET" << url.toString();
     m_reply = m_nam->get(QNetworkRequest(url));
     connect(m_reply, SIGNAL(finished()), this, SLOT(onFinished()));
-    connect(m_reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(onProgress()));
+    connect(m_reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(onProgress(qint64,qint64)));
+    if (m_out)
+        connect(m_reply, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
     m_timer.start();
 }
 
-void ApiReply::onProgress()
+void ApiReply::abort()
 {
+    if (m_done)
+        return;
+    qDebug() << "StoreApi: aborted" << m_url.toString();
+    dropReply();
+    finish(StoreApi::Aborted, QLatin1String("Aborted"));
+}
+
+// False while the current response is a redirect or an error page, whose
+// body must not end up in the output device.
+bool ApiReply::isBodyWanted() const
+{
+    if (!m_reply)
+        return false;
+    if (!m_reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl().isEmpty())
+        return false;
+    return m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() < 400;
+}
+
+bool ApiReply::writeOut(const QByteArray &data)
+{
+    if (data.isEmpty())
+        return true;
+    if (m_out->write(data) == data.size())
+        return true;
+    qWarning() << "StoreApi: cannot write the download:" << m_out->errorString();
+    dropReply();
+    finish(StoreApi::WriteError, m_out->errorString());
+    return false;
+}
+
+void ApiReply::onReadyRead()
+{
+    if (!m_reply || sender() != m_reply)
+        return;
+    const QByteArray data = m_reply->readAll(); // read either way, or it piles up
+    if (isBodyWanted())
+        writeOut(data);
+}
+
+void ApiReply::onProgress(qint64 received, qint64 total)
+{
+    if (!m_reply || sender() != m_reply)
+        return;
     m_timer.start(); // data arrived, restart the stall timer
+    if (isBodyWanted())
+        emit progress(received, total);
 }
 
 void ApiReply::onTimeout()
@@ -179,7 +234,12 @@ void ApiReply::onFinished()
         return;
     }
 
-    m_data = reply->readAll();
+    if (m_out) {
+        if (!writeOut(reply->readAll()))
+            return;
+    } else {
+        m_data = reply->readAll();
+    }
     finish(StoreApi::NoError, QString());
 }
 

@@ -1,186 +1,135 @@
 #include "downloader.h"
 
-Downloader::Downloader(QObject *parent) :
-    QObject(parent)
-{
-    n_manager = NULL;
-    downloading = false;
-    aborted = false;
-    sourcePath = "";
+#include <QDebug>
+#include <QDir>
+#include <QSystemStorageInfo>
+#include <QUrl>
 
-    qDebug() << "downloader";
+#include "appmanagement.h"
+
+Downloader::Downloader(StoreApi *api, QObject *parent) :
+    QObject(parent),
+    m_api(api)
+{
 }
 
-void Downloader::startDownload(QString _source, long long size, QString id, QString lan, QString os, QString resolution) {
-    QtMobility::QSystemStorageInfo sysStrgInfo;
-    QStringList drives = sysStrgInfo.logicalDrives();
+QString Downloader::downloadFolder(qint64 minFree)
+{
+    // Same folder as the log file (logger.cpp)
+    const char *candidates[] = { "F:/download/Wunderland", "E:/download/Wunderland",
+                                 "C:/Data/download/Wunderland" };
+    QtMobility::QSystemStorageInfo storage;
+    const QStringList drives = storage.logicalDrives();
+    for (unsigned i = 0; i < sizeof(candidates) / sizeof(candidates[0]); ++i) {
+        const QString path = QString::fromLatin1(candidates[i]);
+        const QString drive = path.left(1);
+        if (!drives.contains(drive, Qt::CaseInsensitive)) continue;
+        if (!QDir(path.left(3)).exists()) continue;
+        if (minFree > 0 && storage.availableDiskSpace(drive) <= minFree) continue;
+        if (!QDir().mkpath(path)) continue;
+        return path;
+    }
+    return QString();
+}
 
-    QString driveToSave = "";
-    qDebug() << sysStrgInfo.availableDiskSpace("C");
-    qDebug() << size+size/10;
-    qDebug() << size+(size/10);
-    if (drives.contains("C") && sysStrgInfo.availableDiskSpace("C") > size+(size/10)) driveToSave = "c:/data/";
-    else if (drives.contains("E") && sysStrgInfo.availableDiskSpace("E") > size+(size/10)) driveToSave = "e:/";
-    else if (drives.contains("F") && sysStrgInfo.availableDiskSpace("F") > size+(size/10)) driveToSave = "f:/";
-    else {
-        emit downloadError(1);
+void Downloader::startDownload(const QString &source, qint64 size, const QString &id, const QString &language) {
+    if (m_reply) return;
+
+    // Fire and forget: a failed statistics request does not stop the download
+    QueryItems query;
+    query << qMakePair(QString("id"), id) << qMakePair(QString("language"), language);
+    ApiReply *stats = m_api->get(m_api->buildUrl("/applist-download.php", query, StoreApi::DeviceParams));
+    connect(stats, SIGNAL(finished()), this, SLOT(onStatsFinished()));
+
+    QString url = source;
+    if (!url.startsWith("http")) url.prepend(m_api->baseUrl() + "/static/content/files/");
+
+    // 10% headroom, as before
+    start(url, size + size / 10);
+}
+
+void Downloader::startDownloadWithoutStats(const QString &source) {
+    if (m_reply) return;
+    start(source, 0);
+}
+
+bool Downloader::start(const QString &source, qint64 minFree) {
+    const QString folder = downloadFolder(minFree);
+    if (folder.isEmpty()) {
+        qWarning() << "Downloader: no drive with" << minFree << "bytes free";
+        emit downloadError(NoSpaceError);
+        return false;
+    }
+
+    QString fileName = QUrl(source).path();
+    fileName = fileName.mid(fileName.lastIndexOf('/') + 1);
+    if (fileName.isEmpty()) fileName = "download.sis";
+
+    m_file.setFileName(folder + "/" + fileName);
+    if (!m_file.open(QIODevice::WriteOnly)) {
+        qWarning() << "Downloader: cannot write" << m_file.fileName() << m_file.errorString();
+        emit downloadError(WriteError);
+        return false;
+    }
+
+    qDebug() << "Downloader:" << source << "to" << m_file.fileName();
+    m_reply = m_api->download(QUrl(source), &m_file);
+    connect(m_reply, SIGNAL(progress(qint64,qint64)),
+            this, SLOT(onProgress(qint64,qint64)));
+    connect(m_reply, SIGNAL(finished()),
+            this, SLOT(onFinished()));
+    return true;
+}
+
+void Downloader::onProgress(qint64 received, qint64 total) {
+    // total is -1 (or 0) when the server sends no Content-Length
+    if (total <= 0) return;
+    emit progressChanged((int)(((double)received / total) * 100));
+}
+
+void Downloader::onFinished() {
+    ApiReply *reply = qobject_cast<ApiReply *>(sender());
+    if (!reply || reply != m_reply) return;
+    m_reply = 0; // deletes itself
+
+    StoreApi::Error error = reply->error();
+    // QFile buffers; a full disk can show up only here
+    if (error == StoreApi::NoError && !m_file.flush()) {
+        qWarning() << "Downloader: cannot write" << m_file.fileName() << m_file.errorString();
+        error = StoreApi::WriteError;
+    }
+    m_file.close();
+
+    if (error == StoreApi::NoError) {
+        qDebug() << "Downloader: done" << m_file.fileName() << m_file.size() << "bytes";
+        AppManagement::openInstaller(m_file.fileName());
+        emit downloadDone();
         return;
     }
 
-    if (!downloading) {
-        downloading = true;
-        source = _source;
-        if (source.indexOf("http") != 0) source.prepend("http://ovi.wunderwungiel.pl/static/content/files/");
-        if (n_manager == NULL) {
-            n_manager = new QNetworkAccessManager(this);
-        }
+    // Don't leave an error page or a partial file behind
+    deleteFile();
+    if (error == StoreApi::Aborted) return;
 
-        QString statUrl = "http://ovi.wunderwungiel.pl/applist-download.php?id="+id+"&language="+lan+"&os="+os+"&resolution="+resolution;
-
-        statReply = n_manager->get(QNetworkRequest(QUrl(statUrl)));
-        statReply->setObjectName(driveToSave);
-
-        connect(statReply, SIGNAL(finished()),
-                this, SLOT(startRealDownload()));
-    }
+    qWarning() << "Downloader: download failed:" << reply->url().toString() << reply->errorString();
+    emit downloadError(error == StoreApi::WriteError ? WriteError : ConnectionError);
 }
 
-void Downloader::startDownloadWithoutStats(QString _source) {
-    if (!downloading) {
-        downloading = true;
-        source = _source;
-
-        // Memory card first (as before), then the other drives; a phone may have no E:
-        const char *folders[] = { "e:/installs/", "f:/installs/", "c:/data/installs/" };
-        const QString fileName = source.mid(source.lastIndexOf("/")+1);
-        sourcePath = "";
-        for (unsigned i = 0; i < sizeof(folders) / sizeof(folders[0]); ++i) {
-            QString folder = QString::fromLatin1(folders[i]);
-            if (!QDir(folder.left(3)).exists() || !QDir().mkpath(folder)) continue;
-            file.setFileName(folder + fileName);
-            if (file.open(QIODevice::WriteOnly)) {
-                sourcePath = folder + fileName;
-                break;
-            }
-            qWarning() << "Downloader: cannot write" << file.fileName() << file.errorString();
-        }
-        if (sourcePath.isEmpty()) {
-            qWarning() << "Downloader: no writable drive for the self-update";
-            downloading = false;
-            emit downloadError(1);
-            return;
-        }
-
-        if (n_manager == NULL) {
-            n_manager = new QNetworkAccessManager(this);
-        }
-
-        reply = n_manager->get(QNetworkRequest(QUrl(source)));
-        connect(reply, SIGNAL(downloadProgress(qint64,qint64)),
-                this, SLOT(progress(qint64,qint64)));
-        connect(reply, SIGNAL(readyRead()),
-                this, SLOT(saveBytes()));
-        connect(reply, SIGNAL(finished()),
-                this, SLOT(downloadFinished()));
-    }
-}
-
-void Downloader::startRealDownload() {
-    statReply->deleteLater();
-    if (statReply->error() != QNetworkReply::NoError) {
-        qWarning() << "Downloader: stats request failed:" << statReply->url().toString() << statReply->errorString();
-    }
-    QByteArray data=statReply->readAll();
-    QString returnCode = QString::fromUtf8(data);
-
-    if (returnCode == "0") {
-        file.setFileName(statReply->objectName() + source.mid(source.lastIndexOf("/")+1));
-
-        file.open(QIODevice::WriteOnly);
-        sourcePath = statReply->objectName() + source.mid(source.lastIndexOf("/")+1);
-
-        if (n_manager == NULL) {
-            n_manager = new QNetworkAccessManager(this);
-        }
-
-        reply = n_manager->get(QNetworkRequest(QUrl(source)));
-        connect(reply, SIGNAL(downloadProgress(qint64,qint64)),
-                this, SLOT(progress(qint64,qint64)));
-        connect(reply, SIGNAL(readyRead()),
-                this, SLOT(saveBytes()));
-        connect(reply, SIGNAL(finished()),
-                this, SLOT(downloadFinished()));
-    } else {
-        emit downloadError(0);
-        downloading = false;
-    }
-}
-
-void Downloader::downloadFinished() {
-    // Deleted on the next event loop pass; cancelDownload() only touches `reply` while downloading
-    reply->deleteLater();
-
-    // Empty unless the server redirected us somewhere valid (ignored after a cancel)
-    QUrl urlRedirectedTo = aborted ? QUrl() : redirectUrl(reply);
-
-    // If the URL is not empty, we're being redirected.
-    if(!urlRedirectedTo.isEmpty()) {
-        qDebug() << "Downloader: redirect to" << urlRedirectedTo.toString();
-
-        // Throw away the body of the redirect response: reopening with WriteOnly truncates the file
-        file.close();
-        file.open(QIODevice::WriteOnly);
-
-        int redirects = reply->property("redirects").toInt() + 1;
-        reply = n_manager->get(QNetworkRequest(urlRedirectedTo));
-        reply->setProperty("redirects", redirects);
-
-        connect(reply, SIGNAL(downloadProgress(qint64,qint64)),
-                this, SLOT(progress(qint64,qint64)));
-        connect(reply, SIGNAL(readyRead()),
-                this, SLOT(saveBytes()));
-        connect(reply, SIGNAL(finished()),
-                this, SLOT(downloadFinished()));
-    } else {
-        file.close();
-
-        if (aborted) {
-            aborted = false;
-        } else if (reply->error() != QNetworkReply::NoError) {
-            // Don't hand an error page or a partial file to the installer
-            qWarning() << "Downloader: download failed:" << reply->url().toString() << reply->errorString();
-            deleteFile();
-            emit downloadError(0);
-        } else {
-            qDebug() << "downloadFinished";
-
-            //bool ok = QDesktopServices::openUrl(QUrl("file:///"+sourcePath));
-            AppManagement::openInstaller(sourcePath);
-
-            emit downloadDone();
-        }
-
-        downloading = false;
-    }
+void Downloader::onStatsFinished() {
+    ApiReply *reply = qobject_cast<ApiReply *>(sender());
+    if (!reply) return;
+    if (reply->error() != StoreApi::NoError || reply->text().trimmed() != "0")
+        qWarning() << "Downloader: statistics request failed:" << reply->errorString() << reply->text().left(100);
 }
 
 bool Downloader::cancelDownload() {
-    if (downloading) {
-        aborted = true;
-        reply->abort();
-        if (!reply->isRunning()) {
-            deleteFile();
-            aborted = false;
-            return true;
-        } else {
-            aborted = false;
-            return false;
-        }
-    } else {
-        return false;
-    }
+    if (!m_reply) return false;
+    // Emits finished() right away, which deletes the partial file
+    m_reply->abort();
+    return true;
 }
 
 bool Downloader::deleteFile() {
-    return file.remove();
+    if (m_file.fileName().isEmpty()) return false;
+    return m_file.remove();
 }
