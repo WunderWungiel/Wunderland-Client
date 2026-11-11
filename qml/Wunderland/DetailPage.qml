@@ -2,6 +2,7 @@ import QtQuick 1.1
 import com.nokia.symbian 1.1
 import com.nokia.extras 1.1
 import QtMobility.feedback 1.1
+import Wunderland 1.0
 
 Page {
     id: detailPage
@@ -120,7 +121,7 @@ Page {
             anchors.right: parent.right
             anchors.rightMargin: 10
             width: parent.width - 20
-            visible: (appButton.buttonAction == 6) ? true : false
+            visible: appButton.buttonAction == GetList.Downloading
             height: cancelButton.height + progressBar.height + 10
 
             //onVisibleChanged: flickArea.contentHeight = flickArea.flickAreaHeight()
@@ -157,7 +158,7 @@ Page {
         Button {
             id: appButton
             property int buttonAction: getList.buttonAction(listIndex)
-            text: (buttonAction == 0) ? (qsTr("Download") + l.emptyString) : (buttonAction == 1) ? (qsTr("Update") + l.emptyString) : (qsTr("Launch") + l.emptyString)
+            text: buttonText(buttonAction)
             anchors.top: appIcon.bottom
             anchors.topMargin: 10
             anchors.right: parent.right
@@ -165,7 +166,7 @@ Page {
             width: (detailPage.width/5) * 2
             visible: !downloadProgress.visible
             onClicked: {
-                if (buttonAction == 4) getList.buttonPressed(4)
+                if (buttonAction == GetList.Launch) getList.buttonPressed(GetList.Launch)
                 // Download/update; buttonPressed returns if displaying downloadProgress
                 else downloadProgress.visible = getList.buttonPressed(buttonAction)
             }
@@ -191,7 +192,7 @@ Page {
 
             Text {
                 id: appDescriptionLabel
-                text: ((appButton.buttonAction == 1) && (detailItem["changelog"] !== "")) ? detailItem["changelog"] + "\n\n" + detailItem["description"] : detailItem["description"]
+                text: ((appButton.buttonAction == GetList.Update) && (detailItem["changelog"] !== "")) ? detailItem["changelog"] + "\n\n" + detailItem["description"] : detailItem["description"]
                 width: parent.width - 20
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: 18
@@ -511,9 +512,15 @@ Page {
         }
     }
 
+    function buttonText(action) {
+        if (action == GetList.Download) return qsTr("Download") + l.emptyString
+        if (action == GetList.Update) return qsTr("Update") + l.emptyString
+        return qsTr("Launch") + l.emptyString
+    }
+
     function updateButton() {
         appButton.buttonAction = getList.buttonAction(listIndex)
-        appButton.text = (appButton.buttonAction == 0) ? (qsTr("Download") + l.emptyString) : (appButton.buttonAction == 1) ? (qsTr("Update") + l.emptyString) : (qsTr("Launch") + l.emptyString)
+        appButton.text = buttonText(appButton.buttonAction)
         downloadProgress.visible = false
     }
 

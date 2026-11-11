@@ -184,7 +184,7 @@ ping is sent next to the download and only logged. `downloadError` codes: 0 conn
 
 ---
 
-## [ ] Phase 3 — Domain model: one source of truth for app data
+## [x] Phase 3 — Domain model: one source of truth for app data
 
 ### [x] 3.1 Introduce an `AppEntry` struct and a role enum in one header
 The 39 roles are defined as a local `struct ListEntry` inside the `GetList` constructor, but
@@ -256,11 +256,20 @@ old code: the same result for every pair of `major.minor.build` versions with pa
 0/1/2/9/10/99/100 (117,649 pairs). It differs only for versions without three parts, where the
 old parser misread them (e.g. `1.0` installed and `1` available counted as an update).
 
-### [ ] 3.5 Turn the `buttonAction` codes 0–7 into an enum
+### [x] 3.5 Turn the `buttonAction` codes 0–7 into an enum
 `GetList::buttonAction` returns magic numbers 0–7, and `buttonPressed` takes a different set
 of magic numbers 0–4. Both are checked as literals in `DetailPage.qml` and
 `SelectVersion.qml`. Expose a `Q_ENUMS(Action)` so QML can use `GetList.Launch` and similar
 names.
+
+Done: only 0/1/4/6 were still in use (`SelectVersion.qml` went with the unsigned/Store variants),
+and `buttonPressed` took the same codes. They are now `GetList::Action` (`Download`, `Update`,
+`Launch`, `Downloading`; renumbered 0–3) with `Q_ENUMS(Action)`. `main.cpp` registers `GetList`
+as an uncreatable type in the `Wunderland 1.0` module so QML can read the names;
+`DetailPage.qml` imports it and uses `GetList.Launch` etc., and its two copies of the button-text
+expression are one `buttonText(action)` function. `buttonAction`/`buttonPressed` keep `int` in
+their signatures, because QtQuick 1.1 does not reliably pass enum types through
+`Q_INVOKABLE`s.
 
 ---
 

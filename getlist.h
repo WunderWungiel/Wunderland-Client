@@ -25,8 +25,17 @@ class GetList : public QObject
     Q_PROPERTY(int _updates READ _updates NOTIFY updateCountChanged)
     Q_PROPERTY(int _downloadProgress READ _downloadProgress NOTIFY progressChanged)
     Q_OBJECT
+    Q_ENUMS(Action)
 
 public:
+    // What the detail page button does for an app (QML: GetList.Download, ...)
+    enum Action {
+        Download,     // not installed
+        Update,       // installed, the store has a newer version
+        Launch,       // installed and up to date
+        Downloading   // this app is being downloaded now
+    };
+
     explicit GetList(QObject *parent = 0);
     GetList(StoreApi *api, Language *__language, QObject *parent = 0);
     
@@ -43,10 +52,11 @@ public:
 
     Q_INVOKABLE void setCurrentList(int i) { currentList = i; }
 
+    // Returns an Action (int, so QtQuick 1.1 reads it)
     Q_INVOKABLE int buttonAction(int index);
-    /* ActionId to do when downloadButton pressed
-       0/1 = Download/update, 4 = Launch */
-    Q_INVOKABLE bool buttonPressed(int actionId);
+    // Does the Action for the item of the last buttonAction() call; returns whether the
+    // download progress is shown
+    Q_INVOKABLE bool buttonPressed(int action);
 
     int _downloadProgress() { return downloadProgress; }
     Q_INVOKABLE bool isDownloading() {

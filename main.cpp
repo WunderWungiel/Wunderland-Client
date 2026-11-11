@@ -67,6 +67,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     // Not creatable from QML; registered so the model properties can be read
     qmlRegisterType<AppListModel>();
     qmlRegisterType<RoleItemModel>();
+    // Only for the Action enum (GetList.Download, ...); the instance is the getList property
+    qmlRegisterUncreatableType<GetList>("Wunderland", 1, 0, "GetList", "Use the getList context property");
 
     viewer.rootContext()->setContextProperty("getList", &getList);
     viewer.rootContext()->setContextProperty("appManagement", &appManagement);

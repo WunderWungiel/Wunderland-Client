@@ -197,39 +197,31 @@ void GetList::parseList(QString html, int listId) {
 }
 
 int GetList::buttonAction(int index) {
-    /*  onButtonPressed:
-     *  0 - download
-     *  1 - update
-     *  4 - launch app
-     *  6 - currently downloading item
-     */
     currentItem = list[currentList]->get(index);
 
-    if (downloadingItem == currentItem) return 6;
+    if (downloadingItem == currentItem) return Downloading;
 
-    if (!currentItem.value("installed").toBool()) return 0;
+    if (!currentItem.value("installed").toBool()) return Download;
 
     // Read the registry again: the app may have been removed since the list was loaded
     QString installedVersion = appManagement.getVersion(currentItem.value("uid").toString());
-    if (installedVersion.isEmpty()) return 0;
-    if (isNewer(installedVersion, currentItem.value("version").toString())) return 1;
-    return 4;
+    if (installedVersion.isEmpty()) return Download;
+    if (isNewer(installedVersion, currentItem.value("version").toString())) return Update;
+    return Launch;
 }
 
-bool GetList::buttonPressed(int actionId) {
+bool GetList::buttonPressed(int action) {
 
     // Reset downloadProgress
     downloadProgress = 0;
     emit progressChanged();
 
-    if (actionId == 0 || actionId == 1) {
-        // Download/update
+    if (action == Download || action == Update) {
         // Set first: a failed start emits downloadError right away, which clears it
         downloadingItem = currentItem;
         downloader->startDownload(currentItem.value("download").toString(), currentItem.value("downloadsize").toLongLong(), QString::number(currentItem.value("id").toInt()), _language->currentLanguage());
         return isDownloading();
-    } else if (actionId == 4) {
-        // Launch app
+    } else if (action == Launch) {
         appManagement.launchApp(currentItem.value("uid").toString());
     }
 
