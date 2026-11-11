@@ -43,12 +43,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         }
     }
 
-    // Before the widget, so its texts are translated. Never deleted.
-    Language *language = new Language();
+    // Before the widget, so its texts are translated; declared before its users so it outlives them
+    Language language;
 
     // The one network manager; declared before its users so it outlives them
     QNetworkAccessManager networkManager;
-    StoreApi storeApi(&networkManager, language);
+    StoreApi storeApi(&networkManager, &language);
 
     AppManagement appManagement;
     if (!appManagement.appsScanned()) appManagement.scanApps();
@@ -66,7 +66,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     Subscriber subscriber;
     Settings settings;
     AppCatalog appCatalog(&storeApi, &updateTracker);
-    InstallManager installManager(&storeApi, &appManagement, &updateTracker, language);
+    InstallManager installManager(&storeApi, &appManagement, &updateTracker, &language);
     QObject::connect(&installManager, SIGNAL(appInstalled(int)),
                      &appCatalog, SLOT(markInstalled(int)));
     updateTracker.check();
@@ -86,7 +86,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.rootContext()->setContextProperty("appManagement", &appManagement);
     viewer.rootContext()->setContextProperty("news", &news);
     viewer.rootContext()->setContextProperty("update", &update);
-    viewer.rootContext()->setContextProperty("l", language);
+    viewer.rootContext()->setContextProperty("l", &language);
     viewer.rootContext()->setContextProperty("subscriber", &subscriber);
     viewer.rootContext()->setContextProperty("settings", &settings);
     viewer.rootContext()->setContextProperty("symbianFunctions", &symbianFunctions);

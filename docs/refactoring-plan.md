@@ -327,7 +327,7 @@ and get their dependencies as pointers; `InstallManager::appInstalled(id)` is co
   every successful check sets `widget/lastUpdateTime`. `countChanged` is emitted only when
   the list changes, not after every check.
 
-### [ ] 4.3 Exactly one `AppManagement`
+### [x] 4.3 Exactly one `AppManagement`
 There are currently four instances (`main.cpp:71`, `GetList`, and one inside each of the two
 `UpdateManagement`s), and each has its own `InstallServerThread`. Make it a single object that
 is passed in. Also give `Language` an owner (`main.cpp:76` creates it with `new` and never
@@ -336,7 +336,8 @@ no parent).
 
 After 4.2: the `AppManagement` and `UpdateManagement` parts are done (one `AppManagement` in
 `main.cpp`, passed to `UpdateTracker` and `InstallManager`; the thread lives in
-`InstallManager`). Only the `Language` owner is left.
+`InstallManager`). Done: `Language` is now a stack object in `main.cpp`, declared before its
+users so it outlives them.
 
 ### [ ] 4.4 Move logic out of headers
 `getlist.h` has `installServerFinishedReceived()` (≈110 lines) and the event filter; `news.h`
