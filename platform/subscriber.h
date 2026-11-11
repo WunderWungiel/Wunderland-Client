@@ -2,15 +2,18 @@
 #define SUBSCRIBER_H
 
 #include <QObject>
+
+#ifdef Q_OS_SYMBIAN
 #include <qmobilityglobal.h>
-#include "qvaluespacesubscriber.h"
 
 QTM_BEGIN_NAMESPACE
 class QValueSpaceSubscriber;
 QTM_END_NAMESPACE
+#endif
 
-QTM_USE_NAMESPACE
-
+// Emits appListIdReceived() when another app asks (through the Qt Mobility
+// value space, path /appList) to show an app. Never emits on other platforms,
+// which have no Qt Mobility.
 class Subscriber : public QObject
 {
     Q_OBJECT
@@ -24,8 +27,9 @@ public slots:
     void getValueChanged();
 
 private:
-    QValueSpaceSubscriber *qsubscriber;
-    
+#ifdef Q_OS_SYMBIAN
+    QtMobility::QValueSpaceSubscriber *qsubscriber;
+#endif
 };
 
 #endif // SUBSCRIBER_H

@@ -1,7 +1,9 @@
 #include "installerwatcher.h"
 #include <QDebug>
+#ifdef Q_OS_SYMBIAN
 #include <e32base.h>
 #include <e32std.h>
+#endif
 
 namespace {
 const int PollInterval = 1000;          // ms
@@ -11,6 +13,7 @@ const int StartGrace = 10 * 1000;       // ms
 const int PollTimeout = 30 * 60 * 1000; // ms
 }
 
+#ifdef Q_OS_SYMBIAN
 // Completes when the installer thread exits. RunL only queues a call to the
 // watcher, so no Qt code runs inside the active scheduler.
 class InstallerWatcher::Observer : public CActive
@@ -58,6 +61,16 @@ private:
     InstallerWatcher *m_owner;
     RThread m_thread;
 };
+#else
+// No installer threads to log on to
+class InstallerWatcher::Observer
+{
+public:
+    explicit Observer(InstallerWatcher *) {}
+    void Cancel() {}
+    int Start(quint64) { return -5; } // KErrNotSupported
+};
+#endif
 
 InstallerWatcher::InstallerWatcher(QObject *parent) :
     QObject(parent),
@@ -79,8 +92,9 @@ void InstallerWatcher::watch(quint64 installerThreadId)
     m_pollTimer.stop();
 
     if (installerThreadId != 0) {
-        TInt err = m_observer->Start(installerThreadId);
-        if (err == KErrNone) {
+        // A Symbian error code; 0 is KErrNone
+        int err = m_observer->Start(installerThreadId);
+        if (err == 0) {
             qDebug() << "InstallerWatcher: waiting for installer thread" << installerThreadId;
             return;
         }
@@ -130,8 +144,12 @@ void InstallerWatcher::finish()
 
 bool InstallerWatcher::installServerRunning()
 {
+#ifndef Q_OS_SYMBIAN
+    return false;
+#else
     // Process full names look like "installserver[101f875a]0001"
     TFindProcess find(_L("installserver*"));
     TFullName name;
     return find.Next(name) == KErrNone;
+#endif
 }

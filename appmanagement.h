@@ -2,25 +2,17 @@
 #define APPMANAGEMENT_H
 
 #include <QObject>
-#include <sisregistrysession.h>
-#include <sisregistryentry.h>
-#include <QDebug>
-#include <QSettings>
+#include <QString>
 
-#include <QStringList>
-#include <QDir>
-#include <QFile>
-#include <QTextStream>
-
-#include <apgcli.h> // for RApaLsSession
-#include <apacmdln.h> // for CApaCommandLine
-
+// Installed apps, for the update check and the detail page. The native calls
+// are in platform/apps.*.
 class AppManagement : public QObject
 {
     Q_OBJECT
 public:
     explicit AppManagement(QObject *parent = 0);
     
+    // Installed version ("1.2.3"), empty if not installed
     QString getVersion(QString uid);
 
     // True if the app with this UID is installed in a version older than availableVersion.
@@ -32,14 +24,8 @@ public:
     Q_INVOKABLE bool checkAppInstalled(QString uid);
 
     bool appsScanned();
+    // Maps the installed apps to store IDs (apps.txt) on the first run
     void scanApps();
-
-    // False (and a log line) if the installer could not be started.
-    // installerThreadId (if given) gets the installer's main thread id, for InstallerWatcher
-    static bool openInstaller(QString path, quint64 *installerThreadId = 0);
-private:
-    // Get all installed UIDs; false if AppArc could not be read
-    bool applications(QStringList &applications) const;
 };
 
 #endif // APPMANAGEMENT_H

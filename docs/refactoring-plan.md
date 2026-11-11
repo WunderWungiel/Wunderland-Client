@@ -390,11 +390,39 @@ process is still running (the installer handed the work off), or when it can't l
 connected once in `InstallManager`'s constructor, as before. To check on a device: which of the
 two paths runs (the log shows "installer thread exited" and, if any, "polling").
 
-### [ ] 5.3 Keep Symbian code behind one boundary
+### [x] 5.3 Keep Symbian code behind one boundary
 Collect the native calls (`AppManagement`'s SIS registry/AppArc, `Symbian`, the `HSWidget`
 glue) into a `platform/` folder behind small interfaces, with `#ifdef Q_OS_SYMBIAN`, as
 Symbisend does. Then the parser, models, version logic and network layer build on desktop Qt
 4.8 for fast iteration and for quick checks of 3.4 and 2.2.
+
+Done: every Symbian API and Qt Mobility call is in `platform/`, included as `"platform/…"`
+(not through `INCLUDEPATH`: the SDK has its own `platform/mw/hswidget.h`).
+- `platform/apps.*`: free functions in `namespace Platform` (`installedVersion`,
+  `isAppInstalled`, `launchApp`, `visibleApps`, `openInstaller`, `openUrlInBrowser`) with the
+  trapped `…L()` helpers from 5.1. `AppManagement` and `Symbian` are now pure Qt and call them;
+  `AppManagement::openInstaller()` is gone (`Downloader` calls `Platform::openInstaller()`).
+- `platform/device.*`: `osVersion()`, `deviceLanguage()` and `downloadFolder()` (was
+  `Downloader::downloadFolder()`), the Qt Mobility systeminfo calls of `StoreApi`, `Language`
+  and `Downloader`.
+- Moved: `installerwatcher.*`, `subscriber.*`, `hswidget.*`, `qhswidget.h` and the
+  `sisregistry*.h` copies. `InstallerWatcher` and `Subscriber` build everywhere; `HSWidget` is
+  only built (and created in `main.cpp`) on Symbian.
+- Desktop fallbacks: nothing is installed, installing and launching fail with a log line, URLs
+  open with `QDesktopServices`, `os` is `"desktop"`, the language comes from `QLocale`, downloads
+  go to `~/.wunderland/download`, `InstallerWatcher` finishes after its 10 s grace.
+- `Wunderland.pro`: Mobility and `qt-components` only on Symbian; `VERSION` and `APP_Version`
+  are outside the `symbian` block. `APP_Version` is now a bare token that `main.cpp`
+  stringifies, because the quoted form only survives the Symbian toolchain.
+
+Checked: `build_symbian.bat release` builds the `.sis`, and the desktop build
+(`qmake -spec win32-g++` with `C:\QtSDK\Desktop\Qt\4.8.1\mingw`, shadow build) compiles
+without warnings and starts (log, `StoreApi` request); the QML doesn't load there, it needs
+`com.nokia.symbian`. After pulling this into an existing in-source build, delete the old
+`moc_hswidget.cpp`/`moc_qhswidget.cpp` (the moved headers keep their mtime, so make doesn't
+regenerate them and the stale `#include "hswidget.h"` picks up the SDK's header). To check on a
+device: everything that touches native code (installed/update state, install, launch, browser
+links, homescreen widget).
 
 ### [ ] 5.4 Clean up `HSWidget`
 Move the widget registration/update count out of the hot startup path in `main.cpp`

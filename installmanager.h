@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QVariant>
-#include "installerwatcher.h"
+#include "platform/installerwatcher.h"
 
 class StoreApi;
 class AppManagement;

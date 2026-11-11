@@ -2,35 +2,16 @@
 
 #include <QDebug>
 #include <QDir>
-#include <QSystemStorageInfo>
 #include <QUrl>
 
-#include "appmanagement.h"
+#include "platform/apps.h"
+#include "platform/device.h"
 
 Downloader::Downloader(StoreApi *api, QObject *parent) :
     QObject(parent),
     m_api(api),
     m_installerThreadId(0)
 {
-}
-
-QString Downloader::downloadFolder(qint64 minFree)
-{
-    // Same folder as the log file (logger.cpp)
-    const char *candidates[] = { "F:/download/Wunderland", "E:/download/Wunderland",
-                                 "C:/Data/download/Wunderland" };
-    QtMobility::QSystemStorageInfo storage;
-    const QStringList drives = storage.logicalDrives();
-    for (unsigned i = 0; i < sizeof(candidates) / sizeof(candidates[0]); ++i) {
-        const QString path = QString::fromLatin1(candidates[i]);
-        const QString drive = path.left(1);
-        if (!drives.contains(drive, Qt::CaseInsensitive)) continue;
-        if (!QDir(path.left(3)).exists()) continue;
-        if (minFree > 0 && storage.availableDiskSpace(drive) <= minFree) continue;
-        if (!QDir().mkpath(path)) continue;
-        return path;
-    }
-    return QString();
 }
 
 void Downloader::startDownload(const QString &source, qint64 size, const QString &id, const QString &language) {
@@ -55,7 +36,7 @@ void Downloader::startDownloadWithoutStats(const QString &source) {
 }
 
 bool Downloader::start(const QString &source, qint64 minFree) {
-    const QString folder = downloadFolder(minFree);
+    const QString folder = Platform::downloadFolder(minFree);
     if (folder.isEmpty()) {
         qWarning() << "Downloader: no drive with" << minFree << "bytes free";
         emit downloadError(NoSpaceError);
@@ -103,7 +84,7 @@ void Downloader::onFinished() {
 
     if (error == StoreApi::NoError) {
         qDebug() << "Downloader: done" << m_file.fileName() << m_file.size() << "bytes";
-        if (!AppManagement::openInstaller(m_file.fileName(), &m_installerThreadId)) {
+        if (!Platform::openInstaller(m_file.fileName(), &m_installerThreadId)) {
             deleteFile();
             emit downloadError(InstallerError);
             return;

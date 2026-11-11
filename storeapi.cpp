@@ -10,9 +10,9 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QSettings>
-#include <QSystemInfo>
 
 #include "language.h"
+#include "platform/device.h"
 
 static const char kDefaultBaseUrl[] = "http://ovi.wunderwungiel.pl";
 // Give up when nothing arrives for this long (Qt 4 QNAM has no timeout).
@@ -34,8 +34,7 @@ StoreApi::StoreApi(QNetworkAccessManager *nam, Language *language, QObject *pare
       m_nam(nam),
       m_language(language)
 {
-    QtMobility::QSystemInfo si;
-    m_os = si.version(QtMobility::QSystemInfo::Os);
+    m_os = Platform::osVersion();
 
     // "1" for 640x480 screens (E6), in either orientation
     const QRect screen = QApplication::desktop()->screenGeometry();

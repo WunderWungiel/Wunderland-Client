@@ -2,35 +2,20 @@
 #define SYMBIAN_H
 
 #include <QObject>
-#include <QSystemInfo>
+#include <QString>
 
-/*
-Includes of Symbian libraries. If you are building for multiple OSes, use
-#ifdef Q_OS_SYMBIAN
-...
-#endif
-
-DON'T FORGET TO ADD LIBS TO THE PRO FILE OF YOUR PROJECT
-*/
-//General
-#include <eikenv.h>
-//openUrlInDefaultBrowser
-#include <apgcli.h>
-#include <apgtask.h>
-
+// QML helpers for native functions (the symbianFunctions context property).
+// The native calls are in platform/.
 class Symbian : public QObject
 {
     Q_OBJECT
 public:
     Symbian(QObject *parent = 0);
 
-    // False (and a log line) if the browser could not be started
+    // Opens url in the browser selected in the phone settings, not always the
+    // built-in one as Qt.openUrlExternally() does. False (and a log line) if
+    // the browser could not be started.
     Q_INVOKABLE bool openUrlInDefaultBrowser(QString url);
-
-private:
-    // These leave on errors; only openUrlInDefaultBrowser() calls them, inside a TRAP
-    void openUrlL(const TDesC& aUrl);
-    void LaunchBrowserL(const TDesC& aUrl, TUid& _id);
 };
 
 #endif // SYMBIAN_H

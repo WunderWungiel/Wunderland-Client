@@ -11,11 +11,13 @@
 #include "appmanagement.h"
 #include "roleitemmodel.h"
 #include "applistmodel.h"
-#include "hswidget.h"
+#ifdef Q_OS_SYMBIAN
+#include "platform/hswidget.h"
+#endif
 #include "news.h"
 #include "update.h"
 #include "language.h"
-#include "subscriber.h"
+#include "platform/subscriber.h"
 #include "settings.h"
 #include "symbian.h"
 #include "logger.h"
@@ -23,11 +25,15 @@
 
 #include <QDebug>
 
+// APP_Version is defined by Wunderland.pro as a bare token (2.0.5)
+#define WL_STRINGIFY2(x) #x
+#define WL_STRINGIFY(x) WL_STRINGIFY2(x)
+
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
-    app->setApplicationVersion(APP_Version);
+    app->setApplicationVersion(QLatin1String(WL_STRINGIFY(APP_Version)));
 
     Logger::install();
     qDebug() << "Wunderland" << app->applicationVersion() << "starting";
@@ -56,10 +62,13 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     // After scanApps(), which fills apps/installedIds on the first run
     UpdateTracker updateTracker(&storeApi, &appManagement);
 
+#ifdef Q_OS_SYMBIAN
+    // The homescreen widget only exists on Symbian
     qDebug() << "registerWidgetBefore";
     HSWidget widget(&updateTracker);
     widget.registerWidget();
     qDebug() << "registerWidgetAfter";
+#endif
 
     News news(&storeApi);
     Update update(&storeApi);

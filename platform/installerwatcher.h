@@ -5,12 +5,13 @@
 #include <QTime>
 #include <QTimer>
 
-// Tells when the installer opened by AppManagement::openInstaller() has closed.
+// Tells when the installer opened by Platform::openInstaller() has closed.
 // Runs on the UI thread: it logs on to the installer thread that StartDocument
 // returned (RThread::Logon on an active object). If there is no thread to log on
 // to, or the installer handed the work to a separate installserver process that
 // is still running, it falls back to checking once per second whether an
-// installserver process is running.
+// installserver process is running. On other platforms there is no installer:
+// it finishes after the poll's start grace.
 class InstallerWatcher : public QObject
 {
     Q_OBJECT

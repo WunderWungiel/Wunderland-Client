@@ -1,4 +1,5 @@
 #include "language.h"
+#include "platform/device.h"
 
 namespace {
 struct LanguageEntry {
@@ -35,8 +36,7 @@ const LanguageEntry kLanguages[] = {
 Language::Language(QObject *parent) :
     QObject(parent)
 {
-    QtMobility::QSystemInfo si;
-    _currentLanguage = si.currentLanguage().toLower();
+    _currentLanguage = Platform::deviceLanguage();
 
     for (unsigned i = 0; i < sizeof(kLanguages) / sizeof(kLanguages[0]); ++i) {
         _languageCodes << QString::fromLatin1(kLanguages[i].code);

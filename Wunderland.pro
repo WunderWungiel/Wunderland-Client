@@ -18,33 +18,36 @@ symbian:TARGET.UID3 = 0xE9320736
 # Allow network access on Symbian
 symbian:TARGET.CAPABILITY += NetworkServices #TrustedUI
 
-# If your application uses the Qt Mobility libraries, uncomment the following
-# lines and add the respective components to the MOBILITY variable.
-CONFIG += mobility
-MOBILITY += feedback systeminfo publishsubscribe
+# Qt Mobility and the Symbian Qt Components are only used on Symbian. Desktop Qt
+# has neither, so the code that needs them is in platform/ behind
+# #ifdef Q_OS_SYMBIAN (the desktop build compiles, but the QML needs
+# com.nokia.symbian to run).
+symbian {
+    CONFIG += mobility
+    MOBILITY += feedback systeminfo publishsubscribe
+
+    CONFIG += qt-components
+}
 
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
 # CONFIG += qdeclarative-boostable
 
-# Add dependency to Symbian components
-CONFIG += qt-components
+VERSION = 2.0.5
+# A bare 2.0.5 token: quotes in DEFINES only survive the Symbian toolchain.
+# main.cpp turns it into a string.
+DEFINES += APP_Version=$$VERSION
 
-# The .cpp file which was generated for your project. Feel free to hack it.
+# Not built: xqinstaller.cpp, xqinstaller_p.cpp, xqinstaller.h, xqinstaller_p.h
 SOURCES += main.cpp \
     appmanagement.cpp \
-    #xqinstaller.cpp \
-    #xqinstaller_p.cpp
     roleitemmodel.cpp \
     appcatalog.cpp \
     installmanager.cpp \
     updatetracker.cpp \
-    hswidget.cpp \
     downloader.cpp \
-    installerwatcher.cpp \
     news.cpp \
     update.cpp \
     language.cpp \
-    subscriber.cpp \
     settings.cpp \
     symbian.cpp \
     logger.cpp \
@@ -52,7 +55,11 @@ SOURCES += main.cpp \
     applistparser.cpp \
     appentry.cpp \
     applistmodel.cpp \
-    versioncompare.cpp
+    versioncompare.cpp \
+    platform/apps.cpp \
+    platform/device.cpp \
+    platform/installerwatcher.cpp \
+    platform/subscriber.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -60,22 +67,14 @@ qtcAddDeployment()
 
 HEADERS += \
     appmanagement.h \
-    #xqinstaller.h \
-    #xqinstaller_p.h \
-    sisregistrysession.h \
-    sisregistryentry.h \
     roleitemmodel.h \
     appcatalog.h \
     installmanager.h \
     updatetracker.h \
-    qhswidget.h \
-    hswidget.h \
     downloader.h \
-    installerwatcher.h \
     news.h \
     update.h \
     language.h \
-    subscriber.h \
     settings.h \
     symbian.h \
     logger.h \
@@ -83,11 +82,27 @@ HEADERS += \
     applistparser.h \
     appentry.h \
     applistmodel.h \
-    versioncompare.h
+    versioncompare.h \
+    platform/apps.h \
+    platform/device.h \
+    platform/installerwatcher.h \
+    platform/subscriber.h
 
-addFiles.pkg_postrules += "\"C:\\Wunderland.png\" - \"c:\\system\Wunderland.png\""
-addFiles.pkg_postrules += "\"C:\\HSWidgetxWunderland_E9320736_rel.dll\" - \"!:\\sys\\bin\\HSWidgetxWunderland_E9320736_rel.dll\""
-DEPLOYMENT += addFiles
+# The homescreen widget (HSWidgetxWunderland*.dll) only exists on Symbian
+symbian {
+    SOURCES += platform/hswidget.cpp
+    HEADERS += \
+        platform/hswidget.h \
+        platform/qhswidget.h \
+        platform/sisregistrysession.h \
+        platform/sisregistryentry.h
+}
+
+symbian {
+    addFiles.pkg_postrules += "\"C:\\Wunderland.png\" - \"c:\\system\Wunderland.png\""
+    addFiles.pkg_postrules += "\"C:\\HSWidgetxWunderland_E9320736_rel.dll\" - \"!:\\sys\\bin\\HSWidgetxWunderland_E9320736_rel.dll\""
+    DEPLOYMENT += addFiles
+}
 
 # For lupdate
 evil_hack_to_fool_lupdate {
@@ -111,10 +126,7 @@ TRANSLATIONS = wunderland_template.ts \
 #symbian:MMP_RULES += "DEBUGGABLE"
 
 symbian {
-    VERSION = 2.0.5
-
     DEFINES += APP_UID=\"$$TARGET.UID3\"
-    DEFINES += APP_Version=\"$$VERSION\"
 
     ICON = icon.svg
 

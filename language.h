@@ -22,7 +22,6 @@
 #include <QObject>
 #include <QTranslator>
 #include <QSettings>
-#include <QSystemInfo>
 
 class Language : public QObject {
     Q_OBJECT
