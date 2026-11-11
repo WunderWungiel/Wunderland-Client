@@ -114,19 +114,39 @@ evil_hack_to_fool_lupdate {
     SOURCES += qml/Wunderland/*.qml
 }
 
-TRANSLATIONS = wunderland_template.ts \
-    wunderland_de.ts \
-    wunderland_el.ts \
-    wunderland_es.ts \
-    wunderland_fr.ts \
-    wunderland_hu.ts \
-    wunderland_it.ts \
-    wunderland_pl.ts \
-    wunderland_pt.ts \
-    wunderland_ru.ts \
-    wunderland_tr.ts \
-    wunderland_uk.ts \
-    wunderland_vi.ts
+TRANSLATIONS = translations/wunderland_template.ts \
+    translations/wunderland_de.ts \
+    translations/wunderland_el.ts \
+    translations/wunderland_es.ts \
+    translations/wunderland_fr.ts \
+    translations/wunderland_hu.ts \
+    translations/wunderland_it.ts \
+    translations/wunderland_pl.ts \
+    translations/wunderland_pt.ts \
+    translations/wunderland_ru.ts \
+    translations/wunderland_tr.ts \
+    translations/wunderland_uk.ts \
+    translations/wunderland_vi.ts
+
+# Compile the .ts files into .qm with lrelease during the build (Qt 4 has no
+# embed_translations; this is the same extra-compiler setup as the SDK's loc.prf).
+# The .qm files land next to the .ts files and are embedded through Qml.qrc;
+# they are not committed. The template is listed for lupdate only.
+qtPrepareTool(LRELEASE, lrelease)
+LRELEASE_INPUT = $$TRANSLATIONS
+LRELEASE_INPUT -= translations/wunderland_template.ts
+lrelease.input = LRELEASE_INPUT
+lrelease.output = $$PWD/translations/${QMAKE_FILE_BASE}.qm
+lrelease.commands = $$LRELEASE -silent ${QMAKE_FILE_IN} -qm ${QMAKE_FILE_OUT}
+lrelease.CONFIG = no_link target_predeps
+QMAKE_EXTRA_COMPILERS += lrelease
+# qmake reads Qml.qrc (rcc -list) to find rcc's dependencies, so the .qm files
+# must already exist then (e.g. in a fresh checkout); otherwise rcc wouldn't be
+# rerun when a .ts changes.
+for(ts, LRELEASE_INPUT) {
+    qm = $$PWD/$$replace(ts, \\.ts$, .qm)
+    !exists($$qm): system($$LRELEASE -silent $$PWD/$$ts -qm $$qm)
+}
 
 #symbian:MMP_RULES += "DEBUGGABLE"
 
@@ -163,4 +183,5 @@ symbian {
 QT += network
 
 RESOURCES += \
-    Qml.qrc
+    Qml.qrc \
+    translations.qrc

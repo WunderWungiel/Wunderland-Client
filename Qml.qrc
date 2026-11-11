@@ -36,17 +36,5 @@
     </qresource>
     <qresource prefix="/">
         <file alias="apps.txt">apps.txt</file>
-        <file>wunderland_de.qm</file>
-        <file>wunderland_el.qm</file>
-        <file>wunderland_es.qm</file>
-        <file>wunderland_fr.qm</file>
-        <file>wunderland_hu.qm</file>
-        <file>wunderland_it.qm</file>
-        <file>wunderland_pl.qm</file>
-        <file>wunderland_pt.qm</file>
-        <file>wunderland_ru.qm</file>
-        <file>wunderland_tr.qm</file>
-        <file>wunderland_uk.qm</file>
-        <file>wunderland_vi.qm</file>
     </qresource>
 </RCC>

@@ -35,3 +35,6 @@ rcc/
 
 # Editors
 .vscode/
+
+# Translations: built from translations/*.ts by lrelease (see Wunderland.pro)
+translations/*.qm

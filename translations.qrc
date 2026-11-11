@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>translations/wunderland_de.qm</file>
+        <file>translations/wunderland_el.qm</file>
+        <file>translations/wunderland_es.qm</file>
+        <file>translations/wunderland_fr.qm</file>
+        <file>translations/wunderland_hu.qm</file>
+        <file>translations/wunderland_it.qm</file>
+        <file>translations/wunderland_pl.qm</file>
+        <file>translations/wunderland_pt.qm</file>
+        <file>translations/wunderland_ru.qm</file>
+        <file>translations/wunderland_tr.qm</file>
+        <file>translations/wunderland_uk.qm</file>
+        <file>translations/wunderland_vi.qm</file>
+    </qresource>
+</RCC>
