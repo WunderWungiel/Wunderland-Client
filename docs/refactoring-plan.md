@@ -352,7 +352,7 @@ re-emitted `Downloader::progressChanged`, is replaced by a signal-to-signal `con
 
 ---
 
-## [ ] Phase 5 — Symbian native code safety
+## [x] Phase 5 — Symbian native code safety (done)
 
 ### [x] 5.1 Trap every leaving call
 `getVersion`, `launchApp`, `checkAppInstalled`, `applications`, `openInstaller`,
@@ -424,7 +424,7 @@ regenerate them and the stale `#include "hswidget.h"` picks up the SDK's header)
 device: everything that touches native code (installed/update state, install, launch, browser
 links, homescreen widget).
 
-### [ ] 5.4 Clean up `HSWidget`
+### [x] 5.4 Clean up `HSWidget`
 Move the widget registration/update count out of the hot startup path in `main.cpp`
 (`registerWidget()` runs before the UI and shows up as splash-screen delay), translate its
 strings, and delete the commented-out code (≈40 lines in `bringToFront`).

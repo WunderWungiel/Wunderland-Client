@@ -74,11 +74,11 @@
     </message>
     <message>
         <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to Wunderland to finish the installation process.</source>
-        <translation>Im Folgenden wird der Nokia Store geöffnet, wo Du diese App kaufen/herunterladen kannst. Schließe den Nokia Store nach der Installation und kehre zu Wunderland zurück, um die Installationsprozedur zu beenden.</translation>
+        <translation type="obsolete">Im Folgenden wird der Nokia Store geöffnet, wo Du diese App kaufen/herunterladen kannst. Schließe den Nokia Store nach der Installation und kehre zu Wunderland zurück, um die Installationsprozedur zu beenden.</translation>
     </message>
     <message>
         <source>Don&apos;t display again</source>
-        <translation>Nicht erneut anzeigen</translation>
+        <translation type="obsolete">Nicht erneut anzeigen</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -94,7 +94,7 @@
     </message>
     <message>
         <source>Installation failed or was aborted. You have tried to install an unsigned app. Are you sure you have a hacked phone?</source>
-        <translation>Installation fehlgeschlagen oder abgebrochen. Du hast versucht, eine unsignierte App zu installieren. Bist Du sicher, dass du ein gehacktes Smartphone hast?</translation>
+        <translation type="obsolete">Installation fehlgeschlagen oder abgebrochen. Du hast versucht, eine unsignierte App zu installieren. Bist Du sicher, dass du ein gehacktes Smartphone hast?</translation>
     </message>
     <message>
         <source>A connection error appeared while trying to start the download.</source>
@@ -125,6 +125,10 @@
     </message>
     <message>
         <source>%1 new apps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With the Wunderland homescreen widget you will not miss any updates for your app. Visit the Wunderland help menu to see how it works.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -293,43 +297,43 @@
     <name>SelectVersion</name>
     <message>
         <source>Select the version you want to install. Wunderland will help you to upgrade between different releases if required.</source>
-        <translation>Wähle die Version aus, die Du installieren möchtest. Wunderland wird Dir beim Upgrade zwischen verschiedenen Version helfen, falls notwendig.</translation>
+        <translation type="obsolete">Wähle die Version aus, die Du installieren möchtest. Wunderland wird Dir beim Upgrade zwischen verschiedenen Version helfen, falls notwendig.</translation>
     </message>
     <message>
         <source>In most cases the self-signed version should be enough for you, although it comes with limited possibilities for the developer. Have a look at the unsigned version if available to check out the differences. Ask the developer if you are unsure.</source>
-        <translation>In den meisten Fällen ist die selbst-signierte Version ausreichend, auch wenn sie begrenzte Möglichkeiten für den Entwickler bedeutet. Schau Dir die unsignierte Version an, falls verfügbar, um die Unterschiede festzustellen. Frage den Entwickler, falls Du Dir unsicher bist.</translation>
+        <translation type="obsolete">In den meisten Fällen ist die selbst-signierte Version ausreichend, auch wenn sie begrenzte Möglichkeiten für den Entwickler bedeutet. Schau Dir die unsignierte Version an, falls verfügbar, um die Unterschiede festzustellen. Frage den Entwickler, falls Du Dir unsicher bist.</translation>
     </message>
     <message>
         <source>With installing the Store version you won&apos;t have any problems while installing and can be sure that the content was tested (by a more or less good QA team...). BUT note that developers can&apos;t update their apps in the Nokia Store since 1.1.2014 and you should prefer the self-signed or unsigned versions in any cases when available.</source>
-        <translation>Bei Installation der Store-Version wirst Du keine Probleme bei der Installation haben und kannst sichergehen, dass die App getestet wurde (von einem mehr oder weniger guten QA-Team...). Aber beachte, dass Entwickler Apps im Nokia Store seit dem 1.1.2014 nicht mehr aktualisieren können und Du auf jeden Fall die selbst-signierte oder unsignierte Version bevorzugen solltest, falls verfügbar.</translation>
+        <translation type="obsolete">Bei Installation der Store-Version wirst Du keine Probleme bei der Installation haben und kannst sichergehen, dass die App getestet wurde (von einem mehr oder weniger guten QA-Team...). Aber beachte, dass Entwickler Apps im Nokia Store seit dem 1.1.2014 nicht mehr aktualisieren können und Du auf jeden Fall die selbst-signierte oder unsignierte Version bevorzugen solltest, falls verfügbar.</translation>
     </message>
     <message>
         <source>The unsigned version of an app has the most available features, but is not signed with a certificate. To be able to install an unsigned app you need to have a hacked phone or a CFW with InstallServer.exe modified.</source>
-        <translation>Die unsignierte Version einer App hat die meisten Features, ist aber nicht mit einem Zertifikat signiert. Um eine solche Version installieren zu können, benötigst Du ein gehacktes Smartphone oder eine Custom Firmware (CFW) mit modifizierter InstallServer.exe.</translation>
+        <translation type="obsolete">Die unsignierte Version einer App hat die meisten Features, ist aber nicht mit einem Zertifikat signiert. Um eine solche Version installieren zu können, benötigst Du ein gehacktes Smartphone oder eine Custom Firmware (CFW) mit modifizierter InstallServer.exe.</translation>
     </message>
     <message>
         <source>Notes for this unsigned version by the developer</source>
-        <translation>Hinweise zu der unsignierten Version vom Entwickler</translation>
+        <translation type="obsolete">Hinweise zu der unsignierten Version vom Entwickler</translation>
     </message>
     <message>
         <source>Continue...</source>
-        <translation>Fortfahren...</translation>
+        <translation type="obsolete">Fortfahren...</translation>
     </message>
     <message>
         <source>Update information</source>
-        <translation>Info zum Update</translation>
+        <translation type="obsolete">Info zum Update</translation>
     </message>
     <message>
         <source>Rescan</source>
-        <translation>Rescan</translation>
+        <translation type="obsolete">Rescan</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <translation type="obsolete">Abbrechen</translation>
     </message>
     <message>
         <source>To install the selected version you first need to uninstall the current version of this app. Find the app in the main menu, long press and select &apos;Uninstall&apos; to remove it. If uninstallation was finished click &apos;Rescan&apos; below to continue.</source>
-        <translation>Um die ausgewählte Version installieren zu können, musst Du erst die aktuell auf Deinem Gerät vorhandene Version deinstallieren. Finde die App dazu im Hauptmenü, öffne über langes Drücken das Menü und wähle &quot;Entfernen&quot; zur Deinstallation. Wenn die Deinstallation erfolgreich war, drücke unten auf &apos;Rescan&apos; um fortzufahren.</translation>
+        <translation type="obsolete">Um die ausgewählte Version installieren zu können, musst Du erst die aktuell auf Deinem Gerät vorhandene Version deinstallieren. Finde die App dazu im Hauptmenü, öffne über langes Drücken das Menü und wähle &quot;Entfernen&quot; zur Deinstallation. Wenn die Deinstallation erfolgreich war, drücke unten auf &apos;Rescan&apos; um fortzufahren.</translation>
     </message>
 </context>
 <context>

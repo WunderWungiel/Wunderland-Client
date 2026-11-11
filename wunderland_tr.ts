@@ -82,7 +82,7 @@
     </message>
     <message>
         <source>Installation failed or was aborted. You have tried to install an unsigned app. Are you sure you have a hacked phone?</source>
-        <translation>Kurulum başarısız oldu veya iptal edildi. İmzasız bir uygulamayı kurmayı denediniz. Telefonunuzun gerçekten hacklenmiş olduğundan emin misiniz?</translation>
+        <translation type="obsolete">Kurulum başarısız oldu veya iptal edildi. İmzasız bir uygulamayı kurmayı denediniz. Telefonunuzun gerçekten hacklenmiş olduğundan emin misiniz?</translation>
     </message>
     <message>
         <source>Installation failed or was aborted.</source>
@@ -102,11 +102,11 @@
     </message>
     <message>
         <source>In the following the Nokia Store will be opened where you will be able to buy/download this app. After installation finishes close the Nokia Store and come back to Wunderland to finish the installation process.</source>
-        <translation>Şimdi Nokia Mağazası açılacak ve buradan uygulamayı satın alabilir / indirebilirsiniz. Kurulum bittikten sonra Nokia Mağazası&apos;nı kapatıp Wunderland&apos;a geri dönerek kurulum işlemini tamamlayabilirsiniz.</translation>
+        <translation type="obsolete">Şimdi Nokia Mağazası açılacak ve buradan uygulamayı satın alabilir / indirebilirsiniz. Kurulum bittikten sonra Nokia Mağazası&apos;nı kapatıp Wunderland&apos;a geri dönerek kurulum işlemini tamamlayabilirsiniz.</translation>
     </message>
     <message>
         <source>Don&apos;t display again</source>
-        <translation>Tekrar gösterme</translation>
+        <translation type="obsolete">Tekrar gösterme</translation>
     </message>
 </context>
 <context>
@@ -125,6 +125,10 @@
     </message>
     <message>
         <source>%1 new apps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With the Wunderland homescreen widget you will not miss any updates for your app. Visit the Wunderland help menu to see how it works.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -293,43 +297,27 @@
     <name>SelectVersion</name>
     <message>
         <source>Select the version you want to install. Wunderland will help you to upgrade between different releases if required.</source>
-        <translation>Kurmak istediğiniz sürümü seçin. Gerekirse Wunderland farklı sürümler arasında geçiş yapmanıza yardımcı olur.</translation>
+        <translation type="obsolete">Kurmak istediğiniz sürümü seçin. Gerekirse Wunderland farklı sürümler arasında geçiş yapmanıza yardımcı olur.</translation>
     </message>
     <message>
         <source>Notes for this unsigned version by the developer</source>
-        <translation>Bu imzasız sürüm için geliştiriciden notlar</translation>
+        <translation type="obsolete">Bu imzasız sürüm için geliştiriciden notlar</translation>
     </message>
     <message>
         <source>Continue...</source>
-        <translation>Devam et...</translation>
+        <translation type="obsolete">Devam et...</translation>
     </message>
     <message>
         <source>Update information</source>
-        <translation>Bilgileri güncelle</translation>
+        <translation type="obsolete">Bilgileri güncelle</translation>
     </message>
     <message>
         <source>Rescan</source>
-        <translation>Yeniden tara</translation>
+        <translation type="obsolete">Yeniden tara</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>İptal</translation>
-    </message>
-    <message>
-        <source>In most cases the self-signed version should be enough for you, although it comes with limited possibilities for the developer. Have a look at the unsigned version if available to check out the differences. Ask the developer if you are unsure.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>With installing the Store version you won&apos;t have any problems while installing and can be sure that the content was tested (by a more or less good QA team...). BUT note that developers can&apos;t update their apps in the Nokia Store since 1.1.2014 and you should prefer the self-signed or unsigned versions in any cases when available.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The unsigned version of an app has the most available features, but is not signed with a certificate. To be able to install an unsigned app you need to have a hacked phone or a CFW with InstallServer.exe modified.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To install the selected version you first need to uninstall the current version of this app. Find the app in the main menu, long press and select &apos;Uninstall&apos; to remove it. If uninstallation was finished click &apos;Rescan&apos; below to continue.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">İptal</translation>
     </message>
 </context>
 <context>

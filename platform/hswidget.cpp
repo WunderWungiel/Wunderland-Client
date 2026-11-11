@@ -1,76 +1,65 @@
 #include "hswidget.h"
 #include <QDebug>
 #include <QSettings>
-#include <apgcli.h> // for RApaLsSession
-#include <apacmdln.h> // for CApaCommandLine
-#include <apgtask.h> // bring to foreground
-#include <eikenv.h> // bring to foreground
+#include <e32std.h> // RProcess
 
-const QString sw_type = "tworows";
-const QString sw_name = "Wunderland";
-const QString sw_desc = "With the Wunderland homescreen widget you will not miss any updates for your app. Visit the Wunderland help menu to see how it works.";
-const QString sw_id = "HSWidgetxWunderland";
-const QString sw_icon = QString("uid(%1)").arg(APP_UID); //App UID to set the widget icon
+static const char *sw_type = "tworows";
+static const char *sw_name = "Wunderland";
+static const char *sw_id = "HSWidgetxWunderland";
+static const QString sw_icon = QString("uid(%1)").arg(APP_UID); //App UID to set the widget icon
 
-const QString sw_image ("image1");
-const QString row1 ("text1");
-const QString row2 ("text2");
+static const QString sw_image("image1");
+static const QString row1("text1");
+static const QString row2("text2");
 
 HSWidget::HSWidget(UpdateTracker *_updateTracker, QObject *parent) :
-    QObject(parent), updateTracker(_updateTracker), waitingForCheck(false)
+    QObject(parent), widget(0), updateTracker(_updateTracker), waitingForCheck(false)
 {
     connect(updateTracker, SIGNAL(checkFinished(int,int)),
             this, SLOT(checkFinished(int,int)));
 
-    qDebug() << "init";
-
-    //wunderlandVersion = QApplication::instance()->applicationVersion();
-
-    widget = QHSWidget::create(sw_type, sw_name, sw_id, sw_desc, sw_icon, this);
+    // Built after Language installs the translator, so the description is translated
+    const QString desc = tr("With the Wunderland homescreen widget you will not miss any updates for your app. Visit the Wunderland help menu to see how it works.");
+    widget = QHSWidget::create(sw_type, sw_name, sw_id, desc, sw_icon, this);
+    if (!widget) {
+        qWarning() << "HSWidget: cannot load the widget publisher DLL";
+        return;
+    }
     connect(widget, SIGNAL(handleEvent(QHSWidget*, QHSEvent)), this, SLOT(handleEvent(QHSWidget*, QHSEvent) ));
     connect(widget, SIGNAL(handleItemEvent(QHSWidget*, QString, QHSItemEvent)), this, SLOT(handleItemEvent(QHSWidget*, QString, QHSItemEvent)));
 }
 
 void HSWidget::registerWidget() {
-    qDebug() << "register";
+    if (!widget) return;
+    qDebug() << "HSWidget: register";
     widget->RegisterWidget();
 }
 
 void HSWidget::publishWidget() {
-    qDebug() << "loadList";
-    //loadList();
-    qDebug() << "publish";
+    if (!widget) return;
     widget->PublishWidget();
 }
 
 void HSWidget::removeWidget() {
-    qDebug() << "remove";
+    if (!widget) return;
     QSettings settings("WunderWungiel", "Wunderland");
     settings.remove("widget");
-    //settings.sync();
     widget->RemoveWidget();
 }
 
 void HSWidget::handleEvent( QHSWidget* /*aSender*/, QHSEvent aEvent ) {
-    qDebug() << "handleEvent";
     switch(aEvent) {
-        case EActivate: {
-                qDebug() << "handleActivate";
-                widget->SetItem(sw_image, "c:\\system\\Wunderland.png");
-                //updateWidget("c:\\data\\Images\\Pictures\\QtSunny2.JPG", "a", "b");
-                //publishWidget();
-                refresh();
-            }
+        case EActivate:
+            qDebug() << "HSWidget: activate";
+            widget->SetItem(sw_image, "c:\system\Wunderland.png");
+            refresh();
             break;
-        case EResume: {
-                qDebug() << "handlePublish";
-                //publishWidget();
-                refresh();
-                qDebug() << "handlePublishAfter";
-            }
+        case EResume:
+            qDebug() << "HSWidget: resume";
+            refresh();
             break;
         case EDeactivate: {
-                qDebug() << "handleDeactivate";
+                qDebug() << "HSWidget: deactivate";
                 QSettings settings("WunderWungiel", "Wunderland");
                 settings.remove("widget/lastUpdateTime");
             }
@@ -80,21 +69,12 @@ void HSWidget::handleEvent( QHSWidget* /*aSender*/, QHSEvent aEvent ) {
     }
 }
 
-void HSWidget::handleItemEvent( QHSWidget* /*aSender*/, QString aTemplateItemName, QHSItemEvent aEvent) {
-    qDebug() << "handleItemEvent";
-    if(aTemplateItemName.compare(sw_image)==0) {
-        this->bringToFront();
-        //updateWidget("c:\\data\\Images\\Pictures\\QtSunny2.JPG", "a", "b");
-        //publishWidget();
-        //refresh();
-    }
+void HSWidget::handleItemEvent( QHSWidget* /*aSender*/, QString aTemplateItemName, QHSItemEvent /*aEvent*/) {
+    if (aTemplateItemName == sw_image)
+        bringToFront();
 }
 
 void HSWidget::bringToFront() {
-    /*TApaTask task( CEikonEnv::Static()->WsSession() );
-    task.SetWgId(CEikonEnv::Static()->RootWin().Identifier());
-    task.BringToForeground();*/
-
     // Not User::LeaveIfError: a leave in this slot would be an uncaught exception
     RProcess proc;
     TInt err = proc.Create(_L("Wunderland.exe"),KNullDesC);
@@ -104,45 +84,10 @@ void HSWidget::bringToFront() {
     }
     proc.Resume();
     proc.Close();
-
-    /*TApaTaskList taskList(CCoeEnv::Static()->WsSession());
-    const TUid aAppUid = TUid::Uid(0xA1331002);
-    TApaTask task = taskList.FindApp(aAppUid);
-    if (task.Exists()) {
-        task.BringToForeground();
-    }
-
-    TApaTaskList taskList(CCoeEnv::Static()->WsSession());
-    TApaTask task = taskList.FindApp(aAppUid);
-    if (task.Exists()) {
-        task.BringToForeground();
-    } else {
-        RApaLsSession apaLsSession;
-        User::LeaveIfError(apaLsSession.Connect());
-        CleanupClosePushL(apaLsSession);
-
-        TApaAppInfo appInfo;
-        TInt retVal = apaLsSession.GetAppInfo(appInfo, aAppUid);
-
-        if(retVal == KErrNone) {
-            CApaCommandLine* cmdLine = CApaCommandLine::NewLC();
-            cmdLine->SetExecutableNameL(appInfo.iFullName);
-            cmdLine->SetCommandL(EApaCommandRun);
-            User::LeaveIfError( apaLsSession.StartApp(*cmdLine) );
-
-            TApaTask task = taskList.FindApp(aAppUid);
-            if (task.Exists()) {
-                task.BringToForeground();
-            }
-
-            CleanupStack::PopAndDestroy(cmdLine);
-        }
-
-        CleanupStack::PopAndDestroy(&apaLsSession);
-    }*/
 }
 
 void HSWidget::updateWidget( QString icon, QString nRow1, QString nRow2 ) {
+    if (!widget) return;
     widget->SetItem(sw_image, icon);
     widget->SetItem(row1, nRow1);
     widget->SetItem(row2, nRow2);
@@ -160,6 +105,7 @@ QString HSWidget::newAppsText(int newApps) const {
 }
 
 void HSWidget::dataUpdated(int updates, int newApps) {
+    if (!widget) return;
     widget->SetItem(row1, updatesText(updates));
     widget->SetItem(row2, newAppsText(newApps));
 

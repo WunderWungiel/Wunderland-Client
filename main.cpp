@@ -1,4 +1,5 @@
 #include <QtGui/QApplication>
+#include <QTimer>
 #include <QDeclarativeContext>
 #include <QDeclarativeEngine>
 #include <QDeclarativeComponent>
@@ -63,11 +64,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     UpdateTracker updateTracker(&storeApi, &appManagement);
 
 #ifdef Q_OS_SYMBIAN
-    // The homescreen widget only exists on Symbian
-    qDebug() << "registerWidgetBefore";
+    // The homescreen widget only exists on Symbian; registered once the UI is shown (below)
     HSWidget widget(&updateTracker);
-    widget.registerWidget();
-    qDebug() << "registerWidgetAfter";
 #endif
 
     News news(&storeApi);
@@ -108,6 +106,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     viewer.showExpanded();
 
     viewer.raise();
+
+#ifdef Q_OS_SYMBIAN
+    // Registering is slow; after a delay it no longer holds up the splash screen
+    QTimer::singleShot(1000, &widget, SLOT(registerWidget()));
+#endif
 
     return app->exec();
 }
