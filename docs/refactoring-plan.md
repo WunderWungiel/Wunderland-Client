@@ -114,7 +114,7 @@ translations. Do it in one batch together with a `lupdate` run.)
 
 ---
 
-## [ ] Phase 2 — One network layer
+## [x] Phase 2 — One network layer (done)
 
 Right now there are five `QNetworkAccessManager`s (GetList, UpdateManagement ×2, News, Update,
 plus one per Downloader), four copies of the redirect helper, and the base URL
@@ -379,13 +379,13 @@ if so, use the `QXmlStreamReader` RSS parser from 2.2.
 | # | Done | Steps | Checkpoint on device |
 |---|------|-------|----------------------|
 | 1 | [x] | 0.1–0.3 | builds from the script; log file appears |
-| 2 | [ ] | 1.1–1.8 | language dialog OK; install 2 apps in a row shows success both times; search page 3; a redirected download finishes |
-| 3 | [ ] | 1.9 + `lupdate` | strings are right in EN + one translation |
-| 4 | [ ] | 2.1, 2.2 | all 5 lists load; airplane mode shows an error, not a spinner |
+| 2 | [x] | 1.1–1.8 | language dialog OK; install 2 apps in a row shows success both times; search page 3; a redirected download finishes |
+| 3 | [x] | 1.9 + `lupdate` | strings are right in EN + one translation |
+| 4 | [x] | 2.1–2.3 | all 5 lists load; a redirected download finishes; a cancelled or failed download leaves no file |
 | 5 | [ ] | 3.1–3.5 | install state/update badges are the same as before for self-signed, unsigned and Store apps |
 | 6 | [ ] | 4.1–4.4, 5.1–5.2 | Store flow, launch, cancel download, widget count |
-| 7 | [ ] | 2.3, 6.x | settings survive an upgrade from 2.00(5) |
-| 8 | [ ] | 7.x, 8.x | general UI pass |
+| 7 | [ ] | 6.x | settings survive an upgrade from 2.00(5) |
+| 8 | [ ] | 7.x, 8.x | general UI pass; airplane mode shows an error, not a spinner (7.5) |
 
 Risky areas, which need extra device testing: the variant/upgrade logic (3.3; test the case
 where an app has `uid == uidunsigned`), the Store-redirect event-filter flow (4.2), and

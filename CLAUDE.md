@@ -32,6 +32,10 @@ There is no test suite, linter, or desktop build. The project only builds with t
 - Adding a language requires: the `.ts`/`.qm` pair, an entry in `TRANSLATIONS` in `Wunderland.pro`, the `.qm` in `Qml.qrc`, and the language code (alphabetical) in `_languageCodes` in `language.cpp` (with its display name in `_allLanguages` at the same index). The UI translator is loaded from `:/wunderland_<code>` based on the device language.
 - Category names are translated in `Language::initCategories()`; their order defines category IDs (head categories are 0, 12, 19).
 
+## Commits
+
+Don't put refactoring-plan step numbers (e.g. "plan 2.1") in commit titles. Describe the change itself.
+
 ## Version bumps
 
 The version is hardcoded in three places that must be updated together: `VERSION` in `Wunderland.pro` (e.g. `2.0.5`), and the display strings in `qml/Wunderland/AboutPage.qml` and `qml/Wunderland/SplashScreen.qml` (e.g. `2.00(5)`).
