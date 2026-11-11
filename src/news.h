@@ -13,22 +13,28 @@ class News : public QObject
     Q_OBJECT
 
     Q_PROPERTY(NewsModel *model READ model CONSTANT)
+    // A feed fetch is running
+    Q_PROPERTY(bool updating READ updating NOTIFY updatingChanged)
+    // The page fetchHtml() loaded last
+    Q_PROPERTY(QString html READ html NOTIFY htmlChanged)
 
 public:
     explicit News(StoreApi *api, QObject *parent = 0);
 
     NewsModel *model() const { return m_model; }
 
-    Q_INVOKABLE bool updateRunning() const { return updating; }
+    bool updating() const { return m_updating; }
+    QString html() const { return m_html; }
+
     // Loads the feed and replaces the rows; ignored while a fetch is running
     Q_INVOKABLE void fetch();
 
-    // Loads a news page; htmlChanged() when it is done, then getHtml() has it
+    // Loads a news page; htmlChanged() when it is done, then html has it
     Q_INVOKABLE void fetchHtml(const QString &link);
-    Q_INVOKABLE QString getHtml() const { return htmlContent; }
 
 signals:
     void listChanged();
+    void updatingChanged();
     void htmlChanged();
 
 private slots:
@@ -40,9 +46,9 @@ private:
 
     StoreApi *api;
     NewsModel *m_model;
-    QString htmlContent;
+    QString m_html;
     QPointer<ApiReply> htmlReply;   // the page that was asked for last
-    bool updating;
+    bool m_updating;
 };
 
 #endif // NEWS_H

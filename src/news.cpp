@@ -9,17 +9,18 @@ News::News(StoreApi *_api, QObject *parent) :
     QObject(parent),
     api(_api),
     m_model(new NewsModel(this)),
-    updating(false)
+    m_updating(false)
 {
 }
 
 void News::fetch() {
-    if (updating) return;
+    if (m_updating) return;
 
     QUrl url = api->url("/feed.xml");
     qDebug() << "News: fetching" << url.toString();
     ApiReply *reply = api->get(url);
-    updating = true;
+    m_updating = true;
+    emit updatingChanged();
     connect(reply, SIGNAL(finished()), this, SLOT(feedFetchFinished()));
 }
 
@@ -38,9 +39,9 @@ void News::htmlFetchFinished() {
     if (reply->error() == StoreApi::NoError) html = reply->text();
 
     if (!html.isEmpty()) {
-        htmlContent = html;
+        m_html = html;
     } else {
-        htmlContent = "<html><head></head><body style=\"background-color: #FFFFFF; color: #111111;\">Error while loading data.</body></html>";
+        m_html = "<html><head></head><body style=\"background-color: #FFFFFF; color: #111111;\">Error while loading data.</body></html>";
     }
 
     emit htmlChanged();
@@ -53,7 +54,8 @@ void News::feedFetchFinished() {
     // On an error the old items are kept
     if (reply->error() == StoreApi::NoError) parseFeed(reply->text());
 
-    updating = false;
+    m_updating = false;
+    emit updatingChanged();
     emit listChanged();
 }
 

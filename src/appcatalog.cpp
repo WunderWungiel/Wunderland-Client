@@ -42,7 +42,10 @@ void AppCatalog::loadSearchList(QString searchTerm, int start, bool clean) {
     query << queryItem("search", searchTerm)
           << queryItem("start", QString::number(start));
     m_cleanList[SearchList] = clean;
-    m_lastSearchTerm = searchTerm;
+    if (searchTerm != m_lastSearchTerm) {
+        m_lastSearchTerm = searchTerm;
+        emit lastSearchTermChanged();
+    }
     loadList(m_api->buildUrl("/applist.php", query), SearchList);
 }
 

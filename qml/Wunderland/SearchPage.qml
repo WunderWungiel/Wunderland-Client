@@ -49,7 +49,7 @@ Page {
 
         TextField {
             id: searchField
-            text: appCatalog.getLastSearchTerm()
+            text: appCatalog.lastSearchTerm
             placeholderText: qsTr("Search...")
             anchors.left: parent.left
             anchors.leftMargin: 7

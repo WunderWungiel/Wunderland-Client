@@ -15,7 +15,7 @@ Rectangle {
 
     Component.onCompleted: {
         if (settings.aasFeed) {
-            if (news.updateRunning()) {
+            if (news.updating) {
                 loadingItem.start()
             } else if (newsList.count == 0) {
                 loadingItem.start()
@@ -111,7 +111,7 @@ Rectangle {
             loadingItem.stop()
         }
         onHtmlChanged: {
-            webView.html = news.getHtml()
+            webView.html = news.html
         }
     }
 

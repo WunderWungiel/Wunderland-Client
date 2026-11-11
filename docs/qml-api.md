@@ -29,7 +29,8 @@ clears the list when the load finishes (true for page 1, false to append the nex
 - `loadMainList()` — always clears.
 - `loadCategoryList(categoryId, start, clean)` — `categoryId` as in `l.categories()`.
 - `loadSearchList(searchTerm, start, clean)` — the term is URL-encoded here.
-  `getLastSearchTerm()` returns the last term passed (for the next page).
+  `lastSearchTerm` (string, signal `lastSearchTermChanged()`) is the last term passed (for
+  the search field and the next page).
 - `loadPersonalList(start, clean)` — the apps in `updateTracker`'s installed list. Apps
   that are no longer installed are left out (and dropped from that list).
 - `loadUpdateList(start, clean)` — the apps in `updateTracker`'s update list.
@@ -141,8 +142,9 @@ loads.
 
 Store languages (the languages of apps the user wants to see; persisted):
 - `languageCodes` (string list) — every supported code (`bg`, `cs`, …, `zh`), sorted.
-- `getLanguageName(index)` → display name for `languageCodes[index]` (in that language).
-- `getSelected(code)` → whether the user selected it.
+- `languageNames` (string list) — the display name of each code, at the same index (in
+  that language).
+- `isSelected(code)` → whether the user selected it.
 - `addLanguage(code)`, `removeLanguage(code)` — change the selection.
 - `subtitleString` (string) — the selection for the settings row, e.g. `EN, PL`.
 - Signal `myLanguagesChanged()` (the NOTIFY of both properties).
@@ -174,9 +176,9 @@ Signals: `darkThemeChanged()`, `aasFeedChanged()`, `newsOpenInBrowserChanged()`.
 - `model` — list model (`count`), roles `title`, `description` (plain text, HTML stripped),
   `date` (string, the feed's `pubDate` unchanged), `link` (string).
 - `fetch()` — loads the feed and replaces the rows. Ignored while a fetch is running
-  (`updateRunning()` → bool).
+  (`updating`, bool, signal `updatingChanged()`).
 - Signal `listChanged()` — a fetch finished. On an error the old rows are kept.
-- `fetchHtml(link)` → signal `htmlChanged()`, then `getHtml()` returns the page (or a short
+- `fetchHtml(link)` → signal `htmlChanged()`, then `html` (string) is the page (or a short
   error page). Only the page asked for last counts: an earlier one that finishes later is
   ignored.
 

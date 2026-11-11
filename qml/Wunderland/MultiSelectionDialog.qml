@@ -25,7 +25,7 @@ CommonDialog {
             width: parent.width
             height: checkBox.height
             Text {
-                text: l.getLanguageName(index)
+                text: l.languageNames[index]
                 color: platformStyle.colorNormalLight
                 anchors.left: parent.left
                 anchors.leftMargin: 10
@@ -38,7 +38,7 @@ CommonDialog {
                 anchors.right: parent.right
                 anchors.rightMargin: 10
                 platformInverted: true
-                checked: l.getSelected(modelData)
+                checked: l.isSelected(modelData)
                 onClicked: {
                     if (checked) l.addLanguage(modelData)
                     else l.removeLanguage(modelData)

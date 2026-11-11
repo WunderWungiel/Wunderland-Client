@@ -27,15 +27,17 @@ class Language : public QObject {
     Q_OBJECT
     Q_PROPERTY(QStringList languageCodes READ languageCodes NOTIFY myLanguagesChanged)
     Q_PROPERTY(QString subtitleString READ subtitleString NOTIFY myLanguagesChanged)
+    // Display names, at the same index as languageCodes
+    Q_PROPERTY(QStringList languageNames READ languageNames CONSTANT)
 public:
     Language(QObject *parent = 0);
 
     Q_INVOKABLE void addLanguage(QString languageCode);
     Q_INVOKABLE void removeLanguage(QString languageCode);
 
-    Q_INVOKABLE QString getLanguageName(int __id) { return _allLanguages.value(__id); }
-    Q_INVOKABLE bool getSelected(QString languageCode) { return _myLanguages.contains(languageCode); }
+    Q_INVOKABLE bool isSelected(QString languageCode) { return _myLanguages.contains(languageCode); }
 
+    QStringList languageNames() const { return _allLanguages; }
     QStringList languageCodes() { return _languageCodes; }      // Returns language list for the selection listView
     QString subtitleString();                                   // Display the selected languages in the settings
     QString languagesForUrl();                                  // Returns language string passed for requests
