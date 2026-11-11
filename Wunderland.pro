@@ -37,7 +37,6 @@ VERSION = 2.0.5
 # main.cpp turns it into a string.
 DEFINES += APP_Version=$$VERSION
 
-# Not built: xqinstaller.cpp, xqinstaller_p.cpp, xqinstaller.h, xqinstaller_p.h
 SOURCES += main.cpp \
     appmanagement.cpp \
     newsmodel.cpp \

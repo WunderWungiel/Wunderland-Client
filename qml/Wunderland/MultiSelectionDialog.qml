@@ -14,11 +14,10 @@ CommonDialog {
         anchors.left: parent.left
         anchors.leftMargin: 10
         contentWidth: parent.width - 20
-        //contentHeight: updateDialogText.height + 20 + (checkBoxItem.visible ? checkBoxItem.height+10 : 0)
-        height: updateDialog.platformContentMaximumHeight //contentHeight > updateDialog.platformContentMaximumHeight ? updateDialog.platformContentMaximumHeight : contentHeight
+        height: updateDialog.platformContentMaximumHeight
         flickableDirection: Flickable.VerticalFlick
         clip: true
-        interactive: true //contentHeight > updateDialog.platformContentMaximumHeight ? true : false
+        interactive: true
 
         model: l.languageCodes
 

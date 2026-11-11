@@ -52,13 +52,10 @@ Rectangle {
                     onClicked: {
                         if (!settings.newsOpenInBrowser) {
                             news.fetchHtml(link);
-                            //webView.url = "http://www.readability.com/read?url=" + link
                             newsElement.browserStatus = true
                             newsElement.browserChanged(true)
                             flickArea.state = "browser"
-                            //progressBar.visible = true
                         } else {
-                            //Qt.openUrlExternally(link)
                             symbianFunctions.openUrlInDefaultBrowser(link)
                         }
                     }

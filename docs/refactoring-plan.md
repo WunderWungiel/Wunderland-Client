@@ -531,12 +531,16 @@ finish was shown).
 
 1. [ ] **Folder layout:** move C++ into `src/` (and `src/platform/`), as Symbisend does; update
    `.pro` (one entry per line, ` \` continuations, check with `grep -nF '\n'`).
-2. [ ] **Dead code:** `xqinstaller*` (4 files, commented out of the `.pro`), `appitem.*`,
+2. [x] **Dead code:** `xqinstaller*` (4 files, commented out of the `.pro`), `appitem.*`,
    `reviewitem.*`, `GetList(QObject*)` (empty constructor that leaves members uninitialised),
    commented-out blocks in `getlist.cpp`
    (`buttonAction`), `hswidget.cpp` and `downloader.cpp`. Clean up `SOURCES`/`HEADERS` in `.pro`:
    the commented-out `#xqinstaller*` lines in the middle of a ` \`-continued list (one with a
    ` \` and one without) are fragile. Delete them.
+   Done: `appitem.*`, `reviewitem.*` and `GetList` were already gone with Phases 3–4, and the
+   `.pro` lists had no commented-out lines left. Deleted the four `xqinstaller*` files and the
+   last commented-out code (`main.cpp`'s `setMainQmlFile`, `NewsElement.qml`,
+   `MultiSelectionDialog.qml`).
 3. [ ] **One version source:** `VERSION` in `.pro` is already passed as `APP_Version`; expose
    `appVersion` as a context property and use it in `AboutPage.qml`/`SplashScreen.qml`
    instead of hard-coding it 3 times (CLAUDE.md "Version bumps").

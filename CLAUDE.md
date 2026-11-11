@@ -13,7 +13,6 @@ There is no test suite or linter. The app is built with the Symbian Qt SDK (Qt 4
 - Desktop build (for quick checks of the C++ backend): a shadow build with the SDK's desktop Qt, e.g. `C:\QtSDK\Desktop\Qt\4.8.1\mingw\bin\qmake -spec win32-g++` then `mingw32-make release` (with `C:\QtSDK\mingw\bin` on `PATH`). Never run it in-source: it would overwrite the Symbian `Makefile`. It compiles and starts, but the QML needs `com.nokia.symbian` and doesn't load. The log goes to `~/.wunderland/log.txt`, settings to the registry (`HKCU\Software\WunderWungiel\Wunderland`).
 - `HSWidgetxWunderland*.dll` are prebuilt homescreen-widget publisher binaries; they are not built from this repo. The `DEPLOYMENT` rules in the `.pro` package `C:\HSWidgetxWunderland_E9320736_rel.dll` and `C:\Wunderland.png` from the drive root, so both must exist there or `make sis` fails.
 - Debug output (`qDebug`/`qWarning`) goes through `Logger` (`logger.*`, ported from Symbisend) to `download/Wunderland/log.txt` on F:, E: or C:/Data (truncated on each start).
-- `#xqinstaller*` sources are intentionally commented out of `SOURCES`/`HEADERS`.
 
 ## Architecture
 
